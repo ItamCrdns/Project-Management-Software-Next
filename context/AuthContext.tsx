@@ -16,12 +16,7 @@ interface UserContextType {
 }
 
 const initialState: UserContextType = {
-  user: {
-    employeeId: 0,
-    username: '',
-    role: '',
-    profilePicture: ''
-  },
+  user: JSON.parse(window.localStorage.getItem('user') as string) ?? null,
   setUser: () => {},
   handleLogin: async (credentials: CredentialsType) => {
     return null
@@ -31,7 +26,7 @@ const initialState: UserContextType = {
 const AuthContext = createContext<UserContextType>(initialState)
 
 export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
-  const [user, setUser] = useState(initialState.user)
+  const [user, setUser] = useState<Employee>(initialState.user)
 
   const handleLogin = async (credentials: CredentialsType): Promise<Employee | null> => {
     const auth = await authenticateEmployee(credentials)
@@ -39,6 +34,7 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
 
     if (auth.status === 200) {
       setUser(userData)
+      window.localStorage.setItem('user', JSON.stringify(userData))
       return userData
     }
 
@@ -52,4 +48,10 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   )
 }
 
-export const useAuth = (): UserContextType => useContext(AuthContext)
+export const useAuth = (): UserContextType => {
+  const context = useContext(AuthContext)
+  if (context === null) {
+    return initialState
+  }
+  return context
+}
