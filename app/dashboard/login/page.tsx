@@ -1,5 +1,5 @@
 'use client'
-import { useAuth, type LoginData } from '@/context/AuthContext'
+import { useAuth, type LoginData, type Result } from '@/context/AuthContext'
 import styles from './login.module.css'
 import { useRef, useState } from 'react'
 import Button from '@/components/button/button'
@@ -7,13 +7,21 @@ import { useRouter } from 'next/navigation'
 import Alert from '@/components/alert/alert'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 
+const alertInitialState = {
+  wrongCreds: false,
+  blocked: false,
+  somethingWrong: false,
+  authenticated: false,
+  doesntExist: false
+}
+
 const LoginPage = (): JSX.Element => {
   const router = useRouter()
   const { handleLogin } = useAuth()
   const formRef = useRef(null)
 
-  const [employee, setEmployee] = useState<LoginData | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<LoginData | null>(null)
+  const [showAlert, setShowAlert] = useState<Result | null>(null)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -26,17 +34,40 @@ const LoginPage = (): JSX.Element => {
 
     handleLogin(credentials)
       .then((loginData) => {
-        console.log(loginData)
-        if (loginData?.authenticated !== false) {
-          setEmployee(loginData)
+        if (loginData?.result.authenticated !== false) {
+          // Succesful login
           router.push('/dashboard')
-        } else if (!loginData?.authenticated) {
-          setError(loginData?.message)
+        } else {
+          setMessage(loginData)
+          setShowAlert(loginData.result)
+          setTimeout(() => {
+            setShowAlert(alertInitialState)
+          }, 5000)
         }
       })
       .catch((error) => {
-        setError(error)
+        setMessage(error)
       })
+  }
+
+  const isAnyFieldTruthy = Object.values(showAlert ?? alertInitialState).some(value => value)
+
+  let alertWidth = '125px'
+  let bgColor = ''
+
+  switch (true) {
+    case message?.result.blocked:
+      alertWidth = '350px'
+      bgColor = 'red'
+      break
+    case message?.result.doesntExist:
+      alertWidth = '275px'
+      bgColor = '#ff8f00  '
+      break
+    case message?.result.wrongCreds:
+      alertWidth = '350px'
+      bgColor = 'red'
+      break
   }
 
   const handleClick = useSubmitRef(formRef)
@@ -47,12 +78,8 @@ const LoginPage = (): JSX.Element => {
         <h1>Company Logo here</h1>
         <form ref={formRef} onSubmit={handleSubmit}>
           <input type="text" name="username" required placeholder="Username" />
-          <input type="password" name="password" placeholder="Password" />
+          <input type="password" name="password" required placeholder="Password" />
           <input type="submit" />
-          {employee?.authenticated !== false && (
-            <p>{employee?.employee.username} logged in successfully!</p>
-          )}
-          {error !== null ? <p>{error}</p> : null}
         </form>
         <div onClick={handleClick}>
           <Button
@@ -62,6 +89,13 @@ const LoginPage = (): JSX.Element => {
           />
         </div>
       </section>
+      <Alert
+        ready={isAnyFieldTruthy}
+        message={message?.message ?? ''}
+        backgroundColor={bgColor}
+        color="white"
+        width={alertWidth}
+      />
     </main>
   )
 }

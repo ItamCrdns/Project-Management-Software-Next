@@ -9,11 +9,22 @@ export interface Employee {
   profilePicture: string
 }
 
+/**
+ * Represents the result of an authentication attempt.
+ * @interface
+ */
+export interface Result {
+  wrongCreds: boolean | null
+  blocked: boolean | null
+  somethingWrong: boolean | null
+  authenticated: boolean | null
+  doesntExist: boolean | null
+}
+
 export interface LoginData {
-  authenticated: boolean
+  result: Result
   message: string
   employee: Employee
-  status: number
 }
 
 interface UserContextType {
@@ -32,9 +43,19 @@ const initialState: UserContextType = {
 
 const AuthContext = createContext<UserContextType>(initialState)
 
+/**
+ * Provides authentication context for the application.
+ * @param children The child components to be wrapped by the provider.
+ * @returns The authentication provider component.
+ */
 export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [user, setUser] = useState<LoginData | Employee>(initialState.user)
 
+  /**
+   * Authenticates the employee with the given credentials.
+   * @param credentials The login credentials of the employee.
+   * @returns The login data of the authenticated employee.
+   */
   const handleLogin = async (credentials: CredentialsType): Promise<LoginData | null> => {
     const auth = await authenticateEmployee(credentials)
     const userData: LoginData = await auth.data

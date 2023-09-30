@@ -12,19 +12,19 @@
 import styles from './alert.module.css'
 
 interface AlertProps {
-  message: string
-  width: string
-  color: string
-  backgroundColor: string
-  boxShadow: string
-  ready: boolean | null
-  loading: boolean | null
+  message?: string
+  width?: string
+  color?: string
+  backgroundColor?: string
+  boxShadow?: string
+  ready?: boolean | null
+  loading?: boolean | null
 }
 
 const Alert = ({
   message,
   width = '125px',
-  color = 'black',
+  color = 'white',
   backgroundColor = 'white',
   boxShadow = `0px 0px 15px 0px ${backgroundColor}`,
   ready, // * bool. set tiemout back to false to define the duration of the alert. state initial value should be null to avoid slideOut animation on initial render
@@ -53,7 +53,11 @@ const Alert = ({
       <section
         style={{ width, backgroundColor, boxShadow, color }}
         className={`${styles.customalert} ${
-          ready ? styles.slideIn : !ready ? styles.slideOut : ''
+          ready === true
+            ? styles.slideIn
+            : ready === false
+            ? styles.slideOut
+            : ''
         }`}
       >
         <span>{message}</span>
