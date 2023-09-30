@@ -11,7 +11,7 @@ import Button from '../button/button'
 const Navbar: React.FC = () => {
   const { user } = useAuth()
   const [toggle, setToggle] = useState<boolean>(false)
-  const [showOverlay, setShowOverlay] = useState<boolean>(false) // * Avoid animation on initial render
+  const [showOverlay, setShowOverlay] = useState<boolean>(false)
   const [popup, setPopup] = useState<boolean>(false)
   const [toggleDoor, setToggleDoor] = useState<boolean>(false)
 
@@ -34,6 +34,15 @@ const Navbar: React.FC = () => {
     return toggle
   }
 
+  const handleMouseLeave = (): boolean => {
+    if (popup) {
+      setTimeout(() => {
+        setPopup(!popup)
+      }, 250)
+    }
+    return popup
+  }
+
   const navItems = (
     <ul>
       {navLinks.map((link) => (
@@ -43,6 +52,7 @@ const Navbar: React.FC = () => {
       ))}
     </ul>
   )
+
   return (
     <>
       <nav className={styles.navbar}>
@@ -60,7 +70,7 @@ const Navbar: React.FC = () => {
           <section className={styles.links}>{navItems}</section>
         </section>
         <section className={styles.user}>
-          {user.username === '' && (
+          {user === null && (
             <>
               <p>
                 <Link href="/">Log in</Link>
@@ -70,26 +80,22 @@ const Navbar: React.FC = () => {
               </p>
             </>
           )}
-          {user.username !== '' && (
+          {user !== null && (
             <aside
-              onMouseLeave={() => {
-                setPopup(false)
-              }}
+              onMouseLeave={handleMouseLeave}
               onMouseEnter={() => {
-                setPopup(popup ?? true)
+                setPopup(!popup)
               }}
               className={styles.useraside}
             >
               <section
-                className={
-                  popup !== null ? styles.navuserfocused : styles.navuser
-                }
+                className={popup ? styles.navuserfocused : styles.navuser}
               >
                 {user?.profilePicture !== null
                   ? (
                   <Image
-                    src={user.profilePicture}
-                    alt={user.username}
+                    src={user?.profilePicture}
+                    alt={user?.username}
                     width={50}
                     height={50}
                     style={{ borderRadius: '50%' }}
@@ -99,16 +105,15 @@ const Navbar: React.FC = () => {
                   <div className={styles.nouser}>?</div>
                     )}
               </section>
-              <section
-                className={popup !== null ? styles.userpopup : styles.hidden}
-              >
+              <section className={popup ? styles.userpopup : styles.hidden}>
                 <section className={styles.popuptext}>
                   <span>
-                    Welcome,{' '}
-                    <span className={styles.uppercase}>{user.username}</span>
+                    Welcome, <span>{user?.username}</span>
                   </span>
                   <span className={styles.openprofile}>
-                    <Link href={`/profile/${user.username}`}>Your profile</Link>
+                    <Link href={`/profile/${user?.username}`}>
+                      Your profile
+                    </Link>
                   </span>
                 </section>
                 <section
@@ -175,8 +180,7 @@ const Navbar: React.FC = () => {
                     )}
                 <section className={styles.userinfo}>
                   <span>
-                    Welcome,{' '}
-                    <span className={styles.uppercase}>{user.username}</span>
+                    Welcome, <span>{user.username}</span>
                   </span>
                   <span className={styles.openprofile}>
                     <Link
