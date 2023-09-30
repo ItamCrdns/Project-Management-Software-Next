@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import styles from './navbar.module.css'
 import { door } from './door'
-import { useAuth } from '@/context/AuthContext'
+import { type Employee, useAuth } from '@/context/AuthContext'
 import Image from 'next/image'
 import Button from '../button/button'
 
@@ -12,8 +12,8 @@ const Navbar: React.FC = () => {
   const { user } = useAuth()
   const [toggle, setToggle] = useState<boolean>(false)
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
-  const [popup, setPopup] = useState<boolean>(false)
-  const [toggleDoor, setToggleDoor] = useState<boolean>(false)
+
+  const employee = user as Employee
 
   const handleLogout = (): void => {
     window.localStorage.removeItem('user')
@@ -34,15 +34,6 @@ const Navbar: React.FC = () => {
     return toggle
   }
 
-  const handleMouseLeave = (): boolean => {
-    if (popup) {
-      setTimeout(() => {
-        setPopup(!popup)
-      }, 250)
-    }
-    return popup
-  }
-
   const navItems = (
     <ul>
       {navLinks.map((link) => (
@@ -57,16 +48,7 @@ const Navbar: React.FC = () => {
     <>
       <nav className={styles.navbar}>
         <section className={styles.navlinks}>
-          <p className={styles.logo}>
-            <Link
-              onClick={() => {
-                setToggle(false)
-              }}
-              href="/"
-            >
-              ACME Corporation
-            </Link>
-          </p>
+          <Link href="/">ACME Corporation</Link>
           <section className={styles.links}>{navItems}</section>
         </section>
         <section className={styles.user}>
@@ -81,21 +63,13 @@ const Navbar: React.FC = () => {
             </>
           )}
           {user !== null && (
-            <aside
-              onMouseLeave={handleMouseLeave}
-              onMouseEnter={() => {
-                setPopup(!popup)
-              }}
-              className={styles.useraside}
-            >
-              <section
-                className={popup ? styles.navuserfocused : styles.navuser}
-              >
-                {user?.profilePicture !== null
+            <aside className={styles.useraside}>
+              <section className={styles.navuser}>
+                {employee.profilePicture !== null
                   ? (
                   <Image
-                    src={user?.profilePicture}
-                    alt={user?.username}
+                    src={employee.profilePicture}
+                    alt={employee.username}
                     width={50}
                     height={50}
                     style={{ borderRadius: '50%' }}
@@ -105,28 +79,15 @@ const Navbar: React.FC = () => {
                   <div className={styles.nouser}>?</div>
                     )}
               </section>
-              <section className={popup ? styles.userpopup : styles.hidden}>
+              <section className={styles.userpopup}>
                 <section className={styles.popuptext}>
                   <span>
-                    Welcome, <span>{user?.username}</span>
+                    Welcome, <span>{employee.username}</span>
                   </span>
-                  <span className={styles.openprofile}>
-                    <Link href={`/profile/${user?.username}`}>
-                      Your profile
-                    </Link>
-                  </span>
+                  <Link href={`/profile/${employee.username}`}>Your profile</Link>
                 </section>
-                <section
-                  onMouseEnter={() => {
-                    setToggleDoor(!toggleDoor)
-                  }}
-                  onMouseLeave={() => {
-                    setToggleDoor(false)
-                  }}
-                  className={styles.logoutbtn}
-                  onClick={handleLogout}
-                >
-                  <span>{door(toggleDoor)}</span>
+                <section className={styles.logoutbtn} onClick={handleLogout}>
+                  <span>{door()}</span>
                 </section>
               </section>
             </aside>
@@ -165,11 +126,11 @@ const Navbar: React.FC = () => {
           {user !== null && (
             <section className={styles.useroverlay}>
               <section className={styles.usercontainer}>
-                {user.profilePicture !== null
+                {employee.profilePicture !== null
                   ? (
                   <Image
-                    src={user.profilePicture}
-                    alt={user.username}
+                    src={employee.profilePicture}
+                    alt={employee.username}
                     width={50}
                     height={50}
                     style={{ borderRadius: '50%' }}
@@ -180,18 +141,16 @@ const Navbar: React.FC = () => {
                     )}
                 <section className={styles.userinfo}>
                   <span>
-                    Welcome, <span>{user.username}</span>
+                    Welcome, <span>{employee.username}</span>
                   </span>
-                  <span className={styles.openprofile}>
-                    <Link
-                      onClick={() => {
-                        setToggle(false)
-                      }}
-                      href={`/profile/${user.username}`}
-                    >
-                      Your profile
-                    </Link>
-                  </span>
+                  <Link
+                    onClick={() => {
+                      setToggle(false)
+                    }}
+                    href={`/profile/${employee.username}`}
+                  >
+                    Your profile
+                  </Link>
                 </section>
                 <div onClick={handleLogout}>
                   <Button

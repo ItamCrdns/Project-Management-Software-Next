@@ -9,10 +9,17 @@ export interface Employee {
   profilePicture: string
 }
 
+export interface LoginData {
+  authenticated: boolean
+  message: string
+  employee: Employee
+  status: number
+}
+
 interface UserContextType {
-  user: Employee
-  setUser: React.Dispatch<React.SetStateAction<Employee>>
-  handleLogin: (credentials: CredentialsType) => Promise<Employee | null>
+  user: LoginData | Employee
+  setUser: React.Dispatch<React.SetStateAction<LoginData | Employee>>
+  handleLogin: (credentials: CredentialsType) => Promise<LoginData | null>
 }
 
 const initialState: UserContextType = {
@@ -26,19 +33,19 @@ const initialState: UserContextType = {
 const AuthContext = createContext<UserContextType>(initialState)
 
 export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
-  const [user, setUser] = useState<Employee>(initialState.user)
+  const [user, setUser] = useState<LoginData | Employee>(initialState.user)
 
-  const handleLogin = async (credentials: CredentialsType): Promise<Employee | null> => {
+  const handleLogin = async (credentials: CredentialsType): Promise<LoginData | null> => {
     const auth = await authenticateEmployee(credentials)
-    const userData: Employee = await auth.data.employee
+    const userData: LoginData = await auth.data
 
     if (auth.status === 200) {
-      setUser(userData)
-      window.localStorage.setItem('user', JSON.stringify(userData))
-      return userData
+      const loginData = userData
+      setUser(loginData.employee)
+      window.localStorage.setItem('user', JSON.stringify(userData.employee))
     }
 
-    return null
+    return userData
   }
 
   return (

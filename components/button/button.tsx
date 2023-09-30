@@ -19,18 +19,19 @@ import Link from 'next/link'
 import styles from './button.module.css'
 
 interface ButtonProps {
-  text?: string | null
-  duration?: string | null
-  width?: string | null
-  height?: string | null
-  backgroundColor?: string | null
-  textColor?: string | null
-  effectColor?: string | null
-  effectWidth?: string | null
-  effectHeight?: string | null
-  href?: string | null
+  text?: string
+  duration?: string
+  width?: string
+  height?: string
+  backgroundColor?: string
+  textColor?: string
+  effectColor?: string
+  effectWidth?: string
+  effectHeight?: string
+  href?: string
   loading?: boolean | null
 }
+
 const Button = ({
   text,
   duration,
