@@ -1,6 +1,6 @@
 'use client'
 import { type PropsWithChildren, createContext, useContext, useState } from 'react'
-import authenticateEmployee, { type CredentialsType } from '@/app/dashboard/login/authenticateEmployee'
+import authenticateEmployee, { type CredentialsType } from '@/app/login/authenticateEmployee'
 
 export interface Employee {
   employeeId: number
