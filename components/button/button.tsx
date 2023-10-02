@@ -19,7 +19,7 @@ import Link from 'next/link'
 import styles from './button.module.css'
 
 interface ButtonProps {
-  text?: string
+  text?: string | JSX.Element
   duration?: string
   width?: string
   height?: string
@@ -111,6 +111,7 @@ const Button = ({
       )
     }
   }
+
   return (
     <div
       onClick={handleClick}

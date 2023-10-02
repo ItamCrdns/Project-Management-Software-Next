@@ -57,7 +57,10 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [user, setUser] = useState<LoginData | Employee>(initialState.user)
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user') as string))
+    const dataFromLocalStorage = JSON.parse(localStorage.getItem('user') as string)
+    if (dataFromLocalStorage !== null) {
+      setUser(JSON.parse(localStorage.getItem('user') as string))
+    }
   }, [])
 
   /**

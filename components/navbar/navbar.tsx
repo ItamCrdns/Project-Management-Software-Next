@@ -3,7 +3,6 @@ import { navLinks } from './navlkins'
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './navbar.module.css'
-import { door } from './door'
 import { type Employee, useAuth } from '@/context/AuthContext'
 import Image from 'next/image'
 import Button from '../button/button'
@@ -12,6 +11,7 @@ const Navbar: React.FC = () => {
   const { user } = useAuth()
   const [toggle, setToggle] = useState<boolean>(false)
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
+  const [showOptions, setShowOptions] = useState<boolean>(true)
 
   const employee = user as Employee
 
@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
     window.location.reload()
   }
 
-  const handleToggle = (): boolean => {
+  const handleOpenSmallDevicesMenu = (): boolean => {
     setToggle(!toggle)
 
     if (toggle) {
@@ -32,6 +32,11 @@ const Navbar: React.FC = () => {
     }
 
     return toggle
+  }
+
+  const handleOpenMenu = (): boolean => {
+    setShowOptions(!showOptions)
+    return showOptions
   }
 
   const navItems = (
@@ -52,65 +57,86 @@ const Navbar: React.FC = () => {
           <section className={styles.links}>{navItems}</section>
         </section>
         <section className={styles.user}>
-          {user === null && (
-            <>
-              <p>
-                <Link href="/">Log in</Link>
-              </p>
-              <p>
-                <Link href="/register">Sign up</Link>
-              </p>
-            </>
-          )}
           {user !== null && (
-            <aside className={styles.useraside}>
+            <>
               <section className={styles.navuser}>
                 {employee.profilePicture !== ''
                   ? (
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={50}
-                    height={50}
-                    style={{ borderRadius: '50%' }}
-                  />
+                  <>
+                    <Image
+                      onClick={handleOpenMenu}
+                      src={employee.profilePicture}
+                      alt={employee.username}
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: '50%' }}
+                    />
+                  </>
                     )
                   : (
                   <div className={styles.nouser}></div>
                     )}
               </section>
-              <section className={styles.userpopup}>
-                <section className={styles.popuptext}>
-                  {employee.username !== ''
-                    ? (
-                    <>
-                      <span>
-                        <>
-                          Welcome, <span>{employee.username}</span>
-                        </>
+              {showOptions && (
+                <aside className={styles.userpopup}>
+                  <section className={styles.userpopuser}>
+                    <div className={styles.userdatacontainer}>
+                      <Image
+                        src={employee.profilePicture}
+                        alt={employee.username}
+                        width={50}
+                        height={50}
+                        style={{ borderRadius: '50%' }}
+                      />
+                      <p>{employee.username}</p>
+                    </div>
+                    <p>Your profile</p>
+                  </section>
+                  <section className={styles.popupmenu}>
+                    <span>
+                      <span className="material-symbols-outlined">tactic</span>
+                      <p>Projects</p>
+                    </span>
+                    <span>
+                      <span className="material-symbols-outlined">
+                        auto_stories
                       </span>
-                      <Link href={`/profile/${employee.username}`}>
-                        Your profile
-                      </Link>
-                    </>
-                      )
-                    : (
-                        ''
-                      )}
-                </section>
-                <section className={styles.logoutbtn} onClick={handleLogout}>
-                  <span>{door()}</span>
-                </section>
-              </section>
-            </aside>
+                      <p>Tasks</p>
+                    </span>
+                    <span>
+                      <span className="material-symbols-outlined">
+                        data_alert
+                      </span>
+                      <p>Issues</p>
+                    </span>
+                  </section>
+                  <section className={styles.logout}>
+                    <Button
+                      text={
+                        <span style={{ fontSize: '14px' }}>
+                          <span style={{ margin: '-2.25rem' }} className="material-symbols-outlined">
+                            logout
+                          </span>
+                          Logout
+                        </span>
+                      }
+                      backgroundColor="rgb(255, 80, 120)"
+                      effectColor='rgb(255, 50, 120)'
+                      textColor="white"
+                    />
+                  </section>
+                </aside>
+              )}
+            </>
           )}
         </section>
-        <section onClick={handleToggle} className={styles.menu}>
+        <section onClick={handleOpenSmallDevicesMenu} className={styles.menu}>
           <span className={toggle ? styles.rotate : ''} />
           <span className={toggle ? styles.opacity0 : ''} />
           <span className={toggle ? styles.rotateminus : ''} />
         </section>
       </nav>
+      {/* small screen devices navbar */}
       {showOverlay && (
         <section
           className={`${styles.overlay} ${
