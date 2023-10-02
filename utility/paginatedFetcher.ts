@@ -1,8 +1,4 @@
-interface ApiResponse<T> {
-  data: T | null
-  status: number
-}
-
+import { type ApiResponse } from '@/interfaces/apiResponse'
 /**
  * Fetches paginated data from an API endpoint.
  * Fetching data with different interfaces

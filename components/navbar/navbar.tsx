@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
           {user !== null && (
             <aside className={styles.useraside}>
               <section className={styles.navuser}>
-                {employee.profilePicture !== null
+                {employee.profilePicture !== ''
                   ? (
                   <Image
                     src={employee.profilePicture}
@@ -76,15 +76,27 @@ const Navbar: React.FC = () => {
                   />
                     )
                   : (
-                  <div className={styles.nouser}>?</div>
+                  <div className={styles.nouser}></div>
                     )}
               </section>
               <section className={styles.userpopup}>
                 <section className={styles.popuptext}>
-                  <span>
-                    Welcome, <span>{employee.username}</span>
-                  </span>
-                  <Link href={`/profile/${employee.username}`}>Your profile</Link>
+                  {employee.username !== ''
+                    ? (
+                    <>
+                      <span>
+                        <>
+                          Welcome, <span>{employee.username}</span>
+                        </>
+                      </span>
+                      <Link href={`/profile/${employee.username}`}>
+                        Your profile
+                      </Link>
+                    </>
+                      )
+                    : (
+                        ''
+                      )}
                 </section>
                 <section className={styles.logoutbtn} onClick={handleLogout}>
                   <span>{door()}</span>

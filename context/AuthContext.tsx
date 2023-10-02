@@ -1,5 +1,5 @@
 'use client'
-import { type PropsWithChildren, createContext, useContext, useState } from 'react'
+import { type PropsWithChildren, createContext, useContext, useState, useEffect } from 'react'
 import authenticateEmployee, { type CredentialsType } from '@/app/login/authenticateEmployee'
 
 export interface Employee {
@@ -34,7 +34,12 @@ interface UserContextType {
 }
 
 const initialState: UserContextType = {
-  user: JSON.parse(window.localStorage.getItem('user') as string) ?? null,
+  user: {
+    employeeId: 0,
+    username: '',
+    role: '',
+    profilePicture: ''
+  },
   setUser: () => {},
   handleLogin: async (credentials: CredentialsType) => {
     return null
@@ -50,6 +55,10 @@ const AuthContext = createContext<UserContextType>(initialState)
  */
 export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [user, setUser] = useState<LoginData | Employee>(initialState.user)
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('user') as string))
+  }, [])
 
   /**
    * Authenticates the employee with the given credentials.

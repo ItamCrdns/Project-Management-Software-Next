@@ -16,8 +16,6 @@ const Projects = (): JSX.Element => {
     void fetchProjects()
   }, [])
 
-  console.log(projects)
-
   return (
     <article className={styles.projects}>
       <ul>
