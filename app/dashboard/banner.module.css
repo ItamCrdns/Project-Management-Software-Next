@@ -1,22 +1,17 @@
-.projects {
-    margin: 0 2.5rem;
+.banner {
     background-color: white;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
     padding: 2rem;
-    border-radius: 25px;
+    border-radius: 10px;
 }
 
-.projects h1 {
+.banner a {
     margin: 0;
+    font-weight: 500;
     font-size: 1.5rem;
 }
 
-.projects {
-    display: flex;
-    padding: 1rem 1.5rem;
-}
-
-.projects ul {
+.banner ul {
     list-style: none;
     padding: 0;
     margin: 0;

@@ -161,14 +161,15 @@
 .userpopup {
     z-index: 9999;
     position: absolute;
-    top: 75px;
+    top: 65px;
     right: 10px;
     background-color: white;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
     border-radius: 10px;
 }
 
 .userpopuser {
-    border-radius: 10px;
+    border-radius: 7px;
     background-color: whitesmoke;
     margin: 1rem;
     padding: 0 1rem;
@@ -179,28 +180,54 @@
 
 .userpopuser > p {
     margin: 0;
+    font-weight: 500;
 }
 
 .userdatacontainer {
     text-transform: capitalize;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.userdatacontainer p {
+    font-weight: 600;
 }
 
 .popupmenu {
-    padding: 0 1rem
+    border-bottom: 1px solid rgb(223, 223, 223);
+    padding: 0 1rem;
+    padding-bottom: 1rem;
 }
 
-.popupmenu p {
+.popupmenusettings {
+    border-bottom: 1px solid rgb(223, 223, 223);
+    padding: 0 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.popupmenu p, .popupmenusettings p {
     margin: 0;
+    width: 70%;
 }
 
-.popupmenu > span {
+.popupmenu > span, .popupmenusettings > span {
+    cursor: pointer;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgb(200, 200, 200);
+    white-space: nowrap;
+    padding: 0 1rem;
+}
+
+.popupmenu > span span, .popupmenusettings > span span {
+    user-select: none;
+}
+
+.popupmenu > span:hover, .popupmenusettings > span:hover {
+    background-color: whitesmoke;
+    border-radius: 7px;
 }
 
 .logout {
@@ -209,7 +236,6 @@
     margin: 1rem 0;
     justify-content: center;
 }
-
 
 .nouser {
     width: 50px;

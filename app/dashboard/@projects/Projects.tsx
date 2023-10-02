@@ -1,23 +1,13 @@
-'use client'
-import { useEffect, useState } from 'react'
 import getProjects from './getProjects'
-import { type Project } from '@/interfaces/project'
 import Link from 'next/link'
-import styles from './projects.module.css'
+import styles from '../banner.module.css'
 
-const Projects = (): JSX.Element => {
-  const [projects, setProjects] = useState<Project | null>(null)
-  const fetchProjects = async (): Promise<void> => {
-    const projs = await getProjects('1', '5')
-    setProjects(projs.data)
-  }
-
-  useEffect(() => {
-    void fetchProjects()
-  }, [])
+const Projects = async (): Promise<JSX.Element> => {
+  const data = await getProjects('1', '5')
+  const projects = data.data
 
   return (
-    <article className={styles.projects}>
+    <article className={styles.banner}>
       <ul>
         {Array.isArray(projects) &&
           projects.map((project) => (

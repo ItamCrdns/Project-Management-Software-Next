@@ -1,4 +1,6 @@
 import { type ApiResponse } from '@/interfaces/apiResponse'
+import { cookies } from 'next/headers'
+
 /**
  * Fetches paginated data from an API endpoint.
  * Fetching data with different interfaces
@@ -7,6 +9,7 @@ import { type ApiResponse } from '@/interfaces/apiResponse'
  * @param pageSize - The number of items to fetch per page.
  * @returns A Promise that resolves to an ApiResponse object containing the fetched data and status code.
  */
+
 async function paginatedFetcher<T> (
   endpoint: string,
   page: string,
@@ -16,10 +19,18 @@ async function paginatedFetcher<T> (
   url.searchParams.set('page', page)
   url.searchParams.set('pageSize', pageSize)
 
+  const cookieStore = cookies()
+  const jwtCookie = cookieStore.get('JwtToken')
+
+  const headers = new Headers({
+    Cookie: 'JwtToken=' + jwtCookie?.value
+  })
+
   const requestOptions: RequestInit = {
     method: 'GET',
     credentials: 'include',
-    cache: 'no-store'
+    cache: 'no-store',
+    headers
   }
 
   const res = await fetch(url, requestOptions)

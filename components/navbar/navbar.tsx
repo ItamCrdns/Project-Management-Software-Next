@@ -6,12 +6,13 @@ import styles from './navbar.module.css'
 import { type Employee, useAuth } from '@/context/AuthContext'
 import Image from 'next/image'
 import Button from '../button/button'
+import DropdownMenu from './Menu'
 
 const Navbar: React.FC = () => {
   const { user } = useAuth()
   const [toggle, setToggle] = useState<boolean>(false)
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
-  const [showOptions, setShowOptions] = useState<boolean>(true)
+  const [showOptions, setShowOptions] = useState<boolean>(false)
 
   const employee = user as Employee
 
@@ -62,70 +63,21 @@ const Navbar: React.FC = () => {
               <section className={styles.navuser}>
                 {employee.profilePicture !== ''
                   ? (
-                  <>
-                    <Image
-                      onClick={handleOpenMenu}
-                      src={employee.profilePicture}
-                      alt={employee.username}
-                      width={50}
-                      height={50}
-                      style={{ borderRadius: '50%' }}
-                    />
-                  </>
+                  <Image
+                    onClick={handleOpenMenu}
+                    src={employee.profilePicture}
+                    alt={employee.username}
+                    width={50}
+                    height={50}
+                    style={{ borderRadius: '50%' }}
+                  />
                     )
                   : (
                   <div className={styles.nouser}></div>
                     )}
               </section>
               {showOptions && (
-                <aside className={styles.userpopup}>
-                  <section className={styles.userpopuser}>
-                    <div className={styles.userdatacontainer}>
-                      <Image
-                        src={employee.profilePicture}
-                        alt={employee.username}
-                        width={50}
-                        height={50}
-                        style={{ borderRadius: '50%' }}
-                      />
-                      <p>{employee.username}</p>
-                    </div>
-                    <p>Your profile</p>
-                  </section>
-                  <section className={styles.popupmenu}>
-                    <span>
-                      <span className="material-symbols-outlined">tactic</span>
-                      <p>Projects</p>
-                    </span>
-                    <span>
-                      <span className="material-symbols-outlined">
-                        auto_stories
-                      </span>
-                      <p>Tasks</p>
-                    </span>
-                    <span>
-                      <span className="material-symbols-outlined">
-                        data_alert
-                      </span>
-                      <p>Issues</p>
-                    </span>
-                  </section>
-                  <section className={styles.logout}>
-                    <Button
-                      text={
-                        <span style={{ fontSize: '14px' }}>
-                          <span style={{ margin: '-2.25rem' }} className="material-symbols-outlined">
-                            logout
-                          </span>
-                          Logout
-                        </span>
-                      }
-                      backgroundColor="rgb(255, 80, 120)"
-                      effectColor='rgb(255, 50, 120)'
-                      textColor="white"
-                    />
-                  </section>
-                </aside>
+                <DropdownMenu employee={employee} />
               )}
             </>
           )}
