@@ -7,6 +7,7 @@ import { cookies } from 'next/headers'
  * @param id - The ID of the data to fetch.
  * @returns An ApiResponse object containing the fetched data and the HTTP status code of the response.
  */
+
 async function idFetcher<T> (
   endpoint: string,
   id: string

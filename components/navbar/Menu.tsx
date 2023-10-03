@@ -2,12 +2,26 @@ import styles from './navbar.module.css'
 import Image from 'next/image'
 import Button from '../button/button'
 import { type Employee } from '@/context/AuthContext'
+import logout from '@/utility/logout'
 
 interface DropdownMenuProps {
   employee: Employee
 }
 
 const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
+  const handleLogout = (): void => {
+    logout()
+      .then(response => {
+        if (response === 204) {
+          window.localStorage.removeItem('user')
+          window.location.reload()
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
   return (
     <aside className={styles.userpopup}>
       <section className={styles.userpopuser}>
@@ -47,7 +61,7 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
           <p>Dark mode</p>
         </span>
       </section>
-      <section className={styles.logout}>
+      <section onClick={handleLogout} className={styles.logout}>
         <Button
           text={
             <span style={{ fontSize: '14px' }}>

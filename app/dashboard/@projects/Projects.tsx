@@ -8,12 +8,18 @@ const Projects = async (): Promise<JSX.Element> => {
 
   return (
     <article className={styles.banner}>
+      <div className={styles.header}>
+        <span className="material-symbols-outlined">tactic</span>
+        <h1>Projects</h1>
+      </div>
       <ul>
         {Array.isArray(projects) &&
           projects.map((project) => (
             <li key={project.projectId}>
               <h2>
-                <Link href={`/projects/${project.projectId}`}>{project.name}</Link>
+                <Link href={`/projects/${project.projectId}`}>
+                  {project.name}
+                </Link>
               </h2>
               <p>{project.description}</p>
               {/* <ul>

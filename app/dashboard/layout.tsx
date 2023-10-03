@@ -4,6 +4,7 @@ const DashboardPage = (props: {
   projects: React.ReactNode
   user: React.ReactNode
   tasks: React.ReactNode
+  employees: React.ReactNode
 }): JSX.Element => {
   return (
     <>
@@ -11,6 +12,7 @@ const DashboardPage = (props: {
       <section className={styles.menus}>
         {props.projects}
         {props.tasks}
+        {props.employees}
       </section>
     </>
   )

@@ -8,6 +8,10 @@ const Tasks = async (): Promise<JSX.Element> => {
 
   return (
     <article className={styles.banner}>
+      <div className={styles.header}>
+        <span className="material-symbols-outlined">auto_stories</span>
+        <h1>Tasks</h1>
+      </div>
       <ul>
         {Array.isArray(tasks) &&
           tasks.map((task) => (
