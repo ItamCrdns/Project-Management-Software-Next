@@ -1,18 +1,8 @@
 'use client'
 import { type PropsWithChildren, createContext, useContext, useState, useEffect } from 'react'
 import authenticateEmployee, { type CredentialsType } from '@/app/login/authenticateEmployee'
+import { type Employee } from '@/interfaces/employee'
 
-export interface Employee {
-  employeeId: number
-  username: string
-  role: string
-  profilePicture: string
-}
-
-/**
- * Represents the result of an authentication attempt.
- * @interface
- */
 export interface Result {
   wrongCreds: boolean | null
   blocked: boolean | null
@@ -53,6 +43,7 @@ const AuthContext = createContext<UserContextType>(initialState)
  * @param children The child components to be wrapped by the provider.
  * @returns The authentication provider component.
  */
+
 export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
   const [user, setUser] = useState<LoginData | Employee>(initialState.user)
 

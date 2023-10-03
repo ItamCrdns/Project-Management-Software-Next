@@ -77,7 +77,7 @@ const LoginPage = (): JSX.Element => {
       <section className={styles.loginwrapper}>
         <h1>Company Logo here</h1>
         <form ref={formRef} onSubmit={handleSubmit}>
-          <input type="text" name="username" required placeholder="Username" />
+          <input type="text" name="username" required placeholder="Username" autoFocus/>
           <input type="password" name="password" required placeholder="Password" />
           <input type="submit" />
         </form>

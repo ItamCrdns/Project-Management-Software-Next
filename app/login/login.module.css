@@ -38,3 +38,9 @@
     align-items: center;
     gap: 1rem;
 }
+
+@media screen and (max-width: 1050px) {
+    .main {
+        margin-top: 75px;
+    }
+}

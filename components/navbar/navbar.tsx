@@ -1,12 +1,13 @@
 'use client'
-import { navLinks } from './navlkins'
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './navbar.module.css'
-import { type Employee, useAuth } from '@/context/AuthContext'
+import { useAuth } from '@/context/AuthContext'
+import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
-import Button from '../button/button'
 import DropdownMenu from './Menu'
+import SmallScreenNavbar from './SmallScreenNavbar'
+import { navItems } from './SmallScreenNavLinks'
 
 const Navbar: React.FC = () => {
   const { user } = useAuth()
@@ -15,11 +16,6 @@ const Navbar: React.FC = () => {
   const [showOptions, setShowOptions] = useState<boolean>(false)
 
   const employee = user as Employee
-
-  const handleLogout = (): void => {
-    window.localStorage.removeItem('user')
-    window.location.reload()
-  }
 
   const handleOpenSmallDevicesMenu = (): boolean => {
     setToggle(!toggle)
@@ -39,16 +35,6 @@ const Navbar: React.FC = () => {
     setShowOptions(!showOptions)
     return showOptions
   }
-
-  const navItems = (
-    <ul>
-      {navLinks.map((link) => (
-        <li key={link.key}>
-          <Link href={link.href}>{link.key}</Link>
-        </li>
-      ))}
-    </ul>
-  )
 
   return (
     <>
@@ -76,9 +62,7 @@ const Navbar: React.FC = () => {
                   <div className={styles.nouser}></div>
                     )}
               </section>
-              {showOptions && (
-                <DropdownMenu employee={employee} />
-              )}
+              {showOptions && <DropdownMenu employee={employee} />}
             </>
           )}
         </section>
@@ -89,72 +73,7 @@ const Navbar: React.FC = () => {
         </section>
       </nav>
       {/* small screen devices navbar */}
-      {showOverlay && (
-        <section
-          className={`${styles.overlay} ${
-            toggle ? styles.fadeIn : styles.fadeOut
-          }`}
-        >
-          {user == null && (
-            <section className={styles.useroverlay}>
-              <p>You are not logged in.</p>
-              <div
-                onClick={() => {
-                  setToggle(false)
-                }}
-              >
-                <Button text="Login" href="/" />
-                <Button
-                  text="Sign up"
-                  backgroundColor="rgb(0, 210, 255)"
-                  textColor="white"
-                  href="/register"
-                />
-              </div>
-            </section>
-          )}
-          {user !== null && (
-            <section className={styles.useroverlay}>
-              <section className={styles.usercontainer}>
-                {employee.profilePicture !== null
-                  ? (
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={50}
-                    height={50}
-                    style={{ borderRadius: '50%' }}
-                  />
-                    )
-                  : (
-                  <div className={styles.nouser}>?</div>
-                    )}
-                <section className={styles.userinfo}>
-                  <span>
-                    Welcome, <span>{employee.username}</span>
-                  </span>
-                  <Link
-                    onClick={() => {
-                      setToggle(false)
-                    }}
-                    href={`/profile/${employee.username}`}
-                  >
-                    Your profile
-                  </Link>
-                </section>
-                <div onClick={handleLogout}>
-                  <Button
-                    text="Logout"
-                    backgroundColor="red"
-                    textColor="white"
-                  />
-                </div>
-              </section>
-            </section>
-          )}
-          <section className={styles.items}>{navItems}</section>
-        </section>
-      )}
+      {showOverlay && <SmallScreenNavbar toggle={toggle} employee={employee} />}
     </>
   )
 }

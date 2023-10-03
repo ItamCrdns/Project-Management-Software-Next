@@ -1,0 +1,58 @@
+.main {
+    display: flex;
+    padding: 2rem;
+}
+
+.employeecard {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
+    padding: 1rem;
+    align-items: center;
+}
+
+.employeecard img {
+    border-radius: 50%;
+}
+
+.employeecard h1 {
+    font-size: 40px;
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: 500;
+    margin: 1rem;
+    margin-bottom: 0;
+}
+
+.employeecard p {
+    color: rgba(0, 0, 0, .35);
+    font-size: 15px;
+    text-align: center;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.employeenumbers {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.employeenumbers a {
+    padding: .75rem;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.employeenumbers p {
+    color: black;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 1050px) {
+    .main {
+        margin-top: 75px;
+    }
+}

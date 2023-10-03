@@ -2,25 +2,15 @@ import styles from './navbar.module.css'
 import Image from 'next/image'
 import Button from '../button/button'
 import { type Employee } from '@/context/AuthContext'
-import logout from '@/utility/logout'
+import useLogout from './logout'
+import Link from 'next/link'
 
 interface DropdownMenuProps {
   employee: Employee
 }
 
 const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
-  const handleLogout = (): void => {
-    logout()
-      .then(response => {
-        if (response === 204) {
-          window.localStorage.removeItem('user')
-          window.location.reload()
-        }
-      })
-      .catch(error => {
-        console.error(error)
-      })
-  }
+  const { handleLogout } = useLogout()
 
   return (
     <aside className={styles.userpopup}>
@@ -35,7 +25,9 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
           />
           <p>{employee.username}</p>
         </section>
-        <p>Your profile</p>
+        <p>
+          <Link href={`/employees/${employee.username}`}>Your profile</Link>
+        </p>
       </section>
       <section className={styles.popupmenu}>
         <span>
