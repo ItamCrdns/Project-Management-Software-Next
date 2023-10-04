@@ -1,4 +1,4 @@
-import styles from './employee.module.css'
+import styles from '../employee.module.css'
 
 const CurrentProjects = (): JSX.Element => {
   return (
