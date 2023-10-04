@@ -1,6 +1,6 @@
 'use client'
 import { type PropsWithChildren, createContext, useContext, useState, useEffect } from 'react'
-import authenticateEmployee, { type CredentialsType } from '@/app/login/authenticateEmployee'
+import authenticateEmployee, { type CredentialsType } from '@/api-calls/authenticateEmployee'
 import { type Employee } from '@/interfaces/employee'
 
 export interface Result {
@@ -28,7 +28,9 @@ const initialState: UserContextType = {
     employeeId: 0,
     username: '',
     role: '',
-    profilePicture: ''
+    profilePicture: '',
+    supervisor: null,
+    company: null
   },
   setUser: () => {},
   handleLogin: async (credentials: CredentialsType) => {

@@ -1,4 +1,4 @@
-import getEmployee from './getEmployee'
+import getEmployee from '../../../api-calls/getEmployee'
 import EmployeeCard from './EmployeeCard'
 import SupervisorCard from './SupervisorCard'
 import CurrentProjects from './CurrentProjects'

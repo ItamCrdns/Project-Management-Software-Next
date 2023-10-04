@@ -1,4 +1,4 @@
-import getProjects from './getProjects'
+import getProjects from '../../../api-calls/getProjects'
 import Link from 'next/link'
 import styles from '../banner.module.css'
 

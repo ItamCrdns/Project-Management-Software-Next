@@ -1,5 +1,5 @@
 import { type ApiResponse } from '@/interfaces/apiResponse'
-import { cookies } from 'next/headers'
+import cookieOptions from './cookieOptions'
 
 /**
  * Fetches paginated data from an API endpoint.
@@ -19,19 +19,7 @@ async function paginatedFetcher<T> (
   url.searchParams.set('page', page)
   url.searchParams.set('pageSize', pageSize)
 
-  const cookieStore = cookies()
-  const jwtCookie = cookieStore.get('JwtToken')
-
-  const headers = new Headers({
-    Cookie: 'JwtToken=' + jwtCookie?.value
-  })
-
-  const requestOptions: RequestInit = {
-    method: 'GET',
-    credentials: 'include',
-    cache: 'no-store',
-    headers
-  }
+  const requestOptions = cookieOptions()
 
   const res = await fetch(url, requestOptions)
 

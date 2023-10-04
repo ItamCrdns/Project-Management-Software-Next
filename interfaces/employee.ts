@@ -5,6 +5,6 @@ export interface Employee {
   username: string
   role: string
   profilePicture: string
-  supervisor: Employee
+  supervisor: Employee | null
   company: Company | null
 }

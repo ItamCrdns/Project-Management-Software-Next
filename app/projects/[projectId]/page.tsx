@@ -1,4 +1,4 @@
-import getProject from './getProject'
+import getProject from '../../../api-calls/getProject'
 import styles from './project.module.css'
 import { type Images } from '@/interfaces/images'
 import Image from 'next/image'

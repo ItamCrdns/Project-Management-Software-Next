@@ -1,4 +1,4 @@
-import getTasks from './getTasks'
+import getTasks from '../../../api-calls/getTasks'
 import Link from 'next/link'
 import styles from '../banner.module.css'
 

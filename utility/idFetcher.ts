@@ -1,5 +1,5 @@
 import { type ApiResponse } from '@/interfaces/apiResponse'
-import { cookies } from 'next/headers'
+import cookieOptions from './cookieOptions'
 
 /**
  * Fetches data from an API endpoint with a given ID and returns the response as an ApiResponse object.
@@ -14,20 +14,7 @@ async function idFetcher<T> (
 ): Promise<ApiResponse<T>> {
   const url = new URL(process.env.NEXT_PUBLIC_API_URL + endpoint + '/' + id)
 
-  // * Get the cookies from Next/header
-  const cookieStore = cookies()
-  const jwtCookie = cookieStore.get('JwtToken')
-
-  const headers = new Headers({
-    Cookie: 'JwtToken=' + jwtCookie?.value
-  })
-
-  const requestOptions: RequestInit = {
-    method: 'GET',
-    credentials: 'include',
-    cache: 'no-store',
-    headers // Send cookies as headers otherwise error because of SSR?
-  }
+  const requestOptions = cookieOptions()
 
   const res = await fetch(url, requestOptions)
 
