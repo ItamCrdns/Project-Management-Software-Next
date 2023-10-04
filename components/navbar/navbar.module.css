@@ -21,7 +21,7 @@
 }
 
 .navbar {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--banner-color);
     padding: 0 0 0 1rem;
     padding-bottom: 0;
     margin-bottom: 0;
@@ -45,20 +45,20 @@
     justify-content: center;
 }
 
+.navlinks a {
+    color: var(--text-color);
+}
+
 .user {
     position: relative;
 }
 
-.navlinks .logo {
-    font-weight: 500 !important;
-    user-select: none;
-    font-size: 40px;
-    display: flex;
-    align-items: center;
+.links {
+    padding: 0 1rem; 
 }
 
-.links {
-    padding: 0 1rem;
+.links ul li a {
+    color: var(--text-color);
 }
 
 .links .active {
@@ -80,7 +80,7 @@
 .overlay {
     position: fixed;
     top: 0;
-    background-color: whitesmoke;
+    background-color: var(--banner-color);
     width: 100%;
     z-index: 1;
     margin-top: 75px;
@@ -98,10 +98,10 @@
 }
 
 .items ul, .items li {
-    color: black;
     margin: 0;
     padding: 1rem 0;
 }
+
 
 .useroverlay {
     display: flex;
@@ -165,14 +165,14 @@
     position: absolute;
     top: 72px;
     right: 10px;
-    background-color: white;
+    background-color: var(--banner-color);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
     border-radius: 10px;
 }
 
 .userpopuser {
     border-radius: 7px;
-    background-color: whitesmoke;
+    background-color: var(--darker-banner-color);
     margin: 1rem;
     padding: 0 1rem;
     display: flex;
@@ -185,12 +185,16 @@
     font-weight: 500;
 }
 
+.userpopuser > p a {
+    color: var(--text-color);
+}
+
 .userdatacontainer {
     text-transform: capitalize;
     display: flex;
     align-items: center;
     gap: .5rem;
-    border-bottom: 1px solid rgb(200, 200, 200);
+    border-bottom: 1px solid rgb(255, 80, 120);
 }
 
 .userdatacontainer p {
@@ -198,13 +202,15 @@
 }
 
 .popupmenu {
-    border-bottom: 1px solid rgb(223, 223, 223);
+    user-select: none;
+    border-bottom: 1px solid var(--darker-banner-color);
     padding: 0 1rem;
     padding-bottom: 1rem;
 }
 
 .popupmenusettings {
-    border-bottom: 1px solid rgb(223, 223, 223);
+    user-select: none;
+    border-bottom: 1px solid var(--darker-banner-color);
     padding: 0 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -228,7 +234,7 @@
 }
 
 .popupmenu > span:hover, .popupmenusettings > span:hover {
-    background-color: whitesmoke;
+    background-color: var(--darker-banner-color);
     border-radius: 7px;
 }
 

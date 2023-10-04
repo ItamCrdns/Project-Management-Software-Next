@@ -4,6 +4,7 @@ import Button from '../button/button'
 import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
+import { useDarkMode } from '@/context/DarkModeContext'
 
 interface DropdownMenuProps {
   employee: Employee
@@ -11,6 +12,7 @@ interface DropdownMenuProps {
 
 const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
   const { handleLogout } = useLogout()
+  const { toggleDarkMode, darkMode } = useDarkMode()
 
   return (
     <aside className={styles.userpopup}>
@@ -48,9 +50,11 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
           <span className="material-symbols-outlined">settings</span>
           <p>Settings</p>
         </span>
-        <span>
-          <span className="material-symbols-outlined">dark_mode</span>
-          <p>Dark mode</p>
+        <span onClick={toggleDarkMode}>
+          <span className="material-symbols-outlined">
+            {!darkMode ? 'dark_mode' : 'light_mode'}
+          </span>
+          <p>{!darkMode ? 'Dark mode' : 'Light mode'}</p>
         </span>
       </section>
       <section onClick={handleLogout} className={styles.logout}>

@@ -1,7 +1,15 @@
+:root {
+  --background-color: rgb(245, 245, 245);
+  --banner-color: white;
+  --darker-banner-color: whitesmoke;
+  --text-color: 'black';
+  --small-font: 'rgba(255, 0, 0, .1)'
+}
+
 body {
   margin: 0;
-  background-color: rgb(245, 245, 245);
-  color: black;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 ul,  li {

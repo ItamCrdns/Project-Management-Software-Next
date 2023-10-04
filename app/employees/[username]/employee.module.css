@@ -10,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: var(--banner-color);
     border-radius: 10px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
     padding: 2rem;
@@ -34,6 +34,9 @@
     margin: .25rem 0;
 }
 
+.colleagues ul li p a {
+    color: var(--text-color);
+}
 
 .colleagues ul li img {
     border-radius: 50%;
@@ -97,7 +100,7 @@
 .employeecard {
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--banner-color);
     border-radius: 10px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
     padding: 1rem;
@@ -132,12 +135,16 @@
     font-size: 22px !important;
     font-weight: 500 !important;
     text-transform: capitalize;
-    color: black !important;
+    color: var(--text-color) !important;
     margin: auto !important;
 }
 
+.supervisorcontainer p a {
+    color: var(--font-color);
+}
+
 .employeecard p {
-    color: rgba(0, 0, 0, .35);
+    color: var(--text-color);
     font-size: 15px;
     text-align: center;
     margin: 0;
@@ -152,12 +159,13 @@
 
 .employeenumbers a {
     padding: .75rem;
+    color: var(--small-font) !important;
     display: inline-block;
     font-size: 12px;
 }
 
 .employeenumbers p {
-    color: black;
+    color: var(--text-color);
     font-weight: 700;
 }
 

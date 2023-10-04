@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
    * @param credentials The login credentials of the employee.
    * @returns The login data of the authenticated employee.
    */
+
   const handleLogin = async (credentials: CredentialsType): Promise<LoginData | null> => {
     const auth = await authenticateEmployee(credentials)
     const userData: LoginData = await auth.data
