@@ -1,5 +1,6 @@
 'use client'
-import { type Employee, useAuth } from '@/context/AuthContext'
+import { useAuth } from '@/context/AuthContext'
+import { type Employee } from '@/interfaces/employee'
 
 const UserPage = (): JSX.Element => {
   const { user } = useAuth()

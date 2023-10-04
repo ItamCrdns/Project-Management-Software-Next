@@ -163,7 +163,7 @@
 .userpopup {
     z-index: 9999;
     position: absolute;
-    top: 65px;
+    top: 72px;
     right: 10px;
     background-color: white;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);

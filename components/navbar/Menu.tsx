@@ -1,7 +1,7 @@
 import styles from './navbar.module.css'
 import Image from 'next/image'
 import Button from '../button/button'
-import { type Employee } from '@/context/AuthContext'
+import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
 

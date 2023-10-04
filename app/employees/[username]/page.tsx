@@ -1,7 +1,11 @@
 import getEmployee from './getEmployee'
+import EmployeeCard from './EmployeeCard'
+import SupervisorCard from './SupervisorCard'
+import CurrentProjects from './CurrentProjects'
+import RecentActivity from './RecentActivity'
+import Colleagues from './Colleagues'
+import Tasks from './Tasks'
 import styles from './employee.module.css'
-import Image from 'next/image'
-import Link from 'next/link'
 
 const IndividualEmployee = async ({
   params
@@ -13,32 +17,20 @@ const IndividualEmployee = async ({
   const employee = data?.data
 
   return (
-    <section className={styles.main}>
-      <section className={styles.employeecard}>
-        {employee?.profilePicture !== null && (
-          <Image
-            src={employee?.profilePicture ?? ''}
-            alt={employee?.username ?? ''}
-            width={200}
-            height={200}
-          />
-        )}
-        <h1>{employee?.username}</h1>
-        <p>{employee?.role}</p>
-        <section className={styles.employeenumbers}>
-          {/* Placeholder values */}
-          <Link href={`/employees/${employee?.username}/projects`}>
-            <p>2</p> Projects
-          </Link>
-          <Link href={`/employees/${employee?.username}/tasks`}>
-            <p>2</p> Tasks
-          </Link>
-          <Link href={`/employees/${employee?.username}/issues`}>
-            <p>2</p> Issues
-          </Link>
-        </section>
+    <main className={styles.main}>
+      <section className={styles.cardswrapper}>
+        <EmployeeCard employee={employee} />
+        <SupervisorCard employee={employee} />
       </section>
-    </section>
+      <section className={styles.contentwrapper}>
+        <RecentActivity employee={employee} />
+        <CurrentProjects />
+        <Tasks />
+      </section>
+      <section className={styles.rightsidewrapper}>
+        <Colleagues />
+      </section>
+    </main>
   )
 }
 

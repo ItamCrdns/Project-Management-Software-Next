@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
     <>
       <nav className={styles.navbar}>
         <section className={styles.navlinks}>
-          <Link href="/">ACME Corporation</Link>
+          <Link style={{ fontWeight: 700 }} href="/">ACME Corporation</Link>
           <section className={styles.links}>{navItems}</section>
         </section>
         <section className={styles.user}>
@@ -72,7 +72,6 @@ const Navbar: React.FC = () => {
           <span className={toggle ? styles.rotateminus : ''} />
         </section>
       </nav>
-      {/* small screen devices navbar */}
       {showOverlay && <SmallScreenNavbar toggle={toggle} employee={employee} />}
     </>
   )
