@@ -1,6 +1,7 @@
 import getTasks from '../../../api-calls/getTasks'
 import Link from 'next/link'
 import styles from '../banner.module.css'
+import { type Task } from '@/interfaces/task'
 
 const Tasks = async (): Promise<JSX.Element> => {
   const data = await getTasks('1', '5')
@@ -14,7 +15,7 @@ const Tasks = async (): Promise<JSX.Element> => {
       </div>
       <ul>
         {Array.isArray(tasks) &&
-          tasks.map((task) => (
+          tasks.map((task: Task) => (
             <li key={task.taskId}>
               <h2>
                 <Link href={`/tasks/${task.taskId}`}>{task.name}</Link>

@@ -21,7 +21,7 @@ const Colleagues = async ({
       </div>
       <ul>
         {Array.isArray(colleagues) &&
-          colleagues.map((colleague) => (
+          colleagues.map((colleague: Employee) => (
             <li key={colleague.employeeId}>
               <Link href={`/employees/${colleague.username}`}>
                 <Image

@@ -1,6 +1,7 @@
 import getProjects from '../../../api-calls/getProjects'
 import Link from 'next/link'
 import styles from '../banner.module.css'
+import { type Project } from '@/interfaces/project'
 
 const Projects = async (): Promise<JSX.Element> => {
   const data = await getProjects('1', '5')
@@ -14,7 +15,7 @@ const Projects = async (): Promise<JSX.Element> => {
       </div>
       <ul>
         {Array.isArray(projects) &&
-          projects.map((project) => (
+          projects.map((project: Project) => (
             <li key={project.projectId}>
               <h2>
                 <Link href={`/projects/${project.projectId}`}>

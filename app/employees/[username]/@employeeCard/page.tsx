@@ -3,7 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import getEmployee from '@/api-calls/getEmployee'
 
-const EmployeeCard = async ({ params }: { params: { username: string } }): Promise<JSX.Element> => {
+const EmployeeCard = async ({
+  params
+}: {
+  params: { username: string }
+}): Promise<JSX.Element> => {
   const { username } = params
   const data = await getEmployee(username)
   const employee = data?.data
@@ -34,23 +38,25 @@ const EmployeeCard = async ({ params }: { params: { username: string } }): Promi
           </Link>
         </section>
       </section>
-      <section className={styles.employeecard}>
-        <h2>Supervisor</h2>
-        <div className={styles.supervisorcontainer}>
-          <Image
-            src={supervisor?.profilePicture ?? ''}
-            alt={supervisor?.username ?? ''}
-            width={50}
-            height={50}
-          />
-          <p>
-            <Link href={`/employees/${supervisor?.username}`}>
-              {supervisor?.username}
-            </Link>
-          </p>
-        </div>
-      </section>
-      </section>
+      {supervisor !== null && (
+        <section className={styles.employeecard}>
+          <h2>Supervisor</h2>
+          <div className={styles.supervisorcontainer}>
+            <Image
+              src={supervisor?.profilePicture ?? ''}
+              alt={supervisor?.username ?? ''}
+              width={50}
+              height={50}
+            />
+            <p>
+              <Link href={`/employees/${supervisor?.username}`}>
+                {supervisor?.username}
+              </Link>
+            </p>
+          </div>
+        </section>
+      )}
+    </section>
   )
 }
 

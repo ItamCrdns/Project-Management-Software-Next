@@ -20,7 +20,7 @@ const ProjectId = async ({
       <p>Created {relativeTime(new Date(project?.created ?? '').getTime())}</p>
       {Array.isArray(images) && (
         <ul>
-          {images.map((image) => (
+          {images.map((image: Images) => (
             <li key={image.imageId}>
               <Image
                 src={image.imageUrl}
