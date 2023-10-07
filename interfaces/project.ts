@@ -1,3 +1,5 @@
+import { type Company } from './company'
+import { type Employee } from './employee'
 import { type Images } from './images'
 
 export interface Project {
@@ -8,4 +10,8 @@ export interface Project {
   finalized: string // its a date too!
   projectCreatorId: number
   images: Images
+  projectCreator: Employee
+  company: Company
+  employees: Employee[]
+  priority: number
 }

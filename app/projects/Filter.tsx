@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import getCompaniesThatHaveProjects from '@/api-calls/getCompaniesThatHaveProjects'
 import { type Company } from '@/interfaces/company'
 import { type ApiResponse } from '@/interfaces/apiResponse'
+import Button from '@/components/button/button'
 
 interface FilterProps {
   toggle: boolean
@@ -46,12 +47,23 @@ const Filter = ({ toggle }: FilterProps): JSX.Element => {
         </option>
         {Array.isArray(companies) &&
           companies.map((company: Company) => (
-            <option key={company.name} value={company.companyId}>
+            <option key={company.companyId} value={company.companyId}>
               {company.name}
             </option>
           ))}
       </select>
-      {error !== null && <p style={{ fontSize: '8px', textAlign: 'center' }}>{error.toString()}</p>}
+      <Button
+        text="Apply filters"
+        backgroundColor="#6499E9"
+        effectColor="#27005D"
+        textColor="white"
+        width="105px"
+      />
+      {error !== null && (
+        <p style={{ fontSize: '8px', textAlign: 'center' }}>
+          {error.toString()}
+        </p>
+      )}
     </section>
   )
 }

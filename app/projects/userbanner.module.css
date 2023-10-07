@@ -41,12 +41,16 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: .5rem
+    align-items: center;
+    gap: .5rem;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
 }
 
 .popup p {
     margin: 0;
     padding: 0;
+    text-align: left;
+    width: 100%;
 }
 
 .popup select {
