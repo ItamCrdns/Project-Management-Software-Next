@@ -30,7 +30,10 @@ const initialState: UserContextType = {
     role: '',
     profilePicture: '',
     supervisor: null,
-    company: null
+    company: null,
+    projectCount: 0,
+    taskCount: 0,
+    issueCount: 0
   },
   setUser: () => {},
   handleLogin: async (credentials: CredentialsType) => {

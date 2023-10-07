@@ -7,4 +7,7 @@ export interface Employee {
   profilePicture: string
   supervisor: Employee | null
   company: Company | null
+  projectCount: number
+  taskCount: number
+  issueCount: number
 }

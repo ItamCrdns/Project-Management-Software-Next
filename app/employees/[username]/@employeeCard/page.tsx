@@ -28,13 +28,13 @@ const EmployeeCard = async ({
         <p>{employee?.role}</p>
         <section className={styles.employeenumbers}>
           <Link href={`/employees/${employee?.username}/projects`}>
-            <p>2</p> Projects
+            <p>{employee?.projectCount}</p> Projects
           </Link>
           <Link href={`/employees/${employee?.username}/tasks`}>
-            <p>2</p> Tasks
+            <p>{employee?.taskCount}</p> Tasks
           </Link>
           <Link href={`/employees/${employee?.username}/issues`}>
-            <p>2</p> Issues
+            <p>{employee?.issueCount}</p> Issues
           </Link>
         </section>
       </section>

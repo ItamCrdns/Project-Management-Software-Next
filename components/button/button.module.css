@@ -17,25 +17,25 @@
 
     --button-width: 100px;
     --button-height: 35px;
-    --button-background-color: rgb(235, 235, 235);
-    --button-text-color: black;
+    --button-background-color: var(--banner-color);
+    --button-text-color: var(--text-color);
 
     transition: box-shadow 0.5s ease-in-out;
 }
 
 .effect span {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--button-background-color);
-    color: var(--button-text-color);
-    padding:  0;
-    cursor: pointer;
-    border: none;
-    width: var(--button-width);
-    height: var(--button-height);
-    border-radius: 10px;
+    font-size: 14px !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: var(--button-background-color) !important;
+    color: var(--button-text-color) !important;
+    padding:  0 !important;
+    cursor: pointer !important;
+    border: none !important; 
+    width: var(--button-width) !important;
+    height: var(--button-height) !important;
+    border-radius: 10px !important;
 }
 
 .effect span span {

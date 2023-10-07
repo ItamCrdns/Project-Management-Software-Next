@@ -1,0 +1,69 @@
+.banner {
+    display: flex;
+    position: relative;
+    gap: 1rem;
+}
+
+.banner img {
+    border-radius: 50%;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.options p {
+    margin: 0;
+    padding: 0;
+}
+
+.nouser {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 400;
+    user-select: none;
+}
+  
+.popup {
+    background-color: var(--banner-color);
+    top: 3rem;
+    left: -5rem;
+    border-radius: 10px;
+    padding: 1rem;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem
+}
+
+.popup p {
+    margin: 0;
+    padding: 0;
+}
+
+.popup select {
+    color: var(--text-color);
+    font-family: inherit;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    background-color: var(--background-color);
+    appearance: none;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+.popup select option {
+    background-color: var(--background-color);
+    border: none;
+    outline: none;
+    padding: 1rem;
+}

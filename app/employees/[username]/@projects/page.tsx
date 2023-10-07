@@ -17,15 +17,20 @@ const CurrentProjects = async ({
         <span className="material-symbols-outlined">tactic</span>
         <h1>Current projects</h1>
       </div>
-      <ul>
-        {Array.isArray(projects) &&
-          projects?.map((project: Project) => (
+      {Array.isArray(projects) && projects.length > 0
+        ? (
+        <ul>
+          {projects?.map((project: Project) => (
             <li key={project.projectId}>
               <h1>{project.name}</h1>
               <p>{project.description}</p>
             </li>
           ))}
-      </ul>
+        </ul>
+          )
+        : (
+        <p>Here we will show their current projects.</p>
+          )}
     </section>
   )
 }
