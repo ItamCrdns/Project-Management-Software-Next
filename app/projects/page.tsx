@@ -6,6 +6,7 @@ import LoggedInCard from './LoggedInCard'
 import { relativeTime } from '@/utility/relativeTime'
 import ProjectCreator from './ProjectCreator'
 import ProjectEmployees from './ProjectEmployees'
+import ProjectPriority from './Priority'
 
 interface SearchParams {
   page: string
@@ -69,10 +70,7 @@ const ProjectsPage = async ({
                 {/* Project creator and employees */}
                 <ProjectCreator creator={project.projectCreator} />
                 <ProjectEmployees employees={project.employees} />
-                <div>
-                  {/* Project priority */}
-                  <p>{project.priority}/5</p>
-                </div>
+                <ProjectPriority priority={project.priority} />
                 <div>
                   {/* Project priority */}
                   <p>
