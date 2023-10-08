@@ -64,7 +64,7 @@
     text-overflow: ellipsis;
 }
 
-.projectswrapper ul li div {
+.projectswrapper ul li > div {
     display: flex;
     align-items: center !important;
     justify-content: center;
@@ -91,6 +91,7 @@
 }
 
 .listofemployees li {
+    position: relative;
     display: flex !important;
     align-items: center !important;
     flex-direction: row !important;

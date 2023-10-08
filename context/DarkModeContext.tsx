@@ -50,7 +50,6 @@ export const DarkModeProvider = ({
     if (darkModeButtonPressed) {
       // Save the data to localstorage if the darkMode button was pressed
       localStorage.setItem('darkMode', JSON.stringify(darkMode))
-      console.log('saved')
     }
   }, [darkMode])
 

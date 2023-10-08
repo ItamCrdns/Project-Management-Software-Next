@@ -71,3 +71,14 @@
     outline: none;
     padding: 1rem;
 }
+
+.userwrapper {
+    position: relative;
+}
+
+.employeecard {
+    position: absolute;
+    z-index: 8888;
+    top: 1.25rem;
+    padding: 1rem 0;
+}

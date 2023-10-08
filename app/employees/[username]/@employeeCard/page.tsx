@@ -11,7 +11,13 @@ const EmployeeCardProfile = async ({
   const employee = data?.data
   const supervisor = employee?.supervisor
 
-  return <EmployeeCard employee={employee} supervisor={supervisor} />
+  return (
+    <EmployeeCard
+      employee={employee}
+      supervisor={supervisor}
+      isProfile={true}
+    />
+  )
 }
 
 export default EmployeeCardProfile

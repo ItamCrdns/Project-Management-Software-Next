@@ -3,8 +3,9 @@ import getProjects from '@/api-calls/getProjects'
 import styles from './projectslist.module.css'
 import Link from 'next/link'
 import LoggedInCard from './LoggedInCard'
-import Image from 'next/image'
 import { relativeTime } from '@/utility/relativeTime'
+import ProjectCreator from './ProjectCreator'
+import ProjectEmployees from './ProjectEmployees'
 
 interface SearchParams {
   page: string
@@ -65,42 +66,18 @@ const ProjectsPage = async ({
                     </Link>
                   </h1>
                 </div>
-                <div>
-                  {/* Project creator */}
-                  <Image
-                    src={project.projectCreator.profilePicture}
-                    alt={project.projectCreator.username}
-                    width={25}
-                    height={25}
-                  />
-                  <p>{project.projectCreator.username}</p>
-                </div>
-                <div className={styles.listofemployees}>
-                  {/* Project employees */}
-                  {Array.isArray(project.employees) && (
-                    <ul>
-                      {project.employees.slice(0, 5).map((employee) => (
-                        <li key={employee.employeeId}>
-                          <Link href={`/employees/${employee.username}`}>
-                            <Image
-                              src={employee.profilePicture}
-                              alt={employee.username}
-                              width={25}
-                              height={25}
-                            />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                {/* Project creator and employees */}
+                <ProjectCreator creator={project.projectCreator} />
+                <ProjectEmployees employees={project.employees} />
                 <div>
                   {/* Project priority */}
                   <p>{project.priority}/5</p>
                 </div>
                 <div>
                   {/* Project priority */}
-                  <p>{relativeTime(new Date(project.created ?? '').getTime())}</p>
+                  <p>
+                    {relativeTime(new Date(project.created ?? '').getTime())}
+                  </p>
                 </div>
               </li>
             ))}
