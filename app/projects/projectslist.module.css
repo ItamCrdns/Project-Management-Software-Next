@@ -47,6 +47,32 @@
     user-select: none;
 }
 
+.listofemployees ul {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: row !important;
+}
+
+.listofemployees li {
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    background-color: none !important;
+    box-shadow: none !important;
+    padding: .1rem !important;
+}
+
+.projectswrapper li img {
+    border-radius: 50%;
+}
+
+.projectswrapper p {
+    margin: 0;
+    padding: 0;
+}
+
 .projectswrapper ul {
     list-style: none;
     padding: 0;
@@ -73,7 +99,8 @@
     gap: .5rem;
 }
 
-.projectswrapper li {
+/* Styles for only the first child becuase im nesting ul lis */
+.projectswrapper li:first-child {
     padding: 0 2rem;
     border-radius: 10px;
     background-color: var(--banner-color);
@@ -83,32 +110,10 @@
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
 }
 
-.listofemployees ul {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-direction: row !important;
-}
-
-.listofemployees li {
-    position: relative;
-    display: flex !important;
-    align-items: center !important;
-    flex-direction: row !important;
-    background-color: none !important;
-    box-shadow: none !important;
-    padding: .1rem !important;
-}
-
 .projectswrapper ul li div p {
     text-transform: capitalize;
 }
 
-.projectswrapper li img {
-    border-radius: 50%;
-}
-
-.projectswrapper p {
+.companywrapper h1 {
     margin: 0;
-    padding: 0;
 }

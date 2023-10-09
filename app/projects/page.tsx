@@ -1,12 +1,11 @@
+import React from 'react'
 import { type Project } from '@/interfaces/project'
 import getProjects from '@/api-calls/getProjects'
 import styles from './projectslist.module.css'
-import Link from 'next/link'
 import LoggedInCard from './LoggedInCard'
-import { relativeTime } from '@/utility/relativeTime'
-import ProjectCreator from './ProjectCreator'
-import ProjectEmployees from './ProjectEmployees'
-import ProjectPriority from './Priority'
+import HeaderDescriptor from './HeaderDescriptor'
+import EachProject from './EachProject'
+import groupBy from '@/utility/groupBy'
 
 interface SearchParams {
   page: string
@@ -21,7 +20,11 @@ const ProjectsPage = async ({
 }: SearchParamsProps): Promise<JSX.Element> => {
   const { page } = searchParams
   const data = await getProjects(page ?? '1', '5')
-  const projects = data?.data as Project
+  const projects = Array.isArray(data?.data) ? (data?.data as Project[]) : []
+
+  const result = groupBy({ items: projects }, (item) => item.company.name)
+
+  const resultArray = Object.entries(result)
 
   return (
     <main className={styles.main}>
@@ -33,51 +36,20 @@ const ProjectsPage = async ({
           </span>
           <LoggedInCard />
         </div>
-        <header className={styles.descriptor}>
-          <span style={{ width: '300px', justifyContent: 'center' }}>
-            <span className="material-symbols-outlined">signature</span>
-            Name
-          </span>
-          <span style={{ width: '300px', justifyContent: 'center' }}>
-            <span className="material-symbols-outlined">person</span>
-            Creator
-          </span>
-          <span style={{ width: '300px', justifyContent: 'center' }}>
-            <span className="material-symbols-outlined">group</span>
-            Employees
-          </span>
-          <span style={{ width: '300px', justifyContent: 'center' }}>
-            <span className="material-symbols-outlined">priority_high</span>
-            Priority
-          </span>
-          <span style={{ width: '300px', justifyContent: 'center' }}>
-            <span className="material-symbols-outlined">calendar_month</span>
-            Created
-          </span>
-        </header>
+        <HeaderDescriptor />
         {Array.isArray(projects) && (
           <ul>
-            {projects?.map((project: Project) => (
-              <li key={project.projectId}>
-                <div>
-                  {/* Project names */}
-                  <h1>
-                    <Link href={`/projects/${project.projectId}`}>
-                      {project.name}
-                    </Link>
-                  </h1>
+            {resultArray.map(([companyName, projects]) => (
+              <React.Fragment key={companyName}>
+                <div key={companyName} className={styles.companywrapper}>
+                  <h1>{companyName}</h1>
                 </div>
-                {/* Project creator and employees */}
-                <ProjectCreator creator={project.projectCreator} />
-                <ProjectEmployees employees={project.employees} />
-                <ProjectPriority priority={project.priority} />
-                <div>
-                  {/* Project priority */}
-                  <p>
-                    {relativeTime(new Date(project.created ?? '').getTime())}
-                  </p>
-                </div>
-              </li>
+                {projects?.map((project: Project) => (
+                  <li key={project.projectId}>
+                    <EachProject key={project.projectId} project={project} />
+                  </li>
+                ))}
+              </React.Fragment>
             ))}
           </ul>
         )}
