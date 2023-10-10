@@ -5,10 +5,7 @@ import Button from '@/components/button/button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import { type Company } from '@/interfaces/company'
 import useCompanyDropdown from '@/utility/companyDropdown'
-// import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-// import useGetEmployees from './useGetEmployees'
-// import AddEmployeesToProject from './Employees'
 import AddDescription from './AddDescription'
 
 const initialState: NewProjectData = {
@@ -57,7 +54,6 @@ const NewProjectModal = (): JSX.Element => {
 
   const projectName = data.data.name
   const companyId = data.data.companyId
-  // const companyName = data.data.companyName
 
   const dependency = projectName !== '' && companyId !== 0
 
@@ -66,12 +62,17 @@ const NewProjectModal = (): JSX.Element => {
       <section className={styles.newproject}>
         {dependency
           ? (
-            <AddDescription data={data} />
+          <AddDescription data={data} />
             )
           : (
           <>
             <h1>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
+              <p style={{ width: '400px', marginTop: '0' }}>
+                Please enter a descriptive name for your project. This name will
+                be displayed to employees and should reflect the nature or
+                purpose of the project.
+              </p>
               <input type="text" name="name" placeholder="Project name" />
               <select defaultValue={'DEFAULT'} name="companyId">
                 <option value="DEFAULT" disabled hidden>

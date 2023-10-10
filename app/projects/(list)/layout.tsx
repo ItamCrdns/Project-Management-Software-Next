@@ -10,7 +10,7 @@ const ProjectsPage = async (props: {
   new: React.ReactNode
   children: React.ReactNode
 }): Promise<JSX.Element> => {
-  const { data } = await getProjects('1', '3') // Page 1 (always) 3 projects per company
+  const { data } = await getProjects('1', '30') // Page 1 (always) 3 projects per company
   const projects = data as Project[]
 
   return (

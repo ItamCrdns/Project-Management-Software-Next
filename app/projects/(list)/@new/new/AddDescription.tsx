@@ -2,9 +2,11 @@ import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddEmployeesToProject from './Employees'
 import useGetEmployees from './useGetEmployees'
 import { type Employee } from '@/interfaces/employee'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Button from '@/components/button/button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
+import CustomSelect from '@/components/select/select'
+import { priorityOptions } from './priorityOptions'
 
 interface AddDescriptionProps {
   data: NewProjectData
@@ -12,8 +14,6 @@ interface AddDescriptionProps {
 const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null)
   const [newData, setNewData] = useState<NewProjectData>(data)
-  //   const projectName = data.data.name
-  //   const companyId = data.data.companyId
 
   const descriptionProvided = newData.data.description
 
@@ -40,6 +40,25 @@ const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
 
   const handleClick = useSubmitRef(formRef)
 
+  /**
+   * Updates the priority value in the state with the selected value. passing this function as props refer to the CustomSelect component
+   * @param selectedValue - The selected priority value.
+   * @returns void
+   */
+  const handlePrioritySelect = (selectedValue: number): void => {
+    setNewData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        priority: selectedValue
+      }
+    }))
+  }
+
+  useEffect(() => {
+    console.log(newData.data)
+  }, [newData])
+
   return (
     <>
       {dependency
@@ -53,6 +72,8 @@ const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
               name="description"
               placeholder="Add a project description"
             />
+            <p>Priority:</p>
+            <CustomSelect options={priorityOptions} text='priority' onSelect={handlePrioritySelect} />
           </form>
           <div onClick={handleClick}>
             <Button text="Next" backgroundColor="blue" />
