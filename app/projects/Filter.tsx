@@ -1,39 +1,14 @@
 import styles from './userbanner.module.css'
-import { useEffect, useState } from 'react'
-import getCompaniesThatHaveProjects from '@/api-calls/getCompaniesThatHaveProjects'
 import { type Company } from '@/interfaces/company'
-import { type ApiResponse } from '@/interfaces/apiResponse'
 import Button from '@/components/button/button'
+import useCompanyDropdown from '@/utility/companyDropdown'
 
 interface FilterProps {
   toggle: boolean
 }
 
 const Filter = ({ toggle }: FilterProps): JSX.Element => {
-  const [companies, setCompanies] = useState<Company[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  const getCompanies = async (): Promise<{
-    data: Company[] | null
-    status: number
-  }> => {
-    const data = await getCompaniesThatHaveProjects()
-
-    return { data: data.data, status: data.status }
-  }
-
-  useEffect(() => {
-    // * Fetch the companies only if the user opens the toggle menu
-    if (toggle) {
-      getCompanies()
-        .then((response: ApiResponse<Company[]>) => {
-          setCompanies(response.data)
-        })
-        .catch((error) => {
-          setError(error)
-        })
-    }
-  }, [toggle])
+  const { companies, error } = useCompanyDropdown({ dependency: toggle })
 
   return (
     <section

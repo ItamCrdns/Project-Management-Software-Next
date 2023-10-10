@@ -23,18 +23,6 @@ const Projects = async (): Promise<JSX.Element> => {
                 </Link>
               </h2>
               <p>{project.description}</p>
-              {/* <ul>
-                {project.images.map((image: Images) => (
-                  <li key={image.publicId}>
-                    <Image
-                      src={image.imageUrl}
-                      alt={image.publicId}
-                      width="200"
-                      height="200"
-                    />
-                  </li>
-                ))}
-              </ul> */}
             </li>
           ))}
       </ul>

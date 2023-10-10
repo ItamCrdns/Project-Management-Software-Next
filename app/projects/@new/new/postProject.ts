@@ -1,12 +1,10 @@
-import { type ApiResponse } from '@/interfaces/apiResponse'
-
-const fetcher = async <T>(endpoint: string): Promise<ApiResponse<T>> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + endpoint)
+const handleSubmitProject = async (formData: FormData): Promise<{ data: number | null, status: number }> => {
+  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Project/new')
 
   const requestOptions: RequestInit = {
-    method: 'GET',
+    method: 'POST',
     credentials: 'include',
-    cache: 'no-store'
+    body: formData
   }
 
   const res = await fetch(url, requestOptions)
@@ -28,4 +26,4 @@ const fetcher = async <T>(endpoint: string): Promise<ApiResponse<T>> => {
   }
 }
 
-export default fetcher
+export default handleSubmitProject

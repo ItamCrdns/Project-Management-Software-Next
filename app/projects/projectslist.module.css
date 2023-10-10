@@ -114,6 +114,12 @@
     text-transform: capitalize;
 }
 
+.companywrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .companywrapper h1 {
     margin: 0;
 }
