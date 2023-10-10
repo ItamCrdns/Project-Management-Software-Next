@@ -70,6 +70,7 @@ const AddEmployeesToProject = ({
 
   return (
     <>
+    <h1>Add employees for {data.data.name}</h1>
       <ul>
         {Array.isArray(employees) &&
           employees.map((employee: Employee) => (

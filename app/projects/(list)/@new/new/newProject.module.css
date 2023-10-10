@@ -99,3 +99,21 @@
     text-transform: capitalize;
     font-weight: 500;
 }
+
+.newproject textarea {
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: var(--darker-banner-color);
+    color: var(--text-color);
+    font-family: inherit;
+    border-radius: 5px;
+    padding: 1rem;
+    width: 300px;
+    height: 75px;
+}
+
+.newproject textarea::placeholder {
+    font-size: 18px;
+    text-align: center;
+}

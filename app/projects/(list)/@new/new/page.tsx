@@ -5,10 +5,11 @@ import Button from '@/components/button/button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import { type Company } from '@/interfaces/company'
 import useCompanyDropdown from '@/utility/companyDropdown'
-import { type Employee } from '@/interfaces/employee'
+// import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-import useGetEmployees from './useGetEmployees'
-import AddEmployeesToProject from './Employees'
+// import useGetEmployees from './useGetEmployees'
+// import AddEmployeesToProject from './Employees'
+import AddDescription from './AddDescription'
 
 const initialState: NewProjectData = {
   data: {
@@ -40,7 +41,6 @@ const NewProjectModal = (): JSX.Element => {
       data: {
         ...prevState.data,
         name: formData.name as string,
-        description: formData.description as string,
         companyId: parseInt((formData.companyId as string) ?? '0'),
         companyName: (
           companies?.find(
@@ -61,47 +61,40 @@ const NewProjectModal = (): JSX.Element => {
 
   const dependency = projectName !== '' && companyId !== 0
 
-  // * explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
-  const employees: Employee[] | null = useGetEmployees({ dependency })
-
-  if (dependency) {
-    return (
-      <section className={styles.newprojectwrapper}>
-        <section className={styles.newproject}>
-          <h1>Add employees</h1>
-          <AddEmployeesToProject data={data} employees={employees} />
-        </section>
-      </section>
-    )
-  }
-
   return (
     <section className={styles.newprojectwrapper}>
       <section className={styles.newproject}>
-        <h1>Create a new project</h1>
-        <form ref={formRef} onSubmit={handleSubmit}>
-          <input type="text" name="name" placeholder="Project name" />
-          <textarea name="description"></textarea>
-          <select defaultValue={'DEFAULT'} name="companyId">
-            <option value="DEFAULT" disabled hidden>
-              Select a company...
-            </option>
-            {Array.isArray(companies) &&
-              companies.map((company: Company) => (
-                <option key={company.companyId} value={company.companyId}>
-                  {company.name}
+        {dependency
+          ? (
+            <AddDescription data={data} />
+            )
+          : (
+          <>
+            <h1>Create a new project</h1>
+            <form ref={formRef} onSubmit={handleSubmit}>
+              <input type="text" name="name" placeholder="Project name" />
+              <select defaultValue={'DEFAULT'} name="companyId">
+                <option value="DEFAULT" disabled hidden>
+                  Select a company...
                 </option>
-              ))}
-          </select>
-        </form>
-        {error !== null && (
-          <p style={{ fontSize: '8px', textAlign: 'center' }}>
-            {error.toString()}
-          </p>
-        )}
-        <div onClick={handleClick}>
-          <Button text="Next" backgroundColor="blue" />
-        </div>
+                {Array.isArray(companies) &&
+                  companies.map((company: Company) => (
+                    <option key={company.companyId} value={company.companyId}>
+                      {company.name}
+                    </option>
+                  ))}
+              </select>
+            </form>
+            {error !== null && (
+              <p style={{ fontSize: '8px', textAlign: 'center' }}>
+                {error.toString()}
+              </p>
+            )}
+            <div onClick={handleClick}>
+              <Button text="Next" backgroundColor="blue" />
+            </div>
+          </>
+            )}
       </section>
     </section>
   )
