@@ -9,9 +9,10 @@ import EmployeeOfTheList from '../../EmployeeOfTheList'
 interface LastPageProps {
   project: NewProjectData
   employees: Employee[] | null
+  goBack: () => void
 }
 
-const Resume = ({ project, employees }: LastPageProps): JSX.Element => {
+const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
   const router = useRouter()
 
   const handleCreateProject = (): void => {
@@ -39,6 +40,10 @@ const Resume = ({ project, employees }: LastPageProps): JSX.Element => {
       })
   }
 
+  const handleGoBack = (): void => {
+    goBack()
+  }
+
   return (
     <section className={styles.summary}>
       <h1>Your new project overview</h1>
@@ -63,30 +68,38 @@ const Resume = ({ project, employees }: LastPageProps): JSX.Element => {
           <h2>{project.data.companyName}</h2>
         </span>
       </div>
-      {Array.isArray(employees) && (
-        <section className={styles.employeesresume}>
-          <ul>
-            {employees.map((employee) => (
-              <EmployeeOfTheList
-                key={employee.username}
-                employee={employee}
-                size={50}
-                redirectMe={false}
-              />
+      {Array.isArray(employees) &&
+        (employees.length > 0
+          ? (
+          <section className={styles.employeesresume}>
+            <ul>
+              {employees.map((employee) => (
+                <EmployeeOfTheList
+                  key={employee.username}
+                  employee={employee}
+                  size={50}
+                  redirectMe={false}
+                />
+              ))}
+            </ul>
+          </section>
+            )
+          : (
+          <p>
+            You didn&apos;t add any employees, but don&apos;t worry, you can add
+            them later.
+          </p>
             ))}
-          </ul>
-        </section>
-      )}
       <div className={styles.buttonwrapper}>
         <div onClick={handleCreateProject}>
           <Button
             text="Create project"
             backgroundColor="#80B3FF"
             width="120px"
-            textColor='white'
+            textColor="white"
           />
         </div>
-        <div>
+        <div onClick={handleGoBack}>
           <Button
             text="Go back"
             backgroundColor="var(--darker-banner-color)"

@@ -8,12 +8,19 @@ import { useSubmitRef } from '@/utility/formSubmitRef'
 import CustomSelect, { type Option } from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
+import styles from './newProject.module.css'
 
 interface AddDescriptionProps {
   data: NewProjectData
+  goBack: (
+    descriptionValue: string,
+    priorityValue: number | null,
+    priorityLabel: string | null,
+    employeesValue: Employee[] | null
+  ) => void
 }
 
-const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
+const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null)
   const [newData, setNewData] = useState<NewProjectData>(data)
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
@@ -59,16 +66,43 @@ const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
   const descriptionProvided = newData.data.description
   const priorityProvided = newData.data.priority
 
-  const dependency = descriptionProvided !== '' && priorityProvided !== 0 && readyForNextPage
+  const dependency =
+    descriptionProvided !== '' && priorityProvided !== 0 && readyForNextPage
 
   // * Explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
   const employees: Employee[] | null = useGetEmployees({ dependency })
+
+  const handleGoBack = (): void => {
+    // * Send back the description and priority values to the previous page (as arguments)
+    goBack(
+      newData.data.description,
+      newData.data.priority,
+      newData.data.priorityLabel,
+      newData.data.employees // * Send back the employees array as well because i was losing them if i returned all the way to 1st page
+    )
+  }
+
+  const handleReturnHere = (employees: Employee[]): void => {
+    setReadyForNextPage(false)
+
+    setNewData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        employees
+      }
+    }))
+  }
 
   return (
     <>
       {dependency
         ? (
-        <AddEmployeesToProject employees={employees} data={newData} />
+        <AddEmployeesToProject
+          employees={employees}
+          data={newData}
+          goBack={handleReturnHere}
+        />
           )
         : (
         <>
@@ -79,24 +113,36 @@ const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
               to help your team understand its purpose and importance.
             </p>
             <InputAndCharacterCount
+              defaultValue={newData.data.description ?? ''}
               name="description"
               placeholder={`Add a description for ${data.data.name}`}
               limit={255}
               onSubmit={handleTextAreaSubmit}
             />
             <CustomSelect
+              defaultValue={newData.data.priorityLabel ?? ''}
               options={priorityOptions}
               text="priority"
               onSelect={handlePrioritySelect}
             />
           </form>
-          <div onClick={handleClick}>
-            <Button
-              text="Next"
-              backgroundColor="#80B3FF"
-              textColor='white'
-              effectColor="var(--banner-color)"
-            />
+          <div className={styles.buttonwrapper}>
+            <div onClick={handleClick}>
+              <Button
+                text="Next"
+                backgroundColor="#80B3FF"
+                textColor="white"
+                effectColor="var(--banner-color)"
+              />
+            </div>
+            <div onClick={handleGoBack}>
+              <Button
+                text="Go back"
+                backgroundColor="var(--darker-banner-color)"
+                effectColor="var(--banner-color)"
+                textColor="var(--text-color)"
+              />
+            </div>
           </div>
         </>
           )}

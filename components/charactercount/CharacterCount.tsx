@@ -1,13 +1,6 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import styles from './charactercount.module.css'
-
-interface CharacterCountProps {
-  name: string
-  placeholder: string
-  limit: number
-  onSubmit: (value: string) => void
-}
 
 /**
  * Props for the InputAndCharacterCount component
@@ -17,6 +10,7 @@ interface CharacterCountProps {
   placeholder: string
   limit: number
   onSubmit: (value: string) => void
+  defaultValue: string
 }
 
 /**
@@ -25,10 +19,11 @@ interface CharacterCountProps {
  * @param placeholder - The placeholder text for the input field
  * @param limit - The maximum number of characters allowed in the input field
  * @param onSubmit - A callback function that is called when the input field loses focus
+ * @param defaultValue - default value that will be useful when clicking the "go back " btn
  */
 export const InputAndCharacterCount: React.FunctionComponent<
 CharacterCountProps
-> = ({ name, placeholder, limit, onSubmit }) => {
+> = ({ name, placeholder, limit, onSubmit, defaultValue }) => {
   const [characters, setCharacters] = useState<string>('0')
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
@@ -68,6 +63,7 @@ CharacterCountProps
         placeholder={placeholder}
         onChange={handleTextareaChange}
         onBlur={handleTextareaBlur}
+        defaultValue={defaultValue}
         maxLength={255}
       />
       <p>
