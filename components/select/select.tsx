@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './select.module.css'
 
-interface Option {
+export interface Option {
   value: number
   label: string
   info: string
@@ -10,7 +10,7 @@ interface Option {
 interface CustomSelectProps {
   options: Option[]
   text: string
-  onSelect: (value: number) => void
+  onSelect: (value: Option) => void
 }
 
 const CustomSelect = ({ text, options, onSelect }: CustomSelectProps): JSX.Element => {
@@ -23,7 +23,7 @@ const CustomSelect = ({ text, options, onSelect }: CustomSelectProps): JSX.Eleme
 
   const handleOptionClick = (option: Option): void => {
     setSelectedOption(option)
-    onSelect(option.value)
+    onSelect(option)
     setToggle(false)
   }
 

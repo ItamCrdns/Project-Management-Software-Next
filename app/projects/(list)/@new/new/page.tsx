@@ -7,6 +7,8 @@ import { type Company } from '@/interfaces/company'
 import useCompanyDropdown from '@/utility/companyDropdown'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddDescription from './AddDescription'
+import CustomSelect, { type Option } from '@/components/select/select'
+import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 
 const initialState: NewProjectData = {
   data: {
@@ -15,6 +17,7 @@ const initialState: NewProjectData = {
     companyId: 0,
     companyName: '',
     priority: 0,
+    priorityLabel: '',
     employees: null
   },
   setData: () => {}
@@ -24,30 +27,13 @@ const NewProjectModal = (): JSX.Element => {
   const { companies, error } = useCompanyDropdown({ dependency: true })
   const [data, setData] = useState<NewProjectData>(initialState) // * Data to send to the backend
 
+  const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
+
   const formRef = useRef<HTMLFormElement>(null)
 
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-
-    const formData = Object.fromEntries(
-      new FormData(e.target as HTMLFormElement)
-    )
-
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        name: formData.name as string,
-        companyId: parseInt((formData.companyId as string) ?? '0'),
-        companyName: (
-          companies?.find(
-            (company: Company) =>
-              company.companyId ===
-              parseInt((formData.companyId as string) ?? '0')
-          ) ?? { name: '' }
-        ).name
-      }
-    }))
+    setReadyForNextPage(true)
   }
 
   const handleClick = useSubmitRef(formRef)
@@ -55,7 +41,38 @@ const NewProjectModal = (): JSX.Element => {
   const projectName = data.data.name
   const companyId = data.data.companyId
 
-  const dependency = projectName !== '' && companyId !== 0
+  const dependency = projectName !== '' && companyId !== 0 && readyForNextPage
+
+  const companyOptions = companies?.map((company: Company) => ({
+    value: parseInt(company.companyId.toString()),
+    label: company.name,
+    info: ''
+  }))
+
+  /**
+   * Callback function passed as props that updates the state with the selected company's ID and name.
+   * @param selectedValue - The selected company's option object.
+   */
+  const handleCompanySelect = (selectedValue: Option): void => {
+    setData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        companyId: selectedValue.value,
+        companyName: selectedValue.label
+      }
+    }))
+  }
+
+  const handleInputSubmit = (projectName: string): void => {
+    setData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        name: projectName
+      }
+    }))
+  }
 
   return (
     <section className={styles.newprojectwrapper}>
@@ -69,22 +86,20 @@ const NewProjectModal = (): JSX.Element => {
             <h1>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
               <p style={{ width: '400px', marginTop: '0' }}>
-                Please enter a descriptive name for your project. This name will
-                be displayed to employees and should reflect the nature or
-                purpose of the project.
+                Enter a clear project name. It&apos;ll appear to your team members
+                and should indicate what the project is focused on.
               </p>
-              <input type="text" name="name" placeholder="Project name" />
-              <select defaultValue={'DEFAULT'} name="companyId">
-                <option value="DEFAULT" disabled hidden>
-                  Select a company...
-                </option>
-                {Array.isArray(companies) &&
-                  companies.map((company: Company) => (
-                    <option key={company.companyId} value={company.companyId}>
-                      {company.name}
-                    </option>
-                  ))}
-              </select>
+              <InputAndCharacterCount
+                name="name"
+                placeholder="Project name"
+                limit={255}
+                onSubmit={handleInputSubmit}
+              />
+              <CustomSelect
+                options={companyOptions ?? []}
+                text="company"
+                onSelect={handleCompanySelect}
+              />
             </form>
             {error !== null && (
               <p style={{ fontSize: '8px', textAlign: 'center' }}>
@@ -92,7 +107,11 @@ const NewProjectModal = (): JSX.Element => {
               </p>
             )}
             <div onClick={handleClick}>
-              <Button text="Next" backgroundColor="blue" />
+              <Button
+                text="Next"
+                backgroundColor="#80B3FF"
+                textColor='white'
+              />
             </div>
           </>
             )}

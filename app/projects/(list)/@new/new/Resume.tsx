@@ -53,11 +53,26 @@ const Resume = ({ project, employees }: LastPageProps): JSX.Element => {
           <h2>{project.data.description}</h2>
         </span>
       </div>
+      <div className={styles.companyprioritywrapper}>
+        <span>
+          <p>Priority</p>
+          <h2>{project.data.priorityLabel}</h2>
+        </span>
+        <span>
+          <p>Company</p>
+          <h2>{project.data.companyName}</h2>
+        </span>
+      </div>
       {Array.isArray(employees) && (
         <section className={styles.employeesresume}>
           <ul>
             {employees.map((employee) => (
-              <EmployeeOfTheList key={employee.username} employee={employee} size={50} redirectMe={false} />
+              <EmployeeOfTheList
+                key={employee.username}
+                employee={employee}
+                size={50}
+                redirectMe={false}
+              />
             ))}
           </ul>
         </section>
@@ -66,12 +81,18 @@ const Resume = ({ project, employees }: LastPageProps): JSX.Element => {
         <div onClick={handleCreateProject}>
           <Button
             text="Create project"
-            backgroundColor="#352F44"
+            backgroundColor="#80B3FF"
             width="120px"
+            textColor='white'
           />
         </div>
         <div>
-          <Button text="Reset" backgroundColor="white" textColor="black" />
+          <Button
+            text="Go back"
+            backgroundColor="var(--darker-banner-color)"
+            effectColor="var(--banner-color)"
+            textColor="var(--text-color)"
+          />
         </div>
       </div>
     </section>

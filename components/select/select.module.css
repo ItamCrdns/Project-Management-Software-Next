@@ -1,8 +1,8 @@
 .customselect {
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     position: relative;
     background-color: var(--darker-banner-color);
     padding: 0 .5rem;
@@ -13,7 +13,6 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    width: 100%;
     justify-content: flex-end;
     gap: .25rem;
 }
@@ -47,9 +46,14 @@
     background-color: var(--banner-color);
 }
 
-.customselect ul li p, .customselect ul li h4 {
+.customselect ul li p {
     text-align: left;
     display: flex;
     flex-direction: column;
     margin: 0;
+}
+
+.customselect ul li h4 {
+    margin: 0;
+    font-weight: 600;
 }

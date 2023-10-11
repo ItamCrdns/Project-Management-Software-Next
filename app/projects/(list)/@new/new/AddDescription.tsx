@@ -2,40 +2,25 @@ import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddEmployeesToProject from './Employees'
 import useGetEmployees from './useGetEmployees'
 import { type Employee } from '@/interfaces/employee'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Button from '@/components/button/button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import CustomSelect from '@/components/select/select'
+import CustomSelect, { type Option } from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
+import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 
 interface AddDescriptionProps {
   data: NewProjectData
 }
+
 const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null)
   const [newData, setNewData] = useState<NewProjectData>(data)
-
-  const descriptionProvided = newData.data.description
-
-  const dependency = descriptionProvided !== ''
-
-  // * Explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
-  const employees: Employee[] | null = useGetEmployees({ dependency })
+  const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-
-    const formData = Object.fromEntries(
-      new FormData(e.target as HTMLFormElement)
-    )
-
-    setNewData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        description: formData.description as string
-      }
-    }))
+    setReadyForNextPage(true)
   }
 
   const handleClick = useSubmitRef(formRef)
@@ -45,19 +30,39 @@ const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
    * @param selectedValue - The selected priority value.
    * @returns void
    */
-  const handlePrioritySelect = (selectedValue: number): void => {
+  const handlePrioritySelect = (selectedValue: Option): void => {
     setNewData((prevState) => ({
       ...prevState,
       data: {
         ...prevState.data,
-        priority: selectedValue
+        priority: selectedValue.value,
+        priorityLabel: selectedValue.label
       }
     }))
   }
 
-  useEffect(() => {
-    console.log(newData.data)
-  }, [newData])
+  /**
+   * Callback function passed as props that updates the state with the new description value.
+   * @param {string} description - The new description value.
+   * @returns {void}
+   */
+  const handleTextAreaSubmit = (description: string): void => {
+    setNewData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        description
+      }
+    }))
+  }
+
+  const descriptionProvided = newData.data.description
+  const priorityProvided = newData.data.priority
+
+  const dependency = descriptionProvided !== '' && priorityProvided !== 0 && readyForNextPage
+
+  // * Explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
+  const employees: Employee[] | null = useGetEmployees({ dependency })
 
   return (
     <>
@@ -67,16 +72,31 @@ const AddDescription = ({ data }: AddDescriptionProps): JSX.Element => {
           )
         : (
         <>
+          <h1>Now, add a description:</h1>
           <form ref={formRef} onSubmit={handleSubmit}>
-            <textarea
+            <p style={{ width: '400px', marginTop: '10px' }}>
+              Add a project description with objectives, goals, or key details
+              to help your team understand its purpose and importance.
+            </p>
+            <InputAndCharacterCount
               name="description"
-              placeholder="Add a project description"
+              placeholder={`Add a description for ${data.data.name}`}
+              limit={255}
+              onSubmit={handleTextAreaSubmit}
             />
-            <p>Priority:</p>
-            <CustomSelect options={priorityOptions} text='priority' onSelect={handlePrioritySelect} />
+            <CustomSelect
+              options={priorityOptions}
+              text="priority"
+              onSelect={handlePrioritySelect}
+            />
           </form>
           <div onClick={handleClick}>
-            <Button text="Next" backgroundColor="blue" />
+            <Button
+              text="Next"
+              backgroundColor="#80B3FF"
+              textColor='white'
+              effectColor="var(--banner-color)"
+            />
           </div>
         </>
           )}

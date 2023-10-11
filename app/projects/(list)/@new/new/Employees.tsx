@@ -55,7 +55,7 @@ const AddEmployeesToProject = ({
           )
         : (
         <>
-          <h1>Add employees for {data.data.name}</h1>
+          <h1>Who will be working on {data.data.name}?</h1>
           <ul>
             {Array.isArray(employees) &&
               employees.map((employee: Employee) => (
@@ -89,7 +89,12 @@ const AddEmployeesToProject = ({
           {selectedEmployees !== null && selectedEmployees.length > 0
             ? (
             <div onClick={handleSubmit}>
-              <Button text="Continue" width="100px" effectColor="black" />
+              <Button
+                text="Continue"
+                width="100px"
+                backgroundColor="#80B3FF"
+                textColor='white'
+              />
             </div>
               )
             : (
@@ -97,7 +102,8 @@ const AddEmployeesToProject = ({
               <Button
                 text="Continue without adding employees"
                 width="275px"
-                effectColor="black"
+                backgroundColor="var(--darker-banner-color)"
+                effectColor="var(--banner-color)"
               />
             </div>
               )}

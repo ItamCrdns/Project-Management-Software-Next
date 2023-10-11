@@ -7,6 +7,7 @@ export interface NewProjectData {
     companyId: number | null
     companyName: string | null // Only for displaying purposes
     priority: number | null
+    priorityLabel: string | null // Only for displaying purposes
     employees: Employee[] | null
     // * To add images
   }

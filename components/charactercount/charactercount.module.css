@@ -1,0 +1,19 @@
+.inputwrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputwrapper > p {
+    display: flex;
+    font-size: 10px;
+    justify-content: flex-end;
+}
+
+.inputwrapper textarea {
+    box-sizing: border-box;
+    resize: none;
+    /* height: 50px; */
+    width: 100%;
+    font-size: 18px;
+    overflow: hidden;
+}
