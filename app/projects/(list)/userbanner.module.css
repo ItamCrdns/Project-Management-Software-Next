@@ -73,12 +73,12 @@
 }
 
 .userwrapper {
-    position: relative;
+    position: relative;;
 }
 
 .employeecard {
     position: absolute;
     z-index: 8888;
-    top: 1.25rem;
+    top: 2.75rem;
     padding: 1rem 0;
 }

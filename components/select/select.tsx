@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './select.module.css'
 
 interface Option {
@@ -26,10 +26,6 @@ const CustomSelect = ({ text, options, onSelect }: CustomSelectProps): JSX.Eleme
     onSelect(option.value)
     setToggle(false)
   }
-
-  useEffect(() => {
-    console.log(selectedOption)
-  }, [selectedOption])
 
   return (
     <div className={styles.customselect}>

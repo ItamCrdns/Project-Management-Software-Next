@@ -16,7 +16,7 @@ const ProjectEmployees = ({
       {Array.isArray(employees) && (
         <ul>
           {employees.slice(0, 5).map((employee) => (
-            <EmployeeOfTheList key={employee.username} employee={employee} />
+            <EmployeeOfTheList key={employee.username} employee={employee} size={50} redirectMe={true} />
           ))}
         </ul>
       )}

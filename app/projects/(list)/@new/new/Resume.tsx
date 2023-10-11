@@ -4,7 +4,7 @@ import Button from '@/components/button/button'
 import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
 import { type Employee } from '@/interfaces/employee'
-import Image from 'next/image'
+import EmployeeOfTheList from '../../EmployeeOfTheList'
 
 interface LastPageProps {
   project: NewProjectData
@@ -54,24 +54,13 @@ const Resume = ({ project, employees }: LastPageProps): JSX.Element => {
         </span>
       </div>
       {Array.isArray(employees) && (
-        <>
-          <h2>Employees:</h2>
+        <section className={styles.employeesresume}>
           <ul>
             {employees.map((employee) => (
-              <li key={employee.employeeId}>
-                <div>
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={50}
-                    height={50}
-                  />
-                  <p>{employee.username}</p>
-                </div>
-              </li>
+              <EmployeeOfTheList key={employee.username} employee={employee} size={50} redirectMe={false} />
             ))}
           </ul>
-        </>
+        </section>
       )}
       <div className={styles.buttonwrapper}>
         <div onClick={handleCreateProject}>

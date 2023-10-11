@@ -3,7 +3,7 @@
     background-color: rgba(0, 0, 0, .5);
     backdrop-filter: blur(5px);
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@
     min-width: 500px;
     padding: 2rem 0;
     gap: 1rem;
-    /* margin-bottom: 20%; */
+    margin-bottom: 20%;
 }
 
 .newproject form {
@@ -48,7 +48,6 @@
     outline: none;
     border: none;
 }
-
 
 .newproject select {
     color: var(--text-color);
@@ -117,13 +116,14 @@
 }
 
 .summary {
-    width: 100%;
-    padding: 0 2.5rem;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    gap: 1rem;
+}
+
+.summary > p {
+    margin-bottom: 3rem;
 }
 
 .summarydatawrapper {
@@ -153,10 +153,28 @@
 
 .summary h2 {
     font-weight: 400;
-    margin: 0;
 }
 
 .buttonwrapper {
     display: flex;
     gap: 1rem;
 }
+
+.employeesresume > ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: 1.5rem;
+}
+
+.employeesresume > ul li img {
+    border-radius: 50%;
+}
+
+/* .employeesresume > ul li p {
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 18px;
+} */

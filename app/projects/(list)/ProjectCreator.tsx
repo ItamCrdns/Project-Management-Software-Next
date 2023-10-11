@@ -19,17 +19,16 @@ const ProjectCreator = ({ creator }: ProjectCreatorProps): JSX.Element => {
         onMouseLeave={handleHideCard}
         src={creator.profilePicture}
         alt={creator.username}
-        width={25}
-        height={25}
+        width={50}
+        height={50}
       />
-      <p>{creator.username}</p>
       {showCard && (
         <section
           onMouseOver={handleShowCard}
           onMouseLeave={handleHideCard}
           className={styles.employeecard}
         >
-          <EmployeeCard employee={creator} isProfile={false} />
+          <EmployeeCard employee={creator} isProfile={false} redirectMe={true} />
         </section>
       )}
     </div>

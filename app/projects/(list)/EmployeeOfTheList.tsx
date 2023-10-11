@@ -4,11 +4,13 @@ import useCardVisibility from './useCardVisibility'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import styles from './userbanner.module.css'
 
-const EmployeeOfTheList = ({
-  employee
-}: {
+interface EmployeeListProps {
   employee: Employee
-}): JSX.Element => {
+  size: number // Size in px for the image should be provided only one: ex: 25x25 or 50x50
+  redirectMe: boolean // * Should we redirect to the employee profile or not? prop drilling
+}
+
+const EmployeeOfTheList = ({ employee, size, redirectMe }: EmployeeListProps): JSX.Element => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
   return (
@@ -19,8 +21,8 @@ const EmployeeOfTheList = ({
           onMouseLeave={handleHideCard}
           src={employee.profilePicture}
           alt={employee.username}
-          width={25}
-          height={25}
+          width={size}
+          height={size}
         />
       </li>
       {showCard && (
@@ -29,7 +31,7 @@ const EmployeeOfTheList = ({
           onMouseLeave={handleHideCard}
           className={styles.employeecard}
         >
-          <EmployeeCard employee={employee} isProfile={false} />
+          <EmployeeCard employee={employee} isProfile={false} redirectMe={redirectMe} />
         </section>
       )}
     </div>

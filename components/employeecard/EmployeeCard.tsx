@@ -9,12 +9,14 @@ interface EmployeeCardProps {
   supervisor?: Employee | null | undefined
   isProfile: boolean // * Should we show the supervisor card too or not?
   // ! || used to track if the cardwill be diplayted in the profile, if yes: more properties will be dispalyed. If no: only a few will because its a modal card being displayed somewhere in the page
+  redirectMe: boolean // * Should we redirect to the employee profile or not?
 }
 
 const EmployeeCard = ({
   employee,
   supervisor,
-  isProfile
+  isProfile,
+  redirectMe
 }: EmployeeCardProps): JSX.Element => {
   return (
     <section className={styles.cardswrapper}>
@@ -31,13 +33,17 @@ const EmployeeCard = ({
           ? (
           <h1>{employee?.username}</h1>
             )
-          : (
+          : redirectMe
+            ? (
           <h1 style={{ marginBottom: '1rem' }}>
             <Link href={`/employees/${employee?.username}`}>
               {employee?.username}
             </Link>
           </h1>
-            )}
+              )
+            : (
+          <h1 style={{ marginBottom: '1rem' }}>{employee?.username}</h1>
+              )}
         <p>{employee?.role}</p>
         {isProfile && (
           <section className={styles.employeenumbers}>
