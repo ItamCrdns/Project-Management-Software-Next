@@ -3,6 +3,23 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './ripplebutton.module.css'
 import Link from 'next/link'
 
+/**
+ * Props for the RippleButton component
+ * @param {string} text - The text to display on the button. Ex: "Continue"
+ * @param {string} [width] - The width of the button. Default: 100px
+ * @param {string} [height] - The height of the button. Default: 35px
+ * @param {string} [backgroundColor] - The background color of the button. Default: depends on theme
+ * @param {string} [textColor] - The text color of the button Default: depends on theme
+ * @param {string} [effectColor] - The color of the ripple effect. Default: white
+ * @param {string} [borderRadius] - The border radius of the button Default: 10px
+ * @param {string} [icon] - The icon to display on the button. Default: none
+ * @param {string} [iconSize] - The size of the icon. Default: none
+ * @param {string} [href] - The URL to link to when the button is clicked. Default: none
+ * @param {boolean | null} [loading] - PROMISE. Will return a loading spinner left to the text if true, nothing if null, and the button if false. Default: null
+ */
+
+/** DO NOT COMBINE ICON AND LOADING IT WILL LOOK WEIRD */
+
 interface RippleButtonProps {
   text: string
   width?: string
@@ -54,6 +71,10 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
     }
   }, [props])
 
+  /**
+   * Handles the ripple effect when the button is clicked.
+   * @param e - The mouse event that triggered the ripple effect.
+   */
   const handleEffect = (e: React.MouseEvent<HTMLSpanElement>): void => {
     const rect = e.currentTarget.getBoundingClientRect()
     const x = e.clientX - rect.left
@@ -63,8 +84,15 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
     setRipples((prevRipples) => [...prevRipples, ripple])
   }
 
+  // When the mouse leaves the button, clear the ripples after 1s
+  const handleClearRipples = (): void => {
+    setTimeout(() => {
+      setRipples([])
+    }, 1000)
+  }
+
   return (
-    <span ref={buttonRef} className={styles.button} onClick={handleEffect}>
+    <span ref={buttonRef} className={styles.button} onClick={handleEffect} onMouseLeave={handleClearRipples}>
       {href !== undefined
         ? (
         <Link href={href} className={styles.loadertextwrapper}>
