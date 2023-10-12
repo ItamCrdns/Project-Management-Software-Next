@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from '@/app/employees/[username]/employee.module.css'
 import { type Employee } from '@/interfaces/employee'
-import Button from '../button/button'
+import RippleButton from '../ripplebutton/RippleButton'
 
 interface EmployeeCardProps {
   employee: Employee | null
@@ -59,13 +59,13 @@ const EmployeeCard = ({
           </section>
         )}
         <div className={styles.buttonwrapper}>
-          <Button
+          <RippleButton
             text="Message"
             backgroundColor="#272829"
             effectColor="#61677A"
             textColor="white"
           />
-          <Button
+          <RippleButton
             text="More"
             backgroundColor="#61677A"
             effectColor="#272829"

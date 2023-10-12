@@ -1,6 +1,6 @@
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import handleSubmitProject from './postProject'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
 import { type Employee } from '@/interfaces/employee'
@@ -92,7 +92,7 @@ const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
             ))}
       <div className={styles.buttonwrapper}>
         <div onClick={handleCreateProject}>
-          <Button
+          <RippleButton
             text="Create project"
             backgroundColor="#80B3FF"
             width="120px"
@@ -100,7 +100,7 @@ const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
           />
         </div>
         <div onClick={handleGoBack}>
-          <Button
+          <RippleButton
             text="Go back"
             backgroundColor="var(--darker-banner-color)"
             effectColor="var(--banner-color)"

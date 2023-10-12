@@ -1,0 +1,84 @@
+.button {
+    --effect-color: white; /* Default color of the ripple effect */
+    --width: 100px;
+    --height: 35px;
+    --background-color: var(--banner-color);
+    --effect-color: white;
+    --text-color: var(--text-color);
+    --border-radius: 10px;
+
+
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    overflow: hidden;
+    outline: none;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+
+    width: var(--width);
+    height: var(--height);
+    font-size: 12px !important;
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: inherit;
+    border-radius: var(--border-radius);
+}
+
+/* Trigger this styles when the button its clicked */
+/* .button:active {
+    color: red;
+} */
+
+.loadertextwrapper {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+}
+
+.bubble {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background-color: var(--effect-color);
+    animation: ripple 0.4s linear forwards;
+}
+
+@keyframes ripple {
+    0% {
+        opacity: 0.5;
+        width: 0;
+        height: 0;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        width: 200px;
+        height: 200px;
+        transform: translate(-100px, -100px);
+    }
+}
+
+.loader {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 2px solid #FFF;
+    border-right: 2px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 

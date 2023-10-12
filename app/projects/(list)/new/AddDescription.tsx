@@ -3,7 +3,7 @@ import AddEmployeesToProject from './Employees'
 import useGetEmployees from './useGetEmployees'
 import { type Employee } from '@/interfaces/employee'
 import { useRef, useState } from 'react'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import CustomSelect, { type Option } from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
@@ -128,7 +128,7 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
           </form>
           <div className={styles.buttonwrapper}>
             <div onClick={handleClick}>
-              <Button
+              <RippleButton
                 text="Next"
                 backgroundColor="#80B3FF"
                 textColor="white"
@@ -136,7 +136,7 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
               />
             </div>
             <div onClick={handleGoBack}>
-              <Button
+              <RippleButton
                 text="Go back"
                 backgroundColor="var(--darker-banner-color)"
                 effectColor="var(--banner-color)"

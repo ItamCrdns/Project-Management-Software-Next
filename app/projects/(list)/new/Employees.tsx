@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import Resume from './Resume'
 import styles from './newProject.module.css'
@@ -111,7 +111,7 @@ const AddEmployeesToProject = ({
             ? (
             <div className={styles.buttonwrapper}>
               <div onClick={handleSubmit}>
-                <Button
+                <RippleButton
                   text="Continue"
                   width="100px"
                   backgroundColor="#80B3FF"
@@ -119,7 +119,7 @@ const AddEmployeesToProject = ({
                 />
               </div>
               <div onClick={handleGoBack}>
-                <Button
+                <RippleButton
                   text="Go back"
                   backgroundColor="var(--darker-banner-color)"
                   effectColor="var(--banner-color)"
@@ -131,7 +131,7 @@ const AddEmployeesToProject = ({
             : (
             <div className={styles.buttonwrapper}>
               <div onClick={handleSubmit}>
-                <Button
+                <RippleButton
                   text="Continue without adding employees"
                   width="275px"
                   backgroundColor="var(--darker-banner-color)"
@@ -140,7 +140,7 @@ const AddEmployeesToProject = ({
                 />
               </div>
               <div onClick={handleGoBack}>
-                <Button
+                <RippleButton
                   text="Go back"
                   backgroundColor="var(--darker-banner-color)"
                   effectColor="var(--banner-color)"

@@ -19,7 +19,7 @@
     align-items: center;
  } 
 
-.titlewrapper span {
+.titlewrapper > span {
     display: flex;
     align-items: center;
     user-select: none;

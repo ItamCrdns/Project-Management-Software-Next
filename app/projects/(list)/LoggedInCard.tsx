@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import styles from './userbanner.module.css'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import Filter from './Filter'
 
 const LoggedInCard = (): JSX.Element => {
@@ -45,20 +45,12 @@ const LoggedInCard = (): JSX.Element => {
         : (
         <div className={styles.nouser}></div>
           )}
-      <Button
-        text={
-          <span>
-            <span
-              style={{ margin: '-4rem' }}
-              className="material-symbols-outlined"
-            >
-              add
-            </span>
-            New project
-          </span>
-        }
-        href='/projects/new'
+      <RippleButton
+        text="New project"
+        icon="add"
+        iconSize="20px"
         width="130px"
+        href="/projects/new"
       />
       <Filter toggle={toggle} />
     </section>

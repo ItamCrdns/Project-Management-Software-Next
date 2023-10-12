@@ -1,4 +1,4 @@
-import Button from '../button/button'
+import RippleButton from '../ripplebutton/RippleButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './navbar.module.css'
@@ -45,18 +45,10 @@ const SmallScreenNavbar = ({
               <Link href={`/profile/${employee.username}`}>Your profile</Link>
             </section>
             <div onClick={handleLogout}>
-              <Button
-                text={
-                  <span style={{ fontSize: '14px' }}>
-                    <span
-                      style={{ margin: '-2.25rem' }}
-                      className="material-symbols-outlined"
-                    >
-                      logout
-                    </span>
-                    Logout
-                  </span>
-                }
+              <RippleButton
+                text="Logout"
+                icon="logout"
+                iconSize="20px"
                 backgroundColor="rgb(255, 80, 120)"
                 effectColor="rgb(255, 50, 120)"
                 textColor="white"
@@ -69,12 +61,12 @@ const SmallScreenNavbar = ({
         <section className={styles.useroverlay}>
           <section className={styles.usercontainer}>
             <span>You are not logged in.</span>
-            <Button
-              text='Login'
+            <RippleButton
+              text="Login"
               backgroundColor="#90E0EF"
               effectColor="#CAF0F8"
               textColor="white"
-              href='/login'
+              href="/login"
             />
           </section>
         </section>

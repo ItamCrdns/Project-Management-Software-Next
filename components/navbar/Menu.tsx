@@ -1,6 +1,6 @@
 import styles from './navbar.module.css'
 import Image from 'next/image'
-import Button from '../button/button'
+import RippleButton from '../ripplebutton/RippleButton'
 import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
@@ -58,18 +58,10 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
         </span>
       </section>
       <section onClick={handleLogout} className={styles.logout}>
-        <Button
-          text={
-            <span style={{ fontSize: '14px' }}>
-              <span
-                style={{ margin: '-2.25rem' }}
-                className="material-symbols-outlined"
-              >
-                logout
-              </span>
-              Logout
-            </span>
-          }
+        <RippleButton
+          text="Logout"
+          icon='logout'
+          iconSize='20px'
           backgroundColor="rgb(255, 80, 120)"
           effectColor="rgb(255, 50, 120)"
           textColor="white"

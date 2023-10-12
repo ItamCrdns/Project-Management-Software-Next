@@ -2,7 +2,7 @@
 import { useAuth, type LoginData, type Result } from '@/context/AuthContext'
 import styles from './login.module.css'
 import { useRef, useState } from 'react'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import Alert from '@/components/alert/alert'
 import { useSubmitRef } from '@/utility/formSubmitRef'
@@ -82,7 +82,7 @@ const LoginPage = (): JSX.Element => {
           <input type="submit" />
         </form>
         <div onClick={handleClick}>
-          <Button
+          <RippleButton
             text="Login"
             backgroundColor="rgb(0, 210, 255)"
             textColor="white"

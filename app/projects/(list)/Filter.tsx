@@ -1,7 +1,7 @@
 import styles from './userbanner.module.css'
 import { type Company } from '@/interfaces/company'
-import Button from '@/components/button/button'
-import useCompanyDropdown from '@/utility/companyDropdown'
+import RippleButton from '@/components/ripplebutton/RippleButton'
+import useCompanyDropdown from '@/utility/CompanyDropdown'
 
 interface FilterProps {
   toggle: boolean
@@ -27,7 +27,7 @@ const Filter = ({ toggle }: FilterProps): JSX.Element => {
             </option>
           ))}
       </select>
-      <Button
+      <RippleButton
         text="Apply filters"
         backgroundColor="#6499E9"
         effectColor="#27005D"

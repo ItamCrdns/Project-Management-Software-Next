@@ -1,5 +1,5 @@
 import styles from './newProject.module.css'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 
 interface UnsavedChangesProps {
@@ -21,14 +21,14 @@ const UnsavedChanges = ({ goBack }: UnsavedChangesProps): JSX.Element => {
         <p>Changes you have made will not be saved.</p>
         <div className={styles.buttonwrapper}>
           <div onClick={handleGoBack}>
-            <Button
+            <RippleButton
               text="Go back"
               backgroundColor="#80B3FF"
               textColor="white"
             />
           </div>
           <div onClick={() => { router.push('/projects') }}>
-            <Button
+            <RippleButton
               text="Discard"
               backgroundColor="rgb(255, 80, 120)"
               effectColor="rgb(255, 50, 120)"

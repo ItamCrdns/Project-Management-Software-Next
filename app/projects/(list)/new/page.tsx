@@ -1,10 +1,10 @@
 'use client'
 import { useRef, useState } from 'react'
 import styles from './newProject.module.css'
-import Button from '@/components/button/button'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import { type Company } from '@/interfaces/company'
-import useCompanyDropdown from '@/utility/companyDropdown'
+import useCompanyDropdown from '@/utility/CompanyDropdown'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddDescription from './AddDescription'
 import CustomSelect, { type Option } from '@/components/select/select'
@@ -158,7 +158,7 @@ const NewProjectModal = (): JSX.Element => {
               </p>
             )}
             <div onClick={handleClick}>
-              <Button text="Next" backgroundColor="#80B3FF" textColor="white" />
+              <RippleButton text="Next" backgroundColor="#80B3FF" textColor="white" />
             </div>
           </>
             )}
