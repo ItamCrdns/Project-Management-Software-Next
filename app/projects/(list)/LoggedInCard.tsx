@@ -57,7 +57,7 @@ const LoggedInCard = (): JSX.Element => {
             New project
           </span>
         }
-        href={'/projects/new'}
+        href='/projects/new'
         width="130px"
       />
       <Filter toggle={toggle} />

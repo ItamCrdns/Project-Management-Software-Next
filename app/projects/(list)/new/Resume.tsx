@@ -4,7 +4,7 @@ import Button from '@/components/button/button'
 import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
 import { type Employee } from '@/interfaces/employee'
-import EmployeeOfTheList from '../../EmployeeOfTheList'
+import EmployeeOfTheList from '../EmployeeOfTheList'
 
 interface LastPageProps {
   project: NewProjectData

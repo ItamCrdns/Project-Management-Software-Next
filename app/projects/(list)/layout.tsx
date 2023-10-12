@@ -7,7 +7,6 @@ import HeaderDescriptor from './HeaderDescriptor'
 import EachProject from './EachProject'
 
 const ProjectsPage = async (props: {
-  new: React.ReactNode
   children: React.ReactNode
 }): Promise<JSX.Element> => {
   const { data } = await getProjects('1', '30') // Page 1 (always) 3 projects per company
@@ -15,7 +14,7 @@ const ProjectsPage = async (props: {
 
   return (
     <>
-      {props.new}
+      {props.children}
       <main className={styles.main}>
         <section className={styles.projectswrapper}>
           <div className={styles.titlewrapper}>

@@ -10,6 +10,8 @@ import AddDescription from './AddDescription'
 import CustomSelect, { type Option } from '@/components/select/select'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import { type Employee } from '@/interfaces/employee'
+import { useRouter } from 'next/navigation'
+import UnsavedChanges from './UnsavedChanges'
 
 const initialState: NewProjectData = {
   data: {
@@ -97,9 +99,33 @@ const NewProjectModal = (): JSX.Element => {
     }))
   }
 
+  const [showUnsavedChanges, setShowUnsavedChanges] = useState<boolean>(false)
+
+  const router = useRouter()
+
+  const handleExitNewProjectCreation = (): void => {
+    if (data.data.name !== '' || data.data.companyId !== 0) {
+      setShowUnsavedChanges(true)
+    } else {
+      router.push('/projects/')
+      setShowUnsavedChanges(false)
+    }
+  }
+
+  const handleCancelClose = (): void => {
+    setShowUnsavedChanges(false)
+  }
+
   return (
     <section className={styles.newprojectwrapper}>
+      {showUnsavedChanges && <UnsavedChanges goBack={handleCancelClose} />}
       <section className={styles.newproject}>
+        <span
+          onClick={handleExitNewProjectCreation}
+          className={`material-symbols-outlined ${styles.closebutton}`}
+        >
+          close
+        </span>
         {dependency
           ? (
           <AddDescription data={data} goBack={handleReturnHere} />
