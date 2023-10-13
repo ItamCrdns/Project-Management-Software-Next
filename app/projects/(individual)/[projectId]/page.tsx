@@ -1,16 +1,21 @@
 import getProject from '@/api-calls/getProject'
 import styles from './project.module.css'
 import { type Images } from '@/interfaces/images'
-import Image from 'next/image'
 import { relativeTime } from '@/utility/relativeTime'
 import { type Employee } from '@/interfaces/employee'
 import { type Company } from '@/interfaces/company'
+import ProjectPriority from '../../(list)/Priority'
+import Image from 'next/image'
 import Link from 'next/link'
+
+interface ProjectIdProps {
+  projectId: string
+}
 
 const ProjectId = async ({
   params
 }: {
-  params: { projectId: string }
+  params: ProjectIdProps
 }): Promise<JSX.Element> => {
   const { data } = await getProject(params.projectId)
   const project = data
@@ -49,6 +54,8 @@ const ProjectId = async ({
             )}
           </section>
           <aside className={styles.projectsideb}>
+            <p className={styles.grayedtext}>Priority</p>
+            <ProjectPriority priority={project?.priority ?? 0} />
             <p className={styles.grayedtext}>Created by</p>
             <div className={styles.userwrapper}>
               <Image
