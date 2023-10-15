@@ -104,11 +104,13 @@ const ProjectId = async ({
               ))}
             </ul>
           )}
-          <h3>
-            <Link href={`/projects/${project?.projectId}/employees`}>
-              See all employees
-            </Link>
-          </h3>
+          {data?.employeeCount !== undefined && data?.employeeCount > 5 && (
+            <h3>
+              <Link href={`/projects/${project?.projectId}/employees`}>
+                See all {data.employeeCount} employees
+              </Link>
+            </h3>
+          )}
         </article>
       </article>
     </>

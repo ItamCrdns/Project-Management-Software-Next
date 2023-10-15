@@ -12,6 +12,7 @@ export interface Project {
   images: Images
   projectCreator: Employee
   company: Company
+  employeeCount: number
   employees: Employee[]
   priority: number
 }

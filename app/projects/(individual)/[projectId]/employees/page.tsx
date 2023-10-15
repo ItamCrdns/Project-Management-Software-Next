@@ -30,13 +30,19 @@ const EmployeesList = async ({
             <ul>
               {employees.map((employee: Employee) => (
                 <li key={employee.employeeId}>
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={50}
-                    height={50}
-                  />
-                  <p>{employee.username}</p>
+                  <Link href={`/employees/${employee.username}`}>
+                    <Image
+                      src={employee.profilePicture}
+                      alt={employee.username}
+                      width={50}
+                      height={50}
+                    />
+                  </Link>
+                  <p>
+                    <Link href={`/employees/${employee.username}`}>
+                      {employee.username}
+                    </Link>
+                  </p>
                 </li>
               ))}
             </ul>

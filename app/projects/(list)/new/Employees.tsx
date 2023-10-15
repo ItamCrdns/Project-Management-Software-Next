@@ -1,11 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import Resume from './Resume'
 import styles from './newProject.module.css'
+import Pagination from '@/components/pagination/pagination'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import getPaginatedEmployees from '@/api-calls/getPaginatedEmployees'
 
@@ -65,29 +66,21 @@ const AddEmployeesToProject = ({
   }
 
   const companyId = data.data.companyId
-  const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const [employees, setEmployees] = useState<DictionaryResponse<Employee> | null>(null)
+  const [employees, setEmployees] =
+    useState<DictionaryResponse<Employee> | null>(null)
 
-  useEffect(() => {
-    getPaginatedEmployees(companyId ?? 0, currentPage.toString(), '5')
+  const totalPages = employees?.pages ?? 0
+  const employeeList = employees?.data ?? []
+
+  const handlePageChange = (page: number): void => {
+    getPaginatedEmployees(companyId ?? 0, page.toString(), '5')
       .then((res) => {
         setEmployees(res.data)
       })
       .catch((err) => {
         console.error(err)
       })
-  }, [currentPage])
-
-  const totalPages = employees?.pages ?? 0
-  const employeeList = employees?.data ?? []
-
-  const handleChangePage = (action: string): void => {
-    if (action === 'previous' && currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1)
-    } else if (action === 'next' && currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1)
-    }
   }
 
   return (
@@ -137,27 +130,10 @@ const AddEmployeesToProject = ({
                 </li>
               ))}
           </ul>
-          <div className={styles.pagination}>
-            <span
-              onClick={() => {
-                handleChangePage('previous')
-              }}
-              className="material-symbols-outlined"
-            >
-              navigate_before
-            </span>
-            <p>
-              {currentPage} of {totalPages}
-            </p>
-            <span
-              onClick={() => {
-                handleChangePage('next')
-              }}
-              className="material-symbols-outlined"
-            >
-              navigate_next
-            </span>
-          </div>
+          <p style={{ margin: 0, fontSize: '12px' }}>
+            Showing only {data.data.companyName} employees
+          </p>
+          <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
           {selectedEmployees !== null && selectedEmployees.length > 0
             ? (
             <div className={styles.buttonwrapper}>
