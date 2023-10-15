@@ -1,13 +1,13 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import Resume from './Resume'
 import styles from './newProject.module.css'
-import useGetEmployees from './useGetEmployees'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
+import getPaginatedEmployees from '@/api-calls/getPaginatedEmployees'
 
 interface AddEmployeesProps {
   data: NewProjectData
@@ -65,15 +65,30 @@ const AddEmployeesToProject = ({
   }
 
   const companyId = data.data.companyId
-  // * Explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
-  const employeesData: DictionaryResponse<Employee> | null = useGetEmployees({
-    companyId,
-    page: '1',
-    pageSize: '5',
-    dependency: true
-  })
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const employees = employeesData?.data
+  const [employees, setEmployees] = useState<DictionaryResponse<Employee> | null>(null)
+
+  useEffect(() => {
+    getPaginatedEmployees(companyId ?? 0, currentPage.toString(), '5')
+      .then((res) => {
+        setEmployees(res.data)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [currentPage])
+
+  const totalPages = employees?.pages ?? 0
+  const employeeList = employees?.data ?? []
+
+  const handleChangePage = (action: string): void => {
+    if (action === 'previous' && currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1)
+    } else if (action === 'next' && currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1)
+    }
+  }
 
   return (
     <>
@@ -89,8 +104,8 @@ const AddEmployeesToProject = ({
         <>
           <h1>Who will be working on {data.data.name}?</h1>
           <ul>
-            {Array.isArray(employees) &&
-              employees.map((employee: Employee) => (
+            {Array.isArray(employeeList) &&
+              employeeList.map((employee: Employee) => (
                 <li
                   key={employee.username}
                   onClick={() => {
@@ -122,6 +137,27 @@ const AddEmployeesToProject = ({
                 </li>
               ))}
           </ul>
+          <div className={styles.pagination}>
+            <span
+              onClick={() => {
+                handleChangePage('previous')
+              }}
+              className="material-symbols-outlined"
+            >
+              navigate_before
+            </span>
+            <p>
+              {currentPage} of {totalPages}
+            </p>
+            <span
+              onClick={() => {
+                handleChangePage('next')
+              }}
+              className="material-symbols-outlined"
+            >
+              navigate_next
+            </span>
+          </div>
           {selectedEmployees !== null && selectedEmployees.length > 0
             ? (
             <div className={styles.buttonwrapper}>
