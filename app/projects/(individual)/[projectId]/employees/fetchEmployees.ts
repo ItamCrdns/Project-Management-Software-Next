@@ -22,7 +22,8 @@ const fetchEmployees = async ({
       )
       return response.data ?? 'Something went wrong'
     } catch (error) {
-      return 'Something went wrong'
+      const errorMessage = (error as string).toString() // Convert the error from object to string for proper error handling
+      return errorMessage
     }
   } else {
     try {
@@ -32,8 +33,9 @@ const fetchEmployees = async ({
         '5'
       )
       return response.data ?? 'Something went wrong'
-    } catch (error) {
-      return 'Something went wrong'
+    } catch (error: unknown) {
+      const errorMessage = (error as string).toString() // Convert the error from object to string for proper error handling
+      return errorMessage
     }
   }
 }

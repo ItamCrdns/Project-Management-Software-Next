@@ -21,10 +21,7 @@ const paginatedClientFetcher = async <T>(
   const res = await fetch(url, requestOptions)
 
   if (!res.ok) {
-    return {
-      data: null,
-      status: res.status
-    }
+    throw new Error(`An error has occured: ${res.status}`)
   }
 
   if (res.ok) {

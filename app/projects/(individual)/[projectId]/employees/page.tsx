@@ -1,5 +1,4 @@
 'use client'
-// import getProjectEmployees from '@/api-calls/getEmployeeProjects'
 import { type Employee } from '@/interfaces/employee'
 import styles from './employees.module.css'
 import Link from 'next/link'
@@ -18,24 +17,34 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
   const [employees, setEmployees] =
     useState<DictionaryResponse<Employee> | null>(null)
 
+  const [message, setMessage] = useState<string>('Loading...')
+
   const [currentPage, setCurrentPage] = useState<string>('1')
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page.toString()) // Get the Pagination component page number with a callback function (convert it to string too!)
     if (searchValue === '') {
-      fetchEmployees({ projectId: params.projectId, page: page.toString() })
+      fetchEmployees({ projectId: params.projectId, page: page.toString() }) // Promises are already coming fulfilled so we cannot catch the error, its gonna come in the .then instead the .catch
         .then((res) => {
+          if (typeof res === 'string') { // If the res its a string that means that the API returned an error
+            setMessage(res)
+          }
           setEmployees(res as DictionaryResponse<Employee>)
         })
-        .catch((err) => {
-          console.log(err)
+        .catch((err) => { // Still have the catch otherwise eslint gets mad
+          setMessage(err)
         })
+
+      // * Above comments also apply to the code below
     }
   }
 
   const [searchValue, setSearchValue] = useState<string>('')
   const getInputValue = (e: React.SyntheticEvent): void => {
     const input = e.target as HTMLInputElement
+    if (employeeList.length <= 0) {
+      setMessage('No employees match your search criteria.')
+    }
     setSearchValue(input.value)
   }
 
@@ -47,32 +56,30 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
         page: currentPage
       })
         .then((res) => {
+          if (typeof res === 'string') { // If the res its a string that means that the API returned an error
+            setMessage(res)
+          }
           setEmployees(res as DictionaryResponse<Employee>)
         })
         .catch((err) => {
-          console.log(err)
+          setMessage(err)
         })
     } else if (searchValue === '') {
       fetchEmployees({ projectId: params.projectId, page: currentPage })
         .then((res) => {
+          if (typeof res === 'string') { // If the res its a string that means that the API returned an error
+            setMessage(res)
+          }
           setEmployees(res as DictionaryResponse<Employee>)
         })
         .catch((err) => {
-          console.log(err)
+          setMessage(err)
         })
     }
   }, [searchValue, currentPage])
 
   const totalPages = employees?.pages ?? 0
   const employeeList = employees?.data ?? []
-
-  const [searchResult, setSearchResult] = useState<string>('Loading...')
-
-  useEffect(() => {
-    if (employeeList.length <= 0) {
-      setSearchResult('No employees match your search criteria.')
-    }
-  }, [employeeList])
 
   return (
     <section className={styles.employeeswrapper}>
@@ -111,7 +118,7 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
                 )
               : (
               <div className={styles.noemployeesfound}>
-                <p>{searchResult}</p>
+                <p>{message}</p>
               </div>
                 )}
           </>
