@@ -40,12 +40,13 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
   }
 
   const [searchValue, setSearchValue] = useState<string>('')
-  const getInputValue = (e: React.SyntheticEvent): void => {
-    const input = e.target as HTMLInputElement
+
+  const getInputValue = (input: string): void => {
+    // const input = e.target as HTMLInputElement
     if (employeeList.length <= 0) {
       setMessage('No employees match your search criteria.')
     }
-    setSearchValue(input.value)
+    setSearchValue(input)
   }
 
   useEffect(() => {
@@ -93,7 +94,7 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
         {Array.isArray(employeeList) && (
           <>
             <h1>All employees</h1>
-            <Search onSearch={getInputValue} />
+            <Search maxInputLength={16} onSearch={getInputValue} />
             {employeeList.length > 0
               ? (
               <ul>
