@@ -1,3 +1,4 @@
+'use client'
 import styles from './pagination.module.css'
 import { useEffect, useState } from 'react'
 
@@ -11,7 +12,7 @@ const Pagination = ({ totalPages, onPageChange }: PaginationProps): JSX.Element 
 
   useEffect(() => {
     onPageChange(currentPage)
-  }, [currentPage])
+  }, [currentPage, totalPages])
 
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {

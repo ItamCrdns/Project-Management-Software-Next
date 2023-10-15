@@ -139,8 +139,8 @@ const AddEmployeesToProject = ({
             <div className={styles.buttonwrapper}>
               <div onClick={handleSubmit}>
                 <RippleButton
-                  text="Continue"
-                  width="100px"
+                  text={`Add ${selectedEmployees.length} employees`}
+                  width="120px"
                   backgroundColor="#80B3FF"
                   textColor="white"
                 />
@@ -160,7 +160,7 @@ const AddEmployeesToProject = ({
               <div onClick={handleSubmit}>
                 <RippleButton
                   text="Continue without adding employees"
-                  width="275px"
+                  width="250px"
                   backgroundColor="var(--darker-banner-color)"
                   effectColor="var(--banner-color)"
                   textColor="var(--text-color)"

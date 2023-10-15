@@ -1,19 +1,33 @@
+'use client'
 import getProjectEmployees from '@/api-calls/getEmployeeProjects'
 import { type Employee } from '@/interfaces/employee'
 import styles from './employees.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
+import Pagination from '@/components/pagination/pagination'
+import { useState } from 'react'
+import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 
 interface EmployeeProps {
   params: { projectId: string }
 }
 
-const EmployeesList = async ({
-  params
-}: EmployeeProps): Promise<JSX.Element> => {
-  const { data } = await getProjectEmployees(params.projectId, '1', '5')
+const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
+  const [employees, setEmployees] =
+    useState<DictionaryResponse<Employee> | null>(null)
 
-  const employees = data as Employee[]
+  const handlePageChange = (page: number): void => {
+    getProjectEmployees(params.projectId ?? 0, page.toString(), '5')
+      .then((res) => {
+        setEmployees(res.data)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  const totalPages = employees?.pages ?? 0
+  const employeeList = employees?.data ?? []
 
   return (
     <section className={styles.employeeswrapper}>
@@ -24,11 +38,11 @@ const EmployeesList = async ({
         >
           close
         </Link>
-        {Array.isArray(employees) && employees.length > 0 && (
+        {Array.isArray(employeeList) && employeeList.length > 0 && (
           <>
             <h1>All employees</h1>
             <ul>
-              {employees.map((employee: Employee) => (
+              {employeeList.map((employee: Employee) => (
                 <li key={employee.employeeId}>
                   <Link href={`/employees/${employee.username}`}>
                     <Image
@@ -48,6 +62,7 @@ const EmployeesList = async ({
             </ul>
           </>
         )}
+        <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
       </section>
     </section>
   )

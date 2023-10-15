@@ -56,6 +56,8 @@
     gap: 1rem;
     background-color: var(--darker-banner-color);
     border-radius: 5px;
+    width: 200px;
+    height: 310px;
 }
 
 .employees ul li {
