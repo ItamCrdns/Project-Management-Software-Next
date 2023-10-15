@@ -12,7 +12,7 @@ const Pagination = ({ totalPages, onPageChange }: PaginationProps): JSX.Element 
 
   useEffect(() => {
     onPageChange(currentPage)
-  }, [currentPage, totalPages])
+  }, [currentPage])
 
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
