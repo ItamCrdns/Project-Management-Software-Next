@@ -16,6 +16,7 @@ const EmployeeCardProfile = async ({
       employee={employee}
       supervisor={supervisor}
       isProfile={true}
+      redirectMe={false}
     />
   )
 }

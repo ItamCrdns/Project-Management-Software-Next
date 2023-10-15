@@ -1,22 +1,22 @@
-import getProjectEmployees from '@/api-calls/getProjectEmployees'
+import getCompanyEmployees from '@/api-calls/getCompanyEmployees'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Employee } from '@/interfaces/employee'
 
 interface EmployeeFetcherProps {
-  projectId: string
+  companyId: number
   searchValue?: string
   page: string
 }
 
 const fetchEmployees = async ({
-  projectId,
+  companyId,
   searchValue,
   page
 }: EmployeeFetcherProps): Promise<DictionaryResponse<Employee> | string> => {
   if (searchValue != null) {
     try {
-      const response = await getProjectEmployees(
-        `Project/${projectId}/employees/search/${searchValue}`,
+      const response = await getCompanyEmployees(
+        `Company/${companyId}/employees/search/${searchValue}`,
         page,
         '5'
       )
@@ -27,8 +27,8 @@ const fetchEmployees = async ({
     }
   } else {
     try {
-      const response = await getProjectEmployees(
-        `Project/${projectId}/employees`,
+      const response = await getCompanyEmployees(
+        `Company/${companyId}/employees`,
         page,
         '5'
       )

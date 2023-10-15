@@ -84,7 +84,7 @@ const EmployeeCard = ({
               height={50}
             />
             <p>
-              <Link href={`/employees/${supervisor?.username}`}>
+              <Link style={{ fontSize: '12px' }} href={`/employees/${supervisor?.username}`}>
                 {supervisor?.username}
               </Link>
             </p>

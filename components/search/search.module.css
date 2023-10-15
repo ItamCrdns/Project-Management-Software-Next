@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    width: 100%;
+    position: relative !important;
+    /* width: 100%; */
 }
 
 .searchicon {
@@ -13,13 +13,12 @@
     font-size: 30px;
 }
 
-.search input {
+.search > input {
     background-color: var(--darker-banner-color);
     padding: 1rem;
-    padding-left: 3.5rem;
-    border-radius: 25px;
+    padding-left: 3.5rem !important;
+    border-radius: 25px !important;
     border: none;
-    font-family: inherit;
     color: var(--text-color);
 }
 

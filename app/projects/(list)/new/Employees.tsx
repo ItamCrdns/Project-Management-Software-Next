@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import RippleButton from '@/components/ripplebutton/RippleButton'
@@ -8,7 +8,8 @@ import Resume from './Resume'
 import styles from './newProject.module.css'
 import Pagination from '@/components/pagination/pagination'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
-import getPaginatedEmployees from '@/api-calls/getPaginatedEmployees'
+import fetchEmployees from './fetchEmployees'
+import Search from '@/components/search/search'
 
 interface AddEmployeesProps {
   data: NewProjectData
@@ -65,7 +66,7 @@ const AddEmployeesToProject = ({
     setShowResume(false)
   }
 
-  const companyId = data.data.companyId
+  const companyId = data.data.companyId ?? 0
 
   const [employees, setEmployees] =
     useState<DictionaryResponse<Employee> | null>(null)
@@ -73,15 +74,65 @@ const AddEmployeesToProject = ({
   const totalPages = employees?.pages ?? 0
   const employeeList = employees?.data ?? []
 
+  const [currentPage, setCurrentPage] = useState<string>('1')
+
+  const [message, setMessage] = useState<string>('Loading...')
+
   const handlePageChange = (page: number): void => {
-    getPaginatedEmployees(companyId ?? 0, page.toString(), '5')
+    setCurrentPage(page.toString())
+    fetchEmployees({ companyId: companyId ?? 0, page: page.toString() })
       .then((res) => {
-        setEmployees(res.data)
+        if (typeof res === 'string') {
+          setMessage(res)
+        }
+        setEmployees(res as DictionaryResponse<Employee>)
       })
       .catch((err) => {
         console.error(err)
       })
   }
+
+  const [searchValue, setSearchValue] = useState<string>('')
+
+  const getInputValue = (input: string): void => {
+    setSearchValue(input)
+  }
+
+  useEffect(() => {
+    if (searchValue !== '') {
+      fetchEmployees({
+        companyId,
+        searchValue,
+        page: currentPage
+      })
+        .then((res) => {
+          if (typeof res === 'string') {
+            setMessage(res)
+          }
+          setEmployees(res as DictionaryResponse<Employee>)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    } else if (searchValue === '') {
+      fetchEmployees({ companyId, page: currentPage })
+        .then((res) => {
+          if (typeof res === 'string') {
+            setMessage(res)
+          }
+          setEmployees(res as DictionaryResponse<Employee>)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    }
+  }, [searchValue, currentPage])
+
+  useEffect(() => {
+    if (employeeList.length <= 0) {
+      setMessage('No employees match your search criteria.')
+    }
+  }, [employeeList])
 
   return (
     <>
@@ -96,39 +147,51 @@ const AddEmployeesToProject = ({
         : (
         <>
           <h1>Who will be working on {data.data.name}?</h1>
+          <Search maxInputLength={16} onSearch={getInputValue} />
           <ul>
-            {Array.isArray(employeeList) &&
-              employeeList.map((employee: Employee) => (
-                <li
-                  key={employee.username}
-                  onClick={() => {
-                    handleEmployeeClick(employee)
-                  }}
-                >
-                  <div>
-                    <Image
-                      src={employee.profilePicture}
-                      alt={employee.username}
-                      width={50}
-                      height={50}
-                    />
-                    <p>{employee.username}</p>
-                  </div>
-                  <span
-                    style={{ color: '#6499E9', userSelect: 'none' }}
-                    className="material-symbols-outlined"
-                  >
-                    {selectedEmployees !== null &&
-                    selectedEmployees.includes(
-                      selectedEmployees.find(
-                        (e) => e.username === employee.username
-                      ) ?? employee
+            {Array.isArray(employeeList) && (
+              <>
+                {employeeList.length > 0
+                  ? (
+                      employeeList.map((employee: Employee) => (
+                    <li
+                      key={employee.username}
+                      onClick={() => {
+                        handleEmployeeClick(employee)
+                      }}
+                    >
+                      <div>
+                        <Image
+                          src={employee.profilePicture}
+                          alt={employee.username}
+                          width={50}
+                          height={50}
+                        />
+                        <p>{employee.username}</p>
+                      </div>
+                      <span
+                        style={{ color: '#6499E9', userSelect: 'none' }}
+                        className="material-symbols-outlined"
+                      >
+                        {selectedEmployees !== null &&
+                        selectedEmployees.includes(
+                          selectedEmployees.find(
+                            (e) => e.username === employee.username
+                          ) ?? employee
+                        )
+                          ? 'radio_button_checked'
+                          : 'radio_button_unchecked'}
+                      </span>
+                    </li>
+                      ))
                     )
-                      ? 'radio_button_checked'
-                      : 'radio_button_unchecked'}
-                  </span>
-                </li>
-              ))}
+                  : (
+                  <div className={styles.noemployeesfound}>
+                    <p>{message}</p>
+                  </div>
+                    )}
+              </>
+            )}
           </ul>
           <p style={{ margin: 0, fontSize: '12px' }}>
             Showing only {data.data.companyName} employees

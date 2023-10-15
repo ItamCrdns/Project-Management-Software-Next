@@ -99,7 +99,8 @@
     list-style: none;
     background-color: var(--darker-banner-color);
     margin: 0;
-    padding: 0;
+    border-radius: 10px;
+    padding: 1rem;
 }
 
 .newproject > ul li {
@@ -108,10 +109,16 @@
     align-items: center;
     padding-right: 1.25rem;
     justify-content: space-between;
+    padding: .25rem 1rem;
+}
+
+.newproject > ul li img {
+    border-radius: 50%;
 }
 
 .newproject > ul li:hover {
     background-color: var(--banner-color);
+    border-radius: 5px;
 }
 
 .newproject > ul li > div {
@@ -283,4 +290,15 @@
 .pagination > span:hover {
     cursor: pointer;
     opacity: 0.5;
+}
+
+.noemployeesfound {
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+    background-color: var(--darker-banner-color);
 }

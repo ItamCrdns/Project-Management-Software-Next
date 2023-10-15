@@ -152,7 +152,7 @@
 
 .employeecard p {
     color: var(--text-color);
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
     margin: 0;
     text-transform: capitalize;
