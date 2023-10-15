@@ -1,5 +1,5 @@
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-import AddEmployeesToProject from './Employees'
+import AddEmployeesToProject from './_employees/Employees'
 import { type Employee } from '@/interfaces/employee'
 import { useRef, useState } from 'react'
 import RippleButton from '@/components/ripplebutton/RippleButton'

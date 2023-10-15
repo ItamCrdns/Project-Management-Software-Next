@@ -1,15 +1,14 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
-import Image from 'next/image'
-import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-import Resume from './Resume'
-import styles from './newProject.module.css'
+import Resume from '../Resume'
 import Pagination from '@/components/pagination/pagination'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import fetchEmployees from './fetchEmployees'
 import Search from '@/components/search/search'
+import EmployeeList from './EmployeeList'
+import Buttons from './Buttons'
 
 interface AddEmployeesProps {
   data: NewProjectData
@@ -148,97 +147,21 @@ const AddEmployeesToProject = ({
         <>
           <h1>Who will be working on {data.data.name}?</h1>
           <Search maxInputLength={16} onSearch={getInputValue} />
-          <ul>
-            {Array.isArray(employeeList) && (
-              <>
-                {employeeList.length > 0
-                  ? (
-                      employeeList.map((employee: Employee) => (
-                    <li
-                      key={employee.username}
-                      onClick={() => {
-                        handleEmployeeClick(employee)
-                      }}
-                    >
-                      <div>
-                        <Image
-                          src={employee.profilePicture}
-                          alt={employee.username}
-                          width={50}
-                          height={50}
-                        />
-                        <p>{employee.username}</p>
-                      </div>
-                      <span
-                        style={{ color: '#6499E9', userSelect: 'none' }}
-                        className="material-symbols-outlined"
-                      >
-                        {selectedEmployees !== null &&
-                        selectedEmployees.includes(
-                          selectedEmployees.find(
-                            (e) => e.username === employee.username
-                          ) ?? employee
-                        )
-                          ? 'radio_button_checked'
-                          : 'radio_button_unchecked'}
-                      </span>
-                    </li>
-                      ))
-                    )
-                  : (
-                  <div className={styles.noemployeesfound}>
-                    <p>{message}</p>
-                  </div>
-                    )}
-              </>
-            )}
-          </ul>
+          <EmployeeList
+            employeeList={employeeList}
+            selectedEmployees={selectedEmployees}
+            message={message}
+            handleEmployeeClick={handleEmployeeClick}
+          />
           <p style={{ margin: 0, fontSize: '12px' }}>
             Showing only {data.data.companyName} employees
           </p>
           <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
-          {selectedEmployees !== null && selectedEmployees.length > 0
-            ? (
-            <div className={styles.buttonwrapper}>
-              <div onClick={handleSubmit}>
-                <RippleButton
-                  text={`Add ${selectedEmployees.length} employees`}
-                  width="120px"
-                  backgroundColor="#80B3FF"
-                  textColor="white"
-                />
-              </div>
-              <div onClick={handleGoBack}>
-                <RippleButton
-                  text="Go back"
-                  backgroundColor="var(--darker-banner-color)"
-                  effectColor="var(--banner-color)"
-                  textColor="var(--text-color)"
-                />
-              </div>
-            </div>
-              )
-            : (
-            <div className={styles.buttonwrapper}>
-              <div onClick={handleSubmit}>
-                <RippleButton
-                  text="Continue without adding employees"
-                  width="250px"
-                  backgroundColor="var(--darker-banner-color)"
-                  effectColor="var(--banner-color)"
-                  textColor="var(--text-color)"
-                />
-              </div>
-              <div onClick={handleGoBack}>
-                <RippleButton
-                  text="Go back"
-                  backgroundColor="var(--darker-banner-color)"
-                  effectColor="var(--banner-color)"
-                  textColor="var(--text-color)"
-                />
-              </div>
-            </div>
-              )}
+          <Buttons
+            selectedEmployees={selectedEmployees}
+            handleSubmit={handleSubmit}
+            handleGoBack={handleGoBack}
+          />
         </>
           )}
     </>

@@ -1,13 +1,9 @@
 'use client'
 import { type Employee } from '@/interfaces/employee'
-import styles from './employees.module.css'
-import Link from 'next/link'
-import Image from 'next/image'
-import Pagination from '@/components/pagination/pagination'
 import { useEffect, useState } from 'react'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
-import Search from '@/components/search/search'
 import fetchEmployees from './fetchEmployees'
+import EmployeesRender from './EmployeesRender'
 
 interface EmployeeProps {
   params: { projectId: string }
@@ -18,7 +14,6 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
     useState<DictionaryResponse<Employee> | null>(null)
 
   const [message, setMessage] = useState<string>('Loading...')
-
   const [currentPage, setCurrentPage] = useState<string>('1')
 
   const handlePageChange = (page: number): void => {
@@ -89,54 +84,15 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
   }, [employeeList])
 
   return (
-    <section className={styles.employeeswrapper}>
-      <section className={styles.employees}>
-        <Link
-          href={`/projects/${params.projectId}`}
-          className={`material-symbols-outlined ${styles.closebutton}`}
-        >
-          close
-        </Link>
-        {Array.isArray(employeeList) && (
-          <>
-            <h1>All employees</h1>
-            <Search maxInputLength={16} onSearch={getInputValue} />
-            {employeeList.length > 0
-              ? (
-              <ul>
-                {employeeList.map((employee: Employee) => (
-                  <li key={employee.employeeId}>
-                    <Link href={`/employees/${employee.username}`}>
-                      <Image
-                        src={employee.profilePicture}
-                        alt={employee.username}
-                        width={50}
-                        height={50}
-                      />
-                    </Link>
-                    <p>
-                      <Link href={`/employees/${employee.username}`}>
-                        {employee.username}
-                      </Link>
-                    </p>
-                  </li>
-                ))}
-              </ul>
-                )
-              : (
-              <div className={styles.noemployeesfound}>
-                <p>{message}</p>
-              </div>
-                )}
-          </>
-        )}
-        <Pagination
-          reset={searchValue !== ''}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </section>
-    </section>
+    <EmployeesRender
+      projectId={params.projectId}
+      employeeList={employeeList}
+      message={message}
+      searchValue={searchValue}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
+      getInputValue={getInputValue}
+    />
   )
 }
 
