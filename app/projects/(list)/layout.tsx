@@ -20,7 +20,12 @@ const ProjectsPage = async (props: {
         <section className={styles.projectswrapper}>
           <div className={styles.titlewrapper}>
             <span>
-              <span className="material-symbols-outlined">tactic</span>
+              <span
+                style={{ fontSize: '50px' }}
+                className="material-symbols-outlined"
+              >
+                tactic
+              </span>
               <h1>All projects</h1>
             </span>
             <LoggedInCard />
@@ -36,7 +41,8 @@ const ProjectsPage = async (props: {
                       text="More projects..."
                       href={`/projects/company/${projects[0].company.companyId}/${companyName}`}
                       width="125px"
-                      backgroundColor='#80B3FF'
+                      textColor="white"
+                      backgroundColor="#80B3FF"
                     />
                   </div>
                 )}

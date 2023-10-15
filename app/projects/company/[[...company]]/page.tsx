@@ -4,6 +4,7 @@ import styles from '@/app/projects/(list)/projectslist.module.css'
 import EachProject from '../../(list)/EachProject'
 import HeaderDescriptor from '../../(list)/HeaderDescriptor'
 import LoggedInCard from '../../(list)/LoggedInCard'
+import Link from 'next/link'
 
 interface CompanyNameProps {
   company: string[]
@@ -28,8 +29,18 @@ const CompanyProjectsPage = async ({
       <section className={styles.projectswrapper}>
         <div className={styles.titlewrapper}>
           <span>
-            <span className="material-symbols-outlined">tactic</span>
-            <h1>All projects of {companyName}</h1>
+            <span style={{ fontSize: '50px' }} className="material-symbols-outlined">tactic</span>
+            <h1>
+              You are viewing{' '}
+              <span style={{ color: '#80B3FF' }}>{companyName}</span> projects.
+            </h1>
+            <Link
+              className="material-symbols-outlined"
+              style={{ fontWeight: 500, fontSize: '50px' }}
+              href="/projects"
+            >
+              keyboard_return
+            </Link>
           </span>
           <LoggedInCard />
         </div>

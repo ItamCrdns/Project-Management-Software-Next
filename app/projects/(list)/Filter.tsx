@@ -29,8 +29,7 @@ const Filter = ({ toggle }: FilterProps): JSX.Element => {
       </select>
       <RippleButton
         text="Apply filters"
-        backgroundColor="#6499E9"
-        effectColor="#27005D"
+        backgroundColor="#80B3FF"
         textColor="white"
         width="105px"
       />
