@@ -1,6 +1,5 @@
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddEmployeesToProject from './Employees'
-import useGetEmployees from './useGetEmployees'
 import { type Employee } from '@/interfaces/employee'
 import { useRef, useState } from 'react'
 import RippleButton from '@/components/ripplebutton/RippleButton'
@@ -69,9 +68,6 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
   const dependency =
     descriptionProvided !== '' && priorityProvided !== 0 && readyForNextPage
 
-  // * Explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
-  const employees: Employee[] | null = useGetEmployees({ dependency })
-
   const handleGoBack = (): void => {
     // * Send back the description and priority values to the previous page (as arguments)
     goBack(
@@ -99,7 +95,6 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
       {dependency
         ? (
         <AddEmployeesToProject
-          employees={employees}
           data={newData}
           goBack={handleReturnHere}
         />

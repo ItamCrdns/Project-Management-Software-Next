@@ -1,7 +1,14 @@
+import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Employee } from '@/interfaces/employee'
 
-const getPaginatedEmployees = async (page: string, pageSize: string): Promise<{ data: Employee[] | null, status: number }> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Employee/all')
+const getPaginatedEmployees = async (
+  companyId: number,
+  page: string,
+  pageSize: string
+): Promise<{ data: DictionaryResponse<Employee> | null, status: number }> => {
+  const url = new URL(
+    process.env.NEXT_PUBLIC_API_URL + `Company/${companyId}/employees`
+  )
   url.searchParams.set('page', page)
   url.searchParams.set('pageSize', pageSize)
 

@@ -6,16 +6,16 @@ import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import Resume from './Resume'
 import styles from './newProject.module.css'
+import useGetEmployees from './useGetEmployees'
+import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 
 interface AddEmployeesProps {
   data: NewProjectData
-  employees: Employee[] | null
   goBack: (employees: Employee[]) => void
 }
 
 const AddEmployeesToProject = ({
   data,
-  employees,
   goBack
 }: AddEmployeesProps): JSX.Element => {
   const [selectedEmployees, setSelectedEmployees] = useState<Employee[] | null>(
@@ -64,11 +64,26 @@ const AddEmployeesToProject = ({
     setShowResume(false)
   }
 
+  const companyId = data.data.companyId
+  // * Explicitly specify the type of the employees variable to ensure TypeScript recognizes it correctly
+  const employeesData: DictionaryResponse<Employee> | null = useGetEmployees({
+    companyId,
+    page: '1',
+    pageSize: '5',
+    dependency: true
+  })
+
+  const employees = employeesData?.data
+
   return (
     <>
       {showResume
         ? (
-        <Resume project={newData} employees={selectedEmployees} goBack={handleReturnHere} />
+        <Resume
+          project={newData}
+          employees={selectedEmployees}
+          goBack={handleReturnHere}
+        />
           )
         : (
         <>
