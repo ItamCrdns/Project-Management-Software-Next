@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.search span {
+.searchicon {
     position: absolute;
     left: 1rem;
     user-select: none;
@@ -18,7 +18,6 @@
     padding: 1rem;
     padding-left: 3.5rem;
     border-radius: 25px;
-    /* width: 100%; */
     border: none;
     font-family: inherit;
     color: var(--text-color);
@@ -27,3 +26,25 @@
 .search input:focus {
     outline: none;
 }
+
+.loader {
+    position: absolute;
+    right: 1rem;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 2px solid #FFF;
+    border-right: 2px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 

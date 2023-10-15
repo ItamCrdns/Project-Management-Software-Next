@@ -14,32 +14,43 @@ interface SearchProps {
  * @returns {JSX.Element} - The rendered search component.
  */
 
-const Search = ({ maxInputLength, onSearch }: SearchProps): JSX.Element => {
+const Search = ({
+  maxInputLength,
+  onSearch
+}: SearchProps): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [showSpinner, setShowSpinner] = useState<boolean>(false)
 
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       onSearch(searchTerm)
+      setShowSpinner(false)
     }, 1000)
 
     // debounce/delay the search until the user stops typing by clearing the timeout
-    return () => { clearTimeout(delaySearch) }
+    return () => {
+      clearTimeout(delaySearch)
+    }
   }, [searchTerm, onSearch])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
+    setShowSpinner(true)
     setSearchTerm(value)
   }
 
   return (
     <section className={styles.search}>
-      <span className="material-symbols-outlined">search</span>
+      <span className={`${styles.searchicon} material-symbols-outlined`}>
+        search
+      </span>
       <input
         type="text"
         placeholder="Press enter to search"
         maxLength={maxInputLength}
         onChange={handleInputChange}
       />
+      {showSpinner && <span className={styles.loader} />}
     </section>
   )
 }
