@@ -60,6 +60,19 @@
     height: 310px;
 }
 
+.noemployeesfound {
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+    background-color: var(--darker-banner-color);
+    width: 200px;
+    height: 310px;
+}
+
 .employees ul li {
     display: flex;
     align-items: center;

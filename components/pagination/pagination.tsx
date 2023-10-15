@@ -5,14 +5,21 @@ import { useEffect, useState } from 'react'
 interface PaginationProps {
   totalPages: number
   onPageChange: (page: number) => void
+  reset: boolean
 }
 
-const Pagination = ({ totalPages, onPageChange }: PaginationProps): JSX.Element => {
+const Pagination = ({ totalPages, onPageChange, reset }: PaginationProps): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   useEffect(() => {
     onPageChange(currentPage)
   }, [currentPage])
+
+  useEffect(() => {
+    if (reset) {
+      setCurrentPage(1)
+    }
+  }, [reset])
 
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
