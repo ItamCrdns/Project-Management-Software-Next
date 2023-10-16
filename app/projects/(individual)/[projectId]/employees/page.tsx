@@ -1,87 +1,60 @@
 'use client'
-import { type Employee } from '@/interfaces/employee'
-import { useEffect, useState } from 'react'
-import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
-import fetchEmployees from './fetchEmployees'
+import { useState } from 'react'
 import EmployeesRender from './EmployeesRender'
+import useGetEmployees, {
+  type EmployeeFetchProps,
+  type UseGetEmployeesProps
+} from '@/utility/employees/useGetEmployees'
+import fetchEmployees from './fetchEmployees'
 
 interface EmployeeProps {
   params: { projectId: string }
 }
 
+/**
+ * Renders a list of employees for a given project.
+ * @param {EmployeeProps} params - The props containing the project ID.
+ * @returns {JSX.Element} - The rendered component.
+ */
 const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
-  const [employees, setEmployees] =
-    useState<DictionaryResponse<Employee> | null>(null)
-
-  const [message, setMessage] = useState<string>('Loading...')
-  const [currentPage, setCurrentPage] = useState<string>('1')
-
-  const handlePageChange = (page: number): void => {
-    setCurrentPage(page.toString()) // Get the Pagination component page number with a callback function (convert it to string too!)
-    if (searchValue === '') {
-      fetchEmployees({ projectId: params.projectId, page: page.toString() }) // Promises are already coming fulfilled so we cannot catch the error, its gonna come in the .then instead the .catch
-        .then((res) => {
-          if (typeof res === 'string') {
-            // If the res its a string that means that the API returned an error
-            setMessage(res)
-          }
-          setEmployees(res as DictionaryResponse<Employee>)
-        })
-        .catch((err) => {
-          // Still have the catch otherwise eslint gets mad
-          setMessage(err)
-        })
-
-      // * Above comments also apply to the code below
-    }
-  }
-
   const [searchValue, setSearchValue] = useState<string>('')
 
+  /**
+   * Sets the search value state based on user input.
+   * @param {string} input - The user input.
+   * @returns {void}
+   */
   const getInputValue = (input: string): void => {
     setSearchValue(input)
   }
 
-  useEffect(() => {
-    if (searchValue !== '') {
-      fetchEmployees({
-        projectId: params.projectId,
-        searchValue,
-        page: currentPage
-      })
-        .then((res) => {
-          if (typeof res === 'string') {
-            // If the res its a string that means that the API returned an error
-            setMessage(res)
-          }
-          setEmployees(res as DictionaryResponse<Employee>)
-        })
-        .catch((err) => {
-          setMessage(err)
-        })
-    } else if (searchValue === '') {
-      fetchEmployees({ projectId: params.projectId, page: currentPage })
-        .then((res) => {
-          if (typeof res === 'string') {
-            // If the res its a string that means that the API returned an error
-            setMessage(res)
-          }
-          setEmployees(res as DictionaryResponse<Employee>)
-        })
-        .catch((err) => {
-          setMessage(err)
-        })
-    }
-  }, [searchValue, currentPage])
+  /**
+   * useGetEmployees hook.
+   * Defining props for the hook.
+   * @typedef {Object} UseGetEmployeesProps
+   * @property {string} entityId - The ID of the entity to fetch employees for.
+   * @property {string} searchValue - The search value to filter employees by.
+   * @property {Function} fetchEmployees - The function to fetch employees.
+   *
+   * The reason why this takes a function as argument is because the hook is made to fetch
+   * from different endpoints. sometimes to get the employees from a company
+   * other times to get the employees from a project
+   * this way we avoid code repetition and follow (kinda) SOLID principles
+   */
 
-  const totalPages = employees?.pages ?? 0
-  const employeeList = employees?.data ?? []
+  const employeesProps: UseGetEmployeesProps = { // Defining the props outside
+    entityId: params.projectId.toString(),
+    searchValue,
+    fetchEmployees: async ({
+      entityId: projectId,
+      searchValue,
+      page
+    }: EmployeeFetchProps) =>
+      await fetchEmployees({ projectId, searchValue, page })
+  }
 
-  useEffect(() => {
-    if (employeeList.length <= 0) {
-      setMessage('No employees match your search criteria.')
-    }
-  }, [employeeList])
+  const { employeeList, totalPages, handlePageChange, message } =
+    useGetEmployees(employeesProps) // Passing the props to the hook
 
   return (
     <EmployeesRender

@@ -3,7 +3,7 @@ import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Employee } from '@/interfaces/employee'
 
 interface EmployeeFetcherProps {
-  companyId: number
+  companyId: string
   searchValue?: string
   page: string
 }

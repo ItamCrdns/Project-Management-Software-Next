@@ -1,14 +1,13 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-import Resume from '../Resume'
-import Pagination from '@/components/pagination/pagination'
-import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import fetchEmployees from './fetchEmployees'
-import Search from '@/components/search/search'
-import EmployeeList from './EmployeeList'
-import Buttons from './Buttons'
+import useGetEmployees, {
+  type EmployeeFetchProps,
+  type UseGetEmployeesProps
+} from '@/utility/employees/useGetEmployees'
+import EmployeesRender from './EmployeesRender'
 
 interface AddEmployeesProps {
   data: NewProjectData
@@ -67,104 +66,46 @@ const AddEmployeesToProject = ({
 
   const companyId = data.data.companyId ?? 0
 
-  const [employees, setEmployees] =
-    useState<DictionaryResponse<Employee> | null>(null)
-
-  const totalPages = employees?.pages ?? 0
-  const employeeList = employees?.data ?? []
-
-  const [currentPage, setCurrentPage] = useState<string>('1')
-
-  const [message, setMessage] = useState<string>('Loading...')
-
-  const handlePageChange = (page: number): void => {
-    setCurrentPage(page.toString())
-    fetchEmployees({ companyId: companyId ?? 0, page: page.toString() })
-      .then((res) => {
-        if (typeof res === 'string') {
-          setMessage(res)
-        }
-        setEmployees(res as DictionaryResponse<Employee>)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
-
   const [searchValue, setSearchValue] = useState<string>('')
 
   const getInputValue = (input: string): void => {
     setSearchValue(input)
   }
 
-  useEffect(() => {
-    if (searchValue !== '') {
-      fetchEmployees({
-        companyId,
-        searchValue,
-        page: currentPage
-      })
-        .then((res) => {
-          if (typeof res === 'string') {
-            setMessage(res)
-          }
-          setEmployees(res as DictionaryResponse<Employee>)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    } else if (searchValue === '') {
-      fetchEmployees({ companyId, page: currentPage })
-        .then((res) => {
-          if (typeof res === 'string') {
-            setMessage(res)
-          }
-          setEmployees(res as DictionaryResponse<Employee>)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    }
-  }, [searchValue, currentPage])
+  const employeesProps: UseGetEmployeesProps = {
+    entityId: companyId.toString(),
+    searchValue,
+    fetchEmployees: async ({
+      entityId: companyId,
+      searchValue,
+      page
+    }: EmployeeFetchProps) =>
+      await fetchEmployees({ companyId, searchValue, page })
+  }
 
-  useEffect(() => {
-    if (employeeList.length <= 0) {
-      setMessage('No employees match your search criteria.')
-    }
-  }, [employeeList])
+  const { employeeList, totalPages, handlePageChange, message } =
+    useGetEmployees(employeesProps)
+
+  // * Reset the page to 1 when the user searches for something
+  const resetPage = searchValue !== ''
 
   return (
-    <>
-      {showResume
-        ? (
-        <Resume
-          project={newData}
-          employees={selectedEmployees}
-          goBack={handleReturnHere}
-        />
-          )
-        : (
-        <>
-          <h1>Who will be working on {data.data.name}?</h1>
-          <Search maxInputLength={16} onSearch={getInputValue} />
-          <EmployeeList
-            employeeList={employeeList}
-            selectedEmployees={selectedEmployees}
-            message={message}
-            handleEmployeeClick={handleEmployeeClick}
-          />
-          <p style={{ margin: 0, fontSize: '12px' }}>
-            Showing only {data.data.companyName} employees
-          </p>
-          <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
-          <Buttons
-            selectedEmployees={selectedEmployees}
-            handleSubmit={handleSubmit}
-            handleGoBack={handleGoBack}
-          />
-        </>
-          )}
-    </>
+    <EmployeesRender
+      showResume={showResume}
+      newData={newData}
+      selectedEmployees={selectedEmployees}
+      handleReturnHere={handleReturnHere}
+      data={data}
+      getInputValue={getInputValue}
+      employeeList={employeeList}
+      message={message}
+      handleEmployeeClick={handleEmployeeClick}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
+      resetPage={resetPage}
+      handleSubmit={handleSubmit}
+      handleGoBack={handleGoBack}
+    />
   )
 }
 
