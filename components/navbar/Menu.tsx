@@ -60,8 +60,8 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
       <section onClick={handleLogout} className={styles.logout}>
         <RippleButton
           text="Logout"
-          icon='logout'
-          iconSize='20px'
+          icon="logout"
+          iconSize="20px"
           backgroundColor="rgb(255, 80, 120)"
           effectColor="rgb(255, 50, 120)"
           textColor="white"

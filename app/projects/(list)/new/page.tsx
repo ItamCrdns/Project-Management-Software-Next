@@ -3,7 +3,6 @@ import { useRef, useState } from 'react'
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import { type Company } from '@/interfaces/company'
 import useCompanyDropdown from '@/utility/CompanyDropdown'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddDescription from './AddDescription'
@@ -12,6 +11,7 @@ import { InputAndCharacterCount } from '@/components/charactercount/CharacterCou
 import { type Employee } from '@/interfaces/employee'
 import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
+import useCompanyOptions from '@/utility/companyOptions'
 
 const initialState: NewProjectData = {
   data: {
@@ -46,11 +46,7 @@ const NewProjectModal = (): JSX.Element => {
 
   const dependency = projectName !== '' && companyId !== 0 && readyForNextPage
 
-  const companyOptions = companies?.map((company: Company) => ({
-    value: parseInt(company.companyId.toString()),
-    label: company.name,
-    info: ''
-  }))
+  const companyOptions = useCompanyOptions({ companies })
 
   /**
    * Callback function passed as props that updates the state with the selected company's ID and name.

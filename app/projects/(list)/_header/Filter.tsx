@@ -1,7 +1,8 @@
-import styles from './userbanner.module.css'
-import { type Company } from '@/interfaces/company'
+import styles from '../userbanner.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import useCompanyDropdown from '@/utility/CompanyDropdown'
+import CustomSelect, { type Option } from '@/components/select/select'
+import useCompanyOptions from '@/utility/companyOptions'
 
 interface FilterProps {
   toggle: boolean
@@ -10,23 +11,22 @@ interface FilterProps {
 const Filter = ({ toggle }: FilterProps): JSX.Element => {
   const { companies, error } = useCompanyDropdown({ dependency: toggle })
 
+  const companyOptions = useCompanyOptions({ companies })
+
+  const handleCompanySelect = (selectedValue: Option): void => {}
+
   return (
     <section
       className={styles.popup}
       style={{ display: toggle ? 'flex' : 'none' }}
     >
       <p>Company:</p>
-      <select defaultValue={'DEFAULT'}>
-        <option value="DEFAULT" disabled hidden>
-          Select a company...
-        </option>
-        {Array.isArray(companies) &&
-          companies.map((company: Company) => (
-            <option key={company.companyId} value={company.companyId}>
-              {company.name}
-            </option>
-          ))}
-      </select>
+      <CustomSelect
+        text="company"
+        options={companyOptions ?? []}
+        defaultValue=""
+        onSelect={handleCompanySelect}
+      />
       <RippleButton
         text="Apply filters"
         backgroundColor="#80B3FF"

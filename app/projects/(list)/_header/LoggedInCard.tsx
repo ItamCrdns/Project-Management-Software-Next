@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
-import styles from './userbanner.module.css'
+import styles from '../userbanner.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import Filter from './Filter'
 
@@ -21,9 +21,9 @@ const LoggedInCard = (): JSX.Element => {
             onClick={() => {
               setToggle(!toggle)
             }}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', userSelect: 'none' }}
           >
-            Filters
+            Options
           </p>
           <span
             onClick={() => {

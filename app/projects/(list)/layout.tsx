@@ -2,10 +2,10 @@ import React from 'react'
 import { type Project } from '@/interfaces/project'
 import getProjects from '@/api-calls/getProjects'
 import styles from './projectslist.module.css'
-import LoggedInCard from './LoggedInCard'
 import HeaderDescriptor from './HeaderDescriptor'
 import EachProject from './EachProject'
 import RippleButton from '@/components/ripplebutton/RippleButton'
+import TitleWrapper from './_header/TitleWrapper'
 
 const ProjectsPage = async (props: {
   children: React.ReactNode
@@ -17,19 +17,8 @@ const ProjectsPage = async (props: {
     <>
       {props.children}
       <main className={styles.main}>
+        <TitleWrapper />
         <section className={styles.projectswrapper}>
-          <div className={styles.titlewrapper}>
-            <span>
-              <span
-                style={{ fontSize: '50px' }}
-                className="material-symbols-outlined"
-              >
-                tactic
-              </span>
-              <h1>All projects</h1>
-            </span>
-            <LoggedInCard />
-          </div>
           <HeaderDescriptor />
           {Object.entries(projects).map(([companyName, projects]) => (
             <React.Fragment key={companyName}>

@@ -193,12 +193,12 @@
     text-transform: capitalize;
     display: flex;
     align-items: center;
-    gap: .5rem;
     border-bottom: 1px solid rgb(255, 80, 120);
 }
 
 .userdatacontainer p {
     font-weight: 600;
+    margin: 1rem 0;
 }
 
 .popupmenu {

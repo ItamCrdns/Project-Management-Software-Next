@@ -42,7 +42,7 @@ const EmployeeCard = ({
           </h1>
               )
             : (
-          <h1 style={{ marginBottom: '1rem' }}>{employee?.username}</h1>
+          <h1 style={{ fontSize: '24px', marginBottom: '1rem' }}>{employee?.username}</h1>
               )}
         <p>{employee?.role}</p>
         {isProfile && (

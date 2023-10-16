@@ -3,7 +3,7 @@ import { type Project } from '@/interfaces/project'
 import styles from '@/app/projects/(list)/projectslist.module.css'
 import EachProject from '../../(list)/EachProject'
 import HeaderDescriptor from '../../(list)/HeaderDescriptor'
-import LoggedInCard from '../../(list)/LoggedInCard'
+import LoggedInCard from '../../(list)/_header/LoggedInCard'
 import Link from 'next/link'
 
 interface CompanyNameProps {
