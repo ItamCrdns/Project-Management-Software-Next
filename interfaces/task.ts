@@ -1,3 +1,4 @@
+import { type Employee } from './employee'
 import { type Images } from './images'
 
 export interface Task {
@@ -10,4 +11,5 @@ export interface Task {
   taskCreatorId: number
   projectId: number
   images: Images
+  employees: Employee[] | null
 }

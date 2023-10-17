@@ -5,16 +5,19 @@ import { relativeTime } from '@/utility/relativeTime'
 import { type Employee } from '@/interfaces/employee'
 import { type Company } from '@/interfaces/company'
 import ProjectPriority from '../../(list)/Priority'
+import ProjectEmployees from './ProjectEmployees'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface ProjectIdProps {
   children: React.ReactNode
+  tasks: React.ReactNode
   params: { projectId: string }
 }
 
 const ProjectId = async ({
   children,
+  tasks,
   params
 }: ProjectIdProps): Promise<JSX.Element> => {
   const { data } = await getProject(params.projectId)
@@ -23,6 +26,11 @@ const ProjectId = async ({
   const employees = project?.employees as Employee[]
   const company = project?.company as Company
   const projectCreator = project?.projectCreator as Employee
+
+  const employeeCount = data?.employeeCount ?? 0
+  const projectId = data?.projectId ?? 0
+
+  const tasksCount = data?.tasksCount ?? 0
 
   return (
     <>
@@ -82,36 +90,14 @@ const ProjectId = async ({
             </aside>
           </div>
         </article>
-        <article className={styles.employees}>
-          <div className={styles.headerwrapper}>
-            <h1>Employee</h1>
-            <h3>List</h3>
-          </div>
-          {Array.isArray(employees) && (
-            <ul>
-              {employees.map((employee: Employee) => (
-                <li key={employee.employeeId}>
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={50}
-                    height={50}
-                  />
-                  <Link href={`/employees/${employee.username}`}>
-                    {employee.username}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-          {data?.employeeCount !== undefined && data?.employeeCount > 5 && (
-            <h3>
-              <Link href={`/projects/${project?.projectId}/employees`}>
-                See all {data.employeeCount} employees
-              </Link>
-            </h3>
-          )}
-        </article>
+        {tasksCount > 0 && tasks}
+        {Array.isArray(employees) && (
+          <ProjectEmployees
+            employees={employees}
+            projectId={projectId}
+            employeeCount={employeeCount}
+          />
+        )}
       </article>
     </>
   )

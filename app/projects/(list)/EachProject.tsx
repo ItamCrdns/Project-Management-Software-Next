@@ -12,27 +12,25 @@ interface EachProjectProps {
 
 const EachProject = ({ project }: EachProjectProps): JSX.Element => {
   return (
-    <ul>
-      <li key={project.projectId}>
-        <div>
-          <h1>
-            <Link href={`/projects/${project.projectId}`}>{project.name}</Link>
-          </h1>
-        </div>
-        <ProjectCreator creator={project.projectCreator} />
-        {project.employees.length > 0
-          ? (
-          <ProjectEmployees employees={project.employees} />
-            )
-          : (
-          <div className={styles.listofemployees}>No employees</div>
-            )}
-        <ProjectPriority priority={project.priority} />
-        <div>
-          <p>{relativeTime(new Date(project.created ?? '').getTime())}</p>
-        </div>
-      </li>
-    </ul>
+    <>
+      <div>
+        <h1>
+          <Link href={`/projects/${project.projectId}`}>{project.name}</Link>
+        </h1>
+      </div>
+      <ProjectCreator creator={project.projectCreator} />
+      {project.employees.length > 0
+        ? (
+        <ProjectEmployees employees={project.employees} />
+          )
+        : (
+        <div className={styles.listofemployees}>No employees</div>
+          )}
+      <ProjectPriority priority={project.priority} />
+      <div>
+        <p>{relativeTime(new Date(project.created ?? '').getTime())}</p>
+      </div>
+    </>
   )
 }
 

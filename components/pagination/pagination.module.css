@@ -4,7 +4,7 @@
     width: 100%;
     justify-content: space-around;
     background-color: var(--darker-banner-color);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .pagination > span {

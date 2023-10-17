@@ -36,10 +36,15 @@ const ProjectsPage = async (props: {
                   </div>
                 )}
               </div>
-              {Array.isArray(projects) &&
-                projects.map((project: Project) => (
-                  <EachProject key={project.projectId} project={project} />
-                ))}
+              {Array.isArray(projects) && (
+                <ul>
+                  {projects.map((project: Project, index: number) => (
+                    <li key={index}>
+                      <EachProject project={project} />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </React.Fragment>
           ))}
         </section>

@@ -13,6 +13,7 @@ export interface Project {
   projectCreator: Employee
   company: Company
   employeeCount: number
+  tasksCount: number
   employees: Employee[]
   priority: number
 }
