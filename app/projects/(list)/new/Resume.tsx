@@ -91,22 +91,20 @@ const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
           </p>
             ))}
       <div className={styles.buttonwrapper}>
-        <div onClick={handleCreateProject}>
-          <RippleButton
-            text="Create project"
-            backgroundColor="#80B3FF"
-            width="120px"
-            textColor="white"
-          />
-        </div>
-        <div onClick={handleGoBack}>
-          <RippleButton
-            text="Go back"
-            backgroundColor="var(--darker-banner-color)"
-            effectColor="var(--banner-color)"
-            textColor="var(--text-color)"
-          />
-        </div>
+        <RippleButton
+          text="Create project"
+          backgroundColor="#80B3FF"
+          width="120px"
+          textColor="white"
+          func={handleCreateProject}
+        />
+        <RippleButton
+          text="Go back"
+          backgroundColor="var(--darker-banner-color)"
+          effectColor="var(--banner-color)"
+          textColor="var(--text-color)"
+          func={handleGoBack}
+        />
       </div>
     </section>
   )

@@ -50,7 +50,9 @@ const LoginPage = (): JSX.Element => {
       })
   }
 
-  const isAnyFieldTruthy = Object.values(showAlert ?? alertInitialState).some(value => value)
+  const isAnyFieldTruthy = Object.values(showAlert ?? alertInitialState).some(
+    (value) => value
+  )
 
   let alertWidth = '125px'
   let bgColor = ''
@@ -77,17 +79,27 @@ const LoginPage = (): JSX.Element => {
       <section className={styles.loginwrapper}>
         <h1>Company Logo here</h1>
         <form ref={formRef} onSubmit={handleSubmit}>
-          <input type="text" name="username" required placeholder="Username" autoFocus/>
-          <input type="password" name="password" required placeholder="Password" />
+          <input
+            type="text"
+            name="username"
+            required
+            placeholder="Username"
+            autoFocus
+          />
+          <input
+            type="password"
+            name="password"
+            required
+            placeholder="Password"
+          />
           <input type="submit" />
         </form>
-        <div onClick={handleClick}>
-          <RippleButton
-            text="Login"
-            backgroundColor="rgb(0, 210, 255)"
-            textColor="white"
-          />
-        </div>
+        <RippleButton
+          text="Login"
+          backgroundColor="rgb(0, 210, 255)"
+          textColor="white"
+          func={handleClick}
+        />
       </section>
       <Alert
         ready={isAnyFieldTruthy}

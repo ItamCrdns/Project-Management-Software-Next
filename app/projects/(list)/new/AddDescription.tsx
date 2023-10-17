@@ -94,10 +94,7 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
     <>
       {dependency
         ? (
-        <AddEmployeesToProject
-          data={newData}
-          goBack={handleReturnHere}
-        />
+        <AddEmployeesToProject data={newData} goBack={handleReturnHere} />
           )
         : (
         <>
@@ -122,22 +119,20 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
             />
           </form>
           <div className={styles.buttonwrapper}>
-            <div onClick={handleClick}>
-              <RippleButton
-                text="Next"
-                backgroundColor="#80B3FF"
-                textColor="white"
-                effectColor="var(--banner-color)"
-              />
-            </div>
-            <div onClick={handleGoBack}>
-              <RippleButton
-                text="Go back"
-                backgroundColor="var(--darker-banner-color)"
-                effectColor="var(--banner-color)"
-                textColor="var(--text-color)"
-              />
-            </div>
+            <RippleButton
+              text="Next"
+              backgroundColor="#80B3FF"
+              textColor="white"
+              effectColor="var(--banner-color)"
+              func={handleClick}
+            />
+            <RippleButton
+              text="Go back"
+              backgroundColor="var(--darker-banner-color)"
+              effectColor="var(--banner-color)"
+              textColor="var(--text-color)"
+              func={handleGoBack}
+            />
           </div>
         </>
           )}

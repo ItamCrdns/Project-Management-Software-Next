@@ -20,21 +20,22 @@ const UnsavedChanges = ({ goBack }: UnsavedChangesProps): JSX.Element => {
         <p>Are you sure you want to discard this new project?</p>
         <p>Changes you have made will not be saved.</p>
         <div className={styles.buttonwrapper}>
-          <div onClick={handleGoBack}>
-            <RippleButton
-              text="Go back"
-              backgroundColor="#80B3FF"
-              textColor="white"
-            />
-          </div>
-          <div onClick={() => { router.push('/projects') }}>
-            <RippleButton
-              text="Discard"
-              backgroundColor="rgb(255, 80, 120)"
-              effectColor="rgb(255, 50, 120)"
-              textColor="white"
-            />
-          </div>
+          <RippleButton
+            text="Go back"
+            backgroundColor="#80B3FF"
+            textColor="white"
+            func={handleGoBack}
+          />
+
+          <RippleButton
+            text="Discard"
+            backgroundColor="rgb(255, 80, 120)"
+            effectColor="rgb(255, 50, 120)"
+            textColor="white"
+            func={() => {
+              router.push('/projects')
+            }}
+          />
         </div>
       </section>
     </section>

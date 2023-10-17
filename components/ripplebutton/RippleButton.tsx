@@ -3,23 +3,23 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './ripplebutton.module.css'
 import Link from 'next/link'
 
-/**
- * Props for the RippleButton component
- * @param {string} text - The text to display on the button. Ex: "Continue"
- * @param {string} [width] - The width of the button. Default: 100px
- * @param {string} [height] - The height of the button. Default: 35px
- * @param {string} [backgroundColor] - The background color of the button. Default: depends on theme
- * @param {string} [textColor] - The text color of the button Default: depends on theme
- * @param {string} [effectColor] - The color of the ripple effect. Default: white
- * @param {string} [borderRadius] - The border radius of the button Default: 10px
- * @param {string} [icon] - The icon to display on the button. Default: none
- * @param {string} [iconSize] - The size of the icon. Default: none
- * @param {string} [href] - The URL to link to when the button is clicked. Default: none
- * @param {boolean | null} [loading] - PROMISE. Will return a loading spinner left to the text if true, nothing if null, and the button if false. Default: null
- */
-
 /** DO NOT COMBINE ICON AND LOADING IT WILL LOOK WEIRD */
 
+/**
+ * Props for the RippleButton component.
+ * @param {string} text - The text to display on the button.
+ * @param {string} [width] - The width of the button.
+ * @param {string} [height] - The height of the button.
+ * @param {string} [backgroundColor] - The background color of the button.
+ * @param {string} [textColor] - The text color of the button.
+ * @param {string} [effectColor] - The color of the ripple effect.
+ * @param {string} [borderRadius] - The border radius of the button.
+ * @param {string} [icon] - The icon to display on the button.
+ * @param {string} [iconSize] - The size of the icon.
+ * @param {string} [href] - The URL to link to when the button is clicked.
+ * @param {boolean|null} [loading] - Whether the button is in a loading state.
+ * @param {(...args: any[]) => void} [func] - The function to call when the button is clicked.
+ */
 interface RippleButtonProps {
   text: string
   width?: string
@@ -32,6 +32,7 @@ interface RippleButtonProps {
   iconSize?: string
   href?: string
   loading?: boolean | null
+  func?: (...args: any[]) => void // * Takes any arguments
 }
 
 const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
@@ -49,7 +50,8 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
     icon,
     iconSize,
     href,
-    loading = null
+    loading = null,
+    func
   } = props
 
   useEffect(() => {
@@ -72,6 +74,17 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   }, [props])
 
   /**
+   * Handles button effect and executes the provided function (if any) that you passed as props.
+   */
+  const handleButtonClick = (e: React.MouseEvent<HTMLSpanElement>): void => {
+    handleEffect(e)
+
+    if (func !== undefined && func !== null) {
+      func(e)
+    }
+  }
+
+  /**
    * Handles the ripple effect when the button is clicked.
    * @param e - The mouse event that triggered the ripple effect.
    */
@@ -92,7 +105,7 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   }
 
   return (
-    <span ref={buttonRef} className={styles.button} onClick={handleEffect} onMouseLeave={handleClearRipples}>
+    <span ref={buttonRef} className={styles.button} onClick={handleButtonClick} onMouseLeave={handleClearRipples}>
       {href !== undefined
         ? (
         <Link href={href} className={styles.loadertextwrapper}>

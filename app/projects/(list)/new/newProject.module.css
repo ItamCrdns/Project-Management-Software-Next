@@ -30,7 +30,7 @@
     justify-content: center;
 }
 
-.newproject > span:hover {
+.newproject > span:hover:first-child {
     color: rgb(255, 80, 120);
     background-color: var(--darker-banner-color);
     border-radius: 50%;

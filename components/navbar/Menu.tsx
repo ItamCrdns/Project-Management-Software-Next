@@ -57,7 +57,7 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
           <p>{!darkMode ? 'Dark mode' : 'Light mode'}</p>
         </span>
       </section>
-      <section onClick={handleLogout} className={styles.logout}>
+      <section className={styles.logout}>
         <RippleButton
           text="Logout"
           icon="logout"
@@ -65,6 +65,7 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
           backgroundColor="rgb(255, 80, 120)"
           effectColor="rgb(255, 50, 120)"
           textColor="white"
+          func={handleLogout}
         />
       </section>
     </aside>

@@ -18,43 +18,39 @@ const Buttons = ({
       {selectedEmployees !== null && selectedEmployees.length > 0
         ? (
         <div className={styles.buttonwrapper}>
-          <div onClick={handleSubmit}>
-            <RippleButton
-              text={`Add ${selectedEmployees.length} employees`}
-              width="120px"
-              backgroundColor="#80B3FF"
-              textColor="white"
-            />
-          </div>
-          <div onClick={handleGoBack}>
-            <RippleButton
-              text="Go back"
-              backgroundColor="var(--darker-banner-color)"
-              effectColor="var(--banner-color)"
-              textColor="var(--text-color)"
-            />
-          </div>
+          <RippleButton
+            text={`Add ${selectedEmployees.length} employees`}
+            width="120px"
+            backgroundColor="#80B3FF"
+            textColor="white"
+            func={handleSubmit}
+          />
+          <RippleButton
+            text="Go back"
+            backgroundColor="var(--darker-banner-color)"
+            effectColor="var(--banner-color)"
+            textColor="var(--text-color)"
+            func={handleGoBack}
+          />
         </div>
           )
         : (
         <div className={styles.buttonwrapper}>
-          <div onClick={handleSubmit}>
-            <RippleButton
-              text="Continue without adding employees"
-              width="250px"
-              backgroundColor="var(--darker-banner-color)"
-              effectColor="var(--banner-color)"
-              textColor="var(--text-color)"
-            />
-          </div>
-          <div onClick={handleGoBack}>
-            <RippleButton
-              text="Go back"
-              backgroundColor="var(--darker-banner-color)"
-              effectColor="var(--banner-color)"
-              textColor="var(--text-color)"
-            />
-          </div>
+          <RippleButton
+            text="Continue without adding employees"
+            width="250px"
+            backgroundColor="var(--darker-banner-color)"
+            effectColor="var(--banner-color)"
+            textColor="var(--text-color)"
+            func={handleSubmit}
+          />
+          <RippleButton
+            text="Go back"
+            backgroundColor="var(--darker-banner-color)"
+            effectColor="var(--banner-color)"
+            textColor="var(--text-color)"
+            func={handleGoBack}
+          />
         </div>
           )}
     </>

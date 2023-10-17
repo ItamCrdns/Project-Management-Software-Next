@@ -44,16 +44,15 @@ const SmallScreenNavbar = ({
               </span>
               <Link href={`/profile/${employee.username}`}>Your profile</Link>
             </section>
-            <div onClick={handleLogout}>
-              <RippleButton
-                text="Logout"
-                icon="logout"
-                iconSize="20px"
-                backgroundColor="rgb(255, 80, 120)"
-                effectColor="rgb(255, 50, 120)"
-                textColor="white"
-              />
-            </div>
+            <RippleButton
+              text="Logout"
+              icon="logout"
+              iconSize="20px"
+              backgroundColor="rgb(255, 80, 120)"
+              effectColor="rgb(255, 50, 120)"
+              textColor="white"
+              func={handleLogout}
+            />
           </section>
         </section>
           )

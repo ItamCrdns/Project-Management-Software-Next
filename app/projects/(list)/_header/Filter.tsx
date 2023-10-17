@@ -13,7 +13,9 @@ const Filter = ({ toggle }: FilterProps): JSX.Element => {
 
   const companyOptions = useCompanyOptions({ companies })
 
-  const handleCompanySelect = (selectedValue: Option): void => {}
+  const handleCompanySelect = (selectedValue: Option): void => {
+    // console.log(selectedValue)
+  }
 
   return (
     <section

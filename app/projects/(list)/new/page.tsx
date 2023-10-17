@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
@@ -153,9 +153,12 @@ const NewProjectModal = (): JSX.Element => {
                 {error.toString()}
               </p>
             )}
-            <div onClick={handleClick}>
-              <RippleButton text="Next" backgroundColor="#80B3FF" textColor="white" />
-            </div>
+            <RippleButton
+              text="Next"
+              backgroundColor="#80B3FF"
+              textColor="white"
+              func={handleClick}
+            />
           </>
             )}
       </section>
