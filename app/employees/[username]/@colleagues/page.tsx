@@ -13,12 +13,13 @@ const Colleagues = async ({
   const data = await getColleagues(username)
   const colleagues = data?.data as Employee
 
-  // Currently deprecated
   return (
     <section className={styles.colleagues}>
       <div className={styles.titlewrapper}>
-        <span className="material-symbols-outlined">groups</span>
-        <h1>Colleagues</h1>
+        <div>
+          <span className="material-symbols-outlined">groups</span>
+          <h1>Colleagues</h1>
+        </div>
       </div>
       <ul>
         {Array.isArray(colleagues) &&

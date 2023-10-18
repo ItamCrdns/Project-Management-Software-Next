@@ -15,7 +15,7 @@ const EmployeeIdLayout = async (props: {
         {props.tasks}
         {props.projects}
       </section>
-      {/* <section className={styles.rightsidewrapper}>{props.colleagues}</section> */}
+      <section className={styles.rightsidewrapper}>{props.colleagues}</section>
     </main>
   )
 }
