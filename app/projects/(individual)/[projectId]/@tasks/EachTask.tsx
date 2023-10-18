@@ -5,7 +5,7 @@ interface EachTaskProps {
 }
 
 const EachTask: React.FunctionComponent<EachTaskProps> = ({ task }) => {
-  return task.name
+  return <p>{task.name}</p>
 }
 
 export default EachTask

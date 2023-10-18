@@ -27,13 +27,18 @@ const CompanyProjectsPage = async ({
 
   return (
     <main className={styles.main}>
-      <TitleWrapper title={title} returnToProjects={true}/>
+      <TitleWrapper title={title} returnToProjects={true} />
       <section className={styles.projectswrapper}>
         <HeaderDescriptor />
-        {Array.isArray(projects) &&
-          projects.map((project: Project) => (
-            <EachProject key={project.projectId} project={project} />
-          ))}
+        {Array.isArray(projects) && (
+          <ul>
+            {projects.map((project: Project, index: number) => (
+              <li key={index}>
+                <EachProject project={project} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   )

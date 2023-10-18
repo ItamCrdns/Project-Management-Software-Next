@@ -33,7 +33,7 @@ const ProjectId = async ({
   const tasksCount = data?.tasksCount ?? 0
 
   return (
-    <>
+    <section className={styles.contentwrapper}>
       {children}
       <article className={styles.projectwrapper}>
         <article className={styles.project}>
@@ -90,7 +90,6 @@ const ProjectId = async ({
             </aside>
           </div>
         </article>
-        {tasksCount > 0 && tasks}
         {Array.isArray(employees) && (
           <ProjectEmployees
             employees={employees}
@@ -99,7 +98,8 @@ const ProjectId = async ({
           />
         )}
       </article>
-    </>
+      {tasksCount > 0 && tasks}
+    </section>
   )
 }
 
