@@ -4,7 +4,7 @@
     justify-content: center;
     gap: 2rem;
     padding: 2rem 5rem;
-    background-color: var(--background-color);
+    border-radius: 5px;
 }
 
 .projectswrapper {

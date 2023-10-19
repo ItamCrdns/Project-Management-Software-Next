@@ -1,31 +1,35 @@
 'use client'
+import { useState } from 'react'
 import styles from './pagination.module.css'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface PaginationProps {
   totalPages: number
-  onPageChange: (page: number) => void
-  reset?: boolean
+  entity: string | number
+  pageFromSearchParams: string
 }
 
-const Pagination: React.FunctionComponent<PaginationProps> = ({ totalPages, onPageChange, reset }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1)
+/**
+ * Renders a server-side pagination component.
+ * Used to perform a server-side pagination with Link
+ */
 
-  useEffect(() => {
-    onPageChange(currentPage)
-  }, [currentPage])
+const ServerPagination: React.FunctionComponent<PaginationProps> = ({
+  totalPages,
+  entity,
+  pageFromSearchParams
+}) => {
+  const [currentPage, setCurrentPage] = useState<number>(parseInt(pageFromSearchParams))
 
-  useEffect(() => {
-    if (reset !== null) {
-      setCurrentPage(1)
-    }
-  }, [reset])
+  const router = useRouter()
 
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1)
+      router.push(`/employees/${entity}/projects?page=${currentPage - 1}`)
     } else if (action === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
+      router.push(`/employees/${entity}/projects?page=${currentPage + 1}`)
     }
   }
 
@@ -54,4 +58,4 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({ totalPages, onPa
   )
 }
 
-export default Pagination
+export default ServerPagination

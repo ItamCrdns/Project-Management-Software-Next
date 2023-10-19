@@ -1,6 +1,6 @@
 import { type Project } from '@/interfaces/project'
 import styles from '../employee.module.css'
-import getUserProjects from '@/api-calls/getUserProjects'
+import getUserProjectsShowcase from '@/api-calls/getUserProjectsShowcase'
 import Link from 'next/link'
 
 const CurrentProjects = async ({
@@ -9,7 +9,7 @@ const CurrentProjects = async ({
   params: { username: string }
 }): Promise<JSX.Element> => {
   const { username } = params
-  const { data } = await getUserProjects(username, '1', '5')
+  const { data } = await getUserProjectsShowcase(username, '1', '5')
   const projects = data?.data
   const projectsCount = data?.count
 
@@ -36,7 +36,7 @@ const CurrentProjects = async ({
             ))}
           </ul>
           <h3>
-            <Link href={'/'}>See all {projectsCount} {username} projects</Link>
+            <Link href={`/employees/${username}/projects?page=1`}>See all {projectsCount} {username} projects</Link>
           </h3>
         </>
           )
