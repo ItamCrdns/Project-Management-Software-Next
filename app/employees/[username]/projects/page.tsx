@@ -1,6 +1,7 @@
 import getUserProjects from '@/api-calls/getUserProjects'
 import ProjectList from './ProjectList'
 import styles from '../employee.module.css'
+import Link from 'next/link'
 
 interface Props {
   params: { username: string }
@@ -19,7 +20,7 @@ const EmployeeProjects: React.FunctionComponent<Props> = async ({
     page = '1'
   }
 
-  const { data } = await getUserProjects(username, page, '5')
+  const { data } = await getUserProjects(username, page, '10')
 
   const projects = data?.data ?? []
   const totalPages = data?.pages ?? 0
@@ -27,6 +28,12 @@ const EmployeeProjects: React.FunctionComponent<Props> = async ({
   return (
     <section className={styles.projectsinterceptionwrapper}>
       <section className={styles.projects}>
+        <Link
+          href={`/employees/${username}`}
+          className={`material-symbols-outlined ${styles.closebutton}`}
+        >
+          close
+        </Link>
         <ProjectList
           projects={projects}
           username={username}
