@@ -1,12 +1,14 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './pagination.module.css'
 import { useRouter } from 'next/navigation'
 
 interface PaginationProps {
   totalPages: number
-  entity: string | number
+  url: string
   pageFromSearchParams: string
+  onPageChange?: (page: number) => void
+  reset?: boolean
 }
 
 /**
@@ -16,20 +18,35 @@ interface PaginationProps {
 
 const ServerPagination: React.FunctionComponent<PaginationProps> = ({
   totalPages,
-  entity,
-  pageFromSearchParams
+  url,
+  pageFromSearchParams,
+  onPageChange,
+  reset
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(parseInt(pageFromSearchParams))
+  const pageNumberFromUrl = parseInt(pageFromSearchParams)
+  const [currentPage, setCurrentPage] = useState<number>(pageNumberFromUrl)
+
+  useEffect(() => {
+    if (onPageChange !== undefined) {
+      onPageChange(currentPage)
+    }
+  }, [currentPage])
+
+  useEffect(() => {
+    if (reset === true) {
+      setCurrentPage(1)
+    }
+  }, [reset])
 
   const router = useRouter()
 
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1)
-      router.push(`/employees/${entity}/projects?page=${currentPage - 1}`)
+      router.push(`${url}?page=${currentPage - 1}`)
     } else if (action === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
-      router.push(`/employees/${entity}/projects?page=${currentPage + 1}`)
+      router.push(`${url}?page=${currentPage + 1}`)
     }
   }
 

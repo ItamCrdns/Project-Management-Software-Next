@@ -9,6 +9,7 @@ import fetchEmployees from './fetchEmployees'
 
 interface EmployeeProps {
   params: { projectId: string }
+  searchParams: { page: string }
 }
 
 /**
@@ -16,8 +17,15 @@ interface EmployeeProps {
  * @param {EmployeeProps} params - The props containing the project ID.
  * @returns {JSX.Element} - The rendered component.
  */
-const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
+const EmployeesList = ({ params, searchParams }: EmployeeProps): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('')
+
+  let { page } = searchParams
+
+  if (page === undefined || page === null) {
+    // Set the value to 1 if the user removes the page?=# from the URL
+    page = '1'
+  }
 
   /**
    * Sets the search value state based on user input.
@@ -50,7 +58,8 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
       searchValue,
       page
     }: EmployeeFetchProps) =>
-      await fetchEmployees({ projectId, searchValue, page })
+      await fetchEmployees({ projectId, searchValue, page }),
+    isNewProject: false // * Enable searchParams pagination for this employee list
   }
 
   const { employeeList, totalPages, handlePageChange, message } =
@@ -65,6 +74,7 @@ const EmployeesList = ({ params }: EmployeeProps): JSX.Element => {
       totalPages={totalPages}
       handlePageChange={handlePageChange}
       getInputValue={getInputValue}
+      pageFromSearchParams={page}
     />
   )
 }

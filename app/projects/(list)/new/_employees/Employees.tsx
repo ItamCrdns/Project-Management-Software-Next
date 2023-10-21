@@ -80,7 +80,8 @@ const AddEmployeesToProject = ({
       searchValue,
       page
     }: EmployeeFetchProps) =>
-      await fetchEmployees({ companyId, searchValue, page })
+      await fetchEmployees({ companyId, searchValue, page }),
+    isNewProject: true // * Disable searchParams pagination for this employee list (since its a new project)
   }
 
   const { employeeList, totalPages, handlePageChange, message } =

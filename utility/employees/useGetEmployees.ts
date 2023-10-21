@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Employee } from '@/interfaces/employee'
+import { useRouter } from 'next/navigation'
 
 export interface EmployeeFetchProps {
   entityId: string
@@ -14,6 +15,8 @@ export interface UseGetEmployeesProps {
   fetchEmployees: (
     props: EmployeeFetchProps
   ) => Promise<DictionaryResponse<Employee> | string>
+  isNewProject?: boolean
+
 }
 
 interface UseGetEmployeesReturn {
@@ -35,15 +38,20 @@ interface UseGetEmployeesReturn {
 const useGetEmployees = ({
   entityId,
   searchValue,
-  fetchEmployees
+  fetchEmployees,
+  isNewProject
 }: UseGetEmployeesProps): UseGetEmployeesReturn => {
   const [employees, setEmployees] =
     useState<DictionaryResponse<Employee> | null>(null)
   const [message, setMessage] = useState<string>('Loading...')
   const [currentPage, setCurrentPage] = useState<string>('1')
 
+  const router = useRouter()
+
   const handlePageChange = (page: number): void => {
     setCurrentPage(page.toString()) // Get the Pagination component page number with a callback function (convert it to string too!)
+    console.log(currentPage)
+    isNewProject === false && router.push(`?page=${page}`)
     if (searchValue === '') {
       fetchEmployees({ entityId, page: page.toString() }) // Promises are already coming fulfilled so we cannot catch the error, its gonna come in the .then instead the .catch
         .then((res) => {

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import EmployeeList from './EmployeeList'
-import Pagination from '@/components/pagination/pagination'
+import ServerPagination from '@/components/pagination/ServerPagination'
 import styles from './employees.module.css'
 import { type Employee } from '@/interfaces/employee'
 
@@ -12,6 +12,7 @@ interface EmployeesRenderProps {
   totalPages: number
   handlePageChange: (page: number) => void
   getInputValue: (input: string) => void
+  pageFromSearchParams: string
 }
 
 const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
@@ -20,6 +21,7 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
   message,
   searchValue,
   totalPages,
+  pageFromSearchParams,
   handlePageChange,
   getInputValue
 }) => {
@@ -39,9 +41,11 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
           message={message}
           getInputValue={getInputValue}
         />
-        <Pagination
+        <ServerPagination
           reset={resetPage}
+          url={`/projects/${projectId}/employees`}
           totalPages={totalPages}
+          pageFromSearchParams={pageFromSearchParams}
           onPageChange={handlePageChange}
         />
       </section>

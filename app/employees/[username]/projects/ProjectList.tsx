@@ -35,7 +35,11 @@ const ProjectList: React.FunctionComponent<ProjectsListProps> = ({
           </ul>
         )}
       </section>
-      <ServerPagination entity={username} totalPages={totalPages} pageFromSearchParams={pageFromSearchParams} />
+      <ServerPagination
+        url={`/employees/${username}/projects`}
+        totalPages={totalPages}
+        pageFromSearchParams={pageFromSearchParams}
+      />
     </main>
   )
 }
