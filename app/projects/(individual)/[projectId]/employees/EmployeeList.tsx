@@ -8,19 +8,28 @@ interface EmployeeListProps {
   employeeList: Employee[]
   message: string
   getInputValue: (input: string) => void
+  onInputChange: (arg0: boolean) => void
+  urlWithParams: string
 }
 
-const EmployeeList = ({
+const EmployeeList: React.FunctionComponent<EmployeeListProps> = ({
   employeeList,
   message,
-  getInputValue
-}: EmployeeListProps): JSX.Element => {
+  getInputValue,
+  onInputChange,
+  urlWithParams
+}) => {
   return (
     <>
       {Array.isArray(employeeList) && (
         <>
           <h1>All employees</h1>
-          <Search maxInputLength={16} onSearch={getInputValue} />
+          <Search
+            onInputChange={onInputChange}
+            maxInputLength={16}
+            onSearch={getInputValue}
+            url={urlWithParams}
+          />
           {employeeList.length > 0
             ? (
             <ul>

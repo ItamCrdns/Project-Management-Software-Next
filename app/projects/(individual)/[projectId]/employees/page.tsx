@@ -6,26 +6,36 @@ import useGetEmployees, {
   type UseGetEmployeesProps
 } from '@/utility/employees/useGetEmployees'
 import fetchEmployees from './fetchEmployees'
+import { usePathname } from 'next/navigation'
+import { type SearchParams } from '@/interfaces/searchParams'
 
 interface EmployeeProps {
   params: { projectId: string }
-  searchParams: { page: string }
+  searchParams: SearchParams
 }
 
 /**
  * Renders a list of employees for a given project.
  * @param {EmployeeProps} params - The props containing the project ID.
- * @returns {JSX.Element} - The rendered component.
  */
-const EmployeesList = ({ params, searchParams }: EmployeeProps): JSX.Element => {
+const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
+  params,
+  searchParams
+}) => {
   const [searchValue, setSearchValue] = useState<string>('')
 
-  let { page } = searchParams
-
-  if (page === undefined || page === null) {
+  if (searchParams.page === undefined || searchParams.page === null) {
     // Set the value to 1 if the user removes the page?=# from the URL
-    page = '1'
+    searchParams.page = '1'
   }
+
+  // const page = searchParams.page
+  // Get the key of the page from the searchParams object
+  // const pageKey = Object.keys(searchParams).find((key) => key === 'page')
+
+  const pathname = usePathname()
+  // const router = useRouter()
+  // const urlWithParams = `${pathname}?${pageKey}=${page}`
 
   /**
    * Sets the search value state based on user input.
@@ -50,7 +60,8 @@ const EmployeesList = ({ params, searchParams }: EmployeeProps): JSX.Element => 
    * this way we avoid code repetition and follow (kinda) SOLID principles
    */
 
-  const employeesProps: UseGetEmployeesProps = { // Defining the props outside
+  const employeesProps: UseGetEmployeesProps = {
+    // Defining the props outside
     entityId: params.projectId.toString(),
     searchValue,
     fetchEmployees: async ({
@@ -74,7 +85,8 @@ const EmployeesList = ({ params, searchParams }: EmployeeProps): JSX.Element => 
       totalPages={totalPages}
       handlePageChange={handlePageChange}
       getInputValue={getInputValue}
-      pageFromSearchParams={page}
+      searchParams={searchParams}
+      pathname={pathname}
     />
   )
 }

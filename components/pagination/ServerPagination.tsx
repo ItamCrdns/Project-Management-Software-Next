@@ -34,6 +34,7 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = ({
 
   useEffect(() => {
     if (reset === true) {
+      console.log('reset')
       setCurrentPage(1)
     }
   }, [reset])

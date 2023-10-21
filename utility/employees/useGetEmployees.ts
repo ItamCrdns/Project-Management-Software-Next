@@ -50,7 +50,7 @@ const useGetEmployees = ({
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page.toString()) // Get the Pagination component page number with a callback function (convert it to string too!)
-    console.log(currentPage)
+
     isNewProject === false && router.push(`?page=${page}`)
     if (searchValue === '') {
       fetchEmployees({ entityId, page: page.toString() }) // Promises are already coming fulfilled so we cannot catch the error, its gonna come in the .then instead the .catch

@@ -3,6 +3,8 @@ import EmployeeList from './EmployeeList'
 import ServerPagination from '@/components/pagination/ServerPagination'
 import styles from './employees.module.css'
 import { type Employee } from '@/interfaces/employee'
+import { type SearchParams } from '@/interfaces/searchParams'
+import { useState } from 'react'
 
 interface EmployeesRenderProps {
   projectId: string
@@ -12,7 +14,8 @@ interface EmployeesRenderProps {
   totalPages: number
   handlePageChange: (page: number) => void
   getInputValue: (input: string) => void
-  pageFromSearchParams: string
+  searchParams: SearchParams
+  pathname: string
 }
 
 const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
@@ -21,12 +24,23 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
   message,
   searchValue,
   totalPages,
-  pageFromSearchParams,
+  searchParams,
   handlePageChange,
-  getInputValue
+  getInputValue,
+  pathname
 }) => {
-  // * Reset the page to 1 when the user searches for something
-  const resetPage = searchValue !== ''
+  const page = searchParams.page
+
+  // Get the key of the page from the searchParams object
+  const pageKey = Object.keys(searchParams).find((key) => key === 'page')
+
+  const urlWithParams = `${pathname}?${pageKey}=${page}`
+
+  const [resetPage, setResetPage] = useState<boolean>(false)
+  const handleInputChange = (value: boolean): void => {
+    setResetPage(value)
+  }
+
   return (
     <section className={styles.employeeswrapper}>
       <section className={styles.employees}>
@@ -37,6 +51,8 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
           close
         </Link>
         <EmployeeList
+          onInputChange={handleInputChange}
+          urlWithParams={urlWithParams}
           employeeList={employeeList}
           message={message}
           getInputValue={getInputValue}
@@ -45,7 +61,7 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
           reset={resetPage}
           url={`/projects/${projectId}/employees`}
           totalPages={totalPages}
-          pageFromSearchParams={pageFromSearchParams}
+          pageFromSearchParams={page}
           onPageChange={handlePageChange}
         />
       </section>
