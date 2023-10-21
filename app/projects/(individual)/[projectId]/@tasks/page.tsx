@@ -12,7 +12,7 @@ interface TasksProps {
 const TasksParallel = async ({ params }: TasksProps): Promise<JSX.Element> => {
   const projectId = params.projectId
   const { data } = await getProjectTasks(projectId, '1', '5')
-  const tasks = data as Task[]
+  const tasks = data?.data
 
   return (
     <section className={taskstyles.tasks}>
