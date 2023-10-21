@@ -21,6 +21,17 @@
     border-bottom: 2px solid var(--background-color);
 }
 
+.headerwrapper h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.headerwrapper > div {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
 .headerwrapper h3 {
     font-weight: 500;
 }

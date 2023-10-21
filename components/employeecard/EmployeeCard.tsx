@@ -67,8 +67,7 @@ const EmployeeCard = ({
           />
           <RippleButton
             text="More"
-            backgroundColor="#61677A"
-            effectColor="#272829"
+            backgroundColor="#80B3FF"
             textColor="white"
           />
         </div>

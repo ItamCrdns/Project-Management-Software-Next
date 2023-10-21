@@ -1,31 +1,12 @@
+import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Employee } from '@/interfaces/employee'
-import cookieOptions from '@/utility/cookieOptions'
+import paginatedFetcher from '@/utility/paginatedFetcher'
 
-const getColleagues = async (username: string): Promise<{ data: Employee | null, status: number }> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Employee/username/' + username + '/colleagues')
-
-  const requestOptions = cookieOptions()
-
-  const res = await fetch(url, requestOptions)
-
-  if (!res.ok) {
-    return {
-      data: null,
-      status: res.status
-    }
-  }
-
-  if (res.ok) {
-    return {
-      data: await res.json(),
-      status: res.status
-    }
-  }
-
-  return {
-    data: null,
-    status: res.status
-  }
-}
+const getColleagues = async (
+  username: string,
+  page: string,
+  pageSize: string
+): Promise<{ data: DictionaryResponse<Employee> | null, status: number }> =>
+  await paginatedFetcher(`Employee/${username}/colleagues`, page, pageSize)
 
 export default getColleagues

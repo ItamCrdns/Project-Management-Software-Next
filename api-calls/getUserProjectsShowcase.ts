@@ -14,6 +14,6 @@ const getUserProjectsShowcase = async (
   page: string,
   pageSize: string
 ): Promise<{ data: DictionaryResponse<Project> | null, status: number }> =>
-  await paginatedFetcher(`Project/${username}/projects`, page, pageSize)
+  await paginatedFetcher(`Employee/${username}/projects/showcase`, page, pageSize)
 
 export default getUserProjectsShowcase
