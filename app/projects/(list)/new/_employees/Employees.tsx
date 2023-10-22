@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-import fetchEmployees from './fetchEmployees'
+// import fetchEmployees from './fetchEmployees'
 import useGetEmployees, {
   type EmployeeFetchProps,
   type UseGetEmployeesProps
@@ -72,20 +72,19 @@ const AddEmployeesToProject = ({
     setSearchValue(input)
   }
 
+  const [currentPage, setCurrentPage] = useState<string>('1')
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page.toString())
+  }
+
   const employeesProps: UseGetEmployeesProps = {
     entityId: companyId.toString(),
     searchValue,
-    fetchEmployees: async ({
-      entityId: companyId,
-      searchValue,
-      page
-    }: EmployeeFetchProps) =>
-      await fetchEmployees({ companyId, searchValue, page }),
-    isNewProject: true // * Disable searchParams pagination for this employee list (since its a new project)
+    page: currentPage
   }
 
-  const { employeeList, totalPages, handlePageChange, message } =
-    useGetEmployees(employeesProps)
+  const { employeeList, totalPages, message } = useGetEmployees(employeesProps)
 
   // * Reset the page to 1 when the user searches for something
   const resetPage = searchValue !== ''

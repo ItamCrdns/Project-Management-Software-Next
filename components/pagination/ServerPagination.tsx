@@ -2,12 +2,12 @@
 import { useEffect, useState } from 'react'
 import styles from './pagination.module.css'
 import { useRouter } from 'next/navigation'
+import { type SearchParams } from '@/interfaces/searchParams'
 
 interface PaginationProps {
   totalPages: number
   url: string
-  pageFromSearchParams: string
-  onPageChange?: (page: number) => void
+  searchParams: SearchParams
   reset?: boolean
 }
 
@@ -19,35 +19,39 @@ interface PaginationProps {
 const ServerPagination: React.FunctionComponent<PaginationProps> = ({
   totalPages,
   url,
-  pageFromSearchParams,
-  onPageChange,
+  searchParams,
   reset
 }) => {
-  const pageNumberFromUrl = parseInt(pageFromSearchParams)
+  const pageNumberFromUrl = parseInt(searchParams.page)
   const [currentPage, setCurrentPage] = useState<number>(pageNumberFromUrl)
-
-  useEffect(() => {
-    if (onPageChange !== undefined) {
-      console.log('xzczxc')
-      onPageChange(currentPage)
-    }
-  }, [currentPage])
 
   useEffect(() => {
     if (reset === true) {
       setCurrentPage(1)
+      router.push(`${url}?page=${1}`)
     }
   }, [reset])
 
+  const searchValue = searchParams.search
   const router = useRouter()
 
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1)
-      router.push(`${url}?page=${currentPage - 1}`)
+      if (searchValue === undefined) {
+        router.push(`${url}?page=${currentPage - 1}`)
+      } else {
+        router.push(`${url}?page=${currentPage - 1}&search=${searchValue}`)
+      }
+      searchParams.search = searchValue
     } else if (action === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
-      router.push(`${url}?page=${currentPage + 1}`)
+      if (searchValue === undefined) {
+        router.push(`${url}?page=${currentPage + 1}`)
+      } else {
+        router.push(`${url}?page=${currentPage + 1}&search=${searchValue}`)
+      }
+      searchParams.search = searchValue
     }
   }
 
