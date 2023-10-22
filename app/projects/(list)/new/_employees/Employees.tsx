@@ -4,7 +4,6 @@ import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 // import fetchEmployees from './fetchEmployees'
 import useGetEmployees, {
-  type EmployeeFetchProps,
   type UseGetEmployeesProps
 } from '@/utility/employees/useGetEmployees'
 import EmployeesRender from './EmployeesRender'
@@ -79,7 +78,10 @@ const AddEmployeesToProject = ({
   }
 
   const employeesProps: UseGetEmployeesProps = {
-    entityId: companyId.toString(),
+    endpoint:
+      searchValue === ''
+        ? `Company/${companyId}/employees`
+        : `Company/${companyId}/employees/search/${searchValue}`,
     searchValue,
     page: currentPage
   }
@@ -89,6 +91,8 @@ const AddEmployeesToProject = ({
   // * Reset the page to 1 when the user searches for something
   const resetPage = searchValue !== ''
 
+  const handleInputChange = (value: boolean): void => {}
+
   return (
     <EmployeesRender
       showResume={showResume}
@@ -96,6 +100,7 @@ const AddEmployeesToProject = ({
       selectedEmployees={selectedEmployees}
       handleReturnHere={handleReturnHere}
       data={data}
+      handleInputChange={handleInputChange}
       getInputValue={getInputValue}
       employeeList={employeeList}
       message={message}

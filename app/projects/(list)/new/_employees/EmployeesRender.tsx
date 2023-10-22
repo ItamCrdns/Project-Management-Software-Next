@@ -13,6 +13,7 @@ interface EmployeesRenderProps {
   handleReturnHere: () => void
   data: NewProjectData
   getInputValue: (input: string) => void
+  handleInputChange: (value: boolean) => void
   employeeList: Employee[]
   message: string
   handleEmployeeClick: (employee: Employee) => void
@@ -30,6 +31,7 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
   handleReturnHere,
   data,
   getInputValue,
+  handleInputChange,
   employeeList,
   message,
   handleEmployeeClick,
@@ -52,7 +54,12 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
         : (
         <>
           <h1>Who will be working on {data.data.name}?</h1>
-          <Search maxInputLength={16} onSearch={getInputValue} />
+          <Search
+            maxInputLength={16}
+            onInputChange={handleInputChange}
+            stateBasedSearch={true}
+            stateBasedGetInputValue={getInputValue}
+          />
           <EmployeeList
             employeeList={employeeList}
             selectedEmployees={selectedEmployees}

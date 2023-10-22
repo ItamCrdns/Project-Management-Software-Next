@@ -6,12 +6,16 @@ interface SearchProps {
   maxInputLength: number
   url?: string
   onInputChange: (arg0: boolean) => void
+  stateBasedSearch: boolean // ? Disable the router.push for components that will not use searchParams based search and will instead rely on state based search
+  stateBasedGetInputValue?: (input: string) => void // ? Used to get the input value from the search component and pass it to the parent component
 }
 
 const Search: React.FunctionComponent<SearchProps> = ({
   maxInputLength,
   onInputChange,
-  url
+  url,
+  stateBasedSearch,
+  stateBasedGetInputValue
 }) => {
   const searchParams = useSearchParams()
   const searchValueFromParams = searchParams.get('search')
@@ -22,8 +26,11 @@ const Search: React.FunctionComponent<SearchProps> = ({
   const router = useRouter()
   useEffect(() => {
     const delaySearch = setTimeout(() => {
-      if (searchTerm !== '') {
-        router.push(`${url}&search=${searchTerm}`)
+      if (searchTerm !== '' && !stateBasedSearch) {
+        router.push(`${url ?? ''}&search=${searchTerm}`)
+      }
+      if (stateBasedSearch) {
+        stateBasedGetInputValue?.(searchTerm)
       }
       setShowSpinner(false)
     }, 1000)
@@ -32,7 +39,7 @@ const Search: React.FunctionComponent<SearchProps> = ({
     return () => {
       clearTimeout(delaySearch)
     }
-  }, [searchTerm])
+  }, [searchTerm, stateBasedSearch, stateBasedGetInputValue, router, url])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target

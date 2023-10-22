@@ -7,7 +7,6 @@ import Link from 'next/link'
 interface EmployeeListProps {
   employeeList: Employee[]
   message: string
-  // getInputValue: (input: string) => void
   onInputChange: (arg0: boolean) => void
   urlWithParams: string
 }
@@ -15,7 +14,6 @@ interface EmployeeListProps {
 const EmployeeList: React.FunctionComponent<EmployeeListProps> = ({
   employeeList,
   message,
-  // getInputValue,
   onInputChange,
   urlWithParams
 }) => {
@@ -25,9 +23,9 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = ({
         <>
           <h1>All employees</h1>
           <Search
+            stateBasedSearch={false}
             onInputChange={onInputChange}
             maxInputLength={16}
-            // onSearch={getInputValue}
             url={urlWithParams}
           />
           {employeeList.length > 0
