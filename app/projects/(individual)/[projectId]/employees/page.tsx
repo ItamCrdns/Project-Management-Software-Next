@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import EmployeesRender from './EmployeesRender'
 import useGetEmployees, {
   type EmployeeFetchProps,
@@ -29,13 +29,7 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
     searchParams.page = '1'
   }
 
-  // const page = searchParams.page
-  // Get the key of the page from the searchParams object
-  // const pageKey = Object.keys(searchParams).find((key) => key === 'page')
-
   const pathname = usePathname()
-  // const router = useRouter()
-  // const urlWithParams = `${pathname}?${pageKey}=${page}`
 
   /**
    * Sets the search value state based on user input.
@@ -59,6 +53,10 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
    * other times to get the employees from a project
    * this way we avoid code repetition and follow (kinda) SOLID principles
    */
+
+  useEffect(() => {
+    setSearchValue(searchParams.search)
+  }, [searchParams.search])
 
   const employeesProps: UseGetEmployeesProps = {
     // Defining the props outside
