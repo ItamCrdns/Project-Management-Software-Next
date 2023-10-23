@@ -1,3 +1,4 @@
+import { type EmployeeTier } from './EmployeeTier'
 import { type Company } from './company'
 
 export interface Employee {
@@ -10,4 +11,5 @@ export interface Employee {
   projectCount: number
   taskCount: number
   issueCount: number
+  tier: EmployeeTier
 }

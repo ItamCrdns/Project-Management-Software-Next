@@ -14,7 +14,7 @@ const EmployeeIdLayout = async (props: {
       <main className={styles.main}>
         {props.employeeCard}
         <section className={styles.contentwrapper}>
-          {props.recentActivity}
+          {/* {props.recentActivity} */}
           {props.tasks}
           {props.projects}
         </section>

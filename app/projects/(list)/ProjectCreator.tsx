@@ -28,7 +28,11 @@ const ProjectCreator = ({ creator }: ProjectCreatorProps): JSX.Element => {
           onMouseLeave={handleHideCard}
           className={styles.employeecard}
         >
-          <EmployeeCard employee={creator} isProfile={false} redirectMe={true} />
+          <EmployeeCard
+            employee={creator}
+            isProfile={false}
+            redirectMe={true}
+          />
         </section>
       )}
     </div>

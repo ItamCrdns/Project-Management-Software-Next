@@ -10,7 +10,11 @@ interface EmployeeListProps {
   redirectMe: boolean // * Should we redirect to the employee profile or not? prop drilling
 }
 
-const EmployeeOfTheList = ({ employee, size, redirectMe }: EmployeeListProps): JSX.Element => {
+const EmployeeOfTheList = ({
+  employee,
+  size,
+  redirectMe
+}: EmployeeListProps): JSX.Element => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
   return (
@@ -31,7 +35,11 @@ const EmployeeOfTheList = ({ employee, size, redirectMe }: EmployeeListProps): J
           onMouseLeave={handleHideCard}
           className={styles.employeecard}
         >
-          <EmployeeCard employee={employee} isProfile={false} redirectMe={redirectMe} />
+          <EmployeeCard
+            employee={employee}
+            isProfile={false}
+            redirectMe={redirectMe}
+          />
         </section>
       )}
     </div>

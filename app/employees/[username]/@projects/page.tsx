@@ -1,5 +1,5 @@
 import { type Project } from '@/interfaces/project'
-import styles from '../employee.module.css'
+import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
 import getUserProjectsShowcase from '@/api-calls/getUserProjectsShowcase'
 import Link from 'next/link'
 
@@ -14,12 +14,13 @@ const CurrentProjects = async ({
   const projectsCount = data?.count
 
   return (
-    <section className={styles.projectswrapper}>
-      <div className={styles.titlewrapper}>
+    <section className={styles.employees}>
+      <div className={styles.headerwrapper}>
         <div>
           <span className="material-symbols-outlined">tactic</span>
           <h1>Current projects</h1>
         </div>
+        <h3>List</h3>
       </div>
       {Array.isArray(projects) && projects.length > 0
         ? (
@@ -27,16 +28,18 @@ const CurrentProjects = async ({
           <ul>
             {projects?.map((project: Project) => (
               <li key={project.projectId}>
-                <h3>
+                <p style={{ margin: 0 }}>
                   <Link href={`/projects/${project.projectId}`}>
                     {project.name}
                   </Link>
-                </h3>
+                </p>
               </li>
             ))}
           </ul>
           <h3>
-            <Link href={`/employees/${username}/projects?page=1`}>See all {projectsCount} {username} projects</Link>
+            <Link href={`/employees/${username}/projects?page=1`}>
+              See all {projectsCount} projects
+            </Link>
           </h3>
         </>
           )

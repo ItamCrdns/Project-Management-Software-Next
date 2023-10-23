@@ -23,31 +23,38 @@ const Colleagues = async ({
         </div>
         <h3>List</h3>
       </div>
-      <ul>
-        {Array.isArray(colleagues) &&
-          colleagues.map((colleague: Employee) => (
-            <li key={colleague.employeeId}>
-              <Link href={`/employees/${colleague.username}`}>
-                <Image
-                  src={colleague.profilePicture ?? ''}
-                  alt={colleague.username ?? ''}
-                  width={50}
-                  height={50}
-                />
-              </Link>
-              <p>
+      {Array.isArray(colleagues) && colleagues.length > 0
+        ? (
+        <>
+          <ul>
+            {colleagues.map((colleague: Employee) => (
+              <li key={colleague.employeeId}>
                 <Link href={`/employees/${colleague.username}`}>
-                  {colleague.username}
+                  <Image
+                    src={colleague.profilePicture ?? ''}
+                    alt={colleague.username ?? ''}
+                    width={50}
+                    height={50}
+                  />
                 </Link>
-              </p>
-            </li>
-          ))}
-      </ul>
-      <h3>
-        <Link href={`/employees/${username}/colleagues`}>
-          See all {colleaguesCount} {username} colleagues
-        </Link>
-      </h3>
+                <p>
+                  <Link href={`/employees/${colleague.username}`}>
+                    {colleague.username}
+                  </Link>
+                </p>
+              </li>
+            ))}
+          </ul>
+          <h3>
+            <Link href={`/employees/${username}/colleagues`}>
+              See all {colleaguesCount} colleagues
+            </Link>
+          </h3>
+        </>
+          )
+        : (
+        <p>No colleagues found</p>
+          )}
     </section>
   )
 }

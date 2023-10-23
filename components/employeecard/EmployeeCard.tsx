@@ -42,7 +42,9 @@ const EmployeeCard = ({
           </h1>
               )
             : (
-          <h1 style={{ fontSize: '24px', marginBottom: '1rem' }}>{employee?.username}</h1>
+          <h1 style={{ fontSize: '24px', marginBottom: '1rem' }}>
+            {employee?.username}
+          </h1>
               )}
         <p>{employee?.role}</p>
         {isProfile && (
@@ -83,7 +85,10 @@ const EmployeeCard = ({
               height={50}
             />
             <p>
-              <Link style={{ fontSize: '12px' }} href={`/employees/${supervisor?.username}`}>
+              <Link
+                style={{ fontSize: '12px' }}
+                href={`/employees/${supervisor?.username}`}
+              >
                 {supervisor?.username}
               </Link>
             </p>
