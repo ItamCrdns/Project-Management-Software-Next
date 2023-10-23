@@ -4,27 +4,41 @@ import ServerPagination from '@/components/pagination/ServerPagination'
 import styles from './employees.module.css'
 import { type Employee } from '@/interfaces/employee'
 import { type SearchParams } from '@/interfaces/searchParams'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface EmployeesRenderProps {
-  projectId: string
+  // projectId: string
   employeeList: Employee[]
   message: string
   totalPages: number
   searchParams: SearchParams
   pathname: string
+  closeButtonHref: string
+  paginationUrl: string
+  headerText: string
 }
 
 const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
-  projectId,
+  // projectId,
   employeeList,
   message,
   totalPages,
   searchParams,
-  pathname
+  pathname,
+  closeButtonHref,
+  paginationUrl,
+  headerText
 }) => {
   // Get the key of the page from the searchParams object
   const pageKey = Object.keys(searchParams).find((key) => key === 'page')
+
+  const router = useRouter()
+  useEffect(() => {
+    if (totalPages !== 0 && parseInt(searchParams.page) > totalPages) {
+      router.push(`${pathname}?${pageKey}=${1}`)
+    }
+  }, [searchParams.page, totalPages])
 
   const urlWithParams = `${pathname}?${pageKey}=${searchParams.page}`
 
@@ -39,12 +53,13 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
     <section className={styles.employeeswrapper}>
       <section className={styles.employees}>
         <Link
-          href={`/projects/${projectId}`}
+          href={closeButtonHref}
           className={`material-symbols-outlined ${styles.closebutton}`}
         >
           close
         </Link>
         <EmployeeList
+          headerText={headerText}
           onInputChange={handleInputChange}
           urlWithParams={urlWithParams}
           employeeList={employeeList}
@@ -52,7 +67,7 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
         />
         <ServerPagination
           reset={resetPage}
-          url={`/projects/${projectId}/employees`}
+          url={paginationUrl}
           totalPages={totalPages}
           searchParams={searchParams}
         />

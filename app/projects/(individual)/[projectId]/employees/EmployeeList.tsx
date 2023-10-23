@@ -1,12 +1,13 @@
 import Search from '@/components/search/search'
 import { type Employee } from '@/interfaces/employee'
-import styles from './employees.module.css'
+import styles from '@/app/employees/[username]/employee.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface EmployeeListProps {
   employeeList: Employee[]
   message: string
+  headerText: string
   onInputChange: (arg0: boolean) => void
   urlWithParams: string
 }
@@ -14,6 +15,7 @@ interface EmployeeListProps {
 const EmployeeList: React.FunctionComponent<EmployeeListProps> = ({
   employeeList,
   message,
+  headerText,
   onInputChange,
   urlWithParams
 }) => {
@@ -21,7 +23,7 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = ({
     <>
       {Array.isArray(employeeList) && (
         <>
-          <h1>All employees</h1>
+          <h1>{headerText}</h1>
           <Search
             stateBasedSearch={false}
             onInputChange={onInputChange}

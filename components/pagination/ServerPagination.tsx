@@ -22,8 +22,13 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = ({
   searchParams,
   reset
 }) => {
-  const pageNumberFromUrl = parseInt(searchParams.page)
+  const pageNumberFromUrl = parseInt(searchParams.page) > totalPages ? 1 : parseInt(searchParams.page) // Defa
   const [currentPage, setCurrentPage] = useState<number>(pageNumberFromUrl)
+
+  useEffect(() => {
+    setCurrentPage(pageNumberFromUrl)
+    // ? Fixes the bug where the page number is not updated when the initial url search param is not 1
+  }, [pageNumberFromUrl])
 
   useEffect(() => {
     if (reset === true) {

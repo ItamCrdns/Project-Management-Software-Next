@@ -34,12 +34,14 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
 
   return (
     <EmployeesRender
-      projectId={params.projectId}
       employeeList={employeeList}
       message={message}
       totalPages={totalPages}
       searchParams={searchParams}
       pathname={pathname}
+      closeButtonHref={`/projects/${params.projectId}`}
+      paginationUrl={`/projects/${params.projectId}/employees`}
+      headerText="All employees"
     />
   )
 }
