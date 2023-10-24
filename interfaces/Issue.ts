@@ -7,7 +7,7 @@ export interface Issue {
   created: string // Date
   startedWorking: string // Date
   fixed: string // Date
-  issueCreator: string
+  issueCreatorId: string
   taskId: number
   employees: Employee[]
 }
