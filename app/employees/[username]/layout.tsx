@@ -7,6 +7,7 @@ const EmployeeIdLayout = async (props: {
   projects: React.ReactNode
   tasks: React.ReactNode
   recentActivity: React.ReactNode
+  issues: React.ReactNode
 }): Promise<JSX.Element> => {
   return (
     <>
@@ -15,8 +16,9 @@ const EmployeeIdLayout = async (props: {
         {props.employeeCard}
         <section className={styles.contentwrapper}>
           {/* {props.recentActivity} */}
-          {props.tasks}
           {props.projects}
+          {props.tasks}
+          {props.issues}
         </section>
         <section className={styles.rightsidewrapper}>
           {props.colleagues}

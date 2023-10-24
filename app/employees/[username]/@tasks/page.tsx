@@ -17,7 +17,7 @@ const Tasks: React.FunctionComponent<TasksProps> = async ({ params }) => {
     <section className={styles.employees}>
       <div className={styles.headerwrapper}>
         <div>
-          <span className="material-symbols-outlined">auto_stories</span>
+          <span className="material-symbols-outlined">note_stack</span>
           <h1>Current tasks</h1>
         </div>
         <h3>List</h3>

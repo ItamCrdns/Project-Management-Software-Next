@@ -8,8 +8,14 @@ export interface Employee {
   profilePicture: string
   supervisor: Employee | null
   company: Company | null
-  projectCount: number
-  taskCount: number
-  issueCount: number
+  projectTotalCount: number
+  projectParticipantCount: number
+  projectCreatorCount: number
+  taskTotalCount: number
+  taskParticipantCount: number
+  taskCreatorCount: number
+  issueTotalCount: number
+  issueParticipantCount: number
+  issueCreatorCount: number
   tier: EmployeeTier
 }

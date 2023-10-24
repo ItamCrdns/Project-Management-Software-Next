@@ -37,11 +37,11 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
           <p>Projects</p>
         </span>
         <span>
-          <span className="material-symbols-outlined">auto_stories</span>
+          <span className="material-symbols-outlined">note_stack</span>
           <p>Tasks</p>
         </span>
         <span>
-          <span className="material-symbols-outlined">data_alert</span>
+          <span className="material-symbols-outlined">campaign</span>
           <p>Issues</p>
         </span>
       </section>

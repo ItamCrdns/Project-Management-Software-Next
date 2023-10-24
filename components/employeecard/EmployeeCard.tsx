@@ -50,13 +50,13 @@ const EmployeeCard = ({
         {isProfile && (
           <section className={styles.employeenumbers}>
             <Link href={`/employees/${employee?.username}/projects`}>
-              <p>{employee?.projectCount}</p> Projects
+              <p>{employee?.projectTotalCount}</p> Projects
             </Link>
             <Link href={`/employees/${employee?.username}/tasks`}>
-              <p>{employee?.taskCount}</p> Tasks
+              <p>{employee?.taskTotalCount}</p> Tasks
             </Link>
             <Link href={`/employees/${employee?.username}/issues`}>
-              <p>{employee?.issueCount}</p> Issues
+              <p>{employee?.issueTotalCount}</p> Issues
             </Link>
           </section>
         )}
