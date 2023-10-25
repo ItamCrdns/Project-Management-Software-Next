@@ -7,7 +7,7 @@ const UserPage = (): JSX.Element => {
 
   const employee = user as Employee
 
-  return <h1>Welcome, <span>{employee.username}</span></h1>
+  return <h1>Welcome, <span style={{ textTransform: 'capitalize' }}>{employee.username}</span></h1>
 }
 
 export default UserPage

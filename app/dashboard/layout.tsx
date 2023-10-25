@@ -1,18 +1,22 @@
 import styles from './dashboard.module.css'
 
-const DashboardPage = (props: {
+interface DashboardPageProps {
   projects: React.ReactNode
   user: React.ReactNode
   tasks: React.ReactNode
+  issues: React.ReactNode
   employees: React.ReactNode
-}): JSX.Element => {
+}
+
+const DashboardPage: React.FunctionComponent<DashboardPageProps> = (props) => {
   return (
     <section className={styles.dashboard}>
       {props.user}
       <section className={styles.menus}>
         {props.projects}
         {props.tasks}
-        {props.employees}
+        {props.issues}
+        {/* {props.employees} */}
       </section>
     </section>
   )
