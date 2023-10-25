@@ -9,13 +9,13 @@ export interface Employee {
   supervisor: Employee | null
   company: Company | null
   projectTotalCount: number
-  projectParticipantCount: number
-  projectCreatorCount: number
+  projectsParticipant: number
+  projectsCreated: number
   taskTotalCount: number
-  taskParticipantCount: number
-  taskCreatorCount: number
+  tasksParticipant: number
+  tasksCreated: number
   issueTotalCount: number
-  issueParticipantCount: number
-  issueCreatorCount: number
+  issuesParticipant: number
+  issuesCreated: number
   tier: EmployeeTier
 }

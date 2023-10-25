@@ -188,7 +188,20 @@
     justify-content: space-around;
 }
 
+.employeenumbersbanner {
+    position: absolute;
+    background-color: var(--banner-color);
+    display: flex;
+    gap: 1rem;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
+    padding: 1rem 2rem;
+    top: 2rem;
+    z-index: 9999;
+    border-radius: 10px;
+}
+
 .employeenumbers a {
+    position: relative;
     padding: .75rem;
     color: var(--small-font) !important;
     display: inline-block;

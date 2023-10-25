@@ -3,21 +3,22 @@ import Image from 'next/image'
 import styles from '@/app/employees/[username]/employee.module.css'
 import { type Employee } from '@/interfaces/employee'
 import RippleButton from '../ripplebutton/RippleButton'
+import EmployeeNumbers from './EmployeeNumbers'
 
 interface EmployeeCardProps {
   employee: Employee | null
   supervisor?: Employee | null | undefined
   isProfile: boolean // * Should we show the supervisor card too or not?
-  // ! || used to track if the cardwill be diplayted in the profile, if yes: more properties will be dispalyed. If no: only a few will because its a modal card being displayed somewhere in the page
+  // ? || used to track if the cardwill be diplayted in the profile, if yes: more properties will be dispalyed. If no: only a few will because its a modal card being displayed somewhere in the page
   redirectMe: boolean // * Should we redirect to the employee profile or not?
 }
 
-const EmployeeCard = ({
+const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = ({
   employee,
   supervisor,
   isProfile,
   redirectMe
-}: EmployeeCardProps): JSX.Element => {
+}) => {
   return (
     <section className={styles.cardswrapper}>
       <section className={styles.employeecard}>
@@ -47,19 +48,7 @@ const EmployeeCard = ({
           </h1>
               )}
         <p>{employee?.role}</p>
-        {isProfile && (
-          <section className={styles.employeenumbers}>
-            <Link href={`/employees/${employee?.username}/projects`}>
-              <p>{employee?.projectTotalCount}</p> Projects
-            </Link>
-            <Link href={`/employees/${employee?.username}/tasks`}>
-              <p>{employee?.taskTotalCount}</p> Tasks
-            </Link>
-            <Link href={`/employees/${employee?.username}/issues`}>
-              <p>{employee?.issueTotalCount}</p> Issues
-            </Link>
-          </section>
-        )}
+        {isProfile && <EmployeeNumbers employee={employee} />}
         <div className={styles.buttonwrapper}>
           <RippleButton
             text="Message"
