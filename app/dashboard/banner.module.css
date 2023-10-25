@@ -6,15 +6,25 @@
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(223, 223, 223);
+}
+
+.header > h2 {
+    font-weight: 400;
+}
+
+.header > div {
     font-size: 24px;
     display: flex;
     gap: .5rem;
     align-items: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgb(223, 223, 223);
+    
 }
 
-.header > span {
+.header > div > span {
     user-select: none;
     font-size: 3rem;
 }
