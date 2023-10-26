@@ -19,7 +19,7 @@ const ProjectsPage = async (props: {
       <main className={styles.main}>
         <TitleWrapper title="Projects by company" returnToProjects={false} />
         <section className={styles.projectswrapper}>
-          <HeaderDescriptor />
+          <HeaderDescriptor dashboard={false} />
           {Object.entries(projects).map(([companyName, projects]) => (
             <React.Fragment key={companyName}>
               <div key={companyName} className={styles.companywrapper}>

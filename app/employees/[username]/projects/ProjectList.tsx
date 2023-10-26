@@ -3,28 +3,30 @@ import EachProject from '@/app/projects/(list)/EachProject'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 import ServerPagination from '@/components/pagination/ServerPagination'
 import styles from '@/app/projects/(list)/projectslist.module.css'
+import { type SearchParams } from '@/interfaces/searchParams'
 
 interface ProjectsListProps {
   projects: Project[]
   username: string
   totalPages: number
-  pageFromSearchParams: string
+  searchParams: SearchParams
 }
 
 const ProjectList: React.FunctionComponent<ProjectsListProps> = ({
   projects,
   username,
   totalPages,
-  pageFromSearchParams
+  searchParams
 }) => {
   return (
     <main className={styles.main}>
       <h1 style={{ margin: 0, fontWeight: 500 }}>
-        Showing only{' '}
-        <span style={{ textTransform: 'capitalize' }}>{username}</span> Projects
+        Showing projects where{' '}
+        <span style={{ textTransform: 'capitalize' }}>{username}</span> is
+        working on
       </h1>
       <section className={styles.projectswrapper}>
-        <HeaderDescriptor />
+        <HeaderDescriptor dashboard />
         {Array.isArray(projects) && (
           <ul>
             {projects.map((project: Project) => (
@@ -38,7 +40,7 @@ const ProjectList: React.FunctionComponent<ProjectsListProps> = ({
       <ServerPagination
         url={`/employees/${username}/projects`}
         totalPages={totalPages}
-        pageFromSearchParams={pageFromSearchParams}
+        searchParams={searchParams}
       />
     </main>
   )

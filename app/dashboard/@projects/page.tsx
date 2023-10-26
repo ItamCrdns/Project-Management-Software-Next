@@ -17,7 +17,7 @@ const Projects = async (): Promise<JSX.Element> => {
         All projects
       </h1>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
-        <HeaderDescriptor />
+        <HeaderDescriptor dashboard />
         {Array.isArray(projects) && (
           <>
             <ul>

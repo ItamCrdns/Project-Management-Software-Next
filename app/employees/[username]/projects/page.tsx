@@ -2,10 +2,11 @@ import getUserProjects from '@/api-calls/getUserProjects'
 import ProjectList from './ProjectList'
 import styles from '../employee.module.css'
 import Link from 'next/link'
+import { type SearchParams } from '@/interfaces/searchParams'
 
 interface Props {
   params: { username: string }
-  searchParams: { page: string }
+  searchParams: SearchParams
 }
 
 const EmployeeProjects: React.FunctionComponent<Props> = async ({
@@ -38,7 +39,7 @@ const EmployeeProjects: React.FunctionComponent<Props> = async ({
           projects={projects}
           username={username}
           totalPages={totalPages}
-          pageFromSearchParams={page}
+          searchParams={searchParams}
         />
       </section>
     </section>
