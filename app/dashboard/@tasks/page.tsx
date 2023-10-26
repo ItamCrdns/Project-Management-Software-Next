@@ -4,6 +4,7 @@ import dashboardstyles from '../dashboard.module.css'
 import EachTask from '@/app/projects/(individual)/[projectId]/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import Link from 'next/link'
+import TaskHeaderDescriptor from '@/app/projects/(individual)/[projectId]/@tasks/TaskHeaderDescriptor'
 
 const Tasks = async (): Promise<JSX.Element> => {
   const { data } = await getTasksShowcase('1', '5')
@@ -11,9 +12,10 @@ const Tasks = async (): Promise<JSX.Element> => {
   const totalTasksCount = data?.count ?? 0
 
   return (
-    <section className={styles.tasks}>
-      <h1 style={{ fontSize: '32px', fontWeight: 600 }}>All tasks</h1>
+    <>
+      {/* <h1 style={{ fontSize: '32px', fontWeight: 600 }}>All tasks</h1> */}
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
+      <TaskHeaderDescriptor dashboard/>
         {Array.isArray(tasks) && (
           <>
             <ul>
@@ -30,7 +32,7 @@ const Tasks = async (): Promise<JSX.Element> => {
           </>
         )}
       </section>
-    </section>
+    </>
   )
 }
 

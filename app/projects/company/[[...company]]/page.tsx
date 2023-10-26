@@ -27,7 +27,7 @@ const CompanyProjectsPage = async ({
 
   return (
     <main className={styles.main}>
-      <TitleWrapper title={title} returnToProjects={true} />
+      <TitleWrapper title={title} />
       <section className={styles.projectswrapper}>
         <HeaderDescriptor dashboard={false}/>
         {Array.isArray(projects) && (

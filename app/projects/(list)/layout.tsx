@@ -17,7 +17,7 @@ const ProjectsPage = async (props: {
     <>
       {props.children}
       <main className={styles.main}>
-        <TitleWrapper title="Projects by company" returnToProjects={false} />
+        <TitleWrapper title="Projects overview" />
         <section className={styles.projectswrapper}>
           <HeaderDescriptor dashboard={false} />
           {Object.entries(projects).map(([companyName, projects]) => (

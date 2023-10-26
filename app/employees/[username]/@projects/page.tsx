@@ -17,7 +17,7 @@ const CurrentProjects = async ({
     <section className={styles.employees}>
       <div className={styles.headerwrapper}>
         <div>
-          <span className="material-symbols-outlined">tactic</span>
+          <span className="material-symbols-outlined">emoji_objects</span>
           <h1>Current projects</h1>
         </div>
         <h3>List</h3>

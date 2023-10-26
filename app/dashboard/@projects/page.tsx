@@ -12,10 +12,10 @@ const Projects = async (): Promise<JSX.Element> => {
   const totalProjectsCount = data?.count ?? 0
 
   return (
-    <main className={styles.main}>
-      <h1 style={{ margin: 0, fontSize: '32px', fontWeight: 600 }}>
+    <>
+      {/* <h1 style={{ margin: 0, fontSize: '32px', fontWeight: 600 }}>
         All projects
-      </h1>
+      </h1> */}
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard />
         {Array.isArray(projects) && (
@@ -34,7 +34,7 @@ const Projects = async (): Promise<JSX.Element> => {
           </>
         )}
       </section>
-    </main>
+    </>
   )
 }
 
