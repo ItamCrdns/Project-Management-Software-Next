@@ -8,9 +8,16 @@ import styles from './projectslist.module.css'
 
 interface EachProjectProps {
   project: Project
+  showCompanyName: boolean // Used to track if the each project component should show the company name in one of its columns or not
+  // ! If using showCompanyname, you should also set the "dashboard" property in the HeaderDescriptor to true
 }
 
-const EachProject = ({ project }: EachProjectProps): JSX.Element => {
+const EachProject: React.FunctionComponent<EachProjectProps> = ({
+  project,
+  showCompanyName
+}) => {
+  const companyName = project.company.name
+  const companyId = project.company.companyId
   return (
     <>
       <div>
@@ -30,6 +37,15 @@ const EachProject = ({ project }: EachProjectProps): JSX.Element => {
       <div>
         <p>{relativeTime(new Date(project.created ?? '').getTime())}</p>
       </div>
+      {showCompanyName && (
+        <div>
+          <h1 style={{ textAlign: 'center' }}>
+            <Link href={`/projects/company/${companyId}/${companyName}`}>
+              {companyName}
+            </Link>
+          </h1>
+        </div>
+      )}
     </>
   )
 }

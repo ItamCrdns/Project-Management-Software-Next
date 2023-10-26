@@ -34,7 +34,7 @@ const CompanyProjectsPage = async ({
           <ul>
             {projects.map((project: Project, index: number) => (
               <li key={index}>
-                <EachProject project={project} />
+                <EachProject project={project} showCompanyName={false} />
               </li>
             ))}
           </ul>

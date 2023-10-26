@@ -31,7 +31,7 @@ const ProjectList: React.FunctionComponent<ProjectsListProps> = ({
           <ul>
             {projects.map((project: Project) => (
               <li key={project.projectId}>
-                <EachProject project={project} />
+                <EachProject project={project} showCompanyName />
               </li>
             ))}
           </ul>

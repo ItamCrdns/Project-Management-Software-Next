@@ -23,7 +23,7 @@ const Projects = async (): Promise<JSX.Element> => {
             <ul>
               {projects.map((project: Project, index: number) => (
                 <li key={index}>
-                  <EachProject project={project} />
+                  <EachProject project={project} showCompanyName />
                 </li>
               ))}
             </ul>
