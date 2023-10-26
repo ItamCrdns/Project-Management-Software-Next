@@ -11,7 +11,7 @@ interface DashboardPageProps {
 const DashboardPage: React.FunctionComponent<DashboardPageProps> = (props) => {
   return (
     <section className={styles.dashboard}>
-      {props.user}
+      {/* {props.user} */}
       <section className={styles.menus}>
         {props.projects}
         {props.tasks}

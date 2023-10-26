@@ -1,14 +1,19 @@
 .dashboard {
     display: flex;
     flex-direction: column;
+    padding: 2rem;
 }
 
 .menus {
     display: grid;
-    padding: 0 2rem;
     grid-template-columns: repeat(3, auto);
     column-gap: 2rem;
     row-gap: 2rem;
+}
+
+.menu > h3 {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 1050px) {
