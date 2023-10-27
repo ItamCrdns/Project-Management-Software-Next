@@ -20,6 +20,7 @@ import Link from 'next/link'
  * @param {boolean|null} [loading] - Whether the button is in a loading state.
  * @param {(...args: any[]) => void} [func] - The function to call when the button is clicked.
  */
+
 interface RippleButtonProps {
   text: string
   width?: string

@@ -1,4 +1,5 @@
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
+import { clientRequestOptions } from './clientCookieOptions'
 
 const paginatedClientFetcher = async <T>(
   endpoint: string,
@@ -12,13 +13,7 @@ const paginatedClientFetcher = async <T>(
   url.searchParams.set('page', page)
   url.searchParams.set('pageSize', pageSize)
 
-  const requestOptions: RequestInit = {
-    method: 'GET',
-    credentials: 'include', // Cookies
-    cache: 'no-store'
-  }
-
-  const res = await fetch(url, requestOptions)
+  const res = await fetch(url, clientRequestOptions)
 
   if (!res.ok) {
     throw new Error(`An error has occured: ${res.status}`)
