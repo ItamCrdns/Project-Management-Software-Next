@@ -1,4 +1,4 @@
-const ProjectPriority = ({ priority }: { priority: number }): JSX.Element => {
+const EntityPriority: React.FunctionComponent< { priority: number }> = ({ priority }) => {
   let priorityText: string = ''
   let color: string = ''
 
@@ -32,4 +32,4 @@ const ProjectPriority = ({ priority }: { priority: number }): JSX.Element => {
     </div>
   )
 }
-export default ProjectPriority
+export default EntityPriority

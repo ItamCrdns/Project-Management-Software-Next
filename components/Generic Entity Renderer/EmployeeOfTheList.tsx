@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import { type Employee } from '@/interfaces/employee'
-import useCardVisibility from './useCardVisibility'
+import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
-import styles from './userbanner.module.css'
+import styles from '@/app/projects/(list)/userbanner.module.css'
+import React from 'react'
 
 interface EmployeeListProps {
   employee: Employee
@@ -10,11 +11,11 @@ interface EmployeeListProps {
   redirectMe: boolean // * Should we redirect to the employee profile or not? prop drilling
 }
 
-const EmployeeOfTheList = ({
+const EmployeeOfTheList: React.FunctionComponent<EmployeeListProps> = ({
   employee,
   size,
   redirectMe
-}: EmployeeListProps): JSX.Element => {
+}) => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
   return (

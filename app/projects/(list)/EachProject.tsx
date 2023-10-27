@@ -1,10 +1,6 @@
-import Link from 'next/link'
-import { relativeTime } from '@/utility/relativeTime'
-import ProjectCreator from './ProjectCreator'
-import ProjectEmployees from './ProjectEmployees'
-import ProjectPriority from './Priority'
 import { type Project } from '@/interfaces/project'
-import styles from './projectslist.module.css'
+import EntityRenderer from '@/components/Generic Entity Renderer/EntityRenderer'
+import { type Entity } from '@/components/Generic Entity Renderer/EntityRenderer'
 
 interface EachProjectProps {
   project: Project
@@ -16,37 +12,24 @@ const EachProject: React.FunctionComponent<EachProjectProps> = ({
   project,
   showCompanyName
 }) => {
-  const companyName = project.company.name
-  const companyId = project.company.companyId
+  // * Map the project to fit the Entity interface
+  const projectAsEntity: Entity = {
+    name: project.name,
+    parentName: project.company.name,
+    id: project.projectId,
+    creator: project.projectCreator,
+    employees: project.employees,
+    priority: project.priority,
+    created: project.created
+  }
+
   return (
-    <>
-      <div>
-        <h1>
-          <Link href={`/projects/${project.projectId}`}>{project.name}</Link>
-        </h1>
-      </div>
-      <ProjectCreator creator={project.projectCreator} />
-      {project.employees.length > 0
-        ? (
-        <ProjectEmployees employees={project.employees} />
-          )
-        : (
-        <div className={styles.listofemployees}>No employees</div>
-          )}
-      <ProjectPriority priority={project.priority} />
-      <div>
-        <p>{relativeTime(new Date(project.created ?? '').getTime())}</p>
-      </div>
-      {showCompanyName && (
-        <div>
-          <h1 style={{ textAlign: 'center' }}>
-            <Link href={`/projects/company/${companyId}/${companyName}`}>
-              {companyName}
-            </Link>
-          </h1>
-        </div>
-      )}
-    </>
+    <EntityRenderer
+      entity={projectAsEntity}
+      showParentEntity={showCompanyName}
+      entityBasePath="projects"
+      parentBasePath='company'
+    />
   )
 }
 

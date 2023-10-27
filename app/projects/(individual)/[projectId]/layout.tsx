@@ -4,7 +4,7 @@ import { type Images } from '@/interfaces/images'
 import { relativeTime } from '@/utility/relativeTime'
 import { type Employee } from '@/interfaces/employee'
 import { type Company } from '@/interfaces/company'
-import ProjectPriority from '../../(list)/Priority'
+import EntityPriority from '@/components/Generic Entity Renderer/EntityPriority'
 import ProjectEmployees from './ProjectEmployees'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -65,7 +65,7 @@ const ProjectId = async ({
             </section>
             <aside className={styles.projectsideb}>
               <p className={styles.grayedtext}>Priority</p>
-              <ProjectPriority priority={project?.priority ?? 0} />
+              <EntityPriority priority={project?.priority ?? 0} />
               <p className={styles.grayedtext}>Created by</p>
               <div className={styles.userwrapper}>
                 <Image

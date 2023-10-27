@@ -1,15 +1,17 @@
 'use client'
 import { type Employee } from '@/interfaces/employee'
-import styles from './userbanner.module.css'
+import styles from '@/app/projects/(list)/userbanner.module.css'
 import Image from 'next/image'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
-import useCardVisibility from './useCardVisibility'
+import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
 
-interface ProjectCreatorProps {
+interface EntityCreatorProps {
   creator: Employee
 }
 
-const ProjectCreator = ({ creator }: ProjectCreatorProps): JSX.Element => {
+const EntityCreator: React.FunctionComponent<EntityCreatorProps> = ({
+  creator
+}) => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
   return (
@@ -39,4 +41,4 @@ const ProjectCreator = ({ creator }: ProjectCreatorProps): JSX.Element => {
   )
 }
 
-export default ProjectCreator
+export default EntityCreator
