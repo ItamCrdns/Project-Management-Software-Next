@@ -1,3 +1,26 @@
+.welcomewrapper {
+    background-color: var(--banner-color);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.welcomewrapper img {
+    border-radius: 50%;
+}
+
+.welcomewrapper h1 {
+    font-weight: 500;
+}
+
+.welcomewrapper h1 > span { /* Capitalize and make the username bold */
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
 .dashboard {
     display: flex;
     flex-direction: column;

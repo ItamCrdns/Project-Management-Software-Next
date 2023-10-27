@@ -31,9 +31,21 @@ const initialState: UserContextType = {
     profilePicture: '',
     supervisor: null,
     company: null,
-    projectCount: 0,
-    taskCount: 0,
-    issueCount: 0
+    projectTotalCount: 0,
+    projectsParticipant: 0,
+    projectsCreated: 0,
+    taskTotalCount: 0,
+    tasksCreated: 0,
+    tasksParticipant: 0,
+    issueTotalCount: 0,
+    issuesParticipant: 0,
+    issuesCreated: 0,
+    tier: {
+      tierId: 0,
+      name: '',
+      duty: '',
+      created: ''
+    }
   },
   setUser: () => {},
   handleLogin: async (credentials: CredentialsType) => {
