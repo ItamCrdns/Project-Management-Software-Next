@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './navbar.module.css'
+import stylesloader from '@/components/ripplebutton/ripplebutton.module.css'
 import { useAuth } from '@/context/AuthContext'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
@@ -61,7 +62,16 @@ const Navbar: React.FC = () => {
                   />
                     )
                   : (
-                  <div className={styles.nouser}></div>
+                  <div className={`${stylesloader.loaderwrapper} ${styles.nouser}`}>
+                    <span
+                      style={{
+                        borderTop: '2px solid rgba(0, 0, 0, 0.25)',
+                        width: '25px',
+                        height: '25px'
+                      }}
+                      className={stylesloader.loader}
+                    ></span>
+                  </div>
                     )}
               </section>
               {showOptions && <DropdownMenu employee={employee} />}

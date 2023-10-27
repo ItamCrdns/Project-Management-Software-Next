@@ -42,7 +42,7 @@ const UserPage = (): JSX.Element => {
         />
           )
         : (
-        <div className={styles.loaderwrapper}>
+        <div className={stylesloader.loaderwrapper}>
           <span
             style={{
               borderTop: '2px solid black',
