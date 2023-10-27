@@ -4,7 +4,7 @@ import dashboardstyles from '../dashboard.module.css'
 import { type Project } from '@/interfaces/project'
 import EachProject from '@/app/projects/(list)/EachProject'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
-import Link from 'next/link'
+import Footer from '../Footer'
 
 const Projects = async (): Promise<JSX.Element> => {
   const { data } = await getProjectsAdmin('1', '5') // Gets all the projects.
@@ -12,10 +12,8 @@ const Projects = async (): Promise<JSX.Element> => {
   const totalProjectsCount = data?.count ?? 0
 
   return (
-    <>
-      {/* <h1 style={{ margin: 0, fontSize: '32px', fontWeight: 600 }}>
-        All projects
-      </h1> */}
+    <article>
+      <h1 style={{ fontSize: '32px', fontWeight: 600 }}>All projects</h1>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard />
         {Array.isArray(projects) && (
@@ -27,14 +25,15 @@ const Projects = async (): Promise<JSX.Element> => {
                 </li>
               ))}
             </ul>
-            <h3 style={{ fontWeight: 500, marginBottom: 0 }}>
-              Showing {projects.length} of {totalProjectsCount} entries
-              <Link href="/projects">See all</Link>
-            </h3>
+            <Footer
+              showingCount={projects.length}
+              totalCount={totalProjectsCount}
+              href="/projects"
+            />
           </>
         )}
       </section>
-    </>
+    </article>
   )
 }
 

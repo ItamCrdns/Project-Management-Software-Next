@@ -11,12 +11,10 @@ interface DashboardPageProps {
 const DashboardPage: React.FunctionComponent<DashboardPageProps> = (props) => {
   return (
     <section className={styles.dashboard}>
-      {/* {props.user} */}
+      {props.projects}
       <section className={styles.menus}>
-        {props.projects}
         {props.tasks}
         {props.issues}
-        {/* {props.employees} */}
       </section>
     </section>
   )
