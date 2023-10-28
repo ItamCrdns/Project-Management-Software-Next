@@ -4,7 +4,7 @@ import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
 import { type Employee } from '@/interfaces/employee'
-import EmployeeOfTheList from '../EmployeeOfTheList'
+import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
 
 interface LastPageProps {
   project: NewProjectData

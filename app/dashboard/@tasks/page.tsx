@@ -13,7 +13,7 @@ const Tasks = async (): Promise<JSX.Element> => {
 
   return (
     <article>
-      <h1 style={{ fontSize: '32px', fontWeight: 600 }}>All tasks</h1>
+      <h1 style={{ fontSize: '32px', fontWeight: 600 }}>Latest tasks</h1>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <TaskHeaderDescriptor dashboard />
         {Array.isArray(tasks) && (
