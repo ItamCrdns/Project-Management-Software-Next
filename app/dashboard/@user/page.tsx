@@ -1,24 +1,28 @@
-'use client'
-import styles from '../dashboard.module.css'
-import EmployeeBanner from './EmployeeBanner'
-import Loading from './Loading'
-import useGetEmployee from './useGetEmployee'
+// 'use client'
+// import styles from '../dashboard.module.css'
+// import EmployeeBanner from './EmployeeBanner'
+// import Loading from './Loading'
+// import useGetEmployee from './useGetEmployee'
+import getEmployeeTier from '@/api-calls/getEmployeeTier'
 
-const UserPage = (): JSX.Element => {
-  const { employee, error } = useGetEmployee()
+const UserPage = async (): Promise<JSX.Element> => {
+  const tier = await getEmployeeTier()
 
-  return (
-    <section className={styles.welcomewrapper}>
-      {employee !== null && employee !== undefined
-        ? (
-        <EmployeeBanner employee={employee} />
-          )
-        : (
-        <Loading />
-          )}
-      {error !== '' && <p>{error}</p>}
-    </section>
-  )
+  console.log(tier)
+  // const { employee, error } = useGetEmployee()
+
+  // return (
+  //   <section className={styles.welcomewrapper}>
+  //     {employee !== null && employee !== undefined
+  //       ? (
+  //       <EmployeeBanner employee={employee} />
+  //         )
+  //       : (
+  //       <Loading />
+  //         )}
+  //     {error !== '' && <p>{error}</p>}
+  //   </section>
+  // )
 }
 
 export default UserPage
