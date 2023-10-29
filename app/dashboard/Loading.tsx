@@ -1,5 +1,5 @@
 import stylesloader from '@/components/ripplebutton/ripplebutton.module.css'
-import styles from '../dashboard.module.css'
+import styles from './dashboard.module.css'
 
 const Loading: React.FunctionComponent = () => {
   return (

@@ -1,10 +1,10 @@
 import getProjectsAdmin from '@/api-calls/getProjectsAdmin'
 import styles from '@/app/projects/(list)/projectslist.module.css'
-import dashboardstyles from '../dashboard.module.css'
+import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import { type Project } from '@/interfaces/project'
 import EachProject from '@/app/projects/(list)/EachProject'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
-import Footer from '../Footer'
+import Footer from '../../Footer'
 
 const Projects = async (): Promise<JSX.Element> => {
   const { data } = await getProjectsAdmin('1', '5') // Gets all the projects.

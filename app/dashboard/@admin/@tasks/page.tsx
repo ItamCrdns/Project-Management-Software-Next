@@ -1,10 +1,10 @@
 import getTasksAdmin from '@/api-calls/getTasksAdmin'
 import styles from '@/app/projects/(list)/projectslist.module.css'
-import dashboardstyles from '../dashboard.module.css'
+import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import EachTask from '@/app/projects/(individual)/[projectId]/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import TaskHeaderDescriptor from '@/app/projects/(individual)/[projectId]/@tasks/TaskHeaderDescriptor'
-import Footer from '../Footer'
+import Footer from '../../Footer'
 
 const Tasks = async (): Promise<JSX.Element> => {
   const { data } = await getTasksAdmin('1', '5')
