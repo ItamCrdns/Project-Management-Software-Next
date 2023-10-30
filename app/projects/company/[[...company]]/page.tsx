@@ -3,7 +3,7 @@ import { type Project } from '@/interfaces/project'
 import styles from '@/app/projects/(list)/projectslist.module.css'
 import EachProject from '../../(list)/EachProject'
 import HeaderDescriptor from '../../(list)/HeaderDescriptor'
-import TitleWrapper from '../../(list)/_header/TitleWrapper'
+import TitleWrapper from '../../../../components/Header title/TitleWrapper'
 
 interface CompanyNameProps {
   company: string[]
@@ -27,9 +27,15 @@ const CompanyProjectsPage = async ({
 
   return (
     <main className={styles.main}>
-      <TitleWrapper title={title} />
+      <TitleWrapper
+        title={title}
+        icon="emoji_objects"
+        buttonText="New project"
+        buttonHref="/projects/new"
+        isProject
+      />
       <section className={styles.projectswrapper}>
-        <HeaderDescriptor dashboard={false} isProject width='300px'/>
+        <HeaderDescriptor dashboard={false} isProject width="300px" />
         {Array.isArray(projects) && (
           <ul>
             {projects.map((project: Project, index: number) => (

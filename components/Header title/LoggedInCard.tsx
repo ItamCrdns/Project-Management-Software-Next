@@ -3,11 +3,20 @@ import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
-import styles from '../userbanner.module.css'
+import styles from '@/app/projects/(list)/userbanner.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
-import Filter from './Filter'
+import ProjectsFilter from './ProjectsFilter'
 
-const LoggedInCard = (): JSX.Element => {
+interface LoggedInCardProps {
+  buttonText: string
+  buttonHref: string
+  buttonWidth?: string
+  isProject?: boolean
+  isTask?: boolean
+  isIssue?: boolean
+}
+
+const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
   const { user } = useAuth()
 
@@ -46,13 +55,15 @@ const LoggedInCard = (): JSX.Element => {
         <div className={styles.nouser}></div>
           )}
       <RippleButton
-        text="New project"
+        text={props.buttonText}
         icon="add"
         iconSize="20px"
-        width="130px"
-        href="/projects/new"
+        width={props.buttonWidth ?? '125px'}
+        href={props.buttonHref}
       />
-      <Filter toggle={toggle} />
+      {props.isProject !== undefined && props.isProject && (
+        <ProjectsFilter toggle={toggle} />
+      )}
     </section>
   )
 }

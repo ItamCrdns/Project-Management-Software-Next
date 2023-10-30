@@ -37,14 +37,12 @@
     padding: 0 2rem;
     margin-bottom: 2rem;
     justify-content: center;
-    /* justify-content: space-between; */
 }
 
 .descriptor > span {
     display: flex;
     gap: .5rem;
     align-items: center;
-    /* width: 300px; */
     justify-content: center;
 }
 
@@ -95,8 +93,6 @@
     display: flex;
     align-items: center !important;
     justify-content: center;
-    /* width: 300px;
-    max-width: 300px; */
     gap: .5rem;
 }
 

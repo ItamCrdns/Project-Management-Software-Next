@@ -5,11 +5,13 @@ import styles from './projectslist.module.css'
 import HeaderDescriptor from './HeaderDescriptor'
 import EachProject from './EachProject'
 import RippleButton from '@/components/ripplebutton/RippleButton'
-import TitleWrapper from './_header/TitleWrapper'
+import TitleWrapper from '../../../components/Header title/TitleWrapper'
 
-const ProjectsPage = async (props: {
+interface ProjectsPageProps {
   children: React.ReactNode
-}): Promise<JSX.Element> => {
+}
+
+const ProjectsPage: React.FC<ProjectsPageProps> = async (props) => {
   const { data } = await getProjects('1', '3') // Page 1 (always) 3 projects per company
   const projects = data as Project[]
 
@@ -17,9 +19,15 @@ const ProjectsPage = async (props: {
     <>
       {props.children}
       <main className={styles.main}>
-        <TitleWrapper title="Projects overview" />
+        <TitleWrapper
+          title="Projects overview"
+          icon="emoji_objects"
+          buttonText="New project"
+          buttonHref="/projects/new"
+          isProject
+        />
         <section className={styles.projectswrapper}>
-          <HeaderDescriptor dashboard={false} isProject width='300px' />
+          <HeaderDescriptor dashboard={false} isProject width="300px" />
           {Object.entries(projects).map(([companyName, projects]) => (
             <React.Fragment key={companyName}>
               <div key={companyName} className={styles.companywrapper}>
