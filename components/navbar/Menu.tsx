@@ -32,24 +32,24 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
         </p>
       </section>
       <section className={styles.popupmenu}>
-        <span>
+        <Link href="/projects">
           <span className="material-symbols-outlined">emoji_objects</span>
           <p>Projects</p>
-        </span>
-        <span>
+        </Link>
+        <Link href="">
           <span className="material-symbols-outlined">note_stack</span>
           <p>Tasks</p>
-        </span>
-        <span>
+        </Link>
+        <Link href="">
           <span className="material-symbols-outlined">campaign</span>
           <p>Issues</p>
-        </span>
+        </Link>
       </section>
       <section className={styles.popupmenusettings}>
-        <span>
+        <Link href=''>
           <span className="material-symbols-outlined">settings</span>
           <p>Settings</p>
-        </span>
+        </Link >
         <span onClick={toggleDarkMode}>
           <span className="material-symbols-outlined">
             {!darkMode ? 'dark_mode' : 'light_mode'}

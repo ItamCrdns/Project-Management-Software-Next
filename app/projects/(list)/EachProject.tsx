@@ -29,6 +29,8 @@ const EachProject: React.FunctionComponent<EachProjectProps> = ({
       showParentEntity={showCompanyName}
       entityBasePath="projects"
       parentBasePath='company'
+      width='300px'
+      maxWidth='300px'
     />
   )
 }

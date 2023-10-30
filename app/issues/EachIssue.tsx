@@ -22,8 +22,10 @@ const EachIssue: React.FC<EachIssueProps> = (props) => {
     <EntityRenderer
       entity={issueAsEntity}
       showParentEntity={props.showTaskName}
-      entityBasePath='issues'
-      parentBasePath='tasks'
+      entityBasePath="issues"
+      parentBasePath="tasks"
+      width="200px"
+      maxWidth="200px"
     />
   )
 }

@@ -4,18 +4,18 @@ import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import { type Project } from '@/interfaces/project'
 import EachProject from '@/app/projects/(list)/EachProject'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
-import Footer from '../../Footer'
+// import Footer from '../../Footer'
 
 const Projects = async (): Promise<JSX.Element> => {
   const { data } = await getProjectsAdmin('1', '5') // Gets all the projects.
   const projects = data?.data ?? []
-  const totalProjectsCount = data?.count ?? 0
+  // const totalProjectsCount = data?.count ?? 0
 
   return (
     <article>
-      <h1 style={{ fontSize: '32px', fontWeight: 600, color: '#00A9FF', textAlign: 'center' }}>LATEST PROJECTS</h1>
+      <h1 style={{ fontSize: '32px', fontWeight: 600, color: '#00A9FF' }}>LATEST PROJECTS</h1>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
-        <HeaderDescriptor dashboard isProject />
+        <HeaderDescriptor dashboard isProject width='300px'/>
         {Array.isArray(projects) && (
           <>
             <ul>
@@ -25,11 +25,11 @@ const Projects = async (): Promise<JSX.Element> => {
                 </li>
               ))}
             </ul>
-            <Footer
+            {/* <Footer
               showingCount={projects.length}
               totalCount={totalProjectsCount}
               href="/projects"
-            />
+            /> */}
           </>
         )}
       </section>

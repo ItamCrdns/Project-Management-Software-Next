@@ -29,7 +29,7 @@ const CompanyProjectsPage = async ({
     <main className={styles.main}>
       <TitleWrapper title={title} />
       <section className={styles.projectswrapper}>
-        <HeaderDescriptor dashboard={false}/>
+        <HeaderDescriptor dashboard={false} isProject width='300px'/>
         {Array.isArray(projects) && (
           <ul>
             {projects.map((project: Project, index: number) => (

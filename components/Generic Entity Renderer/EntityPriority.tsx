@@ -1,8 +1,15 @@
-const EntityPriority: React.FunctionComponent< { priority: number }> = ({ priority }) => {
+import { type Style } from './EntityRenderer'
+
+interface EntityPriorityProps {
+  priority: number
+  style: Style
+}
+
+const EntityPriority: React.FunctionComponent<EntityPriorityProps> = (props) => {
   let priorityText: string = ''
   let color: string = ''
 
-  switch (priority) {
+  switch (props.priority) {
     case 1:
       priorityText = 'Low'
       color = 'green'
@@ -27,7 +34,7 @@ const EntityPriority: React.FunctionComponent< { priority: number }> = ({ priori
   }
 
   return (
-    <div>
+    <div style={props.style}>
       <p style={{ color }}>{priorityText}</p>
     </div>
   )

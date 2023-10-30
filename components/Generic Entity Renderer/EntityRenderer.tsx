@@ -17,47 +17,60 @@ export interface Entity {
   created: string
 }
 
+// * Pass the style to the EntityRenderer
+export interface Style {
+  width: string
+  maxWidth: string
+}
+
 interface EntityRendererProps {
   entity: Entity
   showParentEntity: boolean
   entityBasePath: string
   parentBasePath?: string
+  width: string
+  maxWidth: string
 }
 
-const EntityRenderer: React.FunctionComponent<EntityRendererProps> = ({
-  entity,
-  showParentEntity,
-  entityBasePath,
-  parentBasePath
-}) => {
+const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
+  props
+) => {
+  const style: Style = {
+    width: props.width,
+    maxWidth: props.maxWidth
+  }
+
   return (
     <>
-      <div>
+      <div style={style}>
         <h1>
-          <Link href={`/${entityBasePath}/${entity.id}`}>{entity.name}</Link>
+          <Link href={`/${props.entityBasePath}/${props.entity.id}`}>
+            {props.entity.name}
+          </Link>
         </h1>
       </div>
-      <EntityCreator creator={entity.creator} />
-      {entity.employees.length > 0
+      <EntityCreator style={style} creator={props.entity.creator} />
+      {props.entity.employees.length > 0
         ? (
-        <EntityEmployees employees={entity.employees} />
+        <EntityEmployees style={style} employees={props.entity.employees} />
           )
         : (
-        <div className={styles.listofemployees}>No employees</div>
+        <div style={style} className={styles.listofemployees}>No employees</div>
           )}
-      {entity.priority !== null && entity.priority !== undefined && (
-        <EntityPriority priority={entity.priority} />
+      {props.entity.priority !== null &&
+        props.entity.priority !== undefined && (
+          <EntityPriority style={style} priority={props.entity.priority} />
       )}
-      <div>
-        <p>{relativeTime(new Date(entity.created).getTime())}</p>
+      <div style={style}>
+        <p>{relativeTime(new Date(props.entity.created).getTime())}</p>
       </div>
-      {showParentEntity && (
-        <div>
+      {props.showParentEntity && (
+        <div style={style}>
           <h1 style={{ textAlign: 'center' }}>
             <Link
-              href={`/${parentBasePath}/${entity.parentName}/${entity.id}/${entity.name}`}
+              href={`/${props.parentBasePath}/${props.entity.parentName}/${props.entity.id}/${props.entity.name}`}
             >
-              {entity.parentName}
+              {props.entity.parentName}
             </Link>
           </h1>
         </div>

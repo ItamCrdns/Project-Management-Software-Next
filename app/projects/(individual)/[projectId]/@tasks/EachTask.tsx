@@ -6,12 +6,12 @@ import EntityRenderer, {
 interface EachTaskProps {
   task: Task
   showProjectName: boolean
+  width?: string
 }
 
-const EachTask: React.FunctionComponent<EachTaskProps> = ({
-  task,
-  showProjectName
-}) => {
+const EachTask: React.FunctionComponent<EachTaskProps> = (props) => {
+  const { task, showProjectName, width } = props
+
   const taskAsEntity: Entity = {
     name: task.name,
     parentName: task.project.name,
@@ -27,6 +27,8 @@ const EachTask: React.FunctionComponent<EachTaskProps> = ({
       showParentEntity={showProjectName}
       entityBasePath="tasks"
       parentBasePath="projects"
+      width={width ?? '300px'}
+      maxWidth={width ?? '300px'}
     />
   )
 }

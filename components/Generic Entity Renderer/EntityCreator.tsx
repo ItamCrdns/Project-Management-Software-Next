@@ -4,23 +4,23 @@ import styles from '@/app/projects/(list)/userbanner.module.css'
 import Image from 'next/image'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
+import { type Style } from './EntityRenderer'
 
 interface EntityCreatorProps {
   creator: Employee
+  style: Style
 }
 
-const EntityCreator: React.FunctionComponent<EntityCreatorProps> = ({
-  creator
-}) => {
+const EntityCreator: React.FunctionComponent<EntityCreatorProps> = (props) => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
   return (
-    <div className={styles.userwrapper}>
+    <div style={props.style} className={styles.userwrapper}>
       <Image
         onMouseOver={handleShowCard}
         onMouseLeave={handleHideCard}
-        src={creator.profilePicture}
-        alt={creator.username}
+        src={props.creator.profilePicture}
+        alt={props.creator.username}
         width={50}
         height={50}
       />
@@ -31,7 +31,7 @@ const EntityCreator: React.FunctionComponent<EntityCreatorProps> = ({
           className={styles.employeecard}
         >
           <EmployeeCard
-            employee={creator}
+            employee={props.creator}
             isProfile={false}
             redirectMe={true}
           />

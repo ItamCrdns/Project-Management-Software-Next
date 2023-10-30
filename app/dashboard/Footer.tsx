@@ -6,15 +6,11 @@ interface FooterProps {
   href: string
 }
 
-const Footer: React.FunctionComponent<FooterProps> = ({
-  showingCount,
-  totalCount,
-  href
-}) => {
+const Footer: React.FunctionComponent<FooterProps> = (props) => {
   return (
     <h3 style={{ fontWeight: 500, marginBottom: 0 }}>
-      Showing {showingCount} of {totalCount} entries
-      <Link href={href}>See all</Link>
+      Showing {props.showingCount} of {props.totalCount} entries
+      <Link href={props.href}>See all</Link>
     </h3>
   )
 }

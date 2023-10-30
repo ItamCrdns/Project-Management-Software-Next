@@ -26,7 +26,7 @@ const ProjectList: React.FunctionComponent<ProjectsListProps> = ({
         working on
       </h1>
       <section className={styles.projectswrapper}>
-        <HeaderDescriptor dashboard />
+        <HeaderDescriptor dashboard width='300px' />
         {Array.isArray(projects) && (
           <ul>
             {projects.map((project: Project) => (

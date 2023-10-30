@@ -221,7 +221,7 @@
     width: 70%;
 }
 
-.popupmenu > span, .popupmenusettings > span {
+.popupmenu > a, .popupmenusettings > a, .popupmenu > span, .popupmenusettings > span {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -229,11 +229,11 @@
     padding: 0 1rem;
 }
 
-.popupmenu > span span, .popupmenusettings > span span {
+.popupmenu > a span, .popupmenusettings > a span, .popupmenu > span span, .popupmenusettings > span span {
     user-select: none;
 }
 
-.popupmenu > span:hover, .popupmenusettings > span:hover {
+.popupmenu > a:hover, .popupmenusettings > a:hover, .popupmenu > span:hover, .popupmenusettings > span:hover {
     background-color: var(--darker-banner-color);
     border-radius: 7px;
 }
