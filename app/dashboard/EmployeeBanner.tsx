@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './dashboard.module.css'
 
 /**
- * Displays a simple little banner with user profile picture, username and tier name.
+ * Displays a simple little banner with user profile picture, username and tier name. For both employee and admin.
  */
 interface EmployeeBannerProps {
   employee: Employee

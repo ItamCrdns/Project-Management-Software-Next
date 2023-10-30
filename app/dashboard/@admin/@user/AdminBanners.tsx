@@ -1,13 +1,19 @@
 import styles from '@/app/dashboard/dashboard.module.css'
+import getEntitiesCreatedLastWeek from '@/api-calls/getEntitiesCreatedLastWeek'
 
-const AdminBanners: React.FC = () => {
+const AdminBanners: React.FC = async () => {
+  const { data } = await getEntitiesCreatedLastWeek()
+
+  const projectsLastWeek = data?.projectsLastWeek
+  const tasksLastWeek = data?.tasksLastWeek
+  const issuesLastWeek = data?.issuesLastWeek
   return (
     <>
       <div className={styles.bannerwrapper}>
         <div className={styles.newprojects}>
           <div>
             <h1>New projects</h1>
-            <p>8 this week</p>
+            <p>{projectsLastWeek} this week</p>
           </div>
           <span
             style={{ color: 'white', backgroundColor: '#00A9FF' }}
@@ -21,7 +27,7 @@ const AdminBanners: React.FC = () => {
         <div className={styles.newprojects}>
           <div>
             <h1>New tasks</h1>
-            <p>82 this week</p>
+            <p>{tasksLastWeek} this week</p>
           </div>
           <span
             style={{ color: 'white', backgroundColor: '#1A5D1A' }}
@@ -35,7 +41,7 @@ const AdminBanners: React.FC = () => {
         <div className={styles.newprojects}>
           <div>
             <h1>New issues</h1>
-            <p>135 this week</p>
+            <p>{issuesLastWeek} this week</p>
           </div>
           <span
             style={{ color: 'white', backgroundColor: '#FF6969' }}
