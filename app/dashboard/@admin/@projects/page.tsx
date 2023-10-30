@@ -13,9 +13,9 @@ const Projects = async (): Promise<JSX.Element> => {
 
   return (
     <article>
-      <h1 style={{ fontSize: '32px', fontWeight: 600 }}>Latest projects</h1>
+      <h1 style={{ fontSize: '32px', fontWeight: 600, color: '#00A9FF', textAlign: 'center' }}>LATEST PROJECTS</h1>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
-        <HeaderDescriptor dashboard />
+        <HeaderDescriptor dashboard isProject />
         {Array.isArray(projects) && (
           <>
             <ul>

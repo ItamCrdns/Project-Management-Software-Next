@@ -1,4 +1,5 @@
 import { type Employee } from './employee'
+import { type Task } from './task'
 
 export interface Issue {
   issueId: number
@@ -8,6 +9,8 @@ export interface Issue {
   startedWorking: string // Date
   fixed: string // Date
   issueCreatorId: string
+  issueCreator: Employee
   taskId: number
+  task: Task
   employees: Employee[]
 }

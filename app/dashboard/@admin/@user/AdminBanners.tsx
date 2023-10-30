@@ -7,10 +7,11 @@ const AdminBanners: React.FC = async () => {
   const projectsLastWeek = data?.projectsLastWeek
   const tasksLastWeek = data?.tasksLastWeek
   const issuesLastWeek = data?.issuesLastWeek
+
   return (
     <>
       <div className={styles.bannerwrapper}>
-        <div className={styles.newprojects}>
+        <div className={styles.latestweekcount}>
           <div>
             <h1>New projects</h1>
             <p>{projectsLastWeek} this week</p>
@@ -24,7 +25,7 @@ const AdminBanners: React.FC = async () => {
         </div>
       </div>
       <div className={styles.bannerwrapper}>
-        <div className={styles.newprojects}>
+        <div className={styles.latestweekcount}>
           <div>
             <h1>New tasks</h1>
             <p>{tasksLastWeek} this week</p>
@@ -38,7 +39,7 @@ const AdminBanners: React.FC = async () => {
         </div>
       </div>
       <div className={styles.bannerwrapper}>
-        <div className={styles.newprojects}>
+        <div className={styles.latestweekcount}>
           <div>
             <h1>New issues</h1>
             <p>{issuesLastWeek} this week</p>

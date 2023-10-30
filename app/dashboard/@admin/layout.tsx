@@ -17,7 +17,7 @@ const AdminDashboard: React.FunctionComponent<AdminDashboardProps> = (
       {props.projects}
       <section className={styles.menus}>
         {props.tasks}
-        {/* {props.issues} */}
+        {props.issues}
       </section>
     </section>
   )

@@ -2,11 +2,14 @@ import styles from './projectslist.module.css'
 
 interface HeaderDescriptorProps {
   dashboard: boolean
+  isProject?: boolean
+  isTask?: boolean
+  isIssue?: boolean
 }
 
-const HeaderDescriptor: React.FunctionComponent<HeaderDescriptorProps> = ({
-  dashboard
-}) => {
+const HeaderDescriptor: React.FunctionComponent<HeaderDescriptorProps> = (
+  props
+) => {
   return (
     <header className={styles.descriptor}>
       <span>
@@ -19,20 +22,34 @@ const HeaderDescriptor: React.FunctionComponent<HeaderDescriptorProps> = ({
       </span>
       <span>
         <span className="material-symbols-outlined">group</span>
-        Employees
+        Team
       </span>
-      <span>
-        <span className="material-symbols-outlined">priority_high</span>
-        Priority
-      </span>
+      {props.isProject !== undefined && (
+        <span>
+          <span className="material-symbols-outlined">priority_high</span>
+          Priority
+        </span>
+      )}
       <span>
         <span className="material-symbols-outlined">calendar_month</span>
         Created
       </span>
-      {dashboard && (
+      {props.dashboard && props.isProject !== undefined && (
         <span>
           <span className="material-symbols-outlined">store</span>
           Company
+        </span>
+      )}
+      {props.dashboard && props.isTask !== undefined && (
+        <span>
+          <span className="material-symbols-outlined">emoji_objects</span>
+          Project
+        </span>
+      )}
+      {props.dashboard && props.isIssue !== undefined && (
+        <span>
+          <span className="material-symbols-outlined">note_stack</span>
+          Task
         </span>
       )}
     </header>
