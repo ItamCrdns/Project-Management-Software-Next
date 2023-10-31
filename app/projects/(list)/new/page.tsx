@@ -12,6 +12,7 @@ import { type Employee } from '@/interfaces/employee'
 import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
 import useCompanyOptions from '@/utility/companyOptions'
+import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
 
 const initialState: NewProjectData = {
   data: {
@@ -21,7 +22,8 @@ const initialState: NewProjectData = {
     companyName: '',
     priority: 0,
     priorityLabel: '',
-    employees: null
+    employees: null,
+    expectedDeliveryDate: ''
   },
   setData: () => {}
 }
@@ -43,8 +45,13 @@ const NewProjectModal = (): JSX.Element => {
 
   const projectName = data.data.name
   const companyId = data.data.companyId
+  const expectedDeliviryDate = data.data.expectedDeliveryDate
 
-  const dependency = projectName !== '' && companyId !== 0 && readyForNextPage
+  const dependency =
+    projectName !== '' &&
+    companyId !== 0 &&
+    expectedDeliviryDate !== '' &&
+    readyForNextPage
 
   const companyOptions = useCompanyOptions({ companies })
 
@@ -112,6 +119,16 @@ const NewProjectModal = (): JSX.Element => {
     setShowUnsavedChanges(false)
   }
 
+  const getDateCallback = (date: string): void => {
+    setData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        expectedDeliveryDate: date
+      }
+    }))
+  }
+
   return (
     <section className={styles.newprojectwrapper}>
       {showUnsavedChanges && <UnsavedChanges goBack={handleCancelClose} />}
@@ -146,7 +163,11 @@ const NewProjectModal = (): JSX.Element => {
                 options={companyOptions ?? []}
                 text="company"
                 onSelect={handleCompanySelect}
-                width='100%'
+                width="100%"
+              />
+              <ExpectedDeliveryDateSelector
+                getDate={getDateCallback}
+                defaultValue={expectedDeliviryDate}
               />
             </form>
             {error !== null && (

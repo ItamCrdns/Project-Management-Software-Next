@@ -75,23 +75,46 @@
     border: none;
 }
 
-.newproject select {
-    color: var(--text-color);
-    font-family: inherit;
-    cursor: pointer;
-    padding: .5rem 1rem;
+.newproject input[type="date"] {
+    padding: 1rem;
     background-color: var(--darker-banner-color);
-    appearance: none;
+    color: var(--text-color);
+    outline: none;
     border: none;
     border-radius: 5px;
-    outline: none;
+    font-family: inherit;
 }
 
-.newproject select option {
+.tinytitlewrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: .5rem;
+}
+
+.absolutepopup {
+    position: absolute;
+    right: 0;
+    padding: .5rem;
+    width: 175px;
+    height: 30px;
+    border-radius: 5px;
+    z-index: 1;
     background-color: var(--darker-banner-color);
-    border: none;
-    outline: none;
-    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.absolutepopup p {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.tinytitlewrapper span {
+    user-select: none;
+    font-size: 18px;
 }
 
 .newproject > ul {

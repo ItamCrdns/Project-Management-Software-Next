@@ -22,6 +22,7 @@ const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
     formData.append('description', project.data.description)
     formData.append('companyId', project.data.companyId?.toString() ?? '')
     formData.append('priority', project.data.priority?.toString() ?? '')
+    formData.append('expectedDeliveryDate', project.data.expectedDeliveryDate ?? null)
 
     if (employees !== null) {
       employees.forEach((employee) => {
@@ -56,6 +57,10 @@ const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
         <span className={styles.summaryinfo}>
           <p>Description</p>
           <h2>{project.data.description}</h2>
+        </span>
+        <span className={styles.summaryinfo}>
+          <p>Expected delivery date</p>
+          <h2>{project.data.expectedDeliveryDate}</h2>
         </span>
       </div>
       <div className={styles.companyprioritywrapper}>
