@@ -116,6 +116,7 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
               options={priorityOptions}
               text="priority"
               onSelect={handlePrioritySelect}
+              width='100%'
             />
           </form>
           <div className={styles.buttonwrapper}>

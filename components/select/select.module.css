@@ -1,14 +1,16 @@
 .customselect {
-    --width: 190px; /* Default width. Can be modified with props */
+    /* --width: 190px; Width can be modified as props */ 
     border-radius: 5px;
-    width: var(--width);
+    /* width: var(--width); */
     display: flex;
     flex-direction: column;
+    justify-self: center;
     align-items: flex-end;
     position: relative;
     background-color: var(--darker-banner-color);
     margin: 0;
-    z-index: 99999999;
+    z-index: 1;
+    margin: 0 auto;
 }
 
 .optionselected {

@@ -1,5 +1,5 @@
 'use client'
-import { type PropsWithChildren, createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import authenticateEmployee, { type CredentialsType } from '@/api-calls/authenticateEmployee'
 import { type Employee } from '@/interfaces/employee'
 
@@ -61,7 +61,7 @@ const AuthContext = createContext<UserContextType>(initialState)
  * @returns The authentication provider component.
  */
 
-export const AuthProvider = ({ children }: PropsWithChildren): JSX.Element => {
+export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<LoginData | Employee>(initialState.user)
 
   useEffect(() => {

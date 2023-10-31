@@ -13,14 +13,10 @@ interface CustomSelectProps {
   text: string
   onSelect: (value: Option) => void
   defaultValue: string
+  width?: string
 }
 
-const CustomSelect = ({
-  text,
-  options,
-  onSelect,
-  defaultValue
-}: CustomSelectProps): JSX.Element => {
+const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
 
@@ -30,25 +26,25 @@ const CustomSelect = ({
 
   const handleOptionClick = (option: Option): void => {
     setSelectedOption(option)
-    onSelect(option)
+    props.onSelect(option)
     setToggle(false)
   }
 
   return (
-    <div className={styles.customselect}>
+    <div className={styles.customselect} style={{ width: props.width ?? '190px' }}>
       <div onClick={handleToggleDropdown} className={styles.optionselected}>
         <p>
           {selectedOption !== null
             ? selectedOption.label
-            : defaultValue !== ''
-              ? defaultValue
-              : `Select a ${text}...`}
+            : props.defaultValue !== ''
+              ? props.defaultValue
+              : `Select a ${props.text}...`}
         </p>
         <span className="material-symbols-outlined">expand_more</span>
       </div>
-      {toggle && Array.isArray(options) && (
+      {toggle && Array.isArray(props.options) && (
         <ul>
-          {options.map((option) => (
+          {props.options.map((option) => (
             <li
               onClick={() => {
                 handleOptionClick(option)

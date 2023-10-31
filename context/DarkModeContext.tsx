@@ -1,11 +1,5 @@
 'use client'
-import {
-  type PropsWithChildren,
-  createContext,
-  useContext,
-  useState,
-  useEffect
-} from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 
 interface DarkModeContextType {
   darkMode: boolean
@@ -24,11 +18,13 @@ const DarkModeContext = createContext<DarkModeContextType>(initialState)
 /**
  * Provides a context for managing dark mode state and toggling it.
  */
-export const DarkModeProvider = ({
+export const DarkModeProvider: React.FC<React.PropsWithChildren> = ({
   children
-}: PropsWithChildren): JSX.Element => {
+}) => {
   const [darkMode, setDarkMode] = useState<boolean>(initialState.darkMode)
-  const [darkModeButtonPressed, setDarkModeButtonPressed] = useState<boolean>(initialState.darkModeButtonPressed)
+  const [darkModeButtonPressed, setDarkModeButtonPressed] = useState<boolean>(
+    initialState.darkModeButtonPressed
+  )
 
   /**
    * Updates the CSS variables and saves the dark mode state to local storage.
@@ -36,11 +32,20 @@ export const DarkModeProvider = ({
   useEffect(() => {
     // Direct dom manipulation ca be potentially improved
     const root = document.documentElement
-    root.style.setProperty('--background-color', darkMode ? '#121212' : 'rgb(245, 245, 245)')
+    root.style.setProperty(
+      '--background-color',
+      darkMode ? '#121212' : 'rgb(245, 245, 245)'
+    )
     root.style.setProperty('--banner-color', darkMode ? '#1E1E1E' : 'white')
     root.style.setProperty('--text-color', darkMode ? 'white' : 'black')
-    root.style.setProperty('--small-font', darkMode ? 'rgba(255, 255, 255, .5)' : 'rgba(0, 0, 0, .5)')
-    root.style.setProperty('--darker-banner-color', darkMode ? '#1A1A1A' : 'whitesmoke')
+    root.style.setProperty(
+      '--small-font',
+      darkMode ? 'rgba(255, 255, 255, .5)' : 'rgba(0, 0, 0, .5)'
+    )
+    root.style.setProperty(
+      '--darker-banner-color',
+      darkMode ? '#1A1A1A' : 'whitesmoke'
+    )
 
     if (!darkModeButtonPressed) {
       // Get the data from localstorage if the darkMode button was not pressed, so meaning the initial render when its still false
@@ -62,7 +67,9 @@ export const DarkModeProvider = ({
   }
 
   return (
-    <DarkModeContext.Provider value={{ toggleDarkMode, darkMode, darkModeButtonPressed }}>
+    <DarkModeContext.Provider
+      value={{ toggleDarkMode, darkMode, darkModeButtonPressed }}
+    >
       {children}
     </DarkModeContext.Provider>
   )

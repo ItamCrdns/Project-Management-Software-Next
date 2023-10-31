@@ -146,6 +146,7 @@ const NewProjectModal = (): JSX.Element => {
                 options={companyOptions ?? []}
                 text="company"
                 onSelect={handleCompanySelect}
+                width='100%'
               />
             </form>
             {error !== null && (
