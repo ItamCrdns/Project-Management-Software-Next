@@ -38,6 +38,7 @@ export const DarkModeProvider: React.FC<React.PropsWithChildren> = ({
     )
     root.style.setProperty('--banner-color', darkMode ? '#1E1E1E' : 'white')
     root.style.setProperty('--text-color', darkMode ? 'white' : 'black')
+    root.style.setProperty('--lighter-text-color', darkMode ? '#7D7D7D' : 'rgba(0, 0, 0, .5)')
     root.style.setProperty(
       '--small-font',
       darkMode ? 'rgba(255, 255, 255, .5)' : 'rgba(0, 0, 0, .5)'

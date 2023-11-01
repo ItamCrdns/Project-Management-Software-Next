@@ -28,7 +28,7 @@ export const dateFormatter = (inputDate: string): DateFormatterReturn => {
   let color: string = 'black' // * Default color
 
   if (timeDifferenceInSeconds > 604800) {
-    color = 'green' // * Green color if the date is more than a week away
+    color = 'rgba(79, 192, 208, 1)' // * Green color if the date is more than a week away
   } else if (
     timeDifferenceInSeconds >= 259200 &&
     timeDifferenceInSeconds <= 432000

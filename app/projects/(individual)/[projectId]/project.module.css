@@ -116,7 +116,7 @@
 }
 
 .grayedtext {
-    color: rgba(0, 0, 0, .5);
+    color: var(--lighter-text-color);
 }
 
 .informationcontainer {
@@ -124,11 +124,19 @@
     gap: .25rem;
     align-items: center;
     position: relative;
+    margin: 0;
+    padding: 0;
 }
 
 .informationcontainer span {
     user-select: none;
     font-size: 16px;
+    margin: 0;
+}
+
+.informationcontainer p {
+    margin: 0;
+    padding: 0; 
 }
 
 .absolutepopup {
@@ -136,7 +144,7 @@
     color: var(--text-color);
     padding: .5rem;
     border-radius: 5px;
-    top: 2.5rem;
+    top: 1.5rem;
     width: 200px;
 }
 

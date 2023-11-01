@@ -81,7 +81,7 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
                 </h3>
               </div>
               <p className={styles.grayedtext}>Status</p>
-              <p>In progress</p>
+              <p>{project?.lifecycle}</p>
               <p className={styles.grayedtext}>Date</p>
               <p>
                 Created{' '}

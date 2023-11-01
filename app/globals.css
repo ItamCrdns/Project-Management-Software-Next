@@ -2,8 +2,9 @@
   --background-color: rgb(245, 245, 245);
   --banner-color: white;
   --darker-banner-color: whitesmoke;
-  --text-color: 'black';
-  --small-font: 'rgba(255, 0, 0, .1)'
+  --text-color: black;
+  --lighter-text-color: rgba(0, 0, 0, .5);
+  --small-font: rgba(255, 0, 0, .1)
 }
 
 body {
@@ -12,7 +13,7 @@ body {
   color: var(--text-color);
 }
 
-ul,  li {
+ul, li {
   margin: 0;
   padding: 0;
   list-style: none;
