@@ -8,6 +8,7 @@ export interface Project {
   description: string
   created: string // its a date!
   finalized: string // its a date too!
+  expectedDeliveryDate: string // its a date too!
   projectCreatorId: number
   images: Images
   projectCreator: Employee

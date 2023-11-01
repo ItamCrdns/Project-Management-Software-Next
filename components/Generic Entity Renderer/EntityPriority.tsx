@@ -2,7 +2,7 @@ import { type Style } from './EntityRenderer'
 
 interface EntityPriorityProps {
   priority: number
-  style: Style
+  style?: Style
 }
 
 const EntityPriority: React.FunctionComponent<EntityPriorityProps> = (props) => {

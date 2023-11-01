@@ -6,6 +6,7 @@ import { type Employee } from '@/interfaces/employee'
 import { type Company } from '@/interfaces/company'
 import EntityPriority from '@/components/Generic Entity Renderer/EntityPriority'
 import ProjectEmployees from './ProjectEmployees'
+import ExpectedDeliveryDate from './ExpectedDeliveryDate'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,12 +16,11 @@ interface ProjectIdProps {
   params: { projectId: string }
 }
 
-const ProjectId = async ({
-  children,
-  tasks,
-  params
-}: ProjectIdProps): Promise<JSX.Element> => {
+const ProjectId: React.FC<ProjectIdProps> = async (props) => {
+  const { children, tasks, params } = props
+
   const { data } = await getProject(params.projectId)
+
   const project = data
   const images = project?.images as Images
   const employees = project?.employees as Employee[]
@@ -87,6 +87,7 @@ const ProjectId = async ({
                 Created{' '}
                 {relativeTime(new Date(project?.created ?? '').getTime())}
               </p>
+              <ExpectedDeliveryDate project={project} />
             </aside>
           </div>
         </article>
