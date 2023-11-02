@@ -9,10 +9,11 @@ import TitleWrapper from '../../../components/Header title/TitleWrapper'
 
 interface ProjectsPageProps {
   children: React.ReactNode
+  searchParams: Record<string, string | string[] | undefined>
 }
 
 const ProjectsPage: React.FC<ProjectsPageProps> = async (props) => {
-  const { data } = await getProjects('1', '3') // Page 1 (always) 3 projects per company
+  const { data } = await getProjects('1', '2') // Page 1 (always) 3 projects per company
   const projects = data as Project[]
 
   return (

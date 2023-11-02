@@ -13,12 +13,8 @@ interface EmployeeCardProps {
   redirectMe: boolean // * Should we redirect to the employee profile or not?
 }
 
-const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = ({
-  employee,
-  supervisor,
-  isProfile,
-  redirectMe
-}) => {
+const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
+  const { employee, supervisor, isProfile, redirectMe } = props
   return (
     <section className={styles.cardswrapper}>
       <section className={styles.employeecard}>
@@ -26,8 +22,8 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = ({
           <Image
             src={employee?.profilePicture ?? ''}
             alt={employee?.username ?? ''}
-            width={200}
-            height={200}
+            width={175}
+            height={175}
           />
         )}
         {isProfile

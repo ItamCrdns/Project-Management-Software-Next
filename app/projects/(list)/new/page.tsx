@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
 import useCompanyOptions from '@/utility/companyOptions'
 import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
+import CreateNewClient from './CreateNewClient'
 
 const initialState: NewProjectData = {
   data: {
@@ -23,14 +24,15 @@ const initialState: NewProjectData = {
     priority: 0,
     priorityLabel: '',
     employees: null,
-    expectedDeliveryDate: ''
+    expectedDeliveryDate: '',
+    clientName: ''
   },
   setData: () => {}
 }
 
 const NewProjectModal = (): JSX.Element => {
   const { companies, error } = useCompanyDropdown({ dependency: true })
-  const [data, setData] = useState<NewProjectData>(initialState) // * Data to send to the backend
+  const [data, setData] = useState<NewProjectData>(initialState) // * The new project data
 
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
@@ -45,12 +47,14 @@ const NewProjectModal = (): JSX.Element => {
 
   const projectName = data.data.name
   const companyId = data.data.companyId
-  const expectedDeliviryDate = data.data.expectedDeliveryDate
+  const expectedDeliveryDate = data.data.expectedDeliveryDate
+
+  const clientProvided = data.data.clientName !== '' || companyId !== 0
 
   const dependency =
     projectName !== '' &&
-    companyId !== 0 &&
-    expectedDeliviryDate !== '' &&
+    clientProvided &&
+    expectedDeliveryDate !== '' &&
     readyForNextPage
 
   const companyOptions = useCompanyOptions({ companies })
@@ -129,6 +133,25 @@ const NewProjectModal = (): JSX.Element => {
     }))
   }
 
+  const getClientName = (clientName: string): void => {
+    // If the user creates a new client, the client name will be passed to the data state
+    setData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        clientName
+      }
+    }))
+  }
+
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false)
+
+  const checkIfNewClientFormIsOpen = (isOpen: boolean): void => {
+    setIsFormOpen(isOpen)
+  }
+
+  const companySelected = data.data.companyId !== 0
+
   return (
     <section className={styles.newprojectwrapper}>
       {showUnsavedChanges && <UnsavedChanges goBack={handleCancelClose} />}
@@ -161,13 +184,19 @@ const NewProjectModal = (): JSX.Element => {
               <CustomSelect
                 defaultValue={data.data.companyName ?? ''}
                 options={companyOptions ?? []}
-                text="company"
+                text="client"
                 onSelect={handleCompanySelect}
                 width="100%"
+                disabled={isFormOpen}
+              />
+              <CreateNewClient
+                sendClientName={getClientName}
+                newClientOpen={checkIfNewClientFormIsOpen}
+                companySelected={companySelected}
               />
               <ExpectedDeliveryDateSelector
                 getDate={getDateCallback}
-                defaultValue={expectedDeliviryDate}
+                defaultValue={expectedDeliveryDate}
               />
             </form>
             {error !== null && (

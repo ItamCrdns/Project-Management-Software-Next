@@ -10,6 +10,7 @@ export interface NewProjectData {
     priorityLabel: string | null // Only for displaying purposes
     employees: Employee[] | null
     expectedDeliveryDate: string
+    clientName?: string
     // * To add images
   }
   setData: React.Dispatch<React.SetStateAction<NewProjectData>>

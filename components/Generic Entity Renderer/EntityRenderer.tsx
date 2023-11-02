@@ -55,7 +55,9 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
         <EntityEmployees style={style} employees={props.entity.employees} />
           )
         : (
-        <div style={style} className={styles.listofemployees}>No employees</div>
+        <div style={style} className={styles.listofemployees}>
+          No employees
+        </div>
           )}
       {props.entity.priority !== null &&
         props.entity.priority !== undefined && (

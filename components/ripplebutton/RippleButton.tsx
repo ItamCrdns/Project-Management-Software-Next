@@ -19,6 +19,7 @@ import Link from 'next/link'
  * @param {string} [href] - The URL to link to when the button is clicked.
  * @param {boolean|null} [loading] - Whether the button is in a loading state.
  * @param {(...args: any[]) => void} [func] - The function to call when the button is clicked.
+ * @param {boolean} [disabled] - Whether the button is disabled.
  */
 
 interface RippleButtonProps {
@@ -34,11 +35,14 @@ interface RippleButtonProps {
   href?: string
   loading?: boolean | null
   func?: (...args: any[]) => void // * Takes any arguments
+  disabled?: boolean
 }
 
 const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   const [ripples, setRipples] = useState<Array<{ x: number, y: number }>>([])
   const buttonRef = useRef<HTMLSpanElement>(null)
+
+  const disabled = props.disabled !== null && props.disabled === true
 
   const {
     text,
@@ -80,7 +84,7 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   const handleButtonClick = (e: React.MouseEvent<HTMLSpanElement>): void => {
     handleEffect(e)
 
-    if (func !== undefined && func !== null) {
+    if (func !== undefined && func !== null && !disabled) {
       func(e)
     }
   }
@@ -106,7 +110,16 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   }
 
   return (
-    <span ref={buttonRef} className={styles.button} onClick={handleButtonClick} onMouseLeave={handleClearRipples}>
+    <span
+      ref={buttonRef}
+      className={styles.button}
+      style={{
+        backgroundColor: disabled ? '#8CA1A5' : '',
+        cursor: disabled ? 'not-allowed' : ''
+      }} // Override the background color and cursor if the button is disabled
+      onClick={handleButtonClick}
+      onMouseLeave={handleClearRipples}
+    >
       {href !== undefined
         ? (
         <Link href={href} className={styles.loadertextwrapper}>

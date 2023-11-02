@@ -19,7 +19,7 @@ const TasksParallel = async ({ params }: TasksProps): Promise<JSX.Element> => {
     <section className={taskstyles.tasks}>
       <section className={styles.projectswrapper}>
         <div className={styles.companywrapper}>
-          <h1>Tasks assigned to this project</h1>
+          <h1>Tasks</h1>
           <div>
             <RippleButton
               text="All tasks..."

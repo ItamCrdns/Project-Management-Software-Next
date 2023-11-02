@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './select.module.css'
 
 export interface Option {
@@ -14,13 +14,21 @@ interface CustomSelectProps {
   onSelect: (value: Option) => void
   defaultValue: string
   width?: string
+  disabled?: boolean // * Will use it to disable the custom select based on a condition
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
 
+  const disabled = props.disabled !== null && props.disabled === true
+
+  useEffect(() => {
+    setToggle(false)
+  }, [disabled])
+
   const handleToggleDropdown = (): void => {
+    if (props.disabled !== null && props.disabled === true) return
     setToggle(!toggle)
   }
 
@@ -33,7 +41,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   return (
     <div className={styles.customselect} style={{ width: props.width ?? '190px' }}>
       <div onClick={handleToggleDropdown} className={styles.optionselected}>
-        <p>
+        <p style={{ color: disabled ? 'gray' : 'var(--text-color)' }}>
           {selectedOption !== null
             ? selectedOption.label
             : props.defaultValue !== ''

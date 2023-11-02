@@ -21,7 +21,7 @@ const EntityEmployees: React.FunctionComponent<EntityEmployeesProps> = (
             <EmployeeOfTheList
               key={employee.username}
               employee={employee}
-              size={50}
+              size={35}
               redirectMe={true}
             />
           ))}

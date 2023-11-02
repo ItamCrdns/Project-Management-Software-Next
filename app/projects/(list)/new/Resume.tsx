@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
 import { type Employee } from '@/interfaces/employee'
 import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
+import React from 'react'
 
 interface LastPageProps {
   project: NewProjectData
@@ -12,7 +13,9 @@ interface LastPageProps {
   goBack: () => void
 }
 
-const Resume = ({ project, employees, goBack }: LastPageProps): JSX.Element => {
+const Resume: React.FC<LastPageProps> = (props) => {
+  const { project, employees, goBack } = props
+  console.log(project)
   const router = useRouter()
 
   const handleCreateProject = (): void => {

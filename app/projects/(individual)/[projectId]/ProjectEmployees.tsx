@@ -9,14 +9,21 @@ interface ProjectEmployeeProps {
   employeeCount: number
 }
 
-const ProjectEmployees = ({ employees, projectId, employeeCount }: ProjectEmployeeProps): JSX.Element => {
+const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
+  const { employees, projectId, employeeCount } = props
+
   return (
     <article className={styles.employees}>
       <div className={styles.headerwrapper}>
         <h1>Employee</h1>
         <h3>List</h3>
       </div>
-      <ul>
+      <ul
+        style={{
+          borderBottom:
+            employeeCount > 5 ? '2px solid var(--background-color)' : ''
+        }}
+      >
         {employees.map((employee: Employee) => (
           <li key={employee.employeeId}>
             <Image
@@ -31,11 +38,13 @@ const ProjectEmployees = ({ employees, projectId, employeeCount }: ProjectEmploy
           </li>
         ))}
       </ul>
-      <h3>
-        <Link href={`/projects/${projectId}/employees`}>
-          See all {employeeCount} employees
-        </Link>
-      </h3>
+      {employeeCount > 5 && (
+        <h3>
+          <Link href={`/projects/${projectId}/employees`}>
+            See all {employeeCount} employees
+          </Link>
+        </h3>
+      )}
     </article>
   )
 }
