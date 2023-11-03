@@ -14,7 +14,8 @@ interface CustomSelectProps {
   onSelect: (value: Option) => void
   defaultValue: string
   width?: string
-  disabled?: boolean // * Will use it to disable the custom select based on a condition
+  disabled?: boolean // ? Will use it to disable the custom select based on a condition
+  clearSelectedOption: () => void
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
@@ -38,32 +39,47 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(false)
   }
 
+  const resetSelectedOption = (): void => {
+    setSelectedOption(null)
+    props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
+  }
+
   return (
-    <div className={styles.customselect} style={{ width: props.width ?? '190px' }}>
-      <div onClick={handleToggleDropdown} className={styles.optionselected}>
-        <p style={{ color: disabled ? 'gray' : 'var(--text-color)' }}>
-          {selectedOption !== null
-            ? selectedOption.label
-            : props.defaultValue !== ''
-              ? props.defaultValue
-              : `Select a ${props.text}...`}
-        </p>
-        <span className="material-symbols-outlined">expand_more</span>
+    <div className={styles.customselectwrapper}>
+      <div
+        className={styles.customselect}
+        style={{ width: props.width ?? '190px' }}
+      >
+        <div onClick={handleToggleDropdown} className={styles.optionselected}>
+          <p style={{ color: disabled ? 'gray' : 'var(--text-color)' }}>
+            {selectedOption !== null
+              ? selectedOption.label
+              : props.defaultValue !== ''
+                ? props.defaultValue
+                : `Select a ${props.text}...`}
+          </p>
+          <span className="material-symbols-outlined">expand_more</span>
+        </div>
+        {toggle && Array.isArray(props.options) && (
+          <ul>
+            {props.options.map((option) => (
+              <li
+                onClick={() => {
+                  handleOptionClick(option)
+                }}
+                key={option.value}
+              >
+                <h4>{option.label}</h4>
+                <p>{option.info}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      {toggle && Array.isArray(props.options) && (
-        <ul>
-          {props.options.map((option) => (
-            <li
-              onClick={() => {
-                handleOptionClick(option)
-              }}
-              key={option.value}
-            >
-              <h4>{option.label}</h4>
-              <p>{option.info}</p>
-            </li>
-          ))}
-        </ul>
+      {selectedOption !== null && (
+        <span className={styles.reset} onClick={resetSelectedOption}>
+          Reset
+        </span>
       )}
     </div>
   )

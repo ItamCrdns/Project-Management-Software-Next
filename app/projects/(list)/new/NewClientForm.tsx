@@ -1,12 +1,7 @@
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRef } from 'react'
-
-interface NewClientFormProps {
-  closeForm: () => void
-  sendClientName: (clientName: string) => void
-  defaultInputValue: string
-}
+import { type NewClientFormProps } from '@/interfaces/props/NewClientFormProps'
 
 const NewClientForm: React.FC<NewClientFormProps> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -31,7 +26,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         maxLength={255}
       />
       <RippleButton
-        text="Add client"
+        text={props.buttonText}
         backgroundColor="#80B3FF"
         textColor="white"
         func={handleClick}

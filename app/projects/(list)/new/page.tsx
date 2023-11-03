@@ -135,6 +135,7 @@ const NewProjectModal = (): JSX.Element => {
 
   const getClientName = (clientName: string): void => {
     // If the user creates a new client, the client name will be passed to the data state
+    // ? And later one we will be posting it to the API
     setData((prevState) => ({
       ...prevState,
       data: {
@@ -151,6 +152,17 @@ const NewProjectModal = (): JSX.Element => {
   }
 
   const companySelected = data.data.companyId !== 0
+
+  const clearSelectedOption = (): void => {
+    setData((prevState) => ({
+      ...prevState,
+      data: {
+        ...prevState.data,
+        companyId: 0,
+        companyName: ''
+      }
+    }))
+  }
 
   return (
     <section className={styles.newprojectwrapper}>
@@ -188,6 +200,7 @@ const NewProjectModal = (): JSX.Element => {
                 onSelect={handleCompanySelect}
                 width="100%"
                 disabled={isFormOpen}
+                clearSelectedOption={clearSelectedOption}
               />
               <CreateNewClient
                 sendClientName={getClientName}

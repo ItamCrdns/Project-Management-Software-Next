@@ -2,14 +2,9 @@ import { useState } from 'react'
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import NewClientForm from './NewClientForm'
+import { type CreateNewClientProps } from '@/interfaces/props/CreateNewClientProps'
 
-interface Props {
-  sendClientName: (clientName: string) => void
-  newClientOpen: (status: boolean) => void
-  companySelected: boolean
-}
-
-const CreateNewClient: React.FC<Props> = (props) => {
+const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
 
   const handleCloseForm = (): void => {
@@ -29,6 +24,8 @@ const CreateNewClient: React.FC<Props> = (props) => {
     props.sendClientName(clientNameFromForm) // ! Do not send state as props, send the value from the form instead or it wont work
     setToggle(false)
   }
+
+  const buttonText = clientName === '' ? 'Add client' : 'Update'
 
   return (
     <>
@@ -52,6 +49,7 @@ const CreateNewClient: React.FC<Props> = (props) => {
           closeForm={handleCloseForm}
           sendClientName={getClientName}
           defaultInputValue={clientName}
+          buttonText={buttonText}
         />
       )}
       {clientName !== '' && !toggle && (
