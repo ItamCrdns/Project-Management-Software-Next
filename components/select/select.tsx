@@ -15,7 +15,7 @@ interface CustomSelectProps {
   defaultValue: string
   width?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
-  clearSelectedOption: () => void
+  clearSelectedOption?: () => void // ? Optional callback function that will clear the selected option in the parent component
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
@@ -41,7 +41,9 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
   const resetSelectedOption = (): void => {
     setSelectedOption(null)
-    props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
+    if (props.clearSelectedOption !== undefined) {
+      props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
+    }
   }
 
   return (

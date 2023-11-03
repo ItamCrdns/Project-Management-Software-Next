@@ -1,10 +1,10 @@
 import { type PostReturn } from '@/interfaces/return/PosterReturn'
 import handlePost from '@/utility/poster'
 
-const handleSubmitProject = async (
+const handleSubmitClient = async (
   formData: FormData
 ): Promise<PostReturn<number>> => {
-  return await handlePost('Project/new', formData)
+  return await handlePost('Company/new/nameonly', formData)
 }
 
-export default handleSubmitProject
+export default handleSubmitClient

@@ -1,5 +1,10 @@
-const handleSubmitProject = async (formData: FormData): Promise<{ data: number | null, status: number }> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Project/new')
+import { type PostReturn } from '@/interfaces/return/PosterReturn'
+
+const handlePost = async <T>(
+  endpoint: string,
+  formData: FormData
+): Promise<PostReturn<T>> => {
+  const url = new URL(process.env.NEXT_PUBLIC_API_URL + endpoint)
 
   const requestOptions: RequestInit = {
     method: 'POST',
@@ -26,4 +31,4 @@ const handleSubmitProject = async (formData: FormData): Promise<{ data: number |
   }
 }
 
-export default handleSubmitProject
+export default handlePost

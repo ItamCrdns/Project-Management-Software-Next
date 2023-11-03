@@ -1,52 +1,69 @@
-import { type NewProjectData } from '@/interfaces/NewProjectData'
-import handleSubmitProject from './postProject'
+import handleSubmitProject from '@/api-calls/postProject'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
-import { type Employee } from '@/interfaces/employee'
 import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
-import React from 'react'
+import { type NewProjectResumeProps } from '@/interfaces/props/NewProjectResumeProps'
+import { handleCreateClient } from './handlePostClient'
+import { useState } from 'react'
 
-interface LastPageProps {
-  project: NewProjectData
-  employees: Employee[] | null
-  goBack: () => void
-}
-
-const Resume: React.FC<LastPageProps> = (props) => {
+const Resume: React.FC<NewProjectResumeProps> = (props) => {
   const { project, employees, goBack } = props
-  console.log(project)
+
   const router = useRouter()
 
-  const handleCreateProject = (): void => {
+  const [error, setError] = useState<string>('')
+
+  const handleCreateProject = async (): Promise<void> => {
     const formData = new FormData()
 
     formData.append('name', project.data.name)
     formData.append('description', project.data.description)
-    formData.append('companyId', project.data.companyId?.toString() ?? '')
     formData.append('priority', project.data.priority?.toString() ?? '')
-    formData.append('expectedDeliveryDate', project.data.expectedDeliveryDate ?? null)
+    formData.append(
+      'expectedDeliveryDate',
+      project.data.expectedDeliveryDate ?? null
+    )
 
-    if (employees !== null) {
-      employees.forEach((employee) => {
-        formData.append('employees', employee.employeeId.toString())
-      })
-    }
+    const companyClientName = project.data.clientName
+    const companyId = project.data.companyId
 
-    handleSubmitProject(formData)
-      .then((res) => {
+    try {
+      // * Check if the clientName has been provided. If it is, it means that the user its creating a new client instead of selecting an existing one
+      // * And we will call the create client method, get the returned value after the client is created and append it to the form data
+      if (companyClientName !== undefined && companyId === 0) {
+        const res = await handleCreateClient(companyClientName)
+        formData.append('companyId', res.toString())
+      } else if (companyId !== null && companyId !== 0) {
+        formData.append('companyId', companyId.toString())
+      }
+
+      if (employees !== null) {
+        employees.forEach((employee) => {
+          formData.append('employees', employee.employeeId.toString())
+        })
+      }
+
+      if (companyClientName !== undefined || companyId !== 0) {
+        const res = await handleSubmitProject(formData) // * Post the new project if atleast a new client has been created or existing company has been selected
         if (res.status === 200) {
           router.push(`/projects/${res.data}`)
         }
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+      }
+    } catch (error: any) {
+      console.error(error)
+      setError(error.toString())
+    }
   }
 
   const handleGoBack = (): void => {
     goBack()
   }
+
+  const client =
+    project.data.companyName === ''
+      ? project.data.clientName
+      : project.data.companyName
 
   return (
     <section className={styles.summary}>
@@ -72,8 +89,8 @@ const Resume: React.FC<LastPageProps> = (props) => {
           <h2>{project.data.priorityLabel}</h2>
         </span>
         <span>
-          <p>Company</p>
-          <h2>{project.data.companyName}</h2>
+          <p>Client</p>
+          <h2>{client}</h2>
         </span>
       </div>
       {Array.isArray(employees) &&
@@ -104,7 +121,7 @@ const Resume: React.FC<LastPageProps> = (props) => {
           backgroundColor="#80B3FF"
           width="120px"
           textColor="white"
-          func={handleCreateProject}
+          asyncFunc={handleCreateProject}
         />
         <RippleButton
           text="Go back"

@@ -1,42 +1,11 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { type RippleButtonProps } from '@/interfaces/props/RippleButtonProps'
 import styles from './ripplebutton.module.css'
 import Link from 'next/link'
 
 /** DO NOT COMBINE ICON AND LOADING IT WILL LOOK WEIRD */
-
-/**
- * Props for the RippleButton component.
- * @param {string} text - The text to display on the button.
- * @param {string} [width] - The width of the button.
- * @param {string} [height] - The height of the button.
- * @param {string} [backgroundColor] - The background color of the button.
- * @param {string} [textColor] - The text color of the button.
- * @param {string} [effectColor] - The color of the ripple effect.
- * @param {string} [borderRadius] - The border radius of the button.
- * @param {string} [icon] - The icon to display on the button.
- * @param {string} [iconSize] - The size of the icon.
- * @param {string} [href] - The URL to link to when the button is clicked.
- * @param {boolean|null} [loading] - Whether the button is in a loading state.
- * @param {(...args: any[]) => void} [func] - The function to call when the button is clicked.
- * @param {boolean} [disabled] - Whether the button is disabled.
- */
-
-interface RippleButtonProps {
-  text: string
-  width?: string
-  height?: string
-  backgroundColor?: string
-  textColor?: string
-  effectColor?: string
-  borderRadius?: string
-  icon?: string
-  iconSize?: string
-  href?: string
-  loading?: boolean | null
-  func?: (...args: any[]) => void // * Takes any arguments
-  disabled?: boolean
-}
+/** DO NOT PASS func and asyncFunc at the same time since the code its made to only run one */
 
 const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   const [ripples, setRipples] = useState<Array<{ x: number, y: number }>>([])
@@ -56,7 +25,8 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
     iconSize,
     href,
     loading = null,
-    func
+    func,
+    asyncFunc
   } = props
 
   useEffect(() => {
@@ -89,6 +59,19 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
     }
   }
 
+  // Remove the unused handleButtonClickAsync function
+  const handleButtonClickAsync = async (
+    e: React.MouseEvent<HTMLSpanElement>
+  ): Promise<void> => {
+    if (asyncFunc !== undefined && asyncFunc !== null && !disabled) {
+      try {
+        await asyncFunc(e)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
   /**
    * Handles the ripple effect when the button is clicked.
    * @param e - The mouse event that triggered the ripple effect.
@@ -117,7 +100,10 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
         backgroundColor: disabled ? '#8CA1A5' : '',
         cursor: disabled ? 'not-allowed' : ''
       }} // Override the background color and cursor if the button is disabled
-      onClick={handleButtonClick}
+      onClick={
+        // ! Determine if the function being passed its the async one or the default one
+        asyncFunc !== undefined ? handleButtonClickAsync : handleButtonClick
+      }
       onMouseLeave={handleClearRipples}
     >
       {href !== undefined

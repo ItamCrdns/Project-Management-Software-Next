@@ -206,6 +206,7 @@ const NewProjectModal = (): JSX.Element => {
                 sendClientName={getClientName}
                 newClientOpen={checkIfNewClientFormIsOpen}
                 companySelected={companySelected}
+                clientName={data.data.clientName ?? ''}
               />
               <ExpectedDeliveryDateSelector
                 getDate={getDateCallback}

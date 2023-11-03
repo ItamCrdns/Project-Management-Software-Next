@@ -17,15 +17,12 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
     setToggle(true)
   }
 
-  const [clientName, setClientName] = useState<string>('')
-
   const getClientName = (clientNameFromForm: string): void => {
-    setClientName(clientNameFromForm)
-    props.sendClientName(clientNameFromForm) // ! Do not send state as props, send the value from the form instead or it wont work
+    props.sendClientName(clientNameFromForm)
     setToggle(false)
   }
 
-  const buttonText = clientName === '' ? 'Add client' : 'Update'
+  const buttonText = props.clientName === '' ? 'Add client' : 'Update'
 
   return (
     <>
@@ -34,7 +31,7 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
         <p>Or</p>
         <span />
       </div>
-      {!toggle && clientName === '' && (
+      {!toggle && props.clientName === '' && (
         <RippleButton
           text="Create new client instead"
           width="175px"
@@ -48,13 +45,13 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
         <NewClientForm
           closeForm={handleCloseForm}
           sendClientName={getClientName}
-          defaultInputValue={clientName}
+          defaultInputValue={props.clientName}
           buttonText={buttonText}
         />
       )}
-      {clientName !== '' && !toggle && (
+      {props.clientName !== '' && !toggle && (
         <div className={styles.newclientinfo}>
-          <input type="text" value={clientName} disabled />
+          <input type="text" value={props.clientName} disabled />
           <span
             onClick={() => {
               setToggle(true)

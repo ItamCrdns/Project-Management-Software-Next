@@ -21,6 +21,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         ref={inputRef}
         type="text"
         placeholder="Client name"
+        autoComplete='off'
         defaultValue={props.defaultInputValue}
         name="clientName"
         maxLength={255}
