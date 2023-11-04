@@ -1,10 +1,7 @@
 import styles from '../employee.module.css'
+import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-interface RecentActivityProps {
-  params: { username: string }
-}
-
-const RecentActivity = ({ params }: RecentActivityProps): JSX.Element => {
+const RecentActivity: React.FC<UsernameParamsProps> = ({ params }) => {
   return (
     <section className={styles.activitywrapper}>
       <h1>

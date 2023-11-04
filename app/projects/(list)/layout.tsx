@@ -6,13 +6,9 @@ import HeaderDescriptor from './HeaderDescriptor'
 import EachProject from './EachProject'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import TitleWrapper from '../../../components/Header title/TitleWrapper'
+import { type ProjectsListProps } from '@/interfaces/props/ProjectsListProps'
 
-interface ProjectsPageProps {
-  children: React.ReactNode
-  searchParams: Record<string, string | string[] | undefined>
-}
-
-const ProjectsPage: React.FC<ProjectsPageProps> = async (props) => {
+const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
   const { data } = await getProjects('1', '2') // Page 1 (always) 3 projects per company
   const projects = data as Project[]
 
@@ -37,7 +33,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = async (props) => {
                   <div>
                     <RippleButton
                       text="More projects..."
-                      href={`/projects/company/${projects[0].company.companyId}/${companyName}`}
+                      href={`/projects/client/${projects[0].company.companyId}/${companyName}`}
                       width="125px"
                       textColor="white"
                       backgroundColor="#80B3FF"

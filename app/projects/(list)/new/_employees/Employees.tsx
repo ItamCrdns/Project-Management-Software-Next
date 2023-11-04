@@ -2,21 +2,14 @@
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-// import fetchEmployees from './fetchEmployees'
 import useGetEmployees, {
   type UseGetEmployeesProps
 } from '@/utility/employees/useGetEmployees'
 import EmployeesRender from './EmployeesRender'
+import { type AddEmployeesProps } from '@/interfaces/props/AddEmployeesProps'
 
-interface AddEmployeesProps {
-  data: NewProjectData
-  goBack: (employees: Employee[]) => void
-}
-
-const AddEmployeesToProject = ({
-  data,
-  goBack
-}: AddEmployeesProps): JSX.Element => {
+const AddEmployeesToProject: React.FC<AddEmployeesProps> = (props) => {
+  const { data, goBack } = props
   const [selectedEmployees, setSelectedEmployees] = useState<Employee[] | null>(
     data.data.employees
   )

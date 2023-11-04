@@ -3,13 +3,10 @@ import getColleagues from '@/api-calls/getColleagues'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import Link from 'next/link'
+import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-const Colleagues = async ({
-  params
-}: {
-  params: { username: string }
-}): Promise<JSX.Element> => {
-  const { username } = params
+const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
+  const { username } = props.params
   const { data } = await getColleagues(username, '1', '5')
   const colleagues = data?.data
   const colleaguesCount = data?.count

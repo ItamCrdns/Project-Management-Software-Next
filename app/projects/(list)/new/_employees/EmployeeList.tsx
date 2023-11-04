@@ -1,20 +1,11 @@
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import styles from '../newProject.module.css'
+import { type EmployeeListProps } from '@/interfaces/props/EmployeeListProps'
 
-interface EmployeeListProps {
-  employeeList: Employee[]
-  selectedEmployees: Employee[] | null
-  message: string
-  handleEmployeeClick: (employee: Employee) => void
-}
-
-const EmployeeList = ({
-  employeeList,
-  selectedEmployees,
-  message,
-  handleEmployeeClick
-}: EmployeeListProps): JSX.Element => {
+const EmployeeList: React.FC<EmployeeListProps> = (props) => {
+  const { employeeList, handleEmployeeClick, selectedEmployees, message } =
+    props
   return (
     <ul>
       {Array.isArray(employeeList) && (

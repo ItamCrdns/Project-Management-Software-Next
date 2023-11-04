@@ -1,17 +1,10 @@
-import { type Project } from '@/interfaces/project'
 import EntityRenderer from '@/components/Generic Entity Renderer/EntityRenderer'
 import { type Entity } from '@/components/Generic Entity Renderer/EntityRenderer'
+import { type EachProjectProps } from '@/interfaces/props/EachProjectProps'
 
-interface EachProjectProps {
-  project: Project
-  showCompanyName: boolean // Used to track if the each project component should show the company name in one of its columns or not
-  // ! If using showCompanyname, you should also set the "dashboard" property in the HeaderDescriptor to true
-}
+const EachProject: React.FunctionComponent<EachProjectProps> = (props) => {
+  const { project, showCompanyName } = props
 
-const EachProject: React.FunctionComponent<EachProjectProps> = ({
-  project,
-  showCompanyName
-}) => {
   // * Map the project to fit the Entity interface
   const projectAsEntity: Entity = {
     name: project.name,
@@ -28,9 +21,9 @@ const EachProject: React.FunctionComponent<EachProjectProps> = ({
       entity={projectAsEntity}
       showParentEntity={showCompanyName}
       entityBasePath="projects"
-      parentBasePath='company'
-      width='300px'
-      maxWidth='300px'
+      parentBasePath="company"
+      width="300px"
+      maxWidth="300px"
     />
   )
 }

@@ -1,18 +1,9 @@
-import { type Employee } from '@/interfaces/employee'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import styles from '../newProject.module.css'
+import { type ButtonsProps } from '@/interfaces/props/EmployeeButtonsProps'
 
-interface ButtonsProps {
-  selectedEmployees: Employee[] | null
-  handleSubmit: () => void
-  handleGoBack: () => void
-}
-
-const Buttons = ({
-  selectedEmployees,
-  handleSubmit,
-  handleGoBack
-}: ButtonsProps): JSX.Element => {
+const Buttons: React.FC<ButtonsProps> = (props) => {
+  const { selectedEmployees, handleSubmit, handleGoBack } = props
   return (
     <>
       {selectedEmployees !== null && selectedEmployees.length > 0

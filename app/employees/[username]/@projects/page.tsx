@@ -2,13 +2,10 @@ import { type Project } from '@/interfaces/project'
 import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
 import getUserProjectsShowcase from '@/api-calls/getUserProjectsShowcase'
 import Link from 'next/link'
+import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-const CurrentProjects = async ({
-  params
-}: {
-  params: { username: string }
-}): Promise<JSX.Element> => {
-  const { username } = params
+const CurrentProjects: React.FC<UsernameParamsProps> = async (props) => {
+  const { username } = props.params
   const { data } = await getUserProjectsShowcase(username, '1', '5')
   const projects = data?.data
   const projectsCount = data?.count

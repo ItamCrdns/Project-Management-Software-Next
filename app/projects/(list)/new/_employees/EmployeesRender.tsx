@@ -3,44 +3,26 @@ import Search from '@/components/search/search'
 import EmployeeList from './EmployeeList'
 import Pagination from '@/components/pagination/pagination'
 import Buttons from './Buttons'
-import { type NewProjectData } from '@/interfaces/NewProjectData'
-import { type Employee } from '@/interfaces/employee'
+import { type EmployeesRenderProps } from '@/interfaces/props/EmployeesRenderProps'
 
-interface EmployeesRenderProps {
-  showResume: boolean
-  newData: NewProjectData
-  selectedEmployees: Employee[] | null
-  handleReturnHere: () => void
-  data: NewProjectData
-  getInputValue: (input: string) => void
-  handleInputChange: (value: boolean) => void
-  employeeList: Employee[]
-  message: string
-  handleEmployeeClick: (employee: Employee) => void
-  totalPages: number
-  handlePageChange: (page: number) => void
-  resetPage: boolean
-  handleSubmit: () => void
-  handleGoBack: () => void
-}
-
-const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
-  showResume,
-  newData,
-  selectedEmployees,
-  handleReturnHere,
-  data,
-  getInputValue,
-  handleInputChange,
-  employeeList,
-  message,
-  handleEmployeeClick,
-  totalPages,
-  handlePageChange,
-  resetPage,
-  handleSubmit,
-  handleGoBack
-}) => {
+const EmployeesRender: React.FC<EmployeesRenderProps> = (props) => {
+  const {
+    data,
+    newData,
+    employeeList,
+    selectedEmployees,
+    message,
+    handleEmployeeClick,
+    handleSubmit,
+    handleGoBack,
+    showResume,
+    handleReturnHere,
+    handleInputChange,
+    handlePageChange,
+    totalPages,
+    resetPage,
+    getInputValue
+  } = props
   return (
     <>
       {showResume

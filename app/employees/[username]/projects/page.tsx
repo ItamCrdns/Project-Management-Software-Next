@@ -2,17 +2,10 @@ import getUserProjects from '@/api-calls/getUserProjects'
 import ProjectList from './ProjectList'
 import styles from '../employee.module.css'
 import Link from 'next/link'
-import { type SearchParams } from '@/interfaces/searchParams'
+import { type EmployeeProjectsProps } from '@/interfaces/props/EmployeeProjectsProps'
 
-interface Props {
-  params: { username: string }
-  searchParams: SearchParams
-}
-
-const EmployeeProjects: React.FunctionComponent<Props> = async ({
-  params,
-  searchParams
-}) => {
+const EmployeeProjects: React.FunctionComponent<EmployeeProjectsProps> = async (props) => {
+  const { params, searchParams } = props
   const { username } = params
   let { page } = searchParams
 

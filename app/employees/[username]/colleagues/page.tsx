@@ -1,20 +1,15 @@
 'use client'
 import EmployeesRender from '@/app/projects/(individual)/[projectId]/employees/EmployeesRender'
-import { type SearchParams } from '@/interfaces/searchParams'
 import useGetEmployees, {
   type UseGetEmployeesProps
 } from '@/utility/employees/useGetEmployees'
 import { usePathname } from 'next/navigation'
+import { type EmployeeColleaguesProps } from '@/interfaces/props/EmployeeColleaguesProps'
 
-interface Props {
-  params: { username: string }
-  searchParams: SearchParams
-}
-
-const Colleagues: React.FunctionComponent<Props> = ({
-  params,
-  searchParams
-}) => {
+const Colleagues: React.FunctionComponent<EmployeeColleaguesProps> = (
+  props
+) => {
+  const { params, searchParams } = props
   const { username } = params
   if (searchParams.page === undefined || searchParams.page === null) {
     searchParams.page = '1'
@@ -41,7 +36,7 @@ const Colleagues: React.FunctionComponent<Props> = ({
       pathname={pathname}
       closeButtonHref={`/employees/${username}`}
       paginationUrl={`/employees/${username}/colleagues`}
-      headerText='Colleagues'
+      headerText="Colleagues"
     />
   )
 }

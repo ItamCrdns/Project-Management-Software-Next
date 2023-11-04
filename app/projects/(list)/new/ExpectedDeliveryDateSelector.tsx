@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import styles from './newProject.module.css'
+import { type ExpectedDeliveryDateSelectorProps } from '@/interfaces/props/ExpectedDeliveryDateSelectorProps'
 
-interface Props {
-  getDate: (date: string) => void
-  defaultValue: string
-}
-
-const ExpectedDeliveryDateSelector: React.FC<Props> = (props) => {
+const ExpectedDeliveryDateSelector: React.FC<
+ExpectedDeliveryDateSelectorProps
+> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
 
   const getDate = (e: React.ChangeEvent<HTMLInputElement>): void => {

@@ -1,16 +1,8 @@
 import styles from './projectslist.module.css'
-
-interface Style {
-  width: string
-}
-
-interface HeaderDescriptorProps {
-  dashboard: boolean
-  isProject?: boolean
-  isTask?: boolean
-  isIssue?: boolean
-  width: string
-}
+import {
+  type HeaderDescriptorProps,
+  type Style
+} from '@/interfaces/props/HeaderDescriptorProps'
 
 const HeaderDescriptor: React.FunctionComponent<HeaderDescriptorProps> = (
   props

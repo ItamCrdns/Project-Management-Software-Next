@@ -8,18 +8,10 @@ import CustomSelect, { type Option } from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import styles from './newProject.module.css'
+import { type AddDescriptionProps } from '@/interfaces/props/AddDescriptionProps'
 
-interface AddDescriptionProps {
-  data: NewProjectData
-  goBack: (
-    descriptionValue: string,
-    priorityValue: number | null,
-    priorityLabel: string | null,
-    employeesValue: Employee[] | null
-  ) => void
-}
-
-const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
+const AddDescription: React.FC<AddDescriptionProps> = (props) => {
+  const { data, goBack } = props
   const formRef = useRef<HTMLFormElement>(null)
   const [newData, setNewData] = useState<NewProjectData>(data)
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
@@ -116,7 +108,7 @@ const AddDescription = ({ data, goBack }: AddDescriptionProps): JSX.Element => {
               options={priorityOptions}
               text="priority"
               onSelect={handlePrioritySelect}
-              width='100%'
+              width="100%"
             />
           </form>
           <div className={styles.buttonwrapper}>

@@ -1,16 +1,13 @@
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
+import { type UnsavedChangesProps } from '@/interfaces/props/UnsavedChangesProps'
 
-interface UnsavedChangesProps {
-  goBack: () => void
-}
-
-const UnsavedChanges = ({ goBack }: UnsavedChangesProps): JSX.Element => {
+const UnsavedChanges: React.FC<UnsavedChangesProps> = (props) => {
   const router = useRouter()
 
   const handleGoBack = (): void => {
-    goBack()
+    props.goBack()
   }
 
   return (

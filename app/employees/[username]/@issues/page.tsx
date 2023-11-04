@@ -2,12 +2,9 @@ import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
 import getUserIssuesShowcase from '@/api-calls/getUserIssuesShowcase'
 import Link from 'next/link'
 import { type Issue } from '@/interfaces/Issue'
+import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-interface CurrentIssuesProps {
-  params: { username: string }
-}
-
-const CurrentIssues: React.FunctionComponent<CurrentIssuesProps> = async ({
+const CurrentIssues: React.FunctionComponent<UsernameParamsProps> = async ({
   params
 }) => {
   const { username } = params

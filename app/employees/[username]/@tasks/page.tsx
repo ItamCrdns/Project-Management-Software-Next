@@ -2,12 +2,11 @@ import { type Task } from '@/interfaces/task'
 import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
 import getUserTasksShowcase from '@/api-calls/getUserTasksShowcase'
 import Link from 'next/link'
+import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-interface TasksProps {
-  params: { username: string }
-}
-
-const Tasks: React.FunctionComponent<TasksProps> = async ({ params }) => {
+const Tasks: React.FunctionComponent<UsernameParamsProps> = async ({
+  params
+}) => {
   const { username } = params
   const { data } = await getUserTasksShowcase(username, '1', '5')
   const tasks = data?.data
