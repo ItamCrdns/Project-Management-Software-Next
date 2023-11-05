@@ -7,9 +7,6 @@ interface TitleWrapperProps {
   buttonText: string
   buttonHref: string
   buttonWidth?: string
-  isProject?: boolean
-  isTask?: boolean
-  isIssue?: boolean
 }
 
 const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
@@ -26,14 +23,12 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
       </span>
       <LoggedInCard
         optionsText="Options"
+        entityName='project'
         showButton
         showPicture
         buttonText={props.buttonText}
         buttonHref={props.buttonHref}
         buttonWidth={props.buttonWidth}
-        isProject={props.isProject}
-        isTask={props.isTask}
-        isIssue={props.isIssue}
       />
     </div>
   )

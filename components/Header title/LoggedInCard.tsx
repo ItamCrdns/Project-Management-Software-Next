@@ -4,8 +4,8 @@ import { useAuth } from '@/context/AuthContext'
 import { type Employee } from '@/interfaces/employee'
 import styles from '@/app/projects/(list)/userbanner.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
-import ProjectsFilter from './ProjectsFilter'
 import { type LoggedInCardProps } from '@/interfaces/props/LoggedInCardProps'
+import EntityFilters from './EntityFilters'
 import Options from './Options'
 
 const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
@@ -24,7 +24,12 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
 
   return (
     <section className={styles.banner}>
-      <Options text={props.optionsText} toggle={toggle} handleToggle={handleToggle} user={currentUser} />
+      <Options
+        text={props.optionsText}
+        toggle={toggle}
+        handleToggle={handleToggle}
+        user={currentUser}
+      />
       {props.showButton !== null && props.showButton === true && (
         <RippleButton
           text={props.buttonText ?? ''}
@@ -34,9 +39,7 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
           href={props.buttonHref}
         />
       )}
-      {props.isProject !== undefined && props.isProject && (
-        <ProjectsFilter toggle={toggle} />
-      )}
+      <EntityFilters entityName={props.entityName} toggle={toggle} />
     </section>
   )
 }

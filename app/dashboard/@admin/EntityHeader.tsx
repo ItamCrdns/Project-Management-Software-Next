@@ -1,7 +1,6 @@
 import { type EntityHeaderProps } from '@/interfaces/props/EntityHeaderProps'
 import styles from './admin.module.css'
 import LoggedInCard from '@/components/Header title/LoggedInCard'
-// import AdminDashboardFilter from '@/components/dashboard filter/AdminDashboardFilter'
 
 const EntityHeader: React.FC<EntityHeaderProps> = (props) => {
   return (
@@ -15,7 +14,7 @@ const EntityHeader: React.FC<EntityHeaderProps> = (props) => {
       >
         LATEST {props.title.toUpperCase()}
       </h1>
-      <LoggedInCard optionsText='Filters' />
+      <LoggedInCard optionsText='Options' />
     </div>
   )
 }
