@@ -25,6 +25,9 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
         <h1>{props.title}</h1>
       </span>
       <LoggedInCard
+        optionsText="Options"
+        showButton
+        showPicture
         buttonText={props.buttonText}
         buttonHref={props.buttonHref}
         buttonWidth={props.buttonWidth}
