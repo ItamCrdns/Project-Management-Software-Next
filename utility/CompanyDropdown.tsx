@@ -1,42 +1,39 @@
 import { useState, useEffect } from 'react'
-import { type Company } from '@/interfaces/company'
-import { type ApiResponse } from '@/interfaces/apiResponse'
-import getCompaniesThatHaveProjects from '@/api-calls/getCompaniesThatHaveProjects'
+import getClients from '@/api-calls/getClients'
+import {
+  type CompanyDropDownResult,
+  type CompanyDropdownProps
+} from '@/interfaces/props/CompanyDropdownProps'
+import { type ClientDataAndPageSize } from '@/interfaces/return/ClientDataAndPageSizeReturn'
 
-interface CompanyDropdownProps {
-  dependency: boolean
-}
-
-interface CompanyDropDownResult {
-  companies: Company[] | null
-  error: string | null
-}
-
-const useCompanyDropdown = ({ dependency }: CompanyDropdownProps): CompanyDropDownResult => {
-  const [companies, setCompanies] = useState<Company[] | null>(null)
+const useCompanyDropdown = (
+  props: CompanyDropdownProps
+): CompanyDropDownResult => {
+  const [companies, setCompanies] = useState<ClientDataAndPageSize | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const getCompanies = async (): Promise<{
-    data: Company[] | null
-    status: number
-  }> => {
-    const data = await getCompaniesThatHaveProjects()
+  const getCompanies = async (): Promise<ClientDataAndPageSize> => {
+    const data = await getClients(props.page ?? '1', '5')
 
-    return { data: data.data, status: data.status }
+    return {
+      data: data?.data?.data ?? [],
+      status: data.status,
+      pageSize: data.data?.pages ?? 0
+    }
   }
 
   useEffect(() => {
     // * Fetch the companies only if the user opens the toggle menu
-    if (dependency) {
+    if (props.dependency) {
       getCompanies()
-        .then((response: ApiResponse<Company[]>) => {
-          setCompanies(response.data)
+        .then((res) => {
+          setCompanies(res)
         })
         .catch((error) => {
           setError(error)
         })
     }
-  }, [dependency])
+  }, [props.dependency, props.page])
 
   return { companies, error }
 }

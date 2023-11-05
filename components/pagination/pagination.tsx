@@ -1,15 +1,12 @@
 'use client'
 import styles from './pagination.module.css'
 import { useEffect, useState } from 'react'
+import { type PaginationProps } from '@/interfaces/props/PaginationProps'
 
-interface PaginationProps {
-  totalPages: number
-  onPageChange: (page: number) => void
-  reset?: boolean
-}
-
-const Pagination: React.FunctionComponent<PaginationProps> = ({ totalPages, onPageChange, reset }) => {
+const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+
+  const { onPageChange, totalPages, reset, iconSize } = props
 
   useEffect(() => {
     onPageChange(currentPage)
@@ -32,6 +29,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({ totalPages, onPa
   return (
     <div className={styles.pagination}>
       <span
+        style={{ fontSize: iconSize ?? '' }}
         onClick={() => {
           handleChangePage('previous')
         }}
@@ -43,6 +41,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({ totalPages, onPa
         {currentPage} of {totalPages}
       </p>
       <span
+        style={{ fontSize: iconSize ?? '' }}
         onClick={() => {
           handleChangePage('next')
         }}

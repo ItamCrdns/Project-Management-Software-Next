@@ -3,17 +3,16 @@ import { useRef, useState } from 'react'
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import useCompanyDropdown from '@/utility/CompanyDropdown'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddDescription from './AddDescription'
-import CustomSelect, { type Option } from '@/components/select/select'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import { type Employee } from '@/interfaces/employee'
 import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
-import useCompanyOptions from '@/utility/companyOptions'
 import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
 import CreateNewClient from './CreateNewClient'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
+import ClientSelection from './_Client Select/ClientSelection'
 
 const initialState: NewProjectData = {
   data: {
@@ -31,7 +30,6 @@ const initialState: NewProjectData = {
 }
 
 const NewProjectModal = (): JSX.Element => {
-  const { companies, error } = useCompanyDropdown({ dependency: true })
   const [data, setData] = useState<NewProjectData>(initialState) // * The new project data
 
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
@@ -56,8 +54,6 @@ const NewProjectModal = (): JSX.Element => {
     clientProvided &&
     expectedDeliveryDate !== '' &&
     readyForNextPage
-
-  const companyOptions = useCompanyOptions({ companies })
 
   /**
    * Callback function passed as props that updates the state with the selected company's ID and name.
@@ -193,14 +189,11 @@ const NewProjectModal = (): JSX.Element => {
                 limit={255}
                 onSubmit={handleInputSubmit}
               />
-              <CustomSelect
-                defaultValue={data.data.companyName ?? ''}
-                options={companyOptions ?? []}
-                text="client"
-                onSelect={handleCompanySelect}
-                width="100%"
-                disabled={isFormOpen}
+              <ClientSelection
+                clientName={data.data.clientName ?? ''}
+                handleClientSelection={handleCompanySelect}
                 clearSelectedOption={clearSelectedOption}
+                isFormOpen={isFormOpen}
               />
               <CreateNewClient
                 sendClientName={getClientName}
@@ -213,11 +206,6 @@ const NewProjectModal = (): JSX.Element => {
                 defaultValue={expectedDeliveryDate}
               />
             </form>
-            {error !== null && (
-              <p style={{ fontSize: '8px', textAlign: 'center' }}>
-                {error.toString()}
-              </p>
-            )}
             <RippleButton
               text="Next"
               backgroundColor="#80B3FF"

@@ -1,22 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
 import styles from './select.module.css'
-
-export interface Option {
-  value: number
-  label: string
-  info: string
-}
-
-interface CustomSelectProps {
-  options: Option[]
-  text: string
-  onSelect: (value: Option) => void
-  defaultValue: string
-  width?: string
-  disabled?: boolean // ? Will use it to disable the custom select based on a condition
-  clearSelectedOption?: () => void // ? Optional callback function that will clear the selected option in the parent component
-}
+import {
+  type Option,
+  type CustomSelectProps
+} from '@/interfaces/props/CustomSelectProps'
+import Pagination from '../pagination/pagination'
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
@@ -63,25 +52,39 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
           <span className="material-symbols-outlined">expand_more</span>
         </div>
         {toggle && Array.isArray(props.options) && (
-          <ul>
-            {props.options.map((option) => (
-              <li
-                onClick={() => {
-                  handleOptionClick(option)
-                }}
-                key={option.value}
-              >
-                <h4>{option.label}</h4>
-                <p>{option.info}</p>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.optionswrapper}>
+            <ul>
+              {props.options.map((option) => (
+                <li
+                  onClick={() => {
+                    handleOptionClick(option)
+                  }}
+                  key={option.value}
+                >
+                  <h4>{option.label}</h4>
+                  <p>{option.info}</p>
+                </li>
+              ))}
+            </ul>
+            {props.isPaginated !== null && props.isPaginated === true && (
+              <Pagination
+                totalPages={props.pageSize ?? 1}
+                onPageChange={
+                  props.onPageChange ??
+                  (() => {}) /* ? Empty function to avoid TS error */
+                }
+                iconSize={props.iconSize}
+              />
+            )}
+          </div>
         )}
       </div>
-      {selectedOption !== null && (
-        <span className={styles.reset} onClick={resetSelectedOption}>
-          Reset
-        </span>
+      {selectedOption !== null &&
+        props.showReset !== null &&
+        props.showReset === true && (
+          <span className={styles.reset} onClick={resetSelectedOption}>
+            Reset
+          </span>
       )}
     </div>
   )

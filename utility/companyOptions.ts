@@ -1,12 +1,15 @@
-import { type Option } from '@/components/select/select'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { type Company } from '@/interfaces/company'
+import { type ClientDataAndPageSize } from '@/interfaces/return/ClientDataAndPageSizeReturn'
 
 interface CompanyOptionProps {
-  companies: Company[] | null
+  companies: ClientDataAndPageSize | null
 }
 
-const useCompanyOptions = ({ companies }: CompanyOptionProps): Option[] | null => {
-  const companyOptions = companies?.map((company: Company) => ({
+const useCompanyOptions = ({
+  companies
+}: CompanyOptionProps): Option[] | null => {
+  const companyOptions = companies?.data.map((company: Company) => ({
     value: parseInt(company.companyId.toString()),
     label: company.name,
     info: ''

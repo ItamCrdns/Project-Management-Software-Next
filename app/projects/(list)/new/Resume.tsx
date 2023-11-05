@@ -131,6 +131,7 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
           func={handleGoBack}
         />
       </div>
+      {error !== '' && <p>{error}</p>}
     </section>
   )
 }
