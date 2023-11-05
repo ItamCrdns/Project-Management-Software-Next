@@ -12,7 +12,7 @@ const Issues: React.FunctionComponent = async () => {
 
   return (
     <article>
-      <EntityHeader title='issues' color='#FF6969' />
+      <EntityHeader title='issues' color='#FF6969' entityName='issuedashboard'/>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard isIssue width='200px' />
         {Array.isArray(issues) && (

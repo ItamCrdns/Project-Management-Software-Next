@@ -12,7 +12,7 @@ const Projects = async (): Promise<JSX.Element> => {
 
   return (
     <article>
-      <EntityHeader title='projects' color='#00A9FF'/>
+      <EntityHeader title='projects' color='#00A9FF' entityName='projectdashboard'/>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard isProject width="300px" />
         {Array.isArray(projects) && (

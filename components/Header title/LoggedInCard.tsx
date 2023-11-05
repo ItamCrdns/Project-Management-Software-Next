@@ -39,7 +39,7 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
           href={props.buttonHref}
         />
       )}
-      <EntityFilters entityName={props.entityName} toggle={toggle} />
+      {/* <EntityFilters entityName={props.entityName} toggle={toggle} /> */}
     </section>
   )
 }

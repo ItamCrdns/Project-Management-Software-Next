@@ -12,7 +12,7 @@ const Tasks = async (): Promise<JSX.Element> => {
 
   return (
     <article>
-      <EntityHeader title='tasks' color='#1A4D1A'/>
+      <EntityHeader title='tasks' color='#1A4D1A' entityName='taskdashboard'/>
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard isTask width='200px' />
         {Array.isArray(tasks) && (
