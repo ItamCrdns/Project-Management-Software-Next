@@ -28,7 +28,7 @@ const Options: React.FC<OptionsProps> = (props) => {
         }}
         className="material-symbols-outlined"
       >
-        {!toggle ? 'expand_more' : 'expand_less'}
+        {!toggle ? 'filter_list' : 'filter_list_off'}
       </span>
       {user !== null && user.profilePicture !== '' && (
         <Image

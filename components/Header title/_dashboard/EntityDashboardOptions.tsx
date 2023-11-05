@@ -1,0 +1,20 @@
+import styles from '@/app/projects/(list)/userbanner.module.css'
+import SortBy from './SortBy'
+
+interface EntityDashboardOptionsProps {
+  toggle: boolean
+}
+
+const EntityDashboardOptions: React.FC<EntityDashboardOptionsProps> = (
+  props
+) => {
+  if (props.toggle) {
+    return (
+      <section className={styles.popup}>
+        <SortBy />
+      </section>
+    )
+  }
+}
+
+export default EntityDashboardOptions

@@ -14,7 +14,7 @@ const EntityHeader: React.FC<EntityHeaderProps> = (props) => {
       >
         LATEST {props.title.toUpperCase()}
       </h1>
-      <LoggedInCard optionsText='Options' />
+      <LoggedInCard optionsText="Options" entityName="projectdashboard" />
     </div>
   )
 }

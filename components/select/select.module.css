@@ -10,7 +10,7 @@
     background-color: var(--darker-banner-color);
     margin: 0;
     z-index: 1;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .optionselected {

@@ -1,4 +1,5 @@
 import ProjectsFilter from './ProjectsFilter'
+import EntityDashboardOptions from './_dashboard/EntityDashboardOptions'
 
 interface EntityFiltersProps {
   entityName: string | undefined
@@ -12,6 +13,9 @@ const EntityFilters: React.FC<EntityFiltersProps> = (props) => {
     <>
       {entityName !== undefined && entityName === 'project' && (
         <ProjectsFilter toggle={toggle} />
+      )}
+      {entityName !== undefined && entityName === 'projectdashboard' && (
+        <EntityDashboardOptions toggle={toggle} />
       )}
     </>
   )
