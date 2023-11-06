@@ -4,11 +4,12 @@ import { type Employee } from '@/interfaces/employee'
 import { useRef, useState } from 'react'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import CustomSelect, { type Option } from '@/components/select/select'
+import CustomSelect from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import styles from './newProject.module.css'
 import { type AddDescriptionProps } from '@/interfaces/props/AddDescriptionProps'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 const AddDescription: React.FC<AddDescriptionProps> = (props) => {
   const { data, goBack } = props

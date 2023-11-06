@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 interface EmployeesRenderProps {
-  // projectId: string
   employeeList: Employee[]
   message: string
   totalPages: number
@@ -20,7 +19,6 @@ interface EmployeesRenderProps {
 }
 
 const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
-  // projectId,
   employeeList,
   message,
   totalPages,

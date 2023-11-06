@@ -3,9 +3,16 @@ import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { fetcher } from '@/utility/fetcherSWR'
 import useSWR from 'swr'
 
-const getCompanyEmployees = (endpoint: string): any => {
+interface GetClientEmployeesReturn {
+  employees: SWRGetterReturn<Employee> | undefined
+  isLoading: boolean
+  isError: unknown
+}
+
+const useEmployeesGetter = (endpoint: string): GetClientEmployeesReturn => {
   const { data, error, isLoading } = useSWR<SWRGetterReturn<Employee>>(
-    endpoint, fetcher
+    endpoint,
+    fetcher
   )
 
   return {
@@ -15,4 +22,4 @@ const getCompanyEmployees = (endpoint: string): any => {
   }
 }
 
-export default getCompanyEmployees
+export default useEmployeesGetter

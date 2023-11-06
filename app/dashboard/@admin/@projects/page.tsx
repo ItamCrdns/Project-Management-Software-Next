@@ -6,25 +6,27 @@ import EachProject from '@/app/projects/(list)/EachProject'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 import EntityHeader from '../EntityHeader'
 
-const Projects = async (): Promise<JSX.Element> => {
+const Projects: React.FC = async () => {
   const { data } = await getProjectsAdmin('1', '5') // Gets all the projects.
   const projects = data?.data ?? []
 
   return (
     <article>
-      <EntityHeader title='projects' color='#00A9FF' entityName='projectdashboard'/>
+      <EntityHeader
+        title="projects"
+        color="#00A9FF"
+        entityName="projectdashboard"
+      />
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard isProject width="300px" />
         {Array.isArray(projects) && (
-          <>
-            <ul>
-              {projects.map((project: Project, index: number) => (
-                <li key={index}>
-                  <EachProject project={project} showCompanyName />
-                </li>
-              ))}
-            </ul>
-          </>
+          <ul>
+            {projects.map((project: Project, index: number) => (
+              <li key={index}>
+                <EachProject project={project} showCompanyName />
+              </li>
+            ))}
+          </ul>
         )}
       </section>
     </article>

@@ -1,11 +1,12 @@
-import { type ClientDataAndPageSize } from '../return/ClientDataAndPageSizeReturn'
+import { type Company } from '../company'
+import { type SWRGetterReturn } from '../return/SWRGetterReturn'
 
 export interface CompanyDropdownProps {
-  dependency: boolean
   page?: string
+  shouldFetch?: boolean
 }
 
 export interface CompanyDropDownResult {
-  companies: ClientDataAndPageSize | null
-  error: string | null
+  clients: SWRGetterReturn<Company> | undefined
+  isError: unknown
 }

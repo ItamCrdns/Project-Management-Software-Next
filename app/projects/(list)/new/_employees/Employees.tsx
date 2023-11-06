@@ -2,11 +2,9 @@
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import { type NewProjectData } from '@/interfaces/NewProjectData'
-import useGetEmployees, {
-  type UseGetEmployeesProps
-} from '@/utility/employees/useGetEmployees'
 import EmployeesRender from './EmployeesRender'
 import { type AddEmployeesProps } from '@/interfaces/props/AddEmployeesProps'
+import useGetEmployees from '@/utility/employees/useGetEmployees'
 
 const AddEmployeesToProject: React.FC<AddEmployeesProps> = (props) => {
   const { data, goBack } = props
@@ -70,16 +68,16 @@ const AddEmployeesToProject: React.FC<AddEmployeesProps> = (props) => {
     setCurrentPage(page.toString())
   }
 
-  const employeesProps: UseGetEmployeesProps = {
+  const employeesProps = {
     endpoint:
       searchValue === ''
-        ? `Company/${companyId}/employees`
-        : `Company/${companyId}/employees/search/${searchValue}`,
-    searchValue,
-    page: currentPage
+        ? `${process.env.NEXT_PUBLIC_API_URL}Company/${companyId}/employees?page=${currentPage}&pageSize=5`
+        : `${process.env.NEXT_PUBLIC_API_URL}Company/${companyId}/employees/search/${searchValue}?page=${currentPage}&pageSize=5`
   }
 
-  const { employeeList, totalPages, message } = useGetEmployees(employeesProps)
+  const { employeeList, totalPages, message } = useGetEmployees(
+    employeesProps.endpoint
+  )
 
   // * Reset the page to 1 when the user searches for something
   const resetPage = searchValue !== ''

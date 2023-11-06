@@ -10,9 +10,9 @@ interface FilterProps {
 }
 
 const ProjectsFilter: React.FC<FilterProps> = (props) => {
-  const { companies, error } = useCompanyDropdown({ dependency: props.toggle })
+  const { clients, isError } = useCompanyDropdown({ shouldFetch: props.toggle }) // ? Empty object to avoid error
 
-  const companyOptions = useCompanyOptions({ companies })
+  const companyOptions = useCompanyOptions({ clients })
 
   const router = useRouter()
   const handleCompanySelect = (selectedValue: Option): void => {
@@ -31,9 +31,9 @@ const ProjectsFilter: React.FC<FilterProps> = (props) => {
           defaultValue=""
           onSelect={handleCompanySelect}
         />
-        {error !== null && (
+        {isError !== null && (
           <p style={{ fontSize: '8px', textAlign: 'center' }}>
-            {error.toString()}
+            {isError?.toString()}
           </p>
         )}
       </section>

@@ -12,13 +12,9 @@ interface EmployeeListProps {
   urlWithParams: string
 }
 
-const EmployeeList: React.FunctionComponent<EmployeeListProps> = ({
-  employeeList,
-  message,
-  headerText,
-  onInputChange,
-  urlWithParams
-}) => {
+const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
+  const { employeeList, message, headerText, onInputChange, urlWithParams } =
+    props
   return (
     <>
       {Array.isArray(employeeList) && (

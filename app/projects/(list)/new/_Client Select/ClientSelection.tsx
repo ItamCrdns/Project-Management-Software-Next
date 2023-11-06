@@ -6,20 +6,21 @@ import { useState } from 'react'
 
 const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<string>('1')
-  const { companies, error } = useCompanyDropdown({
-    dependency: true,
+  const { clients, isError } = useCompanyDropdown({
     page: currentPage
   })
 
-  const companyOptions = useCompanyOptions({ companies })
+  const companyOptions = useCompanyOptions({ clients })
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page.toString())
   }
 
-  if (error !== null) {
+  if (isError !== undefined) {
     return (
-      <p style={{ fontSize: '8px', textAlign: 'center' }}>{error.toString()}</p>
+      <p style={{ fontSize: '8px', textAlign: 'center' }}>
+        {isError?.toString()}
+      </p>
     )
   }
 
@@ -34,7 +35,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       clearSelectedOption={props.clearSelectedOption}
       isPaginated
       iconSize="24px"
-      pageSize={companies?.pageSize ?? 0}
+      pageSize={clients?.count ?? 0}
       onPageChange={handlePageChange}
       showReset
     />

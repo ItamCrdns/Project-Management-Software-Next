@@ -1,15 +1,15 @@
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { type Company } from '@/interfaces/company'
-import { type ClientDataAndPageSize } from '@/interfaces/return/ClientDataAndPageSizeReturn'
+import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 
 interface CompanyOptionProps {
-  companies: ClientDataAndPageSize | null
+  clients: SWRGetterReturn<Company> | undefined
 }
 
 const useCompanyOptions = ({
-  companies
+  clients
 }: CompanyOptionProps): Option[] | null => {
-  const companyOptions = companies?.data.map((company: Company) => ({
+  const companyOptions = clients?.data.map((company: Company) => ({
     value: parseInt(company.companyId.toString()),
     label: company.name,
     info: ''

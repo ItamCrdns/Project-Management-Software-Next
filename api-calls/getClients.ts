@@ -1,11 +1,25 @@
-import paginatedClientFetcher from '@/utility/paginatedClientFetcher'
-import { type ClientReturn } from '@/interfaces/return/ClientReturn'
+import useSWR from 'swr'
+import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { type Company } from '@/interfaces/company'
+import { fetcher } from '@/utility/fetcherSWR'
 
-const getClients = async (
-  page: string,
-  pageSize: string
-): Promise<ClientReturn<Company>> =>
-  await paginatedClientFetcher('Company/all', page, pageSize)
+interface GetClientsReturn {
+  clients: SWRGetterReturn<Company> | undefined
+  isLoading: boolean
+  isError: unknown
+}
+
+const getClients = (page: string, pageSize: string, shouldFetch: boolean): GetClientsReturn => {
+  const { data, error, isLoading } = useSWR<SWRGetterReturn<Company>>(
+    shouldFetch ? `${process.env.NEXT_PUBLIC_API_URL}Company/all?page=${page}&pageSize=${pageSize}` : null,
+    fetcher
+  )
+
+  return {
+    clients: data,
+    isLoading,
+    isError: error
+  }
+}
 
 export default getClients

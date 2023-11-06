@@ -16,9 +16,7 @@ const fetchEmployees = async ({
   if (searchValue != null) {
     try {
       const response = await getCompanyEmployees(
-        `Company/${companyId}/employees/search/${searchValue}`,
-        page,
-        '5'
+        `${process.env.NEXT_PUBLIC_API_URL}Company/${companyId}/employees/search/${searchValue}?page=${page}&pageSize=5`
       )
       return response.data ?? 'Something went wrong'
     } catch (error) {
@@ -28,9 +26,7 @@ const fetchEmployees = async ({
   } else {
     try {
       const response = await getCompanyEmployees(
-        `Company/${companyId}/employees`,
-        page,
-        '5'
+        `${process.env.NEXT_PUBLIC_API_URL}Company/${companyId}/employees?page=${page}&pageSize=5`
       )
       return response.data ?? 'Something went wrong'
     } catch (error: unknown) {

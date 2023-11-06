@@ -8,9 +8,7 @@ interface AdminDashboardProps {
   user: React.ReactNode
 }
 
-const AdminDashboard: React.FunctionComponent<AdminDashboardProps> = (
-  props
-) => {
+const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
   return (
     <section className={styles.dashboard}>
       {props.user}

@@ -1,10 +1,8 @@
 'use client'
 import EmployeesRender from './EmployeesRender'
-import useGetEmployees, {
-  type UseGetEmployeesProps
-} from '@/utility/employees/useGetEmployees'
 import { usePathname } from 'next/navigation'
 import { type SearchParams } from '@/interfaces/searchParams'
+import useGetEmployees from '@/utility/employees/useGetEmployees'
 
 interface EmployeeProps {
   params: { projectId: string }
@@ -19,18 +17,16 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
     searchParams.page = '1'
   }
 
-  const employeesProps: UseGetEmployeesProps = {
+  const employeesProps = {
     endpoint:
       searchParams.search === undefined
-        ? `Project/${params.projectId}/employees`
-        : `Project/${params.projectId}/employees/search/${searchParams.search}`,
-    page: searchParams.page,
-    searchValue: searchParams.search
+        ? `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees?page=${searchParams.page}&pageSize=5`
+        : `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees/search/${searchParams.search}?page=${searchParams.page}&pageSize=5`
   }
 
   const pathname = usePathname()
 
-  const { employeeList, totalPages, message } = useGetEmployees(employeesProps) // Passing the props to the hook
+  const { employeeList, totalPages, message } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
 
   return (
     <EmployeesRender
