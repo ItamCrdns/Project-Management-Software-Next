@@ -79,7 +79,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
           </div>
         )}
       </div>
-      {selectedOption !== null &&
+      {props.defaultValue !== '' &&
         props.showReset !== null &&
         props.showReset === true && (
           <span className={styles.reset} onClick={resetSelectedOption}>

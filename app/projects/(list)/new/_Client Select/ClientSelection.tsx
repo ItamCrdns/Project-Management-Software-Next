@@ -35,7 +35,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       clearSelectedOption={props.clearSelectedOption}
       isPaginated
       iconSize="24px"
-      pageSize={clients?.count ?? 0}
+      pageSize={clients?.pages ?? 0}
       onPageChange={handlePageChange}
       showReset
     />

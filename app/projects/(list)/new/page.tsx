@@ -190,7 +190,7 @@ const NewProjectModal = (): JSX.Element => {
                 onSubmit={handleInputSubmit}
               />
               <ClientSelection
-                clientName={data.data.clientName ?? ''}
+                clientName={data.data.companyName ?? ''}
                 handleClientSelection={handleCompanySelect}
                 clearSelectedOption={clearSelectedOption}
                 isFormOpen={isFormOpen}
