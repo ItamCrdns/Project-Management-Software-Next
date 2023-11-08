@@ -1,12 +1,25 @@
-import paginatedFetcher from '@/utility/paginatedFetcher'
+import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { type Task } from '@/interfaces/task'
-import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
+import { fetcher } from '@/utility/fetcherSWR'
+import useSWR from 'swr'
 
-// * Admin only endpoint
-const getTasksAdmin = async (
-  page: string,
-  pageSize: string
-): Promise<{ data: DictionaryResponse<Task> | null, status: number }> =>
-  await paginatedFetcher('Task/all', page, pageSize)
+interface TasksReturn {
+  tasks: SWRGetterReturn<Task> | undefined
+  isLoading: boolean
+  isError: unknown
+}
 
-export default getTasksAdmin
+const useTasksGetter = (page: string, pageSize: string): TasksReturn => {
+  const { data, error, isLoading } = useSWR<SWRGetterReturn<Task>>(
+    `${process.env.NEXT_PUBLIC_API_URL}Task/all?page=${page}&pageSize=${pageSize}`,
+    fetcher
+  )
+
+  return {
+    tasks: data,
+    isLoading,
+    isError: error
+  }
+}
+
+export default useTasksGetter

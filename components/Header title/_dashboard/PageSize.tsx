@@ -12,8 +12,8 @@ const PageSize: React.FC = () => {
   const handlePageSizeChange = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target instanceof HTMLSpanElement) {
       const value = e.target.innerText
-      const newFilter = { ...filter, pageSize: value }
-      updateFilter(newFilter)
+      const newFilter = { ...filter, pageSize: value } // ? Pass the filter too to avoid typeScript error
+      updateFilter('projects', newFilter)
     }
   }
 
