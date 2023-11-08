@@ -1,3 +1,4 @@
+import FilterProvider from '@/context/Filter/FilterContext'
 import styles from '../dashboard.module.css'
 
 interface AdminDashboardProps {
@@ -10,14 +11,16 @@ interface AdminDashboardProps {
 
 const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
   return (
-    <section className={styles.dashboard}>
-      {props.user}
-      {props.projects}
-      <section className={styles.menus}>
-        {props.tasks}
-        {props.issues}
+    <FilterProvider>
+      <section className={styles.dashboard}>
+        {props.user}
+        {props.projects}
+        <section className={styles.menus}>
+          {props.tasks}
+          {props.issues}
+        </section>
       </section>
-    </section>
+    </FilterProvider>
   )
 }
 

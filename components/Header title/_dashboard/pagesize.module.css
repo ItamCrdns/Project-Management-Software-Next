@@ -1,0 +1,25 @@
+.pagesizewrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagesizedots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+}
+
+.dot {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--darker-banner-color);
+    font-size: 10px;
+    cursor: pointer;
+}
