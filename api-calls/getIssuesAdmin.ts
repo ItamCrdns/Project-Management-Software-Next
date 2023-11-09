@@ -1,12 +1,25 @@
-import paginatedFetcher from '@/utility/paginatedFetcher'
 import { type Issue } from '@/interfaces/Issue'
-import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
+import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
+import { fetcher } from '@/utility/fetcherSWR'
+import useSWR from 'swr'
 
-// * Admin only endpoint
-const getIssuesAdmin = async (
-  page: string,
-  pageSize: string
-): Promise<{ data: DictionaryResponse<Issue> | null, status: number }> =>
-  await paginatedFetcher('Issue/all', page, pageSize)
+interface IssuesReturn {
+  issues: SWRGetterReturn<Issue> | undefined
+  isLoading: boolean
+  isError: unknown
+}
 
-export default getIssuesAdmin
+const useIssuesGetter = (page: string, pageSize: string): IssuesReturn => {
+  const { data, error, isLoading } = useSWR<SWRGetterReturn<Issue>>(
+    `${process.env.NEXT_PUBLIC_API_URL}Issue/all?page=${page}&pageSize=${pageSize}`,
+    fetcher
+  )
+
+  return {
+    issues: data,
+    isLoading,
+    isError: error
+  }
+}
+
+export default useIssuesGetter

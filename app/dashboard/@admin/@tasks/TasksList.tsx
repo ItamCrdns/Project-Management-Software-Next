@@ -15,6 +15,7 @@ interface TasksProps {
 
 const TasksList: React.FC<TasksProps> = (props) => {
   const { isLoading, isError, tasks } = props
+
   return (
     <article>
       <EntityHeader color="#1A4D1A" entityName="tasks" />
