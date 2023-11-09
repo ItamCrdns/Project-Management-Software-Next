@@ -1,10 +1,10 @@
 import { type IEntity } from './IEntity'
-import { type IFilter } from './IFilter'
+import { type IFilterProperties, type IFilter } from './IFilter'
 
 export interface FilterContextType {
   filter: IFilter
-  updateFilter: (key: keyof IFilter, props: IFilter) => void
+  updateFilter: (key: keyof IFilter, props: IFilterProperties) => void
   clearFilter: () => void
   entity: IEntity
-  updateEntity: (props: IEntity) => void
+  updateEntity: (key: keyof IEntity, props: IEntity) => void
 }

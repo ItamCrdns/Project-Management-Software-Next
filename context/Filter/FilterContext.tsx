@@ -1,6 +1,6 @@
 'use client'
 import { type FilterContextType } from '@/interfaces/props/context props/FilterContextType'
-import { type IFilter } from '@/interfaces/props/context props/IFilter'
+import { type IFilterProperties, type IFilter } from '@/interfaces/props/context props/IFilter'
 import { createContext, useState } from 'react'
 import { filterInitialState } from './filterInitialState'
 import { type IEntity } from '@/interfaces/props/context props/IEntity'
@@ -12,7 +12,9 @@ const FilterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [filter, setFilter] = useState<IFilter>(filterInitialState)
   const [entity, setEntity] = useState<IEntity>(entityInitialState)
 
-  const updateFilter = (key: keyof IFilter, props: Partial<IFilter>): void => {
+  // console.log(filter)
+  // console.log(entity)
+  const updateFilter = (key: keyof IFilter, props: Partial<IFilterProperties>): void => {
     setFilter((prevState) => ({
       ...prevState,
       [key]: { ...prevState[key], ...props }
@@ -23,8 +25,12 @@ const FilterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     setFilter(filterInitialState)
   }
 
-  const updateEntity = (props: IEntity): void => {
-    setEntity({ ...props })
+  const updateEntity = (key: keyof IEntity, props: IEntity): void => {
+    // setEntity({ ...entity, [key]: { ...entity[key], ...props } })
+    setEntity((prevState) => ({
+      ...prevState,
+      [key]: { ...prevState[key], ...props }
+    }))
   }
 
   return (

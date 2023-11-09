@@ -19,9 +19,8 @@ const ProjectsList: React.FC<ProjectsProps> = (props) => {
   return (
     <article>
       <EntityHeader
-        title="projects"
         color="#00A9FF"
-        entityName="projectdashboard"
+        entityName="projects"
       />
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor dashboard isProject width="300px" />

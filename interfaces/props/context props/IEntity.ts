@@ -1,5 +1,10 @@
-// ? Used to determine the entity pages and pageSize isnide the context so the filtering can now how many elements and pages its got
-export interface IEntity {
+export interface IEntityProperties {
   pages: number
   count: number
+}
+
+export interface IEntity {
+  projects: IEntityProperties
+  tasks: IEntityProperties
+  issues: IEntityProperties
 }

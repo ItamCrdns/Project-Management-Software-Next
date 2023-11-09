@@ -1,34 +1,30 @@
 'use client'
 import useProjectsGetter from '@/api-calls/getProjectsAdmin'
 import { FilterContext } from '@/context/Filter/FilterContext'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { type FilterContextType } from '@/interfaces/props/context props/FilterContextType'
 import ProjectsList from './ProjectsList'
+import entitySetter from '../../EntitySetter'
+import { type IEntity } from '@/interfaces/props/context props/IEntity'
 
 const Projects: React.FC = () => {
-  const { filter, updateEntity } = useContext(
+  const { filter, entity, updateEntity } = useContext(
     FilterContext
   ) as FilterContextType
 
-  const { projects, isLoading, isError } = useProjectsGetter(
-    filter.projects.currentPage,
-    filter.projects.pageSize
-  )
+  const currentPage = filter.projects.currentPage ?? '1'
+  const pageSize = filter.projects.pageSize ?? '5'
 
-  console.log(filter)
+  const { projects, isLoading, isError } = useProjectsGetter(currentPage, pageSize)
 
-  const [hasEffectRun, setHasEffectRun] = useState<boolean>(false)
+  const props = {
+    entityT: projects,
+    entityU: entity,
+    entityName: 'projects' as keyof IEntity,
+    updateEntity
+  }
 
-  useEffect(() => { // ! Avoid re-render of the total projects count
-    if (!hasEffectRun && projects !== undefined) {
-      updateEntity({
-        pages: projects?.pages ?? 0,
-        count: projects?.count ?? 0
-      })
-
-      setHasEffectRun(true)
-    }
-  }, [projects, hasEffectRun])
+  entitySetter(props)
 
   return (
     <ProjectsList isLoading={isLoading} isError={isError} projects={projects} />

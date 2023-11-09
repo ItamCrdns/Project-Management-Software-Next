@@ -1,9 +1,11 @@
 import styles from '@/app/projects/(list)/userbanner.module.css'
 import SortBy from './SortBy'
 import PageSize from './PageSize'
+import { type IFilter } from '@/interfaces/props/context props/IFilter'
 
 interface EntityDashboardOptionsProps {
   toggle: boolean
+  entityName: string
 }
 
 const EntityDashboardOptions: React.FC<EntityDashboardOptionsProps> = (
@@ -13,7 +15,7 @@ const EntityDashboardOptions: React.FC<EntityDashboardOptionsProps> = (
     return (
       <section className={styles.popup}>
         <SortBy />
-        <PageSize />
+        <PageSize entity={props.entityName as keyof IFilter}/>
       </section>
     )
   }

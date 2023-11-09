@@ -12,7 +12,7 @@ const EntityHeader: React.FC<EntityHeaderProps> = (props) => {
           color: props.color ?? 'var(--text-color)'
         }}
       >
-        LATEST {props.title.toUpperCase()}
+        LATEST {props.entityName.toUpperCase()}
       </h1>
       <LoggedInCard optionsText="Options" entityName={props.entityName} />
     </div>
