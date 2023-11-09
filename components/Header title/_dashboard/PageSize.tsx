@@ -29,6 +29,7 @@ const PageSize: React.FC<PageSizeProps> = (props) => {
       filter={filter}
       entitiesCount={entitiesCount}
       handlePageSizeChange={handlePageSizeChange}
+      entityName={props.entity}
     />
   )
 }

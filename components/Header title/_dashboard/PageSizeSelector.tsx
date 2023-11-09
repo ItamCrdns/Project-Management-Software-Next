@@ -4,6 +4,7 @@ import React from 'react'
 
 interface PageSizeSelectorProps {
   filter: IFilter
+  entityName: keyof IFilter
   entitiesCount: number
   handlePageSizeChange: (e: React.MouseEvent<HTMLDivElement>) => void
 }
@@ -11,7 +12,11 @@ interface PageSizeSelectorProps {
 const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
   const { filter, entitiesCount, handlePageSizeChange } = props
 
-  const pageSizeOptions = ['5', '10', '15', '20']
+  const maxNumber = Math.min(entitiesCount, 20)
+  const pageSizeOptions = Array.from(
+    { length: maxNumber / 5 },
+    (_, i) => (i + 1) * 5
+  )
 
   return (
     <>
@@ -23,7 +28,7 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
               key={pageSize}
               style={{
                 backgroundColor:
-                  filter.projects.pageSize === pageSize
+                  filter[props.entityName].pageSize === pageSize.toString()
                     ? 'rgb(255, 80, 120)'
                     : ''
               }}
@@ -32,6 +37,19 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
               {pageSize}
             </span>
           ))}
+          {entitiesCount < 20 && ( // * If the entities count is less than 20, render the extra number as another option
+            <span
+              style={{
+                backgroundColor:
+                  filter[props.entityName].pageSize === entitiesCount.toString()
+                    ? 'rgb(255, 80, 120)'
+                    : ''
+              }}
+              className={styles.dot}
+            >
+              {entitiesCount}
+            </span>
+          )}
           <p>of {entitiesCount}</p>
         </div>
       </div>

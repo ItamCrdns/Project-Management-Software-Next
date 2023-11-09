@@ -12,8 +12,6 @@ const FilterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [filter, setFilter] = useState<IFilter>(filterInitialState)
   const [entity, setEntity] = useState<IEntity>(entityInitialState)
 
-  // console.log(filter)
-  // console.log(entity)
   const updateFilter = (key: keyof IFilter, props: Partial<IFilterProperties>): void => {
     setFilter((prevState) => ({
       ...prevState,
@@ -26,7 +24,6 @@ const FilterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   }
 
   const updateEntity = (key: keyof IEntity, props: IEntity): void => {
-    // setEntity({ ...entity, [key]: { ...entity[key], ...props } })
     setEntity((prevState) => ({
       ...prevState,
       [key]: { ...prevState[key], ...props }
