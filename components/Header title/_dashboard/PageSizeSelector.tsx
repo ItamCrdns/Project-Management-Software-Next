@@ -30,7 +30,8 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
                 backgroundColor:
                   filter[props.entityName].pageSize === pageSize.toString()
                     ? 'rgb(255, 80, 120)'
-                    : ''
+                    : '',
+                color: filter[props.entityName].pageSize === pageSize.toString() ? 'white' : ''
               }}
               className={styles.dot}
             >
@@ -43,7 +44,8 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
                 backgroundColor:
                   filter[props.entityName].pageSize === entitiesCount.toString()
                     ? 'rgb(255, 80, 120)'
-                    : ''
+                    : '',
+                color: filter[props.entityName].pageSize === entitiesCount.toString() ? 'white' : ''
               }}
               className={styles.dot}
             >

@@ -7,7 +7,7 @@ const SortBy: React.FC = () => {
 
   return (
     <>
-      <p>Sort by:</p>
+      <p>Order by</p>
       <CustomSelect
         text="option"
         options={options ?? []}
