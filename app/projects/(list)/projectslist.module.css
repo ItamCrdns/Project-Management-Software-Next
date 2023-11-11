@@ -46,8 +46,9 @@
     justify-content: center;
 }
 
-.descriptor > span span {
+.descriptor > span span, .descriptor > span p {
     user-select: none;
+    cursor: pointer;
 }
 
 .listofemployees ul {

@@ -21,10 +21,10 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
           icon="emoji_objects"
           buttonText="New project"
           buttonHref="/projects/new"
-          isProject
+          // isProject
         />
         <section className={styles.projectswrapper}>
-          <HeaderDescriptor dashboard={false} isProject width="300px" />
+          <HeaderDescriptor dashboard={false} entity='projects' width="300px" />
           {Object.entries(projects).map(([companyName, projects]) => (
             <React.Fragment key={companyName}>
               <div key={companyName} className={styles.companywrapper}>

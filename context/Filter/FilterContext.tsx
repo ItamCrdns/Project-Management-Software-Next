@@ -19,6 +19,8 @@ const FilterProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     }))
   }
 
+  console.log(filter)
+
   const clearFilter = (): void => {
     setFilter(filterInitialState)
   }

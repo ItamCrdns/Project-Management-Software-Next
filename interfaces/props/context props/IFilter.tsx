@@ -1,3 +1,5 @@
+import { type Order } from '@/context/Filter/filterInitialState'
+
 export interface IFilterProperties {
   alpabetical?: string
   date?: string
@@ -5,6 +7,9 @@ export interface IFilterProperties {
   status?: string
   currentPage?: string
   pageSize?: string
+  // ? For sorting
+  sortBy?: string
+  order?: Order
 }
 
 export interface IFilter {

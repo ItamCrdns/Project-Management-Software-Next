@@ -1,5 +1,5 @@
 import styles from '@/app/projects/(list)/projectslist.module.css'
-import TitleWrapper from '@/components/Header title/TitleWrapper'
+import TitleWrapper from '@/components/Header title/TitleWrapper.1'
 
 const TasksPage: React.FC = () => {
   return (

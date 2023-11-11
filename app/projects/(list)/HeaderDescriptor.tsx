@@ -1,57 +1,109 @@
+import { type IFilter } from '@/interfaces/props/context props/IFilter'
 import styles from './projectslist.module.css'
 import {
   type HeaderDescriptorProps,
   type Style
 } from '@/interfaces/props/HeaderDescriptorProps'
+import HeaderItem from './HeaderItem'
+import { useState } from 'react'
+import { type Order } from '@/context/Filter/filterInitialState'
 
-const HeaderDescriptor: React.FunctionComponent<HeaderDescriptorProps> = (
-  props
-) => {
+const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
+  // ? activeSort and ascending are to visually represent how we are currently sorting the entities
+  const [activeSort, setActiveSort] = useState<string>('')
+  const [order, setOrder] = useState<Order>('descending')
+
+  const handleSortChange = (e: React.MouseEvent<HTMLSpanElement>): void => {
+    if (e.target instanceof HTMLParagraphElement) {
+      const value = e.target.innerText
+      const newFilter = { sortBy: value, order }
+      props.updateFilter !== undefined &&
+        props.updateFilter(props.entity as keyof IFilter, newFilter)
+
+      setActiveSort(value)
+      setOrder((prevOrder) =>
+        prevOrder === 'descending' ? 'ascending' : 'descending'
+      )
+    }
+  }
+
   const style: Style = {
     width: props.width
   }
 
   return (
     <header className={styles.descriptor}>
-      <span style={style}>
-        <span className="material-symbols-outlined">signature</span>
-        Name
-      </span>
-      <span style={style}>
-        <span className="material-symbols-outlined">person</span>
-        Creator
-      </span>
-      <span style={style}>
-        <span className="material-symbols-outlined">group</span>
-        Team
-      </span>
-      {props.isProject !== undefined && (
-        <span style={style}>
-          <span className="material-symbols-outlined">priority_high</span>
-          Priority
-        </span>
+      <HeaderItem
+        style={style}
+        handleSortChange={handleSortChange}
+        ascending={order}
+        toggleSortBy={activeSort}
+        icon="signature"
+        label="Name"
+      />
+      <HeaderItem
+        style={style}
+        handleSortChange={handleSortChange}
+        ascending={order}
+        toggleSortBy={activeSort}
+        icon="person"
+        label="Creators"
+      />
+      <HeaderItem
+        style={style}
+        handleSortChange={handleSortChange}
+        ascending={order}
+        toggleSortBy={activeSort}
+        icon="group"
+        label="Team"
+      />
+      {props.entity === 'projects' && (
+        <HeaderItem
+          style={style}
+          handleSortChange={handleSortChange}
+          ascending={order}
+          toggleSortBy={activeSort}
+          icon="priority_high"
+          label="Priority"
+        />
       )}
-      <span style={style}>
-        <span className="material-symbols-outlined">calendar_month</span>
-        Created
-      </span>
-      {props.dashboard && props.isProject !== undefined && (
-        <span style={style}>
-          <span className="material-symbols-outlined">store</span>
-          Company
-        </span>
+      <HeaderItem
+        style={style}
+        handleSortChange={handleSortChange}
+        ascending={order}
+        toggleSortBy={activeSort}
+        icon="calendar_month"
+        label="Created"
+      />
+      {props.dashboard && props.entity === 'projects' && (
+        <HeaderItem
+          style={style}
+          handleSortChange={handleSortChange}
+          ascending={order}
+          toggleSortBy={activeSort}
+          icon="store"
+          label="Company"
+        />
       )}
-      {props.dashboard && props.isTask !== undefined && (
-        <span style={style}>
-          <span className="material-symbols-outlined">emoji_objects</span>
-          Project
-        </span>
+      {props.dashboard && props.entity === 'tasks' && (
+        <HeaderItem
+          style={style}
+          handleSortChange={handleSortChange}
+          ascending={order}
+          toggleSortBy={activeSort}
+          icon="emoji_objects"
+          label="Project"
+        />
       )}
-      {props.dashboard && props.isIssue !== undefined && (
-        <span style={style}>
-          <span className="material-symbols-outlined">note_stack</span>
-          Task
-        </span>
+      {props.dashboard && props.entity === 'issues' && (
+        <HeaderItem
+          style={style}
+          handleSortChange={handleSortChange}
+          ascending={order}
+          toggleSortBy={activeSort}
+          icon="note_stack"
+          label="Task"
+        />
       )}
     </header>
   )
