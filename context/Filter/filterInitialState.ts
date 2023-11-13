@@ -3,7 +3,15 @@ import {
   type IFilter
 } from '@/interfaces/props/context props/IFilter'
 
-export type Order = 'ascending' | 'descending'
+export interface Order {
+  column: string
+  order: string
+}
+
+export const orderInitialState: Order = {
+  column: 'Created',
+  order: 'descending'
+}
 
 export const filterProperties: IFilterProperties = {
   alpabetical: '',
@@ -13,7 +21,7 @@ export const filterProperties: IFilterProperties = {
   currentPage: '1',
   pageSize: '5',
   sortBy: '',
-  order: 'descending'
+  order: orderInitialState
 }
 
 export const filterInitialState: IFilter = {

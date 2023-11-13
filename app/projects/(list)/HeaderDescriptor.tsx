@@ -1,3 +1,4 @@
+'use client'
 import { type IFilter } from '@/interfaces/props/context props/IFilter'
 import styles from './projectslist.module.css'
 import {
@@ -6,12 +7,15 @@ import {
 } from '@/interfaces/props/HeaderDescriptorProps'
 import HeaderItem from './HeaderItem'
 import { useState } from 'react'
-import { type Order } from '@/context/Filter/filterInitialState'
+import {
+  orderInitialState,
+  type Order
+} from '@/context/Filter/filterInitialState'
 
 const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
   // ? activeSort and ascending are to visually represent how we are currently sorting the entities
   const [activeSort, setActiveSort] = useState<string>('')
-  const [order, setOrder] = useState<Order>('descending')
+  const [order, setOrder] = useState<Order>(orderInitialState)
 
   const handleSortChange = (e: React.MouseEvent<HTMLSpanElement>): void => {
     if (e.target instanceof HTMLParagraphElement) {
@@ -21,9 +25,13 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         props.updateFilter(props.entity as keyof IFilter, newFilter)
 
       setActiveSort(value)
-      setOrder((prevOrder) =>
-        prevOrder === 'descending' ? 'ascending' : 'descending'
-      )
+      setOrder({
+        column: value,
+        order:
+          order.order === 'ascending' && order.column === value
+            ? 'descending'
+            : 'ascending'
+      })
     }
   }
 
@@ -36,7 +44,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        ascending={order}
+        ascending={order.order}
         toggleSortBy={activeSort}
         icon="signature"
         label="Name"
@@ -44,7 +52,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        ascending={order}
+        ascending={order.order}
         toggleSortBy={activeSort}
         icon="person"
         label="Creators"
@@ -52,7 +60,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        ascending={order}
+        ascending={order.order}
         toggleSortBy={activeSort}
         icon="group"
         label="Team"
@@ -61,7 +69,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          ascending={order}
+          ascending={order.order}
           toggleSortBy={activeSort}
           icon="priority_high"
           label="Priority"
@@ -70,7 +78,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        ascending={order}
+        ascending={order.order}
         toggleSortBy={activeSort}
         icon="calendar_month"
         label="Created"
@@ -79,7 +87,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          ascending={order}
+          ascending={order.order}
           toggleSortBy={activeSort}
           icon="store"
           label="Company"
@@ -89,7 +97,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          ascending={order}
+          ascending={order.order}
           toggleSortBy={activeSort}
           icon="emoji_objects"
           label="Project"
@@ -99,7 +107,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          ascending={order}
+          ascending={order.order}
           toggleSortBy={activeSort}
           icon="note_stack"
           label="Task"

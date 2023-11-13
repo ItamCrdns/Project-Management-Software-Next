@@ -19,7 +19,7 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
       <p style={{ fontWeight: isSelected ? 700 : 400 }}>{label}</p>
       {isSelected && (
         <span className="material-symbols-outlined">
-          {ascending === 'ascending' ? 'expand_more' : 'expand_less'}
+          {ascending === 'ascending' ? 'expand_less' : 'expand_more'}
         </span>
       )}
     </span>
