@@ -20,7 +20,7 @@ const TasksList: React.FC<TasksProps> = (props) => {
     <article>
       <EntityHeader color="#1A4D1A" entityName="tasks" />
       <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
-        <HeaderDescriptor dashboard entity='tasks' width="200px" />
+        {/* <HeaderDescriptor dashboard entity='tasks' width="200px" /> */}
         {isLoading && <LoadingFetch entityName="tasks" />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(tasks?.data) && (

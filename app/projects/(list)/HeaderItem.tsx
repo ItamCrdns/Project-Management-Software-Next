@@ -7,16 +7,29 @@ interface HeaderItemProps {
   ascending: string
   icon: string
   label: string
-  sortValue: string
+  sortValue: string | undefined
 }
 
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
-  const { style, handleSortChange, icon, label, sortValue, toggleSortBy, ascending } = props
+  const {
+    style,
+    handleSortChange,
+    icon,
+    label,
+    sortValue,
+    toggleSortBy,
+    ascending
+  } = props
 
   const isSelected = toggleSortBy === label || toggleSortBy === sortValue
 
   return (
-    <span style={style} onClick={() => { handleSortChange(sortValue) }}>
+    <span
+      style={style}
+      onClick={() => {
+        handleSortChange(sortValue ?? '')
+      }}
+    >
       <span className="material-symbols-outlined">{icon}</span>
       <p style={{ fontWeight: isSelected ? 700 : 400 }}>{label}</p>
       {isSelected && (

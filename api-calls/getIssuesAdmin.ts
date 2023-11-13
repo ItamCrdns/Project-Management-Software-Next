@@ -1,4 +1,5 @@
 import { type Issue } from '@/interfaces/Issue'
+import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { fetcher } from '@/utility/fetcherSWR'
 import useSWR from 'swr'
@@ -9,9 +10,11 @@ interface IssuesReturn {
   isError: unknown
 }
 
-const useIssuesGetter = (page: string, pageSize: string): IssuesReturn => {
+const useIssuesGetter = (params?: IFilterProperties): IssuesReturn => {
+  const queryParams = new URLSearchParams(params as string).toString()
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Issue/all?${queryParams}`
   const { data, error, isLoading } = useSWR<SWRGetterReturn<Issue>>(
-    `${process.env.NEXT_PUBLIC_API_URL}Issue/all?page=${page}&pageSize=${pageSize}`,
+    apiUrl,
     fetcher
   )
 

@@ -1,5 +1,5 @@
 'use client'
-import getIssuesAdmin from '@/api-calls/getIssuesAdmin'
+import useIssuesGetter from '@/api-calls/getIssuesAdmin'
 import { useContext } from 'react'
 import { FilterContext } from '@/context/Filter/FilterContext'
 import { type FilterContextType } from '@/interfaces/props/context props/FilterContextType'
@@ -8,14 +8,11 @@ import { type IEntity } from '@/interfaces/props/context props/IEntity'
 import IssuesList from './IssuesList'
 
 const Issues: React.FC = () => {
-  const { filter, entity, updateEntity } = useContext(
+  const { filter, entity, updateEntity, updateFilter } = useContext(
     FilterContext
   ) as FilterContextType
 
-  const currentPage = filter.issues.currentPage ?? '1'
-  const pageSize = filter.issues.pageSize ?? '1'
-
-  const { issues, isLoading, isError } = getIssuesAdmin(currentPage, pageSize)
+  const { issues, isLoading, isError } = useIssuesGetter(filter.issues)
 
   const props = {
     entityT: issues,
@@ -26,7 +23,14 @@ const Issues: React.FC = () => {
 
   entitySetter(props)
 
-  return <IssuesList isLoading={isLoading} isError={isError} issues={issues} />
+  return (
+    <IssuesList
+      isLoading={isLoading}
+      isError={isError}
+      issues={issues}
+      updateFilter={updateFilter}
+    />
+  )
 }
 
 export default Issues

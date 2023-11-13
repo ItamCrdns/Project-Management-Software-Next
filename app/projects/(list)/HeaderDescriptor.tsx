@@ -51,7 +51,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         toggleSortBy={order.column}
         icon="signature"
         label="Name"
-        sortValue="Name"
+        sortValue={props.sortValues.name}
       />
       <HeaderItem
         style={style}
@@ -60,7 +60,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         toggleSortBy={order.column}
         icon="person"
         label="Creator"
-        sortValue="ProjectCreator"
+        sortValue={props.sortValues.creator}
       />
       <HeaderItem
         style={style}
@@ -69,7 +69,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         toggleSortBy={order.column}
         icon="group"
         label="Team"
-        sortValue="Employees"
+        sortValue={props.sortValues.team}
       />
       {props.entity === 'projects' && (
         <HeaderItem
@@ -79,7 +79,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           toggleSortBy={order.column}
           icon="priority_high"
           label="Priority"
-          sortValue="Priority"
+          sortValue={props.sortValues.priority}
         />
       )}
       <HeaderItem
@@ -89,7 +89,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         toggleSortBy={order.column}
         icon="calendar_month"
         label="Created"
-        sortValue="Created"
+        sortValue={props.sortValues.created}
       />
       {props.dashboard && props.entity === 'projects' && (
         <HeaderItem
@@ -99,7 +99,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           toggleSortBy={order.column}
           icon="store"
           label="Company"
-          sortValue="Company"
+          sortValue={props.sortValues.company}
         />
       )}
       {props.dashboard && props.entity === 'tasks' && (
@@ -110,7 +110,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           toggleSortBy={order.column}
           icon="emoji_objects"
           label="Project"
-          sortValue="Project"
+          sortValue={props.sortValues.project}
         />
       )}
       {props.dashboard && props.entity === 'issues' && (
