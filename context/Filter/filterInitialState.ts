@@ -14,14 +14,10 @@ export const orderInitialState: Order = {
 }
 
 export const filterProperties: IFilterProperties = {
-  alpabetical: '',
-  date: '',
-  priority: '',
-  status: '',
-  currentPage: '1',
+  page: '1',
   pageSize: '5',
-  sortBy: '',
-  order: orderInitialState
+  orderBy: 'Created',
+  sort: 'descending'
 }
 
 export const filterInitialState: IFilter = {

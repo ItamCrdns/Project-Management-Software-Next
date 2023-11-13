@@ -12,12 +12,8 @@ const Projects: React.FC = () => {
     FilterContext
   ) as FilterContextType
 
-  const currentPage = filter.projects.currentPage ?? '1'
-  const pageSize = filter.projects.pageSize ?? '5'
-
   const { projects, isLoading, isError } = useProjectsGetter(
-    currentPage,
-    pageSize
+    filter.projects
   )
 
   const props = {

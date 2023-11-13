@@ -1,15 +1,8 @@
-import { type Order } from '@/context/Filter/filterInitialState'
-
 export interface IFilterProperties {
-  alpabetical?: string
-  date?: string
-  priority?: string
-  status?: string
-  currentPage?: string
+  page?: string
   pageSize?: string
-  // ? For sorting
-  sortBy?: string
-  order?: Order
+  sort?: string
+  orderBy?: string
 }
 
 export interface IFilter {

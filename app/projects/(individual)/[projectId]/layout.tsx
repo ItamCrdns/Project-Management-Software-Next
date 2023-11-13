@@ -23,9 +23,9 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
 
   const project = data
   const images = project?.images as Images
-  const employees = project?.employees as Employee[]
+  const employees = project?.team as Employee[]
   const company = project?.company as Company
-  const projectCreator = project?.projectCreator as Employee
+  const projectCreator = project?.creator as Employee
 
   const employeeCount = data?.employeeCount ?? 0
   const projectId = data?.projectId ?? 0

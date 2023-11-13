@@ -12,10 +12,10 @@ export interface Project {
   projectCreatorId: number
   lifecycle: string
   images: Images
-  projectCreator: Employee
+  creator: Employee
   company: Company
   employeeCount: number
   tasksCount: number
-  employees: Employee[]
+  team: Employee[]
   priority: number
 }

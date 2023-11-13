@@ -10,8 +10,8 @@ const EachProject: React.FunctionComponent<EachProjectProps> = (props) => {
     name: project.name,
     parentName: project.company.name,
     id: project.projectId,
-    creator: project.projectCreator,
-    employees: project.employees,
+    creator: project.creator,
+    employees: project.team,
     priority: project.priority,
     created: project.created
   }

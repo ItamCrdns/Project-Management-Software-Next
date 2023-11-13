@@ -1,4 +1,5 @@
 import { type Project } from '@/interfaces/project'
+import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { fetcher } from '@/utility/fetcherSWR'
 import useSWR from 'swr'
@@ -9,9 +10,12 @@ interface ProjectsReturn {
   isError: unknown
 }
 
-const useProjectsGetter = (page: string, pageSize: string): ProjectsReturn => {
+const useProjectsGetter = (params?: IFilterProperties): ProjectsReturn => {
+  const queryParams = new URLSearchParams(params as string).toString()
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Project/all?${queryParams}`
+
   const { data, error, isLoading } = useSWR<SWRGetterReturn<Project>>(
-    `${process.env.NEXT_PUBLIC_API_URL}Project/all?page=${page}&pageSize=${pageSize}`,
+    apiUrl,
     fetcher
   )
 
