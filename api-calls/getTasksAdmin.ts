@@ -1,3 +1,4 @@
+import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { type Task } from '@/interfaces/task'
 import { fetcher } from '@/utility/fetcherSWR'
@@ -9,9 +10,12 @@ interface TasksReturn {
   isError: unknown
 }
 
-const useTasksGetter = (page: string, pageSize: string): TasksReturn => {
+const useTasksGetter = (params?: IFilterProperties): TasksReturn => {
+  const queryParams = new URLSearchParams(params as string).toString()
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Task/all?${queryParams}`
+
   const { data, error, isLoading } = useSWR<SWRGetterReturn<Task>>(
-    `${process.env.NEXT_PUBLIC_API_URL}Task/all?page=${page}&pageSize=${pageSize}`,
+    apiUrl,
     fetcher
   )
 

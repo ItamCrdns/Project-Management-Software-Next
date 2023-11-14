@@ -8,14 +8,11 @@ import entitySetter from '../../EntitySetter'
 import { type IEntity } from '@/interfaces/props/context props/IEntity'
 
 const Tasks: React.FC = () => {
-  const { filter, entity, updateEntity } = useContext(
+  const { filter, entity, updateEntity, updateFilter } = useContext(
     FilterContext
   ) as FilterContextType
 
-  const currentPage = filter.tasks.currentPage ?? '1'
-  const pageSize = filter.tasks.pageSize ?? '1'
-
-  const { tasks, isLoading, isError } = useTasksGetter(currentPage, pageSize)
+  const { tasks, isLoading, isError } = useTasksGetter(filter.tasks)
 
   const props = {
     entityT: tasks,
@@ -26,7 +23,14 @@ const Tasks: React.FC = () => {
 
   entitySetter(props)
 
-  return <TasksList isLoading={isLoading} isError={isError} tasks={tasks} />
+  return (
+    <TasksList
+      isLoading={isLoading}
+      isError={isError}
+      tasks={tasks}
+      updateFilter={updateFilter}
+    />
+  )
 }
 
 export default Tasks
