@@ -24,7 +24,7 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
           // isProject
         />
         <section className={styles.projectswrapper}>
-          <HeaderDescriptor dashboard={false} entity='projects' width="300px" />
+          {/* <HeaderDescriptor dashboard={false} entity='projects' width="300px" /> */}
           {Object.entries(projects).map(([companyName, projects]) => (
             <React.Fragment key={companyName}>
               <div key={companyName} className={styles.companywrapper}>

@@ -16,13 +16,14 @@ interface PaginationProps {
  * Used to perform a server-side pagination with Link
  */
 
-const ServerPagination: React.FunctionComponent<PaginationProps> = ({
-  totalPages,
-  url,
-  searchParams,
-  reset
-}) => {
-  const pageNumberFromUrl = parseInt(searchParams.page) > totalPages ? 1 : parseInt(searchParams.page) // Defa
+const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
+  const { totalPages, url, searchParams, reset } = props
+  const pageNumberFromUrl =
+    searchParams.page !== undefined
+      ? parseInt(searchParams.page) > totalPages
+        ? 1
+        : parseInt(searchParams.page)
+      : 1
   const [currentPage, setCurrentPage] = useState<number>(pageNumberFromUrl)
 
   useEffect(() => {

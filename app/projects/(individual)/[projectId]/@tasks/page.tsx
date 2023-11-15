@@ -28,7 +28,7 @@ const TasksParallel = async ({ params }: TasksProps): Promise<JSX.Element> => {
             />
           </div>
         </div>
-        <HeaderDescriptor entity='tasks' dashboard={false} width='300px' />
+        {/* <HeaderDescriptor entity='tasks' dashboard={false} width='300px' /> */}
         {Array.isArray(tasks) && (
           <ul>
             {tasks.length > 0 &&
