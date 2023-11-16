@@ -1,28 +1,23 @@
 'use client'
-import {
-  type IFilterProperties,
-  type IFilter,
-  type OrderBy
-} from '@/interfaces/props/context props/IFilter'
+import { type OrderBy } from '@/interfaces/props/context props/IFilter'
 import styles from './projectslist.module.css'
 import {
   type HeaderDescriptorProps,
   type Style
 } from '@/interfaces/props/HeaderDescriptorProps'
 import HeaderItem from './HeaderItem'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   orderInitialState,
   type Order
 } from '@/context/Filter/filterInitialState'
-import { useRouter } from 'next/navigation'
-import checkAndSetOrderBy from '@/utility/checkAndSetOrderBy'
-import checkAndSetSort from '@/utility/checkAndSetSort'
+import useOrderUpdater, { type OrderUpdaterProps } from './useOrderUpdater'
+import useFilterSetterAndUrlPusher, {
+  type OrderSetterProps
+} from './useFilterSetterAndUrlPusher'
 
 const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
   const [order, setOrder] = useState<Order>(orderInitialState)
-
-  const router = useRouter()
 
   const handleSortChange = (sortValue: string): void => {
     setOrder((prevOrder) => ({
@@ -34,50 +29,27 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
     }))
   }
 
-  useEffect(() => {
-    if (props.searchParams !== undefined) {
-      if (
-        props.searchParams.orderby !== undefined ||
-        props.searchParams.sort !== undefined
-      ) {
-        const paramsOrderBy = props.searchParams.orderby.toLowerCase()
-        const verifiedOrderBy = checkAndSetOrderBy(paramsOrderBy)
-        const paramsSort = props.searchParams.sort.toLowerCase()
-        const verifiedSort = checkAndSetSort(paramsSort)
+  const updateOrder = (newOrder: Order): void => {
+    setOrder(newOrder)
+  }
 
-        const newOrder: Order = {
-          column: verifiedOrderBy ?? 'created',
-          order: verifiedSort ?? 'descending'
-        }
+  const orderUpdater: OrderUpdaterProps = {
+    searchParams: props.searchParams,
+    updateOrder
+  }
 
-        setOrder(newOrder)
-      }
-    }
-  }, [])
+  useOrderUpdater(orderUpdater)
 
-  useEffect(() => {
-    const newFilter: IFilterProperties = {
-      orderBy: order.column,
-      sort: order.order
-    }
+  const orderSetter: OrderSetterProps = {
+    order,
+    searchParams: props.searchParams,
+    clientId: props.clientId,
+    clientName: props.clientName,
+    updateFilter: props.updateFilter,
+    entity: props.entity
+  }
 
-    if (props.searchParams !== undefined) {
-      const newFilterSearchParams: IFilterProperties = {
-        ...newFilter,
-        page: props.searchParams?.page ?? '1' // ? Always get it from the searchParams. This component does not change the page.
-      }
-
-      const queryParams = new URLSearchParams(newFilterSearchParams as string)
-        .toString()
-        .toLowerCase()
-
-      const url = `/projects/client/${props.clientId}/${props.clientName}/?${queryParams}`
-      router.push(url)
-    }
-
-    props.updateFilter !== undefined &&
-      props.updateFilter(props.entity as keyof IFilter, newFilter)
-  }, [order, props.searchParams])
+  useFilterSetterAndUrlPusher(orderSetter)
 
   const style: Style = {
     width: props.width

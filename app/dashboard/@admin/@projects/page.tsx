@@ -12,9 +12,7 @@ const Projects: React.FC = () => {
     FilterContext
   ) as FilterContextType
 
-  const { projects, isLoading, isError } = useProjectsGetter(
-    filter.projects
-  )
+  const { projects, isLoading, isError } = useProjectsGetter(filter.projects)
 
   const props = {
     entityT: projects,
