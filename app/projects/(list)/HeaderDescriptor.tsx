@@ -93,6 +93,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         icon="signature"
         label="Name"
         sortValue={props.sortValues.name}
+        searchParams={props.searchParams}
       />
       <HeaderItem
         style={style}
@@ -102,6 +103,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         icon="person"
         label="Creator"
         sortValue={props.sortValues.creator}
+        searchParams={props.searchParams}
       />
       <HeaderItem
         style={style}
@@ -111,6 +113,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         icon="group"
         label="Team"
         sortValue={props.sortValues.team}
+        searchParams={props.searchParams}
       />
       {props.entity === 'projects' && (
         <HeaderItem
@@ -121,6 +124,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           icon="priority_high"
           label="Priority"
           sortValue={props.sortValues.priority}
+          searchParams={props.searchParams}
         />
       )}
       <HeaderItem
@@ -131,6 +135,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         icon="calendar_month"
         label="Created"
         sortValue={props.sortValues.created}
+        searchParams={props.searchParams}
       />
       {props.dashboard && props.entity === 'projects' && (
         <HeaderItem
@@ -141,6 +146,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           icon="store"
           label="Company"
           sortValue={props.sortValues.company}
+          searchParams={props.searchParams}
         />
       )}
       {props.dashboard && props.entity === 'tasks' && (
@@ -152,6 +158,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           icon="emoji_objects"
           label="Project"
           sortValue={props.sortValues.project}
+          searchParams={props.searchParams}
         />
       )}
       {props.dashboard && props.entity === 'issues' && (
@@ -162,7 +169,8 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           toggleSortBy={order.column}
           icon="note_stack"
           label="Task"
-          sortValue="Task"
+          sortValue={props.sortValues.task}
+          searchParams={props.searchParams}
         />
       )}
     </header>

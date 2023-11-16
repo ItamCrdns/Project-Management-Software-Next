@@ -1,3 +1,4 @@
+import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import { type Style } from '@/interfaces/props/HeaderDescriptorProps'
 
 interface HeaderItemProps {
@@ -8,33 +9,30 @@ interface HeaderItemProps {
   icon: string
   label: string
   sortValue: string | undefined
+  searchParams: SearchParamsPageSize | undefined
 }
 
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
-  const {
-    style,
-    handleSortChange,
-    icon,
-    label,
-    sortValue,
-    toggleSortBy,
-    ascending
-  } = props
-
-  const isSelected = toggleSortBy === label || toggleSortBy === sortValue
+  const isSelected =
+    props.toggleSortBy === props.sortValue ||
+    props.searchParams?.orderby === props.sortValue?.toLowerCase() // queryparams are always lowercase (or at least they should be)
 
   return (
     <span
-      style={style}
+      style={props.style}
       onClick={() => {
-        handleSortChange(sortValue ?? '')
+        props.handleSortChange(props.sortValue ?? '')
       }}
     >
-      <span className="material-symbols-outlined">{icon}</span>
-      <p style={{ fontWeight: isSelected ? 700 : 400 }}>{label}</p>
+      <span className="material-symbols-outlined">{props.icon}</span>
+      <p style={{ fontWeight: isSelected ? 700 : 400 }}>{props.label}</p>
       {isSelected && (
         <span className="material-symbols-outlined">
-          {ascending === 'ascending' ? 'expand_more' : 'expand_less'}
+          {props.ascending === 'ascending' ||
+          (props.searchParams !== undefined &&
+            props.searchParams.sort === 'ascending')
+            ? 'expand_more'
+            : 'expand_less'}
         </span>
       )}
     </span>
