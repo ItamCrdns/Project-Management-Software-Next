@@ -1,7 +1,10 @@
 import { type SearchParams } from '../searchParams'
+import { type OrderBy, type Sort } from './context props/IFilter'
 
-interface SearchParamsPageSize extends SearchParams {
-  pageSize: string
+export interface SearchParamsPageSize extends SearchParams {
+  pagesize: string
+  orderby: OrderBy
+  sort: Sort
 }
 
 export interface ClientNameProps {

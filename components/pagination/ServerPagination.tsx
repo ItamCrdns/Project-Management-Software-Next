@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react'
 import styles from './pagination.module.css'
 import { useRouter } from 'next/navigation'
 import { type SearchParams } from '@/interfaces/searchParams'
+import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 
 interface PaginationProps {
   totalPages: number
   url: string
-  searchParams: SearchParams
+  searchParams: SearchParams | SearchParamsPageSize
   reset?: boolean
 }
 
@@ -44,19 +45,17 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1)
-      if (searchValue === undefined) {
-        router.push(`${url}?page=${currentPage - 1}`)
-      } else {
-        router.push(`${url}?page=${currentPage - 1}&search=${searchValue}`)
-      }
+      const pageParam = url.includes('?') ? `&page=${currentPage - 1}` : `?page=${currentPage - 1}`
+      const searchParam = searchValue !== undefined ? `&search=${searchValue}` : ''
+      const newUrl = `${url}${pageParam}${searchParam}`
+      router.push(newUrl)
       searchParams.search = searchValue
     } else if (action === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
-      if (searchValue === undefined) {
-        router.push(`${url}?page=${currentPage + 1}`)
-      } else {
-        router.push(`${url}?page=${currentPage + 1}&search=${searchValue}`)
-      }
+      const pageParam = url.includes('?') ? `&page=${currentPage + 1}` : `?page=${currentPage + 1}`
+      const searchParam = searchValue !== undefined ? `&search=${searchValue}` : ''
+      const newUrl = `${url}${pageParam}${searchParam}`
+      router.push(newUrl)
       searchParams.search = searchValue
     }
   }

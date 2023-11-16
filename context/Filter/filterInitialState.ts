@@ -1,11 +1,13 @@
 import {
   type IFilterProperties,
-  type IFilter
+  type IFilter,
+  type OrderBy,
+  type Sort
 } from '@/interfaces/props/context props/IFilter'
 
 export interface Order {
-  column: string
-  order: string
+  column: OrderBy
+  order: Sort
 }
 
 export const orderInitialState: Order = {
