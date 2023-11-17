@@ -7,12 +7,19 @@ import TitleWrapper from '../../../../components/Header title/TitleWrapper'
 import { type ClientNameProps } from '@/interfaces/props/ClientNameProps'
 import ServerPagination from '@/components/pagination/ServerPagination'
 import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
+import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 
 const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   const clientId = props.params.client[0]
 
-  const currentPage = props.searchParams.page ?? '1'
-  const { data } = await getCompanyProjects(clientId, currentPage, '10')
+  const queryParams: IFilterProperties = {
+    page: props.searchParams.page ?? '1',
+    pageSize: '10', // ? We can change this through filters
+    sort: props.searchParams.sort ?? 'ascending',
+    orderBy: props.searchParams.orderby ?? 'Name'
+  }
+
+  const { data } = await getCompanyProjects(clientId, queryParams)
 
   const projects = (data?.data as Project[]) ?? []
   const totalPages = data?.pages ?? 0
