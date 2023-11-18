@@ -5,6 +5,7 @@
  */
 const urlSearchParamsNumberVerifier = (number: string): string => {
   const regex = number.replace(/\D/g, '')
+  console.log(regex)
   if (regex === '') return '1'
   return parseInt(regex) > 2147483647 ? '2147483647' : regex
 }
