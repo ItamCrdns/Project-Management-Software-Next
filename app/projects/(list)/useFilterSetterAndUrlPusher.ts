@@ -20,6 +20,7 @@ const useFilterSetterAndUrlPusher = (props: OrderSetterProps): void => {
   const router = useRouter()
 
   useEffect(() => {
+    console.log('url pusher triggered')
     const newFilter: IFilterProperties = {
       orderBy: props.order.column,
       sort: props.order.order
@@ -41,7 +42,7 @@ const useFilterSetterAndUrlPusher = (props: OrderSetterProps): void => {
 
     props.updateFilter !== undefined &&
       props.updateFilter(props.entity as keyof IFilter, newFilter)
-  }, [props.order, props.searchParams])
+  }, [props.order])
 }
 
 export default useFilterSetterAndUrlPusher

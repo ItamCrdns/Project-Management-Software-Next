@@ -1,16 +1,13 @@
 import styles from '@/app/projects/(list)/userbanner.module.css'
-import { type Employee } from '@/interfaces/employee'
-import Image from 'next/image'
 
 interface OptionsProps {
   text: string
   toggle: boolean
   handleToggle: () => void
-  user: Employee | null
 }
 
 const Options: React.FC<OptionsProps> = (props) => {
-  const { toggle, handleToggle, user } = props
+  const { toggle, handleToggle } = props
   return (
     <div className={styles.options}>
       <p
@@ -30,14 +27,6 @@ const Options: React.FC<OptionsProps> = (props) => {
       >
         {!toggle ? 'filter_list' : 'filter_list_off'}
       </span>
-      {user !== null && user.profilePicture !== '' && (
-        <Image
-          src={user.profilePicture}
-          alt={user.username}
-          width={35}
-          height={35}
-        />
-      )}
     </div>
   )
 }

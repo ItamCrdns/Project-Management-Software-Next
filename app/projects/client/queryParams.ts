@@ -11,14 +11,19 @@ import urlSearchParamsNumberVerifier from '@/utility/urlSearchParamsNumberVerifi
 const generateQueryParams = (
   searchParams: SearchParamsPageSize
 ): IFilterProperties => {
+  const sanitizedPage = urlSearchParamsNumberVerifier(searchParams.page ?? '1')
+
   const queryParams: IFilterProperties = {
-    page: urlSearchParamsNumberVerifier(searchParams.page ?? '1'),
+    page: sanitizedPage,
     pageSize: '10', // ? We can change this through filters
     sort: checkAndSetSort(searchParams.sort) ?? 'ascending',
     orderBy: checkAndSetOrderBy(searchParams.orderby) ?? 'Name'
   }
 
-  searchParams.page = queryParams.page ?? '1'
+  console.log(queryParams)
+  if (searchParams.page !== sanitizedPage) {
+    searchParams.page = sanitizedPage
+  }
 
   return queryParams
 }

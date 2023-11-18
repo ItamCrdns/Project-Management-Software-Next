@@ -8,6 +8,7 @@ import { type ClientNameProps } from '@/interfaces/props/ClientNameProps'
 import ServerPagination from '@/components/pagination/ServerPagination'
 import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
 import generateQueryParams from '../queryParams'
+import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 
 const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   const clientId = props.params.client[0]
@@ -31,12 +32,7 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
 
   return (
     <main className={styles.main}>
-      <TitleWrapper
-        title={title}
-        icon="emoji_objects"
-        buttonText="New project"
-        buttonHref="/projects/new"
-      />
+      <TitleWrapper title={title} icon="emoji_objects" showButton={false} />
       <section className={styles.projectswrapper}>
         <HeaderDescriptor
           dashboard={false}
@@ -48,15 +44,18 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
           clientName={companyName}
           searchParams={props.searchParams}
         />
-        {Array.isArray(projects) && (
-          <ul>
-            {projects.map((project: Project, index: number) => (
-              <li key={index}>
-                <EachProject project={project} showCompanyName={false} />
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className={styles.projectscontainer}>
+          {Array.isArray(projects) && (
+            <ul>
+              {projects.map((project: Project, index: number) => (
+                <li key={index}>
+                  <EachProject project={project} showCompanyName={false} />
+                </li>
+              ))}
+            </ul>
+          )}
+          <QueryParamsPagination />
+        </div>
       </section>
       <ServerPagination
         url={`/projects/client/${clientId}/${clientName}?orderby=${props.searchParams.orderby}&sort=${props.searchParams.sort}`}

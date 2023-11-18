@@ -4,8 +4,9 @@ import LoggedInCard from './LoggedInCard'
 interface TitleWrapperProps {
   title: string
   icon: string
-  buttonText: string
-  buttonHref: string
+  showButton?: boolean
+  buttonText?: string
+  buttonHref?: string
   buttonWidth?: string
 }
 
@@ -24,8 +25,7 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
       <LoggedInCard
         optionsText="Options"
         entityName='project'
-        showButton
-        showPicture
+        showButton={props.showButton}
         buttonText={props.buttonText}
         buttonHref={props.buttonHref}
         buttonWidth={props.buttonWidth}
