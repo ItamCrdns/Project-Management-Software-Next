@@ -10,6 +10,7 @@ export interface OrderUpdaterProps {
 }
 
 // ? This function helps so if we change the orderBy or sort and we refresh the page it doesnt go to its default values again
+// ! Its really not working since the data comes from the server and not from the client
 
 const useOrderUpdater = (props: OrderUpdaterProps): void => {
   useEffect(() => {

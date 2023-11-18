@@ -7,22 +7,21 @@ import TitleWrapper from '../../../../components/Header title/TitleWrapper'
 import { type ClientNameProps } from '@/interfaces/props/ClientNameProps'
 import ServerPagination from '@/components/pagination/ServerPagination'
 import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import generateQueryParams from '../queryParams'
 
 const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   const clientId = props.params.client[0]
 
-  const queryParams: IFilterProperties = {
-    page: props.searchParams.page ?? '1',
-    pageSize: '10', // ? We can change this through filters
-    sort: props.searchParams.sort ?? 'ascending',
-    orderBy: props.searchParams.orderby ?? 'Name'
-  }
+  const queryParams = generateQueryParams(props.searchParams)
 
   const { data } = await getCompanyProjects(clientId, queryParams)
 
   const projects = (data?.data as Project[]) ?? []
   const totalPages = data?.pages ?? 0
+
+  if (parseInt(props.searchParams.page) > totalPages) {
+    props.searchParams.page = totalPages.toString()
+  }
 
   // Access the company name from one of the projects (its fine they all have the same company name)
   const companyName = projects[0].company.name.split('.').join('') // ! Remove dots from company name ("Inc.")
