@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { handleMaxAllowedCurrentPage } from './maxAllowedCurrentPage'
 import { handleMaxAllowedPageSize } from './maxAllowedPagesize'
 import styles from './queryparamspag.module.css'
@@ -21,8 +21,19 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     handleMaxAllowedCurrentPage(e, totalPages)
-    setCurrentPage(Number(e.target.value))
+    const newValue = parseInt(e.target.value)
+    if (!isNaN(newValue)) {
+      setCurrentPage(newValue)
+    }
   }
+
+  useEffect(() => {
+    handlePageChange({
+      currentPage,
+      url,
+      updateCurrentPage
+    })
+  }, [currentPage])
 
   const handlePageSizeInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -33,6 +44,8 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
 
   const router = useRouter()
 
+  // ? Might be an unnecesary callback.
+  // ? I mean not unnecesary here. But maybe the state update and url push can be done inside the useEffect above
   const updateCurrentPage = (
     callback: (prevPage: number) => number,
     newUrl: string
@@ -50,7 +63,6 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
         <p>Showing</p>
         <input
           type="number"
-          //   max={5}
           defaultValue={currentPageSize}
           onChange={handlePageSizeInputChange}
         />
@@ -62,13 +74,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
         <div>
           <span
             onClick={() => {
-              handlePageChange({
-                action: 'first',
-                currentPage,
-                url,
-                totalPages,
-                updateCurrentPage
-              })
+              setCurrentPage(1)
             }}
             className="material-symbols-outlined"
           >
@@ -76,13 +82,9 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
           </span>
           <div
             onClick={() => {
-              handlePageChange({
-                action: 'previous',
-                currentPage,
-                url,
-                totalPages,
-                updateCurrentPage
-              })
+              setCurrentPage((prevPage) =>
+                currentPage > 1 ? prevPage - 1 : currentPage
+              )
             }}
           >
             <span className="material-symbols-outlined">navigate_before</span>
@@ -91,21 +93,16 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
         </div>
         <input
           type="number"
-          //   max={50}
-          defaultValue={currentPage}
+          value={currentPage}
           onChange={handleCurrentPageInputChange}
         />
         <p>of {totalPages}</p>
         <div>
           <div
             onClick={() => {
-              handlePageChange({
-                action: 'next',
-                currentPage,
-                url,
-                totalPages,
-                updateCurrentPage
-              })
+              setCurrentPage((prevPage) =>
+                currentPage < totalPages ? prevPage + 1 : currentPage
+              )
             }}
           >
             <p className={styles.prevnexttext}>Next</p>
@@ -113,13 +110,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
           </div>
           <span
             onClick={() => {
-              handlePageChange({
-                action: 'last',
-                currentPage,
-                url,
-                totalPages,
-                updateCurrentPage
-              })
+              setCurrentPage(totalPages)
             }}
             className="material-symbols-outlined"
           >
