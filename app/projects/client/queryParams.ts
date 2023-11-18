@@ -20,7 +20,6 @@ const generateQueryParams = (
     orderBy: checkAndSetOrderBy(searchParams.orderby) ?? 'Name'
   }
 
-  console.log(queryParams)
   if (searchParams.page !== sanitizedPage) {
     searchParams.page = sanitizedPage
   }

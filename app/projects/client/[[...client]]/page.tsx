@@ -5,7 +5,6 @@ import EachProject from '../../(list)/EachProject'
 import HeaderDescriptor from '../../(list)/HeaderDescriptor'
 import TitleWrapper from '../../../../components/Header title/TitleWrapper'
 import { type ClientNameProps } from '@/interfaces/props/ClientNameProps'
-import ServerPagination from '@/components/pagination/ServerPagination'
 import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
 import generateQueryParams from '../queryParams'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
@@ -19,6 +18,7 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
 
   const projects = (data?.data as Project[]) ?? []
   const totalPages = data?.pages ?? 0
+  const totalProjects = data?.count ?? 0
 
   if (parseInt(props.searchParams.page) > totalPages) {
     props.searchParams.page = totalPages.toString()
@@ -45,6 +45,13 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
           searchParams={props.searchParams}
         />
         <div className={styles.projectscontainer}>
+          <QueryParamsPagination
+            url={`/projects/client/${clientId}/${clientName}?orderby=${props.searchParams.orderby}&sort=${props.searchParams.sort}`}
+            totalPages={totalPages}
+            searchParams={props.searchParams}
+            entityName='Projects'
+            totalEntitesCount={totalProjects}
+          />
           {Array.isArray(projects) && (
             <ul>
               {projects.map((project: Project, index: number) => (
@@ -54,14 +61,8 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
               ))}
             </ul>
           )}
-          <QueryParamsPagination />
         </div>
       </section>
-      <ServerPagination
-        url={`/projects/client/${clientId}/${clientName}?orderby=${props.searchParams.orderby}&sort=${props.searchParams.sort}`}
-        totalPages={totalPages}
-        searchParams={props.searchParams}
-      />
     </main>
   )
 }
