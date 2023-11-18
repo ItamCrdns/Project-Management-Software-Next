@@ -12,16 +12,23 @@ const generateQueryParams = (
   searchParams: SearchParamsPageSize
 ): IFilterProperties => {
   const sanitizedPage = urlSearchParamsNumberVerifier(searchParams.page ?? '1')
+  const sanitizedPageSize = urlSearchParamsNumberVerifier(
+    searchParams.pagesize ?? '10'
+  )
 
   const queryParams: IFilterProperties = {
     page: sanitizedPage,
-    pageSize: '10', // ? We can change this through filters
+    pageSize: sanitizedPageSize,
     sort: checkAndSetSort(searchParams.sort) ?? 'ascending',
     orderBy: checkAndSetOrderBy(searchParams.orderby) ?? 'Name'
   }
 
   if (searchParams.page !== sanitizedPage) {
     searchParams.page = sanitizedPage
+  }
+
+  if (searchParams.pagesize !== sanitizedPageSize) {
+    searchParams.pagesize = sanitizedPageSize
   }
 
   return queryParams

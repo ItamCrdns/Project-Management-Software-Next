@@ -6,12 +6,13 @@ import styles from './queryparamspag.module.css'
 import { useRouter } from 'next/navigation'
 import { handlePageChange } from './handlePageChange'
 import { type QueryParamsPaginationProps } from './IQueryParamsPaginationProps'
+import { handleInputClick } from './handleInputClick'
 
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
-  const { totalPages, url, searchParams, entityName, totalEntitesCount } = props
+  const { totalPages, url, entityName, totalEntitesCount } = props
 
   const [currentPageSize, setCurrentPageSize] = useState<number>(
-    parseInt(searchParams.pagesize ?? '10')
+    parseInt(props.searchParams.pagesize ?? '10')
   )
   const [currentPage, setCurrentPage] = useState<number>(
     parseInt(props.searchParams.page ?? '1')
@@ -27,20 +28,32 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     }
   }
 
-  useEffect(() => {
-    handlePageChange({
-      currentPage,
-      url,
-      updateCurrentPage
-    })
-  }, [currentPage])
-
   const handlePageSizeInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     handleMaxAllowedPageSize(e, totalEntitesCount)
-    setCurrentPageSize(Number(e.target.value))
+    const newValue = parseInt(e.target.value)
+
+    if (!isNaN(newValue)) {
+      setCurrentPageSize(newValue)
+    }
   }
+
+  useEffect(() => {
+    // ? After changing the pagesize take us to the last page if necessary
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages)
+    }
+  }, [totalPages])
+
+  useEffect(() => {
+    handlePageChange({
+      currentPage,
+      currentPageSize,
+      url,
+      updateCurrentPage
+    })
+  }, [currentPage, currentPageSize])
 
   const router = useRouter()
 
@@ -63,7 +76,8 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
         <p>Showing</p>
         <input
           type="number"
-          defaultValue={currentPageSize}
+          value={currentPageSize}
+          onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
         />
         <p>
@@ -94,6 +108,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
         <input
           type="number"
           value={currentPage}
+          onClick={handleInputClick}
           onChange={handleCurrentPageInputChange}
         />
         <p>of {totalPages}</p>

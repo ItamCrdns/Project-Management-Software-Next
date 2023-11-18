@@ -1,5 +1,6 @@
 export interface IHandlePageChangeProps {
   currentPage: number
+  currentPageSize: number
   url: string
   // ? Updates the current page and the url
   updateCurrentPage: (
@@ -9,11 +10,11 @@ export interface IHandlePageChangeProps {
 }
 
 export const handlePageChange = (props: IHandlePageChangeProps): void => {
-  const { currentPage, url, updateCurrentPage } = props
+  const { currentPage, currentPageSize, url, updateCurrentPage } = props
 
   const pageParam = url.includes('?')
-    ? `&page=${currentPage}`
-    : `?page=${currentPage}`
+    ? `&page=${currentPage}&pagesize=${currentPageSize}`
+    : `?page=${currentPage}&pagesize=${currentPageSize}`
   const newUrl = `${url}${pageParam}`
   updateCurrentPage(() => currentPage, newUrl)
 }
