@@ -3,7 +3,7 @@ import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 import EntityHeader from '../EntityHeader'
 import LoadingFetch from '../_fetch loader/LoadingFetch'
-import EachTask from '@/app/projects/(individual)/[projectId]/@tasks/EachTask'
+import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import {

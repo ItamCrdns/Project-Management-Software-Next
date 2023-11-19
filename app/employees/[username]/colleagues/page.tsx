@@ -1,5 +1,5 @@
 'use client'
-import EmployeesRender from '@/app/projects/(individual)/[projectId]/employees/EmployeesRender'
+import EmployeesRender from '@/app/projects/(individual)/[projectId]/(projectId)/employees/EmployeesRender'
 import { usePathname } from 'next/navigation'
 import { type EmployeeColleaguesProps } from '@/interfaces/props/EmployeeColleaguesProps'
 import useGetEmployees from '@/utility/employees/useGetEmployees'
