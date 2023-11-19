@@ -1,7 +1,7 @@
 import styles from './project.module.css'
-import Image from 'next/image'
 import Link from 'next/link'
 import { type Employee } from '@/interfaces/employee'
+import EmployeeOfTheList, { type Position } from '@/components/Generic Entity Renderer/EmployeeOfTheList'
 
 interface ProjectEmployeeProps {
   employees: Employee[]
@@ -11,6 +11,11 @@ interface ProjectEmployeeProps {
 
 const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
   const { employees, projectId, employeeCount } = props
+
+  const position: Position = {
+    top: '-1.5rem',
+    right: '11.25rem'
+  }
 
   return (
     <article className={styles.employees}>
@@ -24,18 +29,18 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
             employeeCount > 5 ? '2px solid var(--background-color)' : ''
         }}
       >
-        {employees.map((employee: Employee) => (
-          <li key={employee.employeeId}>
-            <Image
-              src={employee.profilePicture}
-              alt={employee.username}
-              width={50}
-              height={50}
+        {employees.map((employee: Employee, index: number) => (
+          <div key={index} className={styles.employeeslist}>
+            <EmployeeOfTheList
+              employee={employee}
+              size={50}
+              redirectMe={false}
+              position={position}
             />
             <Link href={`/employees/${employee.username}`}>
               {employee.username}
             </Link>
-          </li>
+          </div>
         ))}
       </ul>
       {employeeCount > 5 && (

@@ -4,7 +4,7 @@ import taskstyles from './tasks.module.css'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
 import RippleButton from '@/components/ripplebutton/RippleButton'
-import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
+// import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 
 interface TasksProps {
   params: { projectId: string }
@@ -22,7 +22,8 @@ const TasksParallel = async ({ params }: TasksProps): Promise<JSX.Element> => {
           <h1>Tasks</h1>
           <div>
             <RippleButton
-              text="All tasks..."
+              text="Show all tasks"
+              width='115px'
               backgroundColor="#80B3FF"
               textColor="white"
             />

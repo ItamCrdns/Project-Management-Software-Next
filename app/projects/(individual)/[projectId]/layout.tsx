@@ -8,7 +8,7 @@ import EntityPriority from '@/components/Generic Entity Renderer/EntityPriority'
 import ProjectEmployees from './ProjectEmployees'
 import ExpectedDeliveryDate from './ExpectedDeliveryDate'
 import Image from 'next/image'
-import Link from 'next/link'
+import ProjectCreator from './ProjectCreator'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -67,19 +67,11 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
               <p className={styles.grayedtext}>Priority</p>
               <EntityPriority priority={project?.priority ?? 0} />
               <p className={styles.grayedtext}>Created by</p>
-              <div className={styles.userwrapper}>
-                <Image
-                  src={projectCreator.profilePicture}
-                  alt={projectCreator.username}
-                  width={45}
-                  height={45}
-                />
-                <h3>
-                  <Link href={`/employees/${projectCreator.username}`}>
-                    {projectCreator.username}
-                  </Link>
-                </h3>
-              </div>
+              <ProjectCreator
+                profilePicture={projectCreator.profilePicture}
+                username={projectCreator.username}
+                creator={projectCreator}
+              />
               <p className={styles.grayedtext}>Status</p>
               <p>{project?.lifecycle}</p>
               <p className={styles.grayedtext}>Date</p>
