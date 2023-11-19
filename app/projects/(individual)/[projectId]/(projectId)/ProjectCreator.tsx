@@ -9,17 +9,21 @@ import { type Employee } from '@/interfaces/employee'
 import { type Position } from '@/components/Generic Entity Renderer/EmployeeOfTheList'
 
 interface ProjectCreatorProps {
-  profilePicture: string
-  username: string
   creator: Employee
+  position?: Position
+  pictureSize?: number
+  showUsername: boolean
 }
 
 const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
+  const username = props.creator.username
+  const profilePicture = props.creator.profilePicture
+
   const position: Position = {
-    top: '-1.5rem',
-    right: '10.75rem'
+    top: props.position?.top ?? '-1.5rem',
+    right: props.position?.right ?? '10.75rem'
   }
 
   return (
@@ -27,14 +31,16 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
       <Image
         onMouseOver={handleShowCard}
         onMouseLeave={handleHideCard}
-        src={props.profilePicture}
-        alt={props.username}
-        width={45}
-        height={45}
+        src={profilePicture}
+        alt={username}
+        width={props.pictureSize ?? 45}
+        height={props.pictureSize ?? 45}
       />
-      <h3>
-        <Link href={`/employees/${props.username}`}>{props.username}</Link>
-      </h3>
+      {props.showUsername && (
+        <h3>
+          <Link href={`/employees/${username}`}>{username}</Link>
+        </h3>
+      )}
       {showCard && (
         <section
           onMouseOver={handleShowCard}
