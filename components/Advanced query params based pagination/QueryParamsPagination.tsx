@@ -46,9 +46,26 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     }
   }, [totalPages])
 
+  const handlePageSizeInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    handleMaxAllowedPageSize(e, totalEntitesCount)
+    const newValue = parseInt(e.target.value)
+
+    // ! Need to do something like this. But it wont work because the state update is async. Fix it
+    // if (currentPage > totalPages) {
+    //   setCurrentPage(totalPages)
+    // }
+
+    if (!isNaN(newValue)) {
+      setCurrentPageSize(newValue)
+    }
+  }
+
   useEffect(() => {
     handlePageChange({
       currentPage,
+      currentPageSize,
       currentPageSize,
       url,
       updateCurrentPage
