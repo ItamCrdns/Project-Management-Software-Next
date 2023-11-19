@@ -1,5 +1,7 @@
+import styles from './tasks.module.css'
+
 const ProjectTasks: React.FC = () => {
-  return <div>ProjectTasks</div>
+  return <section>ProjectTasks</section>
 }
 
 export default ProjectTasks

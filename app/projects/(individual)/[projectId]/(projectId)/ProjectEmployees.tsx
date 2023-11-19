@@ -18,7 +18,7 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
   }
 
   return (
-    <article className={styles.employees}>
+    <section className={styles.employees}>
       <div className={styles.headerwrapper}>
         <h1>Employee</h1>
         <h3>List</h3>
@@ -50,7 +50,7 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
           </Link>
         </h3>
       )}
-    </article>
+    </section>
   )
 }
 

@@ -7,7 +7,7 @@ import ProjectEmployees from './ProjectEmployees'
 import { type Project } from '@/interfaces/project'
 import { type Images } from '@/interfaces/images'
 import Image from 'next/image'
-import { type ProjectUIProps } from '../ProjectUIProps'
+import { type ProjectUIProps } from './ProjectUIProps'
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const {
@@ -24,8 +24,8 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   return (
     <section className={styles.contentwrapper}>
       {props.children}
-      <article className={styles.projectwrapper}>
-        <article className={styles.project}>
+      <div className={styles.projectwrapper}>
+        <div className={styles.project}>
           <div className={styles.headerwrapper}>
             <h1>{project?.name}</h1>
             <h3>
@@ -71,7 +71,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
               <ExpectedDeliveryDate project={project as Project} />
             </aside>
           </div>
-        </article>
+        </div>
         {Array.isArray(employees) && (
           <ProjectEmployees
             employees={employees}
@@ -79,7 +79,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
             employeeCount={employeeCount}
           />
         )}
-      </article>
+      </div>
       {tasksCount > 0 && props.tasks}
     </section>
   )

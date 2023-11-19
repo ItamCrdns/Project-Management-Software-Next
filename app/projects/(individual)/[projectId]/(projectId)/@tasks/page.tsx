@@ -30,6 +30,7 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
               width="115px"
               backgroundColor="#80B3FF"
               textColor="white"
+              href={`/projects/${projectId}/tasks`}
             />
             {isProjectOwner && (
               <RippleButton text="Create new task" width="125px" />

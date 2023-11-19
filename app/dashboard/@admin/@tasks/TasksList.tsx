@@ -23,9 +23,9 @@ const TasksList: React.FC<TasksProps> = (props) => {
   const { isLoading, isError, tasks } = props
 
   return (
-    <article>
+    <section>
       <EntityHeader color="#1A4D1A" entityName="tasks" />
-      <section className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
+      <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor
           dashboard
           entity="tasks"
@@ -44,8 +44,8 @@ const TasksList: React.FC<TasksProps> = (props) => {
             ))}
           </ul>
         )}
-      </section>
-    </article>
+      </div>
+    </section>
   )
 }
 
