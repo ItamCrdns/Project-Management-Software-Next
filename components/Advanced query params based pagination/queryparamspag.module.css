@@ -31,6 +31,17 @@
     appearance: textfield;
   }
 
+.pagination input[type=text] {
+    border: none;
+    outline: none;
+    background-color: var(--darker-banner-color);
+    color: var(--text-color);
+    padding:  .75rem 1rem;
+    border-radius: 25px;
+    /* font-size: inherit; */
+    font-family: inherit;
+}
+
 .pagination span {
     font-size: 2rem;
     cursor: pointer;

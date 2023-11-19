@@ -56,11 +56,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
               <p className={styles.grayedtext}>Priority</p>
               <EntityPriority priority={project?.priority ?? 0} />
               <p className={styles.grayedtext}>Created by</p>
-              <ProjectCreator
-                profilePicture={projectCreator.profilePicture}
-                username={projectCreator.username}
-                creator={projectCreator}
-              />
+              <ProjectCreator creator={projectCreator} showUsername />
               <p className={styles.grayedtext}>Status</p>
               <p>{project?.lifecycle}</p>
               <p className={styles.grayedtext}>Date</p>

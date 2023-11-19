@@ -1,6 +1,7 @@
 import styles from './queryparamspag.module.css'
 import { handleInputClick } from './handleInputClick'
 import { type PaginationUIProps } from './IPaginationUIProps'
+// import Search from '../search/search'
 
 const PaginationUI: React.FC<PaginationUIProps> = (props) => {
   const { handleCurrentPageInputChange, handlePageSizeInputChange } = props
@@ -19,6 +20,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           of {props.totalEntitesCount} {props.entityName.toLowerCase()}
         </p>
       </div>
+      {/* <Search maxInputLength={255} url={props.url} stateBasedSearch={false} /> */}
       <div className={styles.prevandnextpage}>
         <div>
           <span

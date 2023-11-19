@@ -1,4 +1,4 @@
-import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
+import styles from '@/app/projects/(individual)/[projectId]/(projectId)/project.module.css'
 import getUserIssuesShowcase from '@/api-calls/getUserIssuesShowcase'
 import Link from 'next/link'
 import { type Issue } from '@/interfaces/Issue'

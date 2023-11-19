@@ -1,5 +1,5 @@
 import { type Task } from '@/interfaces/task'
-import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
+import styles from '@/app/projects/(individual)/[projectId]/(projectId)/project.module.css'
 import getUserTasksShowcase from '@/api-calls/getUserTasksShowcase'
 import Link from 'next/link'
 import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'

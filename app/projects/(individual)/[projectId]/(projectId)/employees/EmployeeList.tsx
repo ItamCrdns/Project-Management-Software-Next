@@ -15,6 +15,7 @@ interface EmployeeListProps {
 const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
   const { employeeList, message, headerText, onInputChange, urlWithParams } =
     props
+
   return (
     <>
       {Array.isArray(employeeList) && (

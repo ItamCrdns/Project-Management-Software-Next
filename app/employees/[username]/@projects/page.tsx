@@ -1,5 +1,5 @@
 import { type Project } from '@/interfaces/project'
-import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
+import styles from '@/app/projects/(individual)/[projectId]/(projectId)/project.module.css'
 import getUserProjectsShowcase from '@/api-calls/getUserProjectsShowcase'
 import Link from 'next/link'
 import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'

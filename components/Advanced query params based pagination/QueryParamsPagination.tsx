@@ -56,13 +56,15 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
 
   const router = useRouter()
 
+  // const [newUrl, setNewUrl] = useState<URL>()
   // ? Might be an unnecesary callback.
   // ? I mean not unnecesary here. But maybe the state update and url push can be done inside the useEffect above
   const updateCurrentPage = (
     callback: (prevPage: number) => number,
     newUrl: string
   ): void => {
-    router.push(newUrl)
+    router.push(newUrl) // ? This pushes to a new url on component mount
+    // setNewUrl(new URL(newUrl)) //!  Wrong state update. This will not work as expected
     setCurrentPage((prevPage) => {
       const newPage = callback(prevPage)
       return newPage
@@ -94,6 +96,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
       totalEntitesCount={totalEntitesCount}
       entityName={entityName}
       totalPages={totalPages}
+      // url={newUrl as URL}
       handleCurrentPageInputChange={handleCurrentPageInputChange}
       handlePageSizeInputChange={handlePageSizeInputChange}
       goToFirstPage={goToFirstPage}

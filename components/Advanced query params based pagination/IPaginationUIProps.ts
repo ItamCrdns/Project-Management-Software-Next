@@ -4,6 +4,7 @@ export interface PaginationUIProps {
   totalEntitesCount: number
   entityName: string
   totalPages: number
+  // url: URL
   handleCurrentPageInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handlePageSizeInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   goToFirstPage: () => void

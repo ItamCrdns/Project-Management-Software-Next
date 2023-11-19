@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 interface SearchProps {
   maxInputLength: number
   url?: string
-  onInputChange: (arg0: boolean) => void
+  onInputChange?: (arg0: boolean) => void
   stateBasedSearch: boolean // ? Disable the router.push for components that will not use searchParams based search and will instead rely on state based search
   stateBasedGetInputValue?: (input: string) => void // ? Used to get the input value from the search component and pass it to the parent component
 }
@@ -27,7 +27,10 @@ const Search: React.FunctionComponent<SearchProps> = ({
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       if (searchTerm !== '' && !stateBasedSearch) {
-        router.push(`${url ?? ''}&search=${searchTerm}`)
+        // url?.searchParams.set('search', searchTerm)
+        // // url?.includes('search')
+        // console.log(`${url}&search=${searchTerm}`)
+        router.push(`${url}&search=${searchTerm}`)
       }
       if (stateBasedSearch) {
         stateBasedGetInputValue?.(searchTerm)
@@ -45,9 +48,9 @@ const Search: React.FunctionComponent<SearchProps> = ({
     const { value } = e.target
     setShowSpinner(true)
     setSearchTerm(value)
-    onInputChange(true)
+    onInputChange?.(true)
     setTimeout(() => {
-      onInputChange(false)
+      onInputChange?.(false) // Use optional chaining to safely invoke onInputChange
     }, 1000)
   }
 

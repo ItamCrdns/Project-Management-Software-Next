@@ -1,4 +1,4 @@
-import styles from '@/app/projects/(individual)/[projectId]/project.module.css'
+import styles from '@/app/projects/(individual)/[projectId]/(projectId)/project.module.css'
 import getColleagues from '@/api-calls/getColleagues'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
