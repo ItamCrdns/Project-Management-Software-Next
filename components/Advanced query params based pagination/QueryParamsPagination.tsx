@@ -2,11 +2,10 @@
 import { useEffect, useState } from 'react'
 import { handleMaxAllowedCurrentPage } from './maxAllowedCurrentPage'
 import { handleMaxAllowedPageSize } from './maxAllowedPagesize'
-import styles from './queryparamspag.module.css'
 import { useRouter } from 'next/navigation'
 import { handlePageChange } from './handlePageChange'
 import { type QueryParamsPaginationProps } from './IQueryParamsPaginationProps'
-import { handleInputClick } from './handleInputClick'
+import PaginationUI from './PaginationUI'
 
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const { totalPages, url, entityName, totalEntitesCount } = props
@@ -70,70 +69,38 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     })
   }
 
+  const goToFirstPage = (): void => {
+    setCurrentPage(1)
+  }
+
+  const goToLastPage = (): void => {
+    setCurrentPage(totalPages)
+  }
+
+  const goToNextPage = (): void => {
+    setCurrentPage((prevPage) =>
+      currentPage < totalPages ? prevPage + 1 : currentPage
+    )
+  }
+
+  const goToPreviousPage = (): void => {
+    setCurrentPage((prevPage) => (currentPage > 1 ? prevPage - 1 : currentPage))
+  }
+
   return (
-    <div className={styles.pagination}>
-      <div className={styles.pagesize}>
-        <p>Showing</p>
-        <input
-          type="number"
-          value={currentPageSize}
-          onClick={handleInputClick}
-          onChange={handlePageSizeInputChange}
-        />
-        <p>
-          of {totalEntitesCount} {entityName.toLowerCase()}
-        </p>
-      </div>
-      <div className={styles.prevandnextpage}>
-        <div>
-          <span
-            onClick={() => {
-              setCurrentPage(1)
-            }}
-            className="material-symbols-outlined"
-          >
-            keyboard_double_arrow_left
-          </span>
-          <div
-            onClick={() => {
-              setCurrentPage((prevPage) =>
-                currentPage > 1 ? prevPage - 1 : currentPage
-              )
-            }}
-          >
-            <span className="material-symbols-outlined">navigate_before</span>
-            <p className={styles.prevnexttext}>Previous</p>
-          </div>
-        </div>
-        <input
-          type="number"
-          value={currentPage}
-          onClick={handleInputClick}
-          onChange={handleCurrentPageInputChange}
-        />
-        <p>of {totalPages}</p>
-        <div>
-          <div
-            onClick={() => {
-              setCurrentPage((prevPage) =>
-                currentPage < totalPages ? prevPage + 1 : currentPage
-              )
-            }}
-          >
-            <p className={styles.prevnexttext}>Next</p>
-            <span className="material-symbols-outlined">navigate_next</span>
-          </div>
-          <span
-            onClick={() => {
-              setCurrentPage(totalPages)
-            }}
-            className="material-symbols-outlined"
-          >
-            keyboard_double_arrow_right
-          </span>
-        </div>
-      </div>
-    </div>
+    <PaginationUI
+      currentPageSize={currentPageSize}
+      currentPage={currentPage}
+      totalEntitesCount={totalEntitesCount}
+      entityName={entityName}
+      totalPages={totalPages}
+      handleCurrentPageInputChange={handleCurrentPageInputChange}
+      handlePageSizeInputChange={handlePageSizeInputChange}
+      goToFirstPage={goToFirstPage}
+      goToLastPage={goToLastPage}
+      goToNextPage={goToNextPage}
+      goToPreviousPage={goToPreviousPage}
+    />
   )
 }
 
