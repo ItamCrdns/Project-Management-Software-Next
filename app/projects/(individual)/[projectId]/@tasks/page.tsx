@@ -10,10 +10,14 @@ interface TasksProps {
   params: { projectId: string }
 }
 
-const TasksParallel = async ({ params }: TasksProps): Promise<JSX.Element> => {
-  const projectId = params.projectId
+const TasksParallel: React.FC<TasksProps> = async (props) => {
+  const projectId = props.params.projectId
   const { data } = await getProjectTasks(projectId, '1', '5')
-  const tasks = data?.data
+
+  const tasks = data?.entity.data
+
+  const isProjectParticipant = data?.isProjectParticipant ?? false
+  const isProjectOwner = data?.isProjectOwner ?? false
 
   return (
     <section className={taskstyles.tasks}>
@@ -23,10 +27,19 @@ const TasksParallel = async ({ params }: TasksProps): Promise<JSX.Element> => {
           <div>
             <RippleButton
               text="Show all tasks"
-              width='115px'
+              width="115px"
               backgroundColor="#80B3FF"
               textColor="white"
             />
+            {isProjectOwner && (
+              <RippleButton text="Create new task" width="125px" />
+            )}
+            {isProjectParticipant && (
+              <>
+                <RippleButton text="My tasks" width="85px" />
+                <RippleButton text="Request new task" width="125px" />
+              </>
+            )}
           </div>
         </div>
         {/* <HeaderDescriptor entity='tasks' dashboard={false} width='300px' /> */}

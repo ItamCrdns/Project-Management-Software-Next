@@ -122,8 +122,13 @@
 .companywrapper {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
+}
+
+.companywrapper > div {
+    display: flex;
+    gap: 1rem;
 }
 
 .companywrapper h1 {
