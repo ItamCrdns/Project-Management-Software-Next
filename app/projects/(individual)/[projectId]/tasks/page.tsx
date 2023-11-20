@@ -1,50 +1,30 @@
-import getProject from '@/api-calls/getProject'
 import styles from './tasks.module.css'
-import { type Employee } from '@/interfaces/employee'
-import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
-import ProjectCreator from '../(projectId)/ProjectCreator'
-import { type Position } from '@/components/Generic Entity Renderer/IEmployeeListProps'
+import ProjectUI from './ProjectUI'
+import TasksUI from './TasksUI'
+import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
+import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 
 interface ProjectTasksProps {
   params: { projectId: string }
 }
 
-const ProjectTasks: React.FC<ProjectTasksProps> = async (props) => {
-  const { data } = await getProject(props.params.projectId)
-
-  const project = data?.entity
-
-  const creatorPicturePosition: Position = {
-    top: '1.75rem',
-    right: '0rem'
-  }
-
+const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
   return (
     <section className={styles.mainwrapper}>
-      <div className={styles.entity}>
-        <h1>{project?.name}</h1>
-        <div className={styles.employeeswrapper}>
-          <ProjectCreator
-            creator={project?.creator as Employee}
-            pictureSize={35}
-            showUsername={false}
-            position={creatorPicturePosition}
+      <div>
+        <div className={styles.headerwrapper}>
+          <HeaderDescriptor
+            dashboard={false}
+            width="300px"
+            entity="tasks"
+            sortValues={taskSortValues}
           />
-          <span />
-          <ul>
-            {project?.team.map((employee: Employee, index: number) => (
-              <div key={index} style={{ position: 'relative' }}>
-                <EmployeeOfTheList
-                  employee={employee}
-                  size={35}
-                  redirectMe={false}
-                />
-              </div>
-            ))}
-          </ul>
+        </div>
+        <div className={styles.entitieswrapper}>
+          <ProjectUI projectId={props.params.projectId} />
+          <TasksUI projectId={props.params.projectId} />
         </div>
       </div>
-      <div className={styles.entity}>Tasks</div>
     </section>
   )
 }
