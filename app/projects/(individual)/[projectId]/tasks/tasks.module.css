@@ -29,6 +29,23 @@
     border-radius: 10px;
     background-color: var(--banner-color);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0, .1);
+    position: relative;
+}
+
+.entitybottomtext {
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    gap: 1rem;
+}
+
+.entitybottomtext p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.entity h1 {
+    text-align: center;
 }
 
 .projectwrapper {
@@ -43,6 +60,12 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+}
+
+.buttonswrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
 
 .creatorwrapper {
@@ -79,11 +102,17 @@
 .banner > h1 {
     margin: 0;
     top: -.80rem;
-    display: flex;
     position: absolute;
     left: 1rem;
     font-weight: 500 !important;
     font-size: 18px;
+}
+
+.header {
+    margin: 0;
+    top: -1.55rem;
+    left: 1rem;
+    position: absolute;
 }
 
 .employeeswrapper ul {

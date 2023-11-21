@@ -1,6 +1,6 @@
 import Search from '@/components/search/search'
 import { type Employee } from '@/interfaces/employee'
-import styles from '@/app/employees/[username]/employee.module.css'
+import styles from '@/app/employees/[username]/(employee)/employee.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 

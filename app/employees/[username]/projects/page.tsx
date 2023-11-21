@@ -1,41 +1,45 @@
 import getUserProjects from '@/api-calls/getUserProjects'
-import ProjectList from './ProjectList'
-import styles from '../employee.module.css'
-import Link from 'next/link'
 import { type EmployeeProjectsProps } from '@/interfaces/props/EmployeeProjectsProps'
+import ProjectUI from './ProjectUI'
 
-const EmployeeProjects: React.FunctionComponent<EmployeeProjectsProps> = async (props) => {
+const EmployeeProjects: React.FunctionComponent<EmployeeProjectsProps> = async (
+  props
+) => {
   const { params, searchParams } = props
   const { username } = params
-  let { page } = searchParams
 
-  if (page === undefined || page === null) {
+  if (
+    props.searchParams.page === undefined ||
+    props.searchParams.page === null
+  ) {
     // Set the value to 1 if the user removes the page?=# from the URL
-    page = '1'
+    props.searchParams.page = '1'
   }
 
-  const { data } = await getUserProjects(username, page, '10')
+  if (
+    props.searchParams.pagesize === undefined ||
+    props.searchParams.pagesize === null
+  ) {
+    // Set the value to 10 if the user removes the pagesize?=# from the URL
+    props.searchParams.pagesize = '10'
+  }
+
+  const { data } = await getUserProjects(
+    username,
+    props.searchParams.page,
+    props.searchParams.pagesize
+  )
 
   const projects = data?.data ?? []
-  const totalPages = data?.pages ?? 0
 
   return (
-    <section className={styles.projectsinterceptionwrapper}>
-      <section className={styles.projects}>
-        <Link
-          href={`/employees/${username}`}
-          className={`material-symbols-outlined ${styles.closebutton}`}
-        >
-          close
-        </Link>
-        <ProjectList
-          projects={projects}
-          username={username}
-          totalPages={totalPages}
-          searchParams={searchParams}
-        />
-      </section>
-    </section>
+    <ProjectUI
+      username={username}
+      projects={projects}
+      totalPages={data?.pages ?? 0}
+      totalProjects={data?.count ?? 0}
+      searchParams={searchParams}
+    />
   )
 }
 

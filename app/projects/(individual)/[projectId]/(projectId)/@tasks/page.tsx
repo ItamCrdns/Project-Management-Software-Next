@@ -16,8 +16,8 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
 
   const tasks = data?.entity.data
 
-  const isProjectParticipant = data?.isProjectParticipant ?? false
-  const isProjectOwner = data?.isProjectOwner ?? false
+  // const isProjectParticipant = data?.isProjectParticipant ?? false
+  // const isProjectOwner = data?.isProjectOwner ?? false
 
   return (
     <section className={taskstyles.tasks}>
@@ -32,7 +32,7 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
               textColor="white"
               href={`/projects/${projectId}/tasks`}
             />
-            {isProjectOwner && (
+            {/* {isProjectOwner && (
               <RippleButton text="Create new task" width="125px" />
             )}
             {isProjectParticipant && (
@@ -40,7 +40,7 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
                 <RippleButton text="My tasks" width="85px" />
                 <RippleButton text="Request new task" width="125px" />
               </>
-            )}
+            )} */}
           </div>
         </div>
         {/* <HeaderDescriptor entity='tasks' dashboard={false} width='300px' /> */}

@@ -1,5 +1,5 @@
 'use client'
-import styles from '@/app/employees/[username]/employee.module.css'
+import styles from '@/app/employees/[username]/(employee)/employee.module.css'
 import { type Employee } from '@/interfaces/employee'
 import Link from 'next/link'
 import { useState } from 'react'

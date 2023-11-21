@@ -1,6 +1,6 @@
-import { type SearchParams } from '../searchParams'
+import { type SearchParamsPageSize } from './ClientNameProps'
 
 export interface EmployeeProjectsProps {
   params: { username: string }
-  searchParams: SearchParams
+  searchParams: SearchParamsPageSize
 }

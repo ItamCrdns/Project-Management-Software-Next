@@ -25,7 +25,7 @@ const EachTask: React.FunctionComponent<EachTaskProps> = (props) => {
     <EntityRenderer
       entity={taskAsEntity}
       showParentEntity={showProjectName}
-      entityBasePath="tasks"
+      entityBasePath={`projects/${task.project.projectId}/tasks`}
       parentBasePath="projects"
       width={width ?? '300px'}
       maxWidth={width ?? '300px'}

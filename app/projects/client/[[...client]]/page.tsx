@@ -34,6 +34,8 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
 
   const title = `You are viewing ${clientName} projects.`
 
+  const urlForQueryParams = `/projects/client/${clientId}/${clientName}?orderby=${props.searchParams.orderby}&sort=${props.searchParams.sort}`
+
   return (
     <main className={styles.main}>
       <TitleWrapper title={title} icon="emoji_objects" showButton={false} />
@@ -50,10 +52,10 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
         />
         <div className={styles.projectscontainer}>
           <QueryParamsPagination
-            url={`/projects/client/${clientId}/${clientName}?orderby=${props.searchParams.orderby}&sort=${props.searchParams.sort}`}
+            url={urlForQueryParams}
             totalPages={totalPages}
             searchParams={props.searchParams}
-            entityName='Projects'
+            entityName="Projects"
             totalEntitesCount={totalProjects}
           />
           {Array.isArray(projects) && (
