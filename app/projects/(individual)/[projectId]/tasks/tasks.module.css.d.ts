@@ -9,7 +9,9 @@ declare const styles: {
   readonly "header": string;
   readonly "headerwrapper": string;
   readonly "mainwrapper": string;
+  readonly "paginationwrapper": string;
   readonly "projectwrapper": string;
+  readonly "taskswrapper": string;
 };
 export = styles;
 

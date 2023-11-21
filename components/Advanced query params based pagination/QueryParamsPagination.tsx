@@ -27,9 +27,15 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   }
 
   useEffect(() => {
-    // ? After changing the pagesize take us to the last page if necessary
     if (currentPage > totalPages) {
+      // ? After changing the pagesize take us to the last page if necessary
+      // ? Also works for updating the url when the user changes the current page to a big non existing page
       setCurrentPage(totalPages)
+    }
+
+    if (currentPageSize > totalEntitesCount) {
+      // ? This does kind of the same as above
+      setCurrentPageSize(totalEntitesCount)
     }
   }, [totalPages])
 

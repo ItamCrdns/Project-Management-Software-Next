@@ -18,8 +18,6 @@ const ProjectUI: React.FC<ProjectUIProps> = async (props) => {
   const project = data?.entity
   const projectCreator = project?.creator
 
-  console.log(data)
-
   const creatorPicturePosition: Position = {
     top: '1rem',
     right: '4rem'

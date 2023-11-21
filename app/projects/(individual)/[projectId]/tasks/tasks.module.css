@@ -139,3 +139,12 @@
     margin: .75rem;
     font-weight: 600;
 }
+
+/* Using it together with projectswrapper of projectslist.module.css */
+.taskswrapper {
+    gap: 1rem;
+}
+
+.paginationwrapper {
+    width: 100%;
+}
