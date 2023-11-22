@@ -1,5 +1,5 @@
 import styles from '@/app/projects/(list)/projectslist.module.css'
-import TitleWrapper from '@/components/Header title/TitleWrapper.1'
+import TitleWrapper from '@/components/Header title/TitleWrapper'
 
 const TasksPage: React.FC = () => {
   return (
@@ -9,8 +9,7 @@ const TasksPage: React.FC = () => {
         icon="note_stack"
         buttonText="New task"
         buttonHref="/tasks/new"
-        buttonWidth='100px'
-        isTask
+        buttonWidth="100px"
       />
     </main>
   )

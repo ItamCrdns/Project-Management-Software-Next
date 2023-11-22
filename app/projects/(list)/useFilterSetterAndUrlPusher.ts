@@ -10,8 +10,7 @@ import { useEffect } from 'react'
 export interface OrderSetterProps {
   order: Order
   searchParams?: SearchParamsPageSize
-  clientId?: string
-  clientName?: string
+  url?: string // ? Base url. We are going to append the query params to this url. This url should include the trailing slash "/"
   updateFilter?: (key: keyof IFilter, props: IFilterProperties) => void
   entity: string
 }
@@ -36,8 +35,9 @@ const useFilterSetterAndUrlPusher = (props: OrderSetterProps): void => {
         .toString()
         .toLowerCase()
 
-      const url = `/projects/client/${props.clientId}/${props.clientName}/?${queryParams}`
-      router.push(url)
+      // * Append the query params to the base url and then push to the new URL.
+      const newUrl = `${props.url}?${queryParams}`
+      router.push(newUrl)
     }
 
     props.updateFilter !== undefined &&

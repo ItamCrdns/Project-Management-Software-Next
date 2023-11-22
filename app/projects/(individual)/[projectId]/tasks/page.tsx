@@ -11,15 +11,22 @@ interface ProjectTasksProps {
 }
 
 const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
+  const projectId = props.params.projectId
+
+  const baseUrl = `/projects/${projectId}/tasks/`
+
   return (
     <section className={styles.mainwrapper}>
       <div>
         <div className={styles.headerwrapper}>
           <HeaderDescriptor
             dashboard={false}
-            width="300px"
             entity="tasks"
+            width="300px"
             sortValues={taskSortValues}
+            pushSearchParams
+            url={baseUrl}
+            searchParams={props.searchParams}
           />
         </div>
         <div className={styles.entitieswrapper}>

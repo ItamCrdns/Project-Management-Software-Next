@@ -36,6 +36,8 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
 
   const urlForQueryParams = `/projects/client/${clientId}/${clientName}?orderby=${props.searchParams.orderby}&sort=${props.searchParams.sort}`
 
+  const baseUrl = `/projects/client/${clientId}/${clientName}/`
+
   return (
     <main className={styles.main}>
       <TitleWrapper title={title} icon="emoji_objects" showButton={false} />
@@ -46,8 +48,7 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
           width="300px"
           sortValues={projectSortValues}
           pushSearchParams
-          clientId={clientId}
-          clientName={companyName}
+          url={baseUrl}
           searchParams={props.searchParams}
         />
         <div className={styles.projectscontainer}>

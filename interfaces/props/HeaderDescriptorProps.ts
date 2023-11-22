@@ -13,7 +13,6 @@ export interface HeaderDescriptorProps {
   updateFilter?: (key: keyof IFilter, props: IFilterProperties) => void // ! Currently nullable,
   sortValues: SortValues
   pushSearchParams?: boolean // Track if the filters should be pushed to the url
-  clientId?: string
-  clientName?: string
+  url?: string
   searchParams?: SearchParamsPageSize
 }

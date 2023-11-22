@@ -4,6 +4,7 @@ import taskstyles from './tasks.module.css'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
 import RippleButton from '@/components/ripplebutton/RippleButton'
+import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 // import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 
 interface TasksProps {
@@ -12,12 +13,17 @@ interface TasksProps {
 
 const TasksParallel: React.FC<TasksProps> = async (props) => {
   const projectId = props.params.projectId
-  const { data } = await getProjectTasks(projectId, '1', '5')
+
+  const queryParams: IFilterProperties = {
+    page: '1',
+    pageSize: '5',
+    orderBy: 'Name', // ! Placeholder orderBy and sort. Might not change them idk
+    sort: 'ascending'
+  }
+
+  const { data } = await getProjectTasks(projectId, queryParams)
 
   const tasks = data?.entity.data
-
-  // const isProjectParticipant = data?.isProjectParticipant ?? false
-  // const isProjectOwner = data?.isProjectOwner ?? false
 
   return (
     <section className={taskstyles.tasks}>
@@ -32,15 +38,6 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
               textColor="white"
               href={`/projects/${projectId}/tasks`}
             />
-            {/* {isProjectOwner && (
-              <RippleButton text="Create new task" width="125px" />
-            )}
-            {isProjectParticipant && (
-              <>
-                <RippleButton text="My tasks" width="85px" />
-                <RippleButton text="Request new task" width="125px" />
-              </>
-            )} */}
           </div>
         </div>
         {/* <HeaderDescriptor entity='tasks' dashboard={false} width='300px' /> */}
