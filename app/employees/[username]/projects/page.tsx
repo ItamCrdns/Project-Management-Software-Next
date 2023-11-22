@@ -2,9 +2,7 @@ import getUserProjects from '@/api-calls/getUserProjects'
 import { type EmployeeProjectsProps } from '@/interfaces/props/EmployeeProjectsProps'
 import ProjectUI from './ProjectUI'
 
-const EmployeeProjects: React.FunctionComponent<EmployeeProjectsProps> = async (
-  props
-) => {
+const EmployeeProjects: React.FC<EmployeeProjectsProps> = async (props) => {
   const { params, searchParams } = props
   const { username } = params
 

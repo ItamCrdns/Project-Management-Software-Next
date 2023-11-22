@@ -5,6 +5,9 @@ import EachProject from '@/app/projects/(list)/EachProject'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import Link from 'next/link'
+import EmployeeCardProfile from '../(employee)/@employeeCard/page'
+import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
+import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
 
 interface ProjectUIProps {
   username: string
@@ -15,38 +18,50 @@ interface ProjectUIProps {
 }
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
+  const username: string = props.username
+
   return (
-    <section className={styles.projects}>
-      <div className={projectStyles.main}>
-      <Link
-        href={`/employees/${props.username}`}
-        className={styles.closebutton}
-      >
-        Return to {props.username}&apos;s profile
-      </Link>
-        <h1 style={{ margin: 0, fontWeight: 500 }}>
-          Showing projects where{' '}
-          <span style={{ textTransform: 'capitalize' }}>{props.username}</span>{' '}
-          is working on
-        </h1>
-        <QueryParamsPagination
-          url={`/employees/${props.username}/projects`}
-          totalPages={props.totalPages}
-          searchParams={props.searchParams}
-          entityName="Projects"
-          totalEntitesCount={props.totalProjects}
-        />
-        <section className={projectStyles.projectswrapper}>
-          {/* <HeaderDescriptor dashboard width='300px' entity='usernamenotused' /> */}
-          {Array.isArray(props.projects) && (
-            <ul>
-              {props.projects.map((project: Project) => (
-                <li key={project.projectId}>
-                  <EachProject project={project} showCompanyName />
-                </li>
-              ))}
-            </ul>
-          )}
+    <section className={styles.mainwrapper}>
+      <div>
+        <div style={{ margin: '2rem 0' }} className={styles.titlewrapper}>
+          <Link
+            href={`/employees/${props.username}`}
+            style={{ cursor: 'pointer' }}
+          >
+            Return to {props.username}&apos;s profile
+          </Link>
+          <h1>All {username}&apos;s projects</h1>
+        </div>
+        <div className={styles.headerdescriptorwrapper}>
+          <HeaderDescriptor
+            dashboard
+            entity="projects"
+            width="300px"
+            sortValues={projectSortValues}
+          />
+        </div>
+        <section className={styles.projects}>
+          <EmployeeCardProfile params={{ username }} />
+          <div className={styles.paramsandprojectswrapper}>
+            <QueryParamsPagination
+              url={`/employees/${props.username}/projects`}
+              totalPages={props.totalPages}
+              searchParams={props.searchParams}
+              entityName="Projects"
+              totalEntitesCount={props.totalProjects}
+            />
+            <div className={projectStyles.projectswrapper}>
+              {Array.isArray(props.projects) && (
+                <ul>
+                  {props.projects.map((project: Project) => (
+                    <li key={project.projectId}>
+                      <EachProject project={project} showCompanyName />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
         </section>
       </div>
     </section>
