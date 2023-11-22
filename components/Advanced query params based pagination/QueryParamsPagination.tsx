@@ -53,6 +53,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const router = useRouter()
 
   // const [newUrl, setNewUrl] = useState<string>('')
+  // TODO: Add a search component to search entities basd on their name
   useEffect(() => {
     if (url.includes('?')) {
       const newUrl = `${url}&page=${currentPage}&pagesize=${currentPageSize}`

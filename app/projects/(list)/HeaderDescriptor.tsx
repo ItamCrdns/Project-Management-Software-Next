@@ -54,6 +54,8 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
     width: props.width
   }
 
+  // TODO: Fix initial render problem that will render that we are always at the "Created" column.
+  // TODO: Fix slow state when clicking a different column and you can see two columns being highlighted at the same time.
   return (
     <header className={styles.descriptor}>
       <HeaderItem

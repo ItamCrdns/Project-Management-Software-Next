@@ -20,6 +20,8 @@ interface ProjectUIProps {
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const username: string = props.username
 
+  const baseUrl = `/employees/${username}/projects/`
+
   return (
     <section className={styles.mainwrapper}>
       <div>
@@ -38,6 +40,9 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
             entity="projects"
             width="300px"
             sortValues={projectSortValues}
+            pushSearchParams
+            url={baseUrl}
+            searchParams={props.searchParams}
           />
         </div>
         <section className={styles.projects}>

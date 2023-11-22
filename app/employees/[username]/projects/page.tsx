@@ -1,6 +1,7 @@
 import getUserProjects from '@/api-calls/getUserProjects'
 import { type EmployeeProjectsProps } from '@/interfaces/props/EmployeeProjectsProps'
 import ProjectUI from './ProjectUI'
+import generateQueryParams from '@/app/projects/client/queryParams'
 
 const EmployeeProjects: React.FC<EmployeeProjectsProps> = async (props) => {
   const { params, searchParams } = props
@@ -22,11 +23,9 @@ const EmployeeProjects: React.FC<EmployeeProjectsProps> = async (props) => {
     props.searchParams.pagesize = '10'
   }
 
-  const { data } = await getUserProjects(
-    username,
-    props.searchParams.page,
-    props.searchParams.pagesize
-  )
+  const queryParams = generateQueryParams(props.searchParams)
+
+  const { data } = await getUserProjects(username, queryParams)
 
   const projects = data?.data ?? []
 
