@@ -24,7 +24,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
         title={props.title}
         icon="emoji_objects"
         showButton={false}
-        isDashboard={false}
+        isPage
         entityName='clientprojects'
       />
       <section className={styles.projectswrapper}>

@@ -12,6 +12,7 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
   const { data } = await getProjects('1', '2') // Page 1 (always) 3 projects per company
   const projects = data as Project[]
 
+  // TODO: Fix TitleWrapper props
   return (
     <>
       {props.children}

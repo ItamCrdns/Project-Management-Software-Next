@@ -33,6 +33,7 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
         entityName={props.entityName}
         toggle={toggle}
         isDashboard={props.isDashboard}
+        isPage={props.isPage}
       />
     </section>
   )
