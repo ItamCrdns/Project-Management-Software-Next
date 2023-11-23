@@ -8,7 +8,11 @@ interface TitleWrapperProps {
   buttonText?: string
   buttonHref?: string
   buttonWidth?: string
+  entityName: string
+  isDashboard: boolean
 }
+
+// ? TitleWrapper component holds a big title for an entity and a button that can contain options, a button, and some text
 
 const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
   return (
@@ -23,8 +27,9 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
         <h1>{props.title}</h1>
       </span>
       <LoggedInCard
-        optionsText="Options"
-        entityName='project'
+        optionsText="Filters"
+        isDashboard={props.isDashboard}
+        entityName={props.entityName}
         showButton={props.showButton}
         buttonText={props.buttonText}
         buttonHref={props.buttonHref}

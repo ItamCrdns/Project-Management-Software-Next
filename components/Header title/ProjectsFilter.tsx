@@ -9,8 +9,11 @@ interface FilterProps {
   toggle: boolean
 }
 
+//! NOT USING THIS
+
 const ProjectsFilter: React.FC<FilterProps> = (props) => {
-  const { clients, isError } = useCompanyDropdown({ shouldFetch: props.toggle }) // ? Empty object to avoid error
+  // ? Will only fetch this data if the toggle is true
+  const { clients, isError } = useCompanyDropdown({ shouldFetch: props.toggle })
 
   const companyOptions = useCompanyOptions({ clients })
 
@@ -24,7 +27,6 @@ const ProjectsFilter: React.FC<FilterProps> = (props) => {
   if (props.toggle) {
     return (
       <section className={styles.popup}>
-        <p>Client:</p>
         <CustomSelect
           text="client"
           options={companyOptions ?? []}

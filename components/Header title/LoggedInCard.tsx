@@ -3,8 +3,8 @@ import { useState } from 'react'
 import styles from '@/app/projects/(list)/userbanner.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type LoggedInCardProps } from '@/interfaces/props/LoggedInCardProps'
-import EntityFilters from './EntityFilters'
 import Options from './Options'
+import Filters from '../Filters/Filters'
 
 const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
@@ -29,7 +29,11 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
           href={props.buttonHref}
         />
       )}
-      <EntityFilters entityName={props.entityName} toggle={toggle} />
+      <Filters
+        entityName={props.entityName}
+        toggle={toggle}
+        isDashboard={props.isDashboard}
+      />
     </section>
   )
 }

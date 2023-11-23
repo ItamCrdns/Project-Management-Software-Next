@@ -10,22 +10,9 @@ const Options: React.FC<OptionsProps> = (props) => {
   const { toggle, handleToggle } = props
   return (
     <div className={styles.options}>
-      <p
-        onClick={handleToggle}
-        style={{ cursor: 'pointer', userSelect: 'none' }}
-      >
-        {props.text}
-      </p>
-      <span
-        onClick={handleToggle}
-        style={{
-          fontSize: '1.5rem',
-          cursor: 'pointer',
-          userSelect: 'none'
-        }}
-        className="material-symbols-outlined"
-      >
-        {!toggle ? 'filter_list' : 'filter_list_off'}
+      <p onClick={handleToggle}>{props.text}</p>
+      <span onClick={handleToggle} className="material-symbols-outlined">
+        {!toggle ? 'expand_more' : 'expand_less'}
       </span>
     </div>
   )

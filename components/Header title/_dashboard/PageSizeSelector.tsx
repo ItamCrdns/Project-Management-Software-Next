@@ -19,43 +19,46 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
   )
 
   return (
-    <>
-      <p>Limit:</p>
-      <div className={styles.pagesizewrapper}>
-        <div className={styles.pagesizedots} onClick={handlePageSizeChange}>
-          {pageSizeOptions.map((pageSize) => (
-            <span
-              key={pageSize}
-              style={{
-                backgroundColor:
-                  filter[props.entityName].pageSize === pageSize.toString()
-                    ? 'rgb(255, 80, 120)'
-                    : '',
-                color: filter[props.entityName].pageSize === pageSize.toString() ? 'white' : ''
-              }}
-              className={styles.dot}
-            >
-              {pageSize}
-            </span>
-          ))}
-          {entitiesCount < 20 && ( // * If the entities count is less than 20, render the extra number as another option
-            <span
-              style={{
-                backgroundColor:
-                  filter[props.entityName].pageSize === entitiesCount.toString()
-                    ? 'rgb(255, 80, 120)'
-                    : '',
-                color: filter[props.entityName].pageSize === entitiesCount.toString() ? 'white' : ''
-              }}
-              className={styles.dot}
-            >
-              {entitiesCount}
-            </span>
-          )}
-          <p>of {entitiesCount}</p>
-        </div>
+    <div className={styles.pagesizewrapper}>
+      <div className={styles.pagesizedots} onClick={handlePageSizeChange}>
+        {pageSizeOptions.map((pageSize) => (
+          <span
+            key={pageSize}
+            style={{
+              backgroundColor:
+                filter[props.entityName].pageSize === pageSize.toString()
+                  ? 'rgb(255, 80, 120)'
+                  : '',
+              color:
+                filter[props.entityName].pageSize === pageSize.toString()
+                  ? 'white'
+                  : ''
+            }}
+            className={styles.dot}
+          >
+            {pageSize}
+          </span>
+        ))}
+        {entitiesCount < 20 && ( // * If the entities count is less than 20, render the extra number as another option
+          <span
+            style={{
+              backgroundColor:
+                filter[props.entityName].pageSize === entitiesCount.toString()
+                  ? 'rgb(255, 80, 120)'
+                  : '',
+              color:
+                filter[props.entityName].pageSize === entitiesCount.toString()
+                  ? 'white'
+                  : ''
+            }}
+            className={styles.dot}
+          >
+            {entitiesCount}
+          </span>
+        )}
+        <p>of {entitiesCount}</p>
       </div>
-    </>
+    </div>
   )
 }
 

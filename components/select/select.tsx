@@ -1,11 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import styles from './select.module.css'
 import {
   type Option,
   type CustomSelectProps
 } from '@/interfaces/props/CustomSelectProps'
-import Pagination from '../pagination/pagination'
+import SelectUI from './SelectUI'
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
@@ -36,57 +35,22 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   }
 
   return (
-    <div className={styles.customselectwrapper}>
-      <div
-        className={styles.customselect}
-        style={{ width: props.width ?? '190px' }}
-      >
-        <div onClick={handleToggleDropdown} className={styles.optionselected}>
-          <p style={{ color: disabled ? 'gray' : 'var(--text-color)' }}>
-            {selectedOption !== null
-              ? selectedOption.label
-              : props.defaultValue !== ''
-                ? props.defaultValue
-                : `Select a ${props.text}...`}
-          </p>
-          <span className="material-symbols-outlined">expand_more</span>
-        </div>
-        {toggle && Array.isArray(props.options) && (
-          <div className={styles.optionswrapper}>
-            <ul>
-              {props.options.map((option) => (
-                <li
-                  onClick={() => {
-                    handleOptionClick(option)
-                  }}
-                  key={option.value}
-                >
-                  <h4>{option.label}</h4>
-                  <p>{option.info}</p>
-                </li>
-              ))}
-            </ul>
-            {props.isPaginated !== null && props.isPaginated === true && (
-              <Pagination
-                totalPages={props.pageSize ?? 1}
-                onPageChange={
-                  props.onPageChange ??
-                  (() => {}) /* ? Empty function to avoid TS error */
-                }
-                iconSize={props.iconSize}
-              />
-            )}
-          </div>
-        )}
-      </div>
-      {props.defaultValue !== '' &&
-        props.showReset !== null &&
-        props.showReset === true && (
-          <span className={styles.reset} onClick={resetSelectedOption}>
-            Reset
-          </span>
-      )}
-    </div>
+    <SelectUI
+      width={props.width}
+      defaultValue={props.defaultValue}
+      options={props.options}
+      isPaginated={props.isPaginated}
+      pageSize={props.pageSize}
+      showReset={props.showReset}
+      text={props.text}
+      onPageChange={props.onPageChange}
+      handleToggleDropdown={handleToggleDropdown}
+      handleOptionClick={handleOptionClick}
+      resetSelectedOption={resetSelectedOption}
+      disabled={disabled}
+      selectedOption={selectedOption}
+      toggle={toggle}
+    />
   )
 }
 
