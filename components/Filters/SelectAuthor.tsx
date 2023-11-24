@@ -1,10 +1,12 @@
 // ? This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
 
 import getEmployeesThatHaveCreatedProjects from '@/api-calls/getEmployeesThatHaveCreatedProjects'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname, useSearchParams } from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { employeesAsOptions } from './employeesAsOptions'
+import { useState } from 'react'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 interface SelectAuthorProps {
   toggle: boolean
@@ -23,12 +25,15 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
 
   const clientId = parseInt(params.client[0]) ?? 1
 
-  // TODO: Pagination. To make the application more scalable. I suggest pagination the results from the API
-  // TODO: Will also need to use state management to re-render the component when the page changes
-  // TODO: This will use a combination of state and query params to filter the results
+  const [currentPage, setCurrentPage] = useState<string>('1')
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page.toString())
+  }
+
   const queryParams: Partial<IFilterProperties> = {
-    page: '1', // TODO: This one will most likely change. And PageSize will still be 5 all the time. Just change the page.
-    pageSize: '5' // TODO: Change this default params. They should be gotten from the STATE. The URL is already being used for the projects page and pageSize
+    page: currentPage,
+    pageSize: '5'
   }
 
   const { employees } = getEmployeesThatHaveCreatedProjects(
@@ -37,13 +42,43 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
     queryParams
   )
 
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const onEmployeeSelect = (selectedEmployee: Option): void => {
+    const newURLSearchParams = new URLSearchParams()
+
+    // * Iterate all the existing search params in the current URL (Dont worry will get em all)
+    for (const [key, value] of Array.from(searchParams)) {
+      // * Append them to a new URLSearchParams object and add the new search params to the URL.
+      newURLSearchParams.append(key, value)
+    }
+
+    // ? This will build a full URL
+    // * If the selected Employee its not equal to null (which should never be null)
+    // TODO: Foreach and push &author for every selected employee
+    // TODO: Will have to make the Custom Select component to be able to handle multiple items selection
+    const newUrl =
+      selectedEmployee !== null
+        ? `${pathname}?${newURLSearchParams.toString()}&author=${
+            selectedEmployee.value
+          }`
+        : `${pathname}?${newURLSearchParams.toString()}`
+
+    console.log(newUrl)
+  }
+
   return (
     <CustomSelect
       options={employeesAsOptions(employees?.data)} // ? Make the employees fit the options interface
       text="Change project author"
-      onSelect={() => {}} // TODO: ADD AN ACTUAL FUNCTION THAT WILL ACTUALLY WORK
+      onSelect={onEmployeeSelect} // TODO: ADD AN ACTUAL FUNCTION THAT WILL ACTUALLY WORK
+      isPaginated
+      pageSize={employees?.pages}
+      onPageChange={handlePageChange}
       defaultValue="" // TODO: Still
       showPictures={props.showPictures}
+      multiple={true} // ? This will allow multiple option selection
     />
   )
 }

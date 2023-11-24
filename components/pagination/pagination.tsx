@@ -3,10 +3,10 @@ import styles from './pagination.module.css'
 import { useEffect, useState } from 'react'
 import { type PaginationProps } from '@/interfaces/props/PaginationProps'
 
-const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
+const Pagination: React.FC<PaginationProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const { onPageChange, totalPages, reset, iconSize } = props
+  const { onPageChange, totalPages, reset, borderRadiusValue } = props
 
   useEffect(() => {
     onPageChange(currentPage)
@@ -18,37 +18,29 @@ const Pagination: React.FunctionComponent<PaginationProps> = (props) => {
     }
   }, [reset])
 
-  const handleChangePage = (action: string): void => {
-    if (action === 'previous' && currentPage > 1) {
+  const goToPreviousPage = (): void => {
+    if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1)
-    } else if (action === 'next' && currentPage < totalPages) {
+    }
+  }
+
+  const goToNextPage = (): void => {
+    if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
     }
   }
 
+  const borderStyle = {
+    borderRadius: borderRadiusValue ?? '5px'
+  }
+
   return (
-    <div className={styles.pagination}>
-      <span
-        style={{ fontSize: iconSize ?? '' }}
-        onClick={() => {
-          handleChangePage('previous')
-        }}
-        className="material-symbols-outlined"
-      >
-        navigate_before
-      </span>
+    <div className={styles.pagination} style={borderStyle}>
+      <span onClick={goToPreviousPage}>Previous</span>
       <p>
         {currentPage} of {totalPages}
       </p>
-      <span
-        style={{ fontSize: iconSize ?? '' }}
-        onClick={() => {
-          handleChangePage('next')
-        }}
-        className="material-symbols-outlined"
-      >
-        navigate_next
-      </span>
+      <span onClick={goToNextPage}>Next</span>
     </div>
   )
 }

@@ -69,3 +69,7 @@
     cursor: pointer;
     user-select: none;
 }
+
+.prevnexttext:hover {
+    opacity: .75;
+}

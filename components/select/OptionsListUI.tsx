@@ -7,8 +7,18 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const showPicture = props.showPictures !== null && props.showPictures === true
 
-  const handleClick = (option: Option): void => {
+  const handleSingleSelection = (option: Option): void => {
     props.handleOptionClick?.(option)
+  }
+
+  const handleMultipleSelection = (option: Option): void => {
+    props.handleMultipleOptionClick?.(option)
+  }
+
+  const handleClick = (option: Option): void => {
+    props.multiple === true
+      ? handleMultipleSelection(option)
+      : handleSingleSelection(option)
   }
 
   // TODO: Pass a prop to specify the text align (center, left or right)
@@ -41,7 +51,6 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
         <SelectPaginationUI
           pageSize={props.pageSize}
           onPageChange={props.onPageChange}
-          iconSize={props.iconSize}
           isPaginated={props.isPaginated}
         />
       </div>

@@ -9,11 +9,13 @@ import OptionsInitialUI from './OptionsUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null
+  selectedOptions: Option[] // * Pretty much as above. But will be for multiple options selection
   text: string
   toggle: boolean
   disabled: boolean
   handleToggleDropdown: () => void
   handleOptionClick: (option: Option) => void
+  handleMultipleOptionClick: (option: Option) => void // ? This is for multiple options selection
   resetSelectedOption: () => void
 }
 
@@ -28,6 +30,7 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           defaultValue={props.defaultValue}
           text={props.text}
           showPictures={props.showPictures}
+          multiple={props.multiple}
         />
         <OptionsListUI
           toggle={props.toggle}
@@ -36,8 +39,8 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           pageSize={props.pageSize}
           onPageChange={props.onPageChange}
           isPaginated={props.isPaginated}
-          iconSize={props.iconSize}
           showPictures={props.showPictures}
+          multiple={props.multiple}
         />
       </div>
       <ResetUI

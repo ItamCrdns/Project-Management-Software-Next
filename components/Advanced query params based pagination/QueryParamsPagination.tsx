@@ -52,19 +52,16 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
 
   const router = useRouter()
 
-  // const [newUrl, setNewUrl] = useState<string>('')
   // TODO: Add a search component to search entities basd on their name
   useEffect(() => {
     if (url.includes('?')) {
       const newUrl = `${url}&page=${currentPage}&pagesize=${currentPageSize}`
-      router.push(newUrl)
+      router.replace(newUrl)
     } else {
       const newUrl = `${url}?page=${currentPage}&pagesize=${currentPageSize}`
-      router.push(newUrl)
+      router.replace(newUrl)
     }
     setCurrentPage((prevPage: number) => prevPage)
-    // setNewUrl(newUrl)
-    // console.log(newUrl)
   }, [currentPage, currentPageSize])
 
   const goToFirstPage = (): void => {
@@ -92,7 +89,6 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
       totalEntitesCount={totalEntitesCount}
       entityName={entityName}
       totalPages={totalPages}
-      // url={newUrl}
       handleCurrentPageInputChange={handleCurrentPageInputChange}
       handlePageSizeInputChange={handlePageSizeInputChange}
       goToFirstPage={goToFirstPage}

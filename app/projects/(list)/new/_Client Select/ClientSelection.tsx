@@ -33,7 +33,6 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       disabled={props.isFormOpen}
       clearSelectedOption={props.clearSelectedOption}
       isPaginated
-      iconSize="24px"
       pageSize={clients?.pages ?? 0}
       onPageChange={handlePageChange}
       showReset

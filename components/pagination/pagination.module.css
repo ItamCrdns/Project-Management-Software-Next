@@ -1,18 +1,17 @@
 .pagination {
     display: flex;
     align-items: center;
-    width: 100%;
-    justify-content: space-around;
-    background-color: var(--darker-banner-color);
-    border-radius: 5px;
+    justify-content: center;
+    gap: 1rem;
+    background-color: var(--banner-color);
 }
 
 .pagination > span {
-    user-select: none;
-    font-size: 40px;
+    font-weight: 600;
+    color: #00A9FF;
 }
 
 .pagination > span:hover {
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.75;
 }

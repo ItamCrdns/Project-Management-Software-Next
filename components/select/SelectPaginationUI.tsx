@@ -10,7 +10,7 @@ const SelectPaginationUI: React.FC<Partial<SelectUIProps>> = (props) => {
           props.onPageChange ??
           (() => {}) /* ? Empty function to avoid TS error */
         }
-        iconSize={props.iconSize}
+        borderRadiusValue='15px'
       />
     )
   }

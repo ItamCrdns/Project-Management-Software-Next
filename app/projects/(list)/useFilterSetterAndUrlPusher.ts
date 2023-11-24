@@ -37,7 +37,7 @@ const useFilterSetterAndUrlPusher = (props: OrderSetterProps): void => {
 
       // * Append the query params to the base url and then push to the new URL.
       const newUrl = `${props.url}?${queryParams}`
-      router.push(newUrl)
+      router.replace(newUrl)
     }
 
     props.updateFilter !== undefined &&
