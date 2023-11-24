@@ -8,6 +8,7 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 interface SelectAuthorProps {
   toggle: boolean
+  showPictures?: boolean
 }
 
 interface Params {
@@ -51,11 +52,15 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
     employeesArray.push(entityAsEmployee) // ? Push the employee to the array on each iteration
   })
 
-  console.log('employeesArray', employeesArray)
-
   return (
     <>
-      <CustomSelect />
+      <CustomSelect
+        options={employeesArray}
+        text="employee"
+        onSelect={() => {}} // TODO: ADD AN ACTUAL FUNCTION THAT WILL ACTUALLY WORK
+        defaultValue="" // TODO: Still
+        showPictures={props.showPictures}
+      />
     </>
   )
 }

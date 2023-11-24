@@ -3,6 +3,7 @@ import styles from './filters.module.css'
 
 interface PageFiltersProps {
   toggle: boolean
+  showPictures?: boolean
 }
 
 const PageFilters: React.FC<PageFiltersProps> = (props) => {
@@ -10,7 +11,7 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
 
   return (
     <div>
-      <SelectAuthor toggle={toggle} />
+      <SelectAuthor toggle={toggle} showPictures={props.showPictures} />
       <p>Team</p>
       <p>Priority</p>
     </div>

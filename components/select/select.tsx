@@ -50,6 +50,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       disabled={disabled}
       selectedOption={selectedOption}
       toggle={toggle}
+      showPictures={props.showPictures}
     />
   )
 }

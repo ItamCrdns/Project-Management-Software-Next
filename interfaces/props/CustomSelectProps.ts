@@ -1,5 +1,5 @@
 export interface Option {
-  value: number
+  value: number // ? Pretty much the key but too late to change it
   label: string
   info?: string
   picture?: string // * Optional: display pictures in the CustomSelect component
@@ -19,4 +19,6 @@ export interface CustomSelectProps {
   iconSize?: string // ? The size of the icon. Only makes sense to use it when isPaginated is true. Setting it without isPaginated will have no effect
   pageSize?: number // ? Dependant of isPaginated
   onPageChange?: (page: number) => void // ? Dependant of isPaginated
+  // * If using showPictures, make sure to set a picture for each option
+  showPictures?: boolean // ? Alternate listing with pictures
 }

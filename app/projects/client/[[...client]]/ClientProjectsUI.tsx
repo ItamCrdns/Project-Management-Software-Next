@@ -25,7 +25,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
         icon="emoji_objects"
         showButton={false}
         isPage
-        entityName='clientprojects'
+        showPictures // ? Options with pictures for the employees
       />
       <section className={styles.projectswrapper}>
         <HeaderDescriptor

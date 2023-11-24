@@ -8,8 +8,8 @@ interface TitleWrapperProps {
   buttonText?: string
   buttonHref?: string
   buttonWidth?: string
-  entityName: string
   isDashboard?: boolean
+  showPictures?: boolean // ? Will be used to show pictures in the options dropdown
   isPage?: boolean
 }
 
@@ -31,11 +31,11 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
         optionsText="Filters"
         isDashboard={props.isDashboard}
         isPage={props.isPage}
-        entityName={props.entityName}
         showButton={props.showButton}
         buttonText={props.buttonText}
         buttonHref={props.buttonHref}
         buttonWidth={props.buttonWidth}
+        showPictures={props.showPictures}
       />
     </div>
   )

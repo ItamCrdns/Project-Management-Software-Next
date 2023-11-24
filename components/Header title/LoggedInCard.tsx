@@ -34,6 +34,7 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
         toggle={toggle}
         isDashboard={props.isDashboard}
         isPage={props.isPage}
+        showPictures={props.showPictures}
       />
     </section>
   )
