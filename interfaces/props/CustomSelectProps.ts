@@ -10,7 +10,6 @@ export interface CustomSelectProps {
   text: string
   onSelect: (value: Option) => void
   defaultValue: string
-  width?: string
   optionsWidth?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
   clearSelectedOption?: () => void // ? Optional callback function that will clear the selected option in the parent component

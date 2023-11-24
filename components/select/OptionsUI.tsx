@@ -11,6 +11,7 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
 
   const label = props.selectedOption?.label ?? ''
   const defaultValue = props.defaultValue
+  const defaultText = props.text
 
   const selectedOptImg = props.selectedOption?.picture ?? ''
   const selectOptLabel = props.selectedOption?.label ?? ''
@@ -24,6 +25,7 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
 
   // TODO: Would be good if the selected option wrapper could expand its size to fix the text in (currently the text its going outisde the wrapper)
   // TODO: Might also rework Select Component CSS. I think it could be better.
+  // TODO: SPAN STYLE DOWN BELOW IS NOT WORKING WHEN WE GO BACK IN THE NEW PROJECT PAGE. FIX IT (MAYBE?)
   return (
     <div onClick={handleToggle} className={styles.optionselected}>
       {showPicture && (
@@ -36,10 +38,14 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
       )}
       <p style={disabledOrNotText}>
         {props.selectedOption !== null
-          ? label ?? ''
+          ? (
+              <span style={{ textTransform: 'capitalize', fontWeight: '600' }}>
+                {label}
+              </span>
+            ) ?? ''
           : defaultValue !== ''
             ? defaultValue
-            : `Select a ${props.text}...`}
+            : defaultText}
       </p>
       <span className="material-symbols-outlined">expand_more</span>
     </div>

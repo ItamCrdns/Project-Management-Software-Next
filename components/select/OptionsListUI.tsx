@@ -12,6 +12,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   }
 
   // TODO: Pass a prop to specify the text align (center, left or right)
+  // TODO: Pagination its ugly af. Make it look better
 
   if (props.toggle === true && Array.isArray(props.options)) {
     return (

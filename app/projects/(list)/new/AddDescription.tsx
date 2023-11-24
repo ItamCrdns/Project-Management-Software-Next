@@ -107,9 +107,8 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
             <CustomSelect
               defaultValue={newData.data.priorityLabel ?? ''}
               options={priorityOptions}
-              text="priority"
+              text="Pick a priority..."
               onSelect={handlePrioritySelect}
-              width="100%"
             />
           </form>
           <div className={styles.buttonwrapper}>

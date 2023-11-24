@@ -4,7 +4,7 @@ import getEmployeesThatHaveCreatedProjects from '@/api-calls/getEmployeesThatHav
 import { useParams } from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
-import { type Option } from '@/interfaces/props/CustomSelectProps'
+import { employeesAsOptions } from './employeesAsOptions'
 
 interface SelectAuthorProps {
   toggle: boolean
@@ -37,31 +37,14 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
     queryParams
   )
 
-  const employeesArray: Option[] = []
-
-  // ? Translating the employees array to an array of options that the CustomSelect component can understand
-  // TODO: Might create a generic method that can be used for all the entities, as of now this method its rewritten two times
-  employees?.data.forEach((employee) => {
-    const entityAsEmployee: Option = {
-      value: employee.employeeId,
-      label: employee.username,
-      info: '', // ? We dont need this for the employee. And not specifying it will it undefined which I dont want so just empty string
-      picture: employee.profilePicture
-    }
-
-    employeesArray.push(entityAsEmployee) // ? Push the employee to the array on each iteration
-  })
-
   return (
-    <>
-      <CustomSelect
-        options={employeesArray}
-        text="employee"
-        onSelect={() => {}} // TODO: ADD AN ACTUAL FUNCTION THAT WILL ACTUALLY WORK
-        defaultValue="" // TODO: Still
-        showPictures={props.showPictures}
-      />
-    </>
+    <CustomSelect
+      options={employeesAsOptions(employees?.data)} // ? Make the employees fit the options interface
+      text="Change project author"
+      onSelect={() => {}} // TODO: ADD AN ACTUAL FUNCTION THAT WILL ACTUALLY WORK
+      defaultValue="" // TODO: Still
+      showPictures={props.showPictures}
+    />
   )
 }
 

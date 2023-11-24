@@ -1,5 +1,5 @@
 import SelectAuthor from './SelectAuthor'
-import styles from './filters.module.css'
+// import styles from './filters.module.css'
 
 interface PageFiltersProps {
   toggle: boolean

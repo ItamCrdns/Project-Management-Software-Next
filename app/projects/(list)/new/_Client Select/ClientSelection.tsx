@@ -28,9 +28,8 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
     <CustomSelect
       defaultValue={props.clientName}
       options={companyOptions ?? []}
-      text="client"
+      text="Select a client..."
       onSelect={props.handleClientSelection}
-      width="100%"
       disabled={props.isFormOpen}
       clearSelectedOption={props.clearSelectedOption}
       isPaginated

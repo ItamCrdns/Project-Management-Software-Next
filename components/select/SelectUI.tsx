@@ -20,10 +20,7 @@ export interface SelectUIProps extends Partial<CustomSelectProps> {
 const SelectUI: React.FC<SelectUIProps> = (props) => {
   return (
     <div className={styles.customselectwrapper}>
-      <div
-        className={styles.customselect}
-        style={{ width: props.width ?? '190px' }}
-      >
+      <div className={styles.customselect}>
         <OptionsInitialUI
           handleToggleDropdown={props.handleToggleDropdown}
           disabled={props.disabled}
