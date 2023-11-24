@@ -1,7 +1,8 @@
 export interface Option {
   value: number
   label: string
-  info: string
+  info?: string
+  picture?: string // * Optional: display pictures in the CustomSelect component
 }
 
 export interface CustomSelectProps {

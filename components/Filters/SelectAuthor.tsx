@@ -2,6 +2,9 @@
 
 import getEmployeesThatHaveCreatedProjects from '@/api-calls/getEmployeesThatHaveCreatedProjects'
 import { useParams } from 'next/navigation'
+import CustomSelect from '../select/select'
+import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 interface SelectAuthorProps {
   toggle: boolean
@@ -19,10 +22,42 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
 
   const clientId = parseInt(params.client[0]) ?? 1
 
-  const { employees } = getEmployeesThatHaveCreatedProjects(clientId, toggle)
-  console.log(employees)
+  // TODO: Pagination. To make the application more scalable. I suggest pagination the results from the API
+  // TODO: Will also need to use state management to re-render the component when the page changes
+  // TODO: This will use a combination of state and query params to filter the results
+  const queryParams: Partial<IFilterProperties> = {
+    page: '1', // TODO: This one will most likely change. And PageSize will still be 5 all the time. Just change the page.
+    pageSize: '5' // TODO: Change this default params. They should be gotten from the STATE. The URL is already being used for the projects page and pageSize
+  }
 
-  return <div>SelectAuthor</div>
+  const { employees } = getEmployeesThatHaveCreatedProjects(
+    clientId,
+    toggle,
+    queryParams
+  )
+
+  const employeesArray: Option[] = []
+
+  // ? Translating the employees array to an array of options that the CustomSelect component can understand
+  // TODO: Might create a generic method that can be used for all the entities, as of now this method its rewritten two times
+  employees?.data.forEach((employee) => {
+    const entityAsEmployee: Option = {
+      value: employee.employeeId,
+      label: employee.username,
+      info: '', // ? We dont need this for the employee. And not specifying it will it undefined which I dont want so just empty string
+      picture: employee.profilePicture
+    }
+
+    employeesArray.push(entityAsEmployee) // ? Push the employee to the array on each iteration
+  })
+
+  console.log('employeesArray', employeesArray)
+
+  return (
+    <>
+      <CustomSelect />
+    </>
+  )
 }
 
 export default SelectAuthor
