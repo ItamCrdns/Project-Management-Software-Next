@@ -13,10 +13,11 @@ export interface SelectUIProps extends Partial<CustomSelectProps> {
   text: string
   toggle: boolean
   disabled: boolean
-  handleToggleDropdown: () => void
+  handleToggleDropdown: (toggleValue: boolean) => void
   handleOptionClick: (option: Option) => void
   handleMultipleOptionClick: (option: Option) => void // ? This is for multiple options selection
   resetSelectedOption: () => void
+  showCloseButton?: boolean
 }
 
 const SelectUI: React.FC<SelectUIProps> = (props) => {
@@ -35,12 +36,17 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
         <OptionsListUI
           toggle={props.toggle}
           options={props.options}
+          handleToggleDropdown={props.handleToggleDropdown}
           handleOptionClick={props.handleOptionClick}
+          handleMultipleOptionClick={props.handleMultipleOptionClick}
           pageSize={props.pageSize}
           onPageChange={props.onPageChange}
           isPaginated={props.isPaginated}
           showPictures={props.showPictures}
+          // * This is to have a visual representation of whats selected
+          selectedOptions={props.selectedOptions} // TODO: Add single selectedOption too.
           multiple={props.multiple}
+          showCloseButton={true} // ! Change this
         />
       </div>
       <ResetUI

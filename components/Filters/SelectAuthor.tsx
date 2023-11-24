@@ -1,7 +1,12 @@
 // ? This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
 
 import getEmployeesThatHaveCreatedProjects from '@/api-calls/getEmployeesThatHaveCreatedProjects'
-import { useParams, usePathname, useSearchParams } from 'next/navigation'
+import {
+  useParams,
+  usePathname,
+  useSearchParams,
+  useRouter
+} from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { employeesAsOptions } from './employeesAsOptions'
@@ -44,28 +49,36 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
 
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const router = useRouter()
 
-  const onEmployeeSelect = (selectedEmployee: Option): void => {
-    const newURLSearchParams = new URLSearchParams()
+  const onEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
+    if (Array.isArray(selectedEmployees)) {
+      const newURLSearchParams = new URLSearchParams()
 
-    // * Iterate all the existing search params in the current URL (Dont worry will get em all)
-    for (const [key, value] of Array.from(searchParams)) {
-      // * Append them to a new URLSearchParams object and add the new search params to the URL.
-      newURLSearchParams.append(key, value)
+      // * Iterate all the existing search params in the current URL (Dont worry will get em all)
+      for (const [key, value] of Array.from(searchParams)) {
+        // * Append them to a new URLSearchParams object and add the new search params to the URL.
+        if (!searchParams.has(key)) {
+          // * Avoid repeating the key (&author=1-2 instead of &author=1&author=1-2))
+          newURLSearchParams.append(key, value)
+        }
+      }
+
+      // * Save the selected employee Ids in an array
+      const selectedEmployeesIDs = selectedEmployees?.map((e) => e.value)
+      // * Join the array into a string. Example: 1-2-3-4
+      const selectedEmployeesString = selectedEmployeesIDs?.join('-')
+
+      // * Build the URL with all the selected employees
+      const newUrl =
+        selectedEmployeesString !== ''
+          ? `${pathname}?${newURLSearchParams.toString()}&author=${selectedEmployeesString}`
+          : `${pathname}?${newURLSearchParams.toString()}`
+
+      router.replace(newUrl)
     }
-
-    // ? This will build a full URL
-    // * If the selected Employee its not equal to null (which should never be null)
-    // TODO: Foreach and push &author for every selected employee
-    // TODO: Will have to make the Custom Select component to be able to handle multiple items selection
-    const newUrl =
-      selectedEmployee !== null
-        ? `${pathname}?${newURLSearchParams.toString()}&author=${
-            selectedEmployee.value
-          }`
-        : `${pathname}?${newURLSearchParams.toString()}`
-
-    console.log(newUrl)
+    // * No else. We dont need to handle the case where the selected employee its not an array.
+    // * It should always be an array (for this particular component!)
   }
 
   return (
@@ -76,7 +89,7 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
       isPaginated
       pageSize={employees?.pages}
       onPageChange={handlePageChange}
-      defaultValue="" // TODO: Still
+      defaultValue="" // TODO: Do I need to set this up? Yes! I do! Check if the URL has some Ids, and add them here.
       showPictures={props.showPictures}
       multiple={true} // ? This will allow multiple option selection
     />

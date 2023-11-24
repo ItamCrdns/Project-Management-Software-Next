@@ -1,4 +1,5 @@
 declare const styles: {
+  readonly "closebtn": string;
   readonly "customselect": string;
   readonly "customselectwrapper": string;
   readonly "optionselected": string;

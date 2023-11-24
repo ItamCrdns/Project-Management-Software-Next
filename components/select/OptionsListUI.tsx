@@ -21,12 +21,23 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
       : handleSingleSelection(option)
   }
 
+  const handleClose = (): void => {
+    props.handleToggleDropdown?.(false)
+  }
+
+  // TODO: Maybe make that the default selected values can come from the URL
+  // TODO: Because currently, the come from the parent component as a State
+  // TODO: This whole thing its a client component. Just use NextJS navigation hooks to get the stuff
+  const selectedEmployees = props.selectedOptions
+
   // TODO: Pass a prop to specify the text align (center, left or right)
-  // TODO: Pagination its ugly af. Make it look better
 
   if (props.toggle === true && Array.isArray(props.options)) {
     return (
       <div className={styles.optionswrapper}>
+        <span onClick={handleClose} className={`material-symbols-outlined ${styles.closebtn}`}>
+          close
+        </span>
         <ul>
           {props.options.map((opt) => (
             <li
@@ -34,6 +45,13 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
                 handleClick(opt)
               }}
               key={opt.value}
+              style={{
+                background:
+                  selectedEmployees !== undefined &&
+                  selectedEmployees?.some((e) => e.value === opt.value) // * Highlight selected options
+                    ? 'var(--banner-color)'
+                    : ''
+              }}
             >
               {showPicture && (
                 <Image

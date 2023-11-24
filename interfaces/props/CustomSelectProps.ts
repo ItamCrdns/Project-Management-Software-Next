@@ -8,7 +8,7 @@ export interface Option {
 export interface CustomSelectProps {
   options: Option[]
   text: string
-  onSelect: (value: Option) => void // * Can handle multiple selections too (see multiple prop)
+  onSelect: (value: Option | Option[]) => void // * Can handle multiple selections too (see multiple prop)
   defaultValue: string
   optionsWidth?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition

@@ -16,9 +16,9 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(false)
   }, [disabled])
 
-  const handleToggleDropdown = (): void => {
+  const handleToggleDropdown = (toggleValue: boolean): void => {
     if (props.disabled !== null && props.disabled === true) return
-    setToggle(!toggle)
+    setToggle(toggleValue)
   }
 
   // ? Single option selection
@@ -42,17 +42,15 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
         return prevState.filter((opt) => opt.value !== option.value)
       } else {
         // ? If not selected, add it to the array
-        props.onSelect(option) // * Send it one by one
         return [...prevState, option]
       }
     })
-
-    // TODO: We wont use setToggle(false) here because we want to keep the dropdown open when selecting multiple options
-    // TODO: Add a button to close the dropdown (or click outside the dropdown) when done selecting options
-
-    // ? Pretty much takes the option value and passes it to the parent component
-    // props.onSelect(selectedOptions) // This is what happens at the high level component when an option is selected
   }
+
+  useEffect(() => {
+    // * Fix state not ready when calling onSelect inside handleOptionClickMultiple
+    props.onSelect(selectedOptions)
+  }, [selectedOptions])
 
   const resetSelectedOption = (): void => {
     setSelectedOption(null)
