@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { type SelectUIProps } from './SelectUI'
 import styles from './select.module.css'
+import DefaultValue from './DefaultValue'
 
 const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const disabledOrNotText = {
@@ -36,17 +37,22 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
           height={25}
         />
       )}
-      <p style={disabledOrNotText}>
+      <div style={disabledOrNotText}>
         {props.selectedOption !== null
           ? (
-              <span style={{ textTransform: 'capitalize', fontWeight: '600' }}>
-                {label}
-              </span>
-            ) ?? ''
-          : defaultValue !== ''
-            ? defaultValue
-            : defaultText}
-      </p>
+              (
+            <span style={{ textTransform: 'capitalize', fontWeight: '600' }}>
+              {label}
+            </span>
+              ) ?? ''
+            )
+          : (
+          <DefaultValue
+            defaultValue={defaultValue as string | string[]}
+            defaultText={defaultText as string}
+          />
+            )}
+      </div>
       <span className="material-symbols-outlined">expand_more</span>
     </div>
   )

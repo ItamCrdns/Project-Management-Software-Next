@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { type IParams, type ISelectAuthorProps } from './SelectAuthorInterfaces'
 import { setInitialSearchParams } from './setInitialSearchParams'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
+import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
 // * This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
 
@@ -36,15 +37,27 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
 
   const searchParams = setInitialSearchParams()
 
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<string>('')
 
   useEffect(() => {
     if (searchParams?.toString().includes('author') === true) {
       const authorIds = searchParams.get('author')?.split('-')
       const dontRepeatIds = Array.from(new Set(authorIds))
-      setSelectedOptions(dontRepeatIds.map((id) => parseInt(id)))
+      setSelectedOptions(dontRepeatIds.join('-')) // * Create a string with the selected employee Ids separated by a dash. Example: 1-2-3-4
     }
   }, [searchParams])
+
+  // * Use the query params to get employees from the API. This will return only the employees that exist.
+  // TODO: Find out which employee Ids have not been returned (if any). Those ids are invalid and should be removed from the URL
+
+  const selectedOptionsHasValue = selectedOptions !== ''
+  const { employeesFromIds } = getEmployeesByIdsArray(
+    selectedOptions,
+    selectedOptionsHasValue
+  )
+
+  // * Employees pictures. Gotten from the Ids on the URL. Send them to the select component to show them
+  const employeesPictures = employeesFromIds?.map((e) => e.profilePicture)
 
   const handleEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
     if (Array.isArray(selectedEmployees)) {
@@ -52,9 +65,13 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       // TODO: selectedEmployeesIDs gotten from the URL should be already selected in the filter. Currently, they are not (if we access directly from the URL)
       const selectedEmployeesIDs = selectedEmployees?.map((e) => e.value)
       const selectedEmployeesString = selectedEmployeesIDs?.join('-')
+      setSelectedOptions(selectedEmployeesString)
 
       if (searchParams?.toString().includes('author') === true) {
-        searchParams.set('author', selectedEmployeesString) // ? Set, because author already exists in the URL
+        searchParams.set(
+          'author',
+          selectedEmployeesString === '' ? 'all' : selectedEmployeesString // * If the string is empty, it means we want to show all employees
+        ) // ? Set, because author already exists in the URL
       } else if (searchParams?.toString().includes('author') === false) {
         searchParams.append('author', selectedEmployeesString) // ? Append, because author doesn't exist in the URL (yet!)
       }
@@ -62,7 +79,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       const newUrl = `${pathname}?${searchParams?.toString()}`
 
       if (searchParams?.toString() !== undefined) {
-        router.push(newUrl)
+        router.replace(newUrl)
       }
     }
   }
@@ -75,7 +92,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       isPaginated
       pageSize={employees?.pages}
       onPageChange={handlePageChange}
-      defaultValue={selectedOptions.toString()} // TODO: This shows IDS, Make it so it shows... maybe names? profile pictures?
+      defaultValue={employeesPictures as string[]} // TODO: This shows IDS, Make it so it shows... maybe names? profile pictures?
       showPictures={props.showPictures}
       multiple={true} // ? This will allow multiple option selection
     />

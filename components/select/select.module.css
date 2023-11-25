@@ -4,8 +4,11 @@
     flex-direction: column;
     justify-self: center;
     align-items: flex-end;
+    justify-content: center;
     position: relative;
     background-color: var(--darker-banner-color);
+    min-width: 160px;
+    min-height: 41px;
     margin: 0;
     z-index: 1;
     padding: 0 1.5rem;
@@ -109,10 +112,30 @@
 
 .reset:hover {
     color: rgb(255, 80, 120);
-
 }
 
 .customselectwrapper {
     display: flex;
     align-items: center;
+}
+
+.defaultimageswrapper ul {
+    display: flex;
+    flex-direction: row !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.defaultimageswrapper ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0 !important;
+    padding: .5rem .15rem !important;
+    cursor: pointer;
+}
+
+.defaultimageswrapper ul li:hover {
+    background-color: var(--darker-banner-color) !important;
 }
