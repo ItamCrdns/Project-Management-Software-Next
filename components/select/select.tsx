@@ -36,8 +36,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     // * Same as handleEmployeeClick in AddEmployeesToProject
     setSelectedOptions((prevState) => {
       if (
-        prevState !== null &&
-        prevState.some((opt) => opt.value === option.value)
+        prevState?.some((opt) => opt.value === option.value)
       ) {
         // ? If already selected, remove it from the array
         return prevState.filter((opt) => opt.value !== option.value)
@@ -63,6 +62,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   return (
     <SelectUI
       defaultValue={props.defaultValue}
+      defaultEntities={props.defaultEntities}
       options={props.options}
       isPaginated={props.isPaginated}
       pageSize={props.pageSize}
@@ -75,7 +75,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       resetSelectedOption={resetSelectedOption}
       disabled={disabled}
       selectedOption={selectedOption}
-      selectedOptions={selectedOptions}
+      selectedOptions={props.defaultSelectedOptions}
       toggle={toggle}
       showPictures={props.showPictures}
       multiple={props.multiple}

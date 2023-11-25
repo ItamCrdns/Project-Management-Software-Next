@@ -1,3 +1,5 @@
+import { type Employee } from '../employee'
+
 export interface Option {
   value: number // ? Pretty much the key but too late to change it
   label: string
@@ -10,6 +12,9 @@ export interface CustomSelectProps {
   text: string
   onSelect: (value: Option | Option[]) => void // * Can handle multiple selections too (see multiple prop)
   defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
+  // TODO: Fix it. Might not fix it unless I need to handle different entities.
+  defaultEntities?: Employee[] | undefined // ! Not generic at all. Will only work for Employee[] for now
+  defaultSelectedOptions: string
   optionsWidth?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
   clearSelectedOption?: () => void // ? Optional callback function that will clear the selected option in the parent component

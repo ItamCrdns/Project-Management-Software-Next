@@ -9,7 +9,7 @@ import OptionsInitialUI from './OptionsUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null
-  selectedOptions: Option[] // * Pretty much as above. But will be for multiple options selection
+  selectedOptions: string // * Pretty much as above. But will be for multiple options selection
   text: string
   toggle: boolean
   disabled: boolean
@@ -47,6 +47,7 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           selectedOptions={props.selectedOptions} // TODO: Add single selectedOption too.
           multiple={props.multiple}
           showCloseButton={true} // ! Change this
+          defaultEntities={props.defaultEntities}
         />
       </div>
       <ResetUI

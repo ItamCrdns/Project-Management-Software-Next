@@ -33,7 +33,7 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
   }
 
   if (typeof defaultValue === 'string') {
-    console.log(defaultValue)
+    // TODO: Handle string default values
     return <>Text def value</>
   }
 }

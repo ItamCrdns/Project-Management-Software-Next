@@ -92,7 +92,9 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       isPaginated
       pageSize={employees?.pages}
       onPageChange={handlePageChange}
-      defaultValue={employeesPictures as string[]} // TODO: This shows IDS, Make it so it shows... maybe names? profile pictures?
+      defaultValue={employeesPictures as string[]} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
+      defaultEntities={employeesFromIds} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
+      defaultSelectedOptions={selectedOptions} // ? Will convert it to an array
       showPictures={props.showPictures}
       multiple={true} // ? This will allow multiple option selection
     />
