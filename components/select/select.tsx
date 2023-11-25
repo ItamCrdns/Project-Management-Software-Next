@@ -28,6 +28,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(false)
   }
 
+  // TODO: Default values of this should be gotten from the URL
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   // ? Multiple options selection

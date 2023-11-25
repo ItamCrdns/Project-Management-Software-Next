@@ -5,6 +5,7 @@ export interface SearchParamsPageSize extends SearchParams {
   pagesize: string
   orderby: OrderBy
   sort: Sort
+  author: string
 }
 
 export interface ClientNameProps {

@@ -1,37 +1,22 @@
-// ? This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
-
 import getEmployeesThatHaveCreatedProjects from '@/api-calls/getEmployeesThatHaveCreatedProjects'
-import {
-  useParams,
-  usePathname,
-  useSearchParams,
-  useRouter
-} from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { employeesAsOptions } from './employeesAsOptions'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { type IParams, type ISelectAuthorProps } from './SelectAuthorInterfaces'
+import { setInitialSearchParams } from './setInitialSearchParams'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 
-interface SelectAuthorProps {
-  toggle: boolean
-  showPictures?: boolean
-}
+// * This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
 
-interface Params {
-  client?: [string, string]
-}
-
-const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
-  const { toggle } = props
-  const params: Params = useParams()
-
+const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
+  const params: IParams = useParams()
   if (params.client === undefined) return null // ? Should never return null, but just in case
 
   const clientId = parseInt(params.client[0]) ?? 1
 
   const [currentPage, setCurrentPage] = useState<string>('1')
-
   const handlePageChange = (page: number): void => {
     setCurrentPage(page.toString())
   }
@@ -40,56 +25,57 @@ const SelectAuthor: React.FC<SelectAuthorProps> = (props) => {
     page: currentPage,
     pageSize: '5'
   }
-
   const { employees } = getEmployeesThatHaveCreatedProjects(
     clientId,
-    toggle,
+    props.toggle,
     queryParams
   )
 
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const router = useRouter()
 
-  const onEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
+  const searchParams = setInitialSearchParams()
+
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([])
+
+  useEffect(() => {
+    if (searchParams?.toString().includes('author') === true) {
+      const authorIds = searchParams.get('author')?.split('-')
+      const dontRepeatIds = Array.from(new Set(authorIds))
+      setSelectedOptions(dontRepeatIds.map((id) => parseInt(id)))
+    }
+  }, [searchParams])
+
+  const handleEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
     if (Array.isArray(selectedEmployees)) {
-      const newURLSearchParams = new URLSearchParams()
-
-      // * Iterate all the existing search params in the current URL (Dont worry will get em all)
-      for (const [key, value] of Array.from(searchParams)) {
-        // * Append them to a new URLSearchParams object and add the new search params to the URL.
-        if (!searchParams.has(key)) {
-          // * Avoid repeating the key (&author=1-2 instead of &author=1&author=1-2))
-          newURLSearchParams.append(key, value)
-        }
-      }
-
-      // * Save the selected employee Ids in an array
+      // * Save the selected employee Ids in an array and join the array into a string. Example: 1-2-3-4
+      // TODO: selectedEmployeesIDs gotten from the URL should be already selected in the filter. Currently, they are not (if we access directly from the URL)
       const selectedEmployeesIDs = selectedEmployees?.map((e) => e.value)
-      // * Join the array into a string. Example: 1-2-3-4
       const selectedEmployeesString = selectedEmployeesIDs?.join('-')
 
-      // * Build the URL with all the selected employees
-      const newUrl =
-        selectedEmployeesString !== ''
-          ? `${pathname}?${newURLSearchParams.toString()}&author=${selectedEmployeesString}`
-          : `${pathname}?${newURLSearchParams.toString()}`
+      if (searchParams?.toString().includes('author') === true) {
+        searchParams.set('author', selectedEmployeesString) // ? Set, because author already exists in the URL
+      } else if (searchParams?.toString().includes('author') === false) {
+        searchParams.append('author', selectedEmployeesString) // ? Append, because author doesn't exist in the URL (yet!)
+      }
 
-      router.replace(newUrl)
+      const newUrl = `${pathname}?${searchParams?.toString()}`
+
+      if (searchParams?.toString() !== undefined) {
+        router.push(newUrl)
+      }
     }
-    // * No else. We dont need to handle the case where the selected employee its not an array.
-    // * It should always be an array (for this particular component!)
   }
 
   return (
     <CustomSelect
       options={employeesAsOptions(employees?.data)} // ? Make the employees fit the options interface
       text="Change project author"
-      onSelect={onEmployeeSelect} // TODO: ADD AN ACTUAL FUNCTION THAT WILL ACTUALLY WORK
+      onSelect={handleEmployeeSelect}
       isPaginated
       pageSize={employees?.pages}
       onPageChange={handlePageChange}
-      defaultValue="" // TODO: Do I need to set this up? Yes! I do! Check if the URL has some Ids, and add them here.
+      defaultValue={selectedOptions.toString()} // TODO: This shows IDS, Make it so it shows... maybe names? profile pictures?
       showPictures={props.showPictures}
       multiple={true} // ? This will allow multiple option selection
     />

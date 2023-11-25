@@ -28,7 +28,8 @@ const useFilterSetterAndUrlPusher = (props: OrderSetterProps): void => {
       const newFilterSearchParams: IFilterProperties = {
         ...newFilter,
         page: props.searchParams?.page ?? '1', // ? Always get it from the searchParams. This component does not change the page.
-        pageSize: props.searchParams?.pagesize ?? '10' // ? Same as above
+        pageSize: props.searchParams?.pagesize ?? '10', // ? Same as above
+        author: props.searchParams?.author ?? 'all'
       }
 
       const queryParams = new URLSearchParams(newFilterSearchParams as string)

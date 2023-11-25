@@ -16,6 +16,7 @@ export interface IFilterProperties {
   pageSize?: string
   sort?: Sort
   orderBy?: OrderBy
+  author?: string
 }
 
 export interface IFilter {
