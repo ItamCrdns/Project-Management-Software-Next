@@ -3,7 +3,7 @@ import styles from './select.module.css'
 import SelectPaginationUI from './SelectPaginationUI'
 import { type SelectUIProps } from './SelectUI'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { useEffect, useState } from 'react'
+import { updateStateWithQueryParams } from './updateStateWithQueryParams'
 
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const showPicture = props.showPictures !== null && props.showPictures === true
@@ -22,31 +22,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
 
   const defaultEmployees = props.defaultEntities ?? []
 
-  // * Using an extra state to prevent useEffect from running more than once
-  // ? I cant use empty array as a dependency because the data its coming from an API, so it will always be empty on the first render
-  // ? So we must wait until the data is ready to run useEffect
-  // TODO: 0 employes might introduce infinite loop?
-
-  // TODO: query param author when its value its 'all' doesnt actually work. Adjust it so it makes an API request to get all employees entities
-  const [useEffectHasRun, setUseEffectHasRun] = useState<boolean>(false)
-  useEffect(() => {
-    if (defaultEmployees.length > 0 && !useEffectHasRun) {
-      setUseEffectHasRun(true)
-      defaultEmployees?.forEach((e) => {
-        const newOption: Option = {
-          value: e.employeeId,
-          label: e.username,
-          info: '',
-          picture: e.profilePicture
-        }
-        if (defaultEmployees.length === 1) {
-          // ? This fixes the bug where the first option is not selected if no query params are present
-          props.handleMultipleOptionClick?.(newOption)
-        }
-        props.handleMultipleOptionClick?.(newOption)
-      })
-    }
-  }, [defaultEmployees])
+  updateStateWithQueryParams(defaultEmployees, props)
 
   const handleMultipleSelection = (option: Option): void => {
     props.handleMultipleOptionClick?.(option)

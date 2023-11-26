@@ -14,7 +14,7 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
     return (
       <div className={styles.defaultimageswrapper}>
         <ul>
-          {Array.isArray(employeePictures)
+          {Array.isArray(employeePictures) && employeePictures.length > 0
             ? (
             <>
               {employeePictures.map((pic, index) => (
@@ -25,7 +25,7 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
             </>
               )
             : (
-            <p>No employees selected.</p>
+                defaultText
               )}
         </ul>
       </div>
@@ -34,7 +34,11 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
 
   if (typeof defaultValue === 'string') {
     // TODO: Handle string default values
-    return <>Text def value</>
+    return defaultText
+  }
+
+  if (typeof defaultValue === 'undefined') {
+    return defaultText
   }
 }
 

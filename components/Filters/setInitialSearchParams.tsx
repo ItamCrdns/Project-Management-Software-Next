@@ -16,13 +16,11 @@ export const setInitialSearchParams = (): URLSearchParams | null => {
       // * Iterate all the existing search params in the current URL (Dont worry will get em all)
       for (const [key, value] of Array.from(searchParams)) {
         // * Append them to a new URLSearchParams object and add the new search params to the URL.
-        // if (key !== 'author') {
         newURLSearchParams.append(key, value)
         setInitialSearchParams(newURLSearchParams)
-        // }
       }
     }
-  }, [])
+  }, [searchParams])
 
   return initialSearchParams
 }

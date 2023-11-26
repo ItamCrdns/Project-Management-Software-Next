@@ -50,14 +50,21 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   // * Use the query params to get employees from the API. This will return only the employees that exist.
   // TODO: Find out which employee Ids have not been returned (if any). Those ids are invalid and should be removed from the URL
 
-  const selectedOptionsHasValue = selectedOptions !== ''
-  const { employeesFromIds } = getEmployeesByIdsArray(
-    selectedOptions,
-    selectedOptionsHasValue
-  )
+  // TODO: If its all, we will handle it differently. We will show all employees and not filter by author. Will do it later.
+  const selectedOptionsHasValue = selectedOptions !== 'all'
+  const { employeesFromIds } =
+    getEmployeesByIdsArray(selectedOptions, selectedOptionsHasValue)
 
   // * Employees pictures. Gotten from the Ids on the URL. Send them to the select component to show them
-  const employeesPictures = employeesFromIds?.map((e) => e.profilePicture)
+  // ? Use an state to fix the "undefined" error when the employeesFromIds is not ready
+
+  const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
+  useEffect(() => {
+    if (employeesFromIds !== undefined) {
+      const pictures = employeesFromIds?.map((e) => e.profilePicture)
+      setEmployeesPictures(pictures)
+    }
+  }, [employeesFromIds])
 
   const handleEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
     if (Array.isArray(selectedEmployees)) {
@@ -87,12 +94,12 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   return (
     <CustomSelect
       options={employeesAsOptions(employees?.data)} // ? Make the employees fit the options interface
-      text="Change project author"
+      text="Select authors..."
       onSelect={handleEmployeeSelect}
       isPaginated
       pageSize={employees?.pages}
       onPageChange={handlePageChange}
-      defaultValue={employeesPictures as string[]} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
+      defaultValue={employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
       defaultEntities={employeesFromIds} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
       defaultSelectedOptions={selectedOptions} // ? Will convert it to an array
       showPictures={props.showPictures}

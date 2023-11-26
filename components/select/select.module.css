@@ -7,7 +7,7 @@
     justify-content: center;
     position: relative;
     background-color: var(--darker-banner-color);
-    min-width: 160px;
+    min-width: 210px;
     min-height: 41px;
     margin: 0;
     z-index: 1;

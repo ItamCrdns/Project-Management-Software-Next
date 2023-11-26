@@ -4,7 +4,7 @@ import { fetcher } from '@/utility/fetcherSWR'
 import useSWR from 'swr'
 
 interface GetEmployeesByIdsArrayReturn {
-  employeesFromIds: Employee[] | undefined
+  employeesFromIds: Employee[] | []
   isLoading: boolean
   isError: unknown
 }
