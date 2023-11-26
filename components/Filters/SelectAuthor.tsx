@@ -9,8 +9,6 @@ import { setInitialSearchParams } from './setInitialSearchParams'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
-// * This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
-
 const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   const params: IParams = useParams()
   if (params.client === undefined) return null // ? Should never return null, but just in case
@@ -96,7 +94,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   return (
     <CustomSelect
       options={employeesAsOptions(employees?.data)} // ? Make the employees fit the options interface
-      text="Select authors..."
+      text="Author or authors"
       onSelect={handleEmployeeSelect}
       isPaginated
       pageSize={employees?.pages}
@@ -107,6 +105,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       showPictures={props.showPictures}
       clearSelectedOptions={props.clearAuthorsIDValues}
       multiple={true} // ? This will allow multiple option selection
+      showCloseButton={true}
     />
   )
 }

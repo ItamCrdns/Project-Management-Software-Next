@@ -29,12 +29,22 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(false)
   }
 
+  // ? Reset from the child component
   const resetSelectedOption = (): void => {
     setSelectedOption(null)
     if (props.clearSelectedOption !== undefined) {
       props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
     }
   }
+
+  // ? Reset from a parent component
+  useEffect(() => {
+    if (props.clearSelectedOptionBoolean === true) {
+      console.log('xxx')
+      setSelectedOption(null)
+    }
+  }, [props.clearSelectedOptionBoolean])
+
   // * End of single option selection and resetting
 
   // * Multiple options selection and resetting
@@ -88,6 +98,8 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       toggle={toggle}
       showPictures={props.showPictures}
       multiple={props.multiple}
+      optionsWidth={props.optionsWidth}
+      showCloseButton={props.showCloseButton}
     />
   )
 }

@@ -43,7 +43,10 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
 
   if (props.toggle === true && Array.isArray(props.options)) {
     return (
-      <div className={styles.optionswrapper}>
+      <div
+        style={{ width: props.optionsWidth ?? '' }}
+        className={styles.optionswrapper}
+      >
         <ul>
           {props.options.map((opt) => (
             <li
@@ -66,7 +69,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
                 />
               )}
               <h4>{opt.label}</h4>
-              <p>{opt.info}</p>
+              <p style={{ textAlign: 'right' }}>{opt.info}</p>
             </li>
           ))}
         </ul>

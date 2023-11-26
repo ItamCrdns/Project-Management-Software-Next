@@ -3,6 +3,9 @@ import RippleButton from '../ripplebutton/RippleButton'
 import SelectAuthor from './SelectAuthor'
 import { filterInitialState } from './filterInitialState'
 import styles from './filters.module.css'
+import SelectPriority from './SelectPriority'
+
+// TODO: NO MORE THAN ONE SELECT ACTIVE AT THE SAME TIME
 
 interface IPageFiltersProps {
   toggle: boolean
@@ -11,6 +14,7 @@ interface IPageFiltersProps {
 
 export interface IFilter {
   authorIds?: number[]
+  priority?: number
 }
 
 const PageFilters: React.FC<IPageFiltersProps> = (props) => {
@@ -22,11 +26,18 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     setFilter({ ...filter, authorIds })
   }
 
+  const getPriorityValue = (priority: number): void => {
+    setFilter({ ...filter, priority })
+  }
+
   const handleClearFilters = (): void => {
     setFilter(filterInitialState) // * Visually clear the filters
   }
 
-  const filtersHaveBeenSet = filter.authorIds?.length !== 0
+  const authorIdFilterSet = filter.authorIds?.length !== 0
+  const priorityFilterSet = filter.priority !== 0
+
+  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
   return (
     <div className={styles.filterwrapper}>
@@ -34,24 +45,26 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
         toggle={toggle}
         showPictures={props.showPictures}
         getAuthorsIDValues={getAuthorsIDValues}
-        clearAuthorsIDValues={!filtersHaveBeenSet} // * Clear the authors Ids if the user clears the filters
+        clearAuthorsIDValues={!authorIdFilterSet} // * If not set, clear. Same for priority
       />
-      <p>Team</p>
-      <p>Priority</p>
-      <RippleButton
+      <SelectPriority
+        getPriorityValue={getPriorityValue}
+        clearPriorityValue={!priorityFilterSet}
+      />
+      {/* <RippleButton // ?  Might remove this button sicnce all filtering will we made automatically
         text="Apply filters"
         textColor={filtersHaveBeenSet ? 'white' : 'var(--text-color)'}
         backgroundColor={
           filtersHaveBeenSet ? '#00A9FF' : 'var(--darker-banner-color)'
         }
         disabled={!filtersHaveBeenSet}
-      />
+      /> */}
       {filtersHaveBeenSet && (
         <div style={{ marginTop: '.75rem' }}>
           <RippleButton
             text="Clear filters"
-            textColor="var(--text-color)"
-            backgroundColor="var(--darker-banner-color)"
+            textColor="white"
+            backgroundColor="rgb(255, 80, 120)"
             func={handleClearFilters}
           />
         </div>

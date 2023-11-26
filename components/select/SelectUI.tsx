@@ -17,7 +17,6 @@ export interface SelectUIProps extends Partial<CustomSelectProps> {
   handleOptionClick: (option: Option) => void
   handleMultipleOptionClick: (option: Option) => void // ? This is for multiple options selection
   resetSelectedOption: () => void
-  showCloseButton?: boolean
 }
 
 const SelectUI: React.FC<SelectUIProps> = (props) => {
@@ -46,8 +45,9 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           // * This is to have a visual representation of whats selected
           selectedOptions={props.selectedOptions} // TODO: Add single selectedOption too.
           multiple={props.multiple}
-          showCloseButton={true} // ! Change this to actually take it from the props
+          showCloseButton={props.showCloseButton} // ! Change this to actually take it from the props
           defaultEntities={props.defaultEntities}
+          optionsWidth={props.optionsWidth}
         />
       </div>
       <ResetUI

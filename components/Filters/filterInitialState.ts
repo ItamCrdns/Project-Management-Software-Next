@@ -1,5 +1,6 @@
 import { type IFilter } from './PageFilters'
 
 export const filterInitialState: IFilter = {
-  authorIds: []
+  authorIds: [],
+  priority: 0
 }
