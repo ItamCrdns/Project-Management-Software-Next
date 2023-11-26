@@ -2,11 +2,11 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 // ? Will only execute once. Will return a string with the initial search params
-export const setInitialSearchParams = (): URLSearchParams | null => {
+export const setInitialSearchParams = (): URLSearchParams => {
   const searchParams = useSearchParams()
 
   const [initialSearchParams, setInitialSearchParams] =
-    useState<URLSearchParams | null>(null)
+    useState<URLSearchParams>(new URLSearchParams())
 
   useEffect(() => {
     // * Create a new URLSearchParams object. Only once

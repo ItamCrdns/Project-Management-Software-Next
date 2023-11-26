@@ -9,8 +9,6 @@ import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
 
 interface ClientProjectsUIProps {
   title: string
-  urlForQueryParams: string
-  baseUrl: string
   searchParams: SearchParamsPageSize
   totalPages: number
   totalProjects: number
@@ -34,12 +32,10 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
           width="300px"
           sortValues={projectSortValues}
           pushSearchParams
-          url={props.baseUrl}
           searchParams={props.searchParams}
         />
         <div className={styles.projectscontainer}>
           <QueryParamsPagination
-            url={props.urlForQueryParams}
             totalPages={props.totalPages}
             searchParams={props.searchParams}
             entityName="Projects"

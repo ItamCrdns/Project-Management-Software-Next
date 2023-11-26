@@ -42,8 +42,6 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
 
   const orderSetter: OrderSetterProps = {
     order,
-    searchParams: props.searchParams,
-    url: props.url,
     updateFilter: props.updateFilter,
     entity: props.entity
   }

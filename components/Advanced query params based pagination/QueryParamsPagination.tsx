@@ -2,12 +2,15 @@
 import { useEffect, useState } from 'react'
 import { handleMaxAllowedCurrentPage } from './maxAllowedCurrentPage'
 import { handleMaxAllowedPageSize } from './maxAllowedPagesize'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { type QueryParamsPaginationProps } from './IQueryParamsPaginationProps'
 import PaginationUI from './PaginationUI'
+import { setInitialSearchParams } from '../Filters/setInitialSearchParams'
+
+// TODO: Add a search component to search entities basd on their name
 
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
-  const { totalPages, url, entityName, totalEntitesCount } = props
+  const { totalPages, entityName, totalEntitesCount } = props
 
   const [currentPageSize, setCurrentPageSize] = useState<number>(
     parseInt(props.searchParams.pagesize ?? '10')
@@ -50,21 +53,21 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     }
   }
 
+  const pathname = usePathname()
   const router = useRouter()
 
-  // TODO: Add a search component to search entities basd on their name
+  const searchParams = setInitialSearchParams()
 
-  const author = props.searchParams.author ?? 'all'
   useEffect(() => {
-    if (url.includes('?')) {
-      const newUrl = `${url}&page=${currentPage}&pagesize=${currentPageSize}&author=${author}`
-      router.replace(newUrl)
-    } else {
-      const newUrl = `${url}?page=${currentPage}&pagesize=${currentPageSize}&author=${author}`
+    searchParams.set('page', currentPage.toString())
+    searchParams.set('pagesize', currentPageSize.toString())
+
+    const newUrl = `${pathname}?${searchParams?.toString()}`
+
+    if (searchParams.toString() !== undefined) {
       router.replace(newUrl)
     }
-    setCurrentPage((prevPage: number) => prevPage)
-  }, [currentPage, currentPageSize])
+  }, [currentPage, currentPageSize, searchParams])
 
   const goToFirstPage = (): void => {
     setCurrentPage(1)

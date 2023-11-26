@@ -49,7 +49,6 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           <EmployeeCardProfile params={{ username }} />
           <div className={styles.paramsandprojectswrapper}>
             <QueryParamsPagination
-              url={`/employees/${props.username}/projects`}
               totalPages={props.totalPages}
               searchParams={props.searchParams}
               entityName="Projects"

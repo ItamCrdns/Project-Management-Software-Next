@@ -28,8 +28,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
 
   const filtersHaveBeenSet = filter.authorIds?.length !== 0
 
-  // TODO: Might do a grayish button until the users sets some filters
-
   return (
     <div className={styles.filterwrapper}>
       <SelectAuthor

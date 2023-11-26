@@ -30,7 +30,6 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
     >
       <div className={tasksStyles.paginationwrapper}>
         <QueryParamsPagination
-          url={`/projects/${props.projectId}/tasks`}
           totalPages={totalPages}
           searchParams={props.searchParams}
           entityName="Tasks"

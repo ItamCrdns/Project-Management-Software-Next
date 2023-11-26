@@ -27,17 +27,9 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   const companyName = projects[0].company.name.split('.').join('') // ? Remove dots from company name ("Inc.")
   const clientName = projects.length > 0 && companyName
 
-  const title = `${clientName} projects`
-
-  const urlForQueryParams = `/projects/client/${clientId}/${clientName}`
-
-  const baseUrl = `/projects/client/${clientId}/${clientName}/`
-
   return (
     <ClientProjectsUI
-      title={title}
-      urlForQueryParams={urlForQueryParams}
-      baseUrl={baseUrl}
+      title={`${clientName} projects`}
       searchParams={props.searchParams}
       totalPages={totalPages}
       totalProjects={totalProjects}

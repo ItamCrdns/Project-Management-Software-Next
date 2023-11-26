@@ -10,7 +10,6 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
 // * This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
-// TODO: If its all (&author=all), we will handle it differently. We will show all employees and not filter by author. Will do it later.
 
 const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   const params: IParams = useParams()
@@ -41,11 +40,14 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   const [employeesFromUrl, setEmployeesFromUrl] = useState<number[]>([])
 
   useEffect(() => {
-    if (searchParams?.toString().includes('author') === true) {
+    if (searchParams.has('author')) {
       const authorIds = searchParams.get('author')?.split('-')
       const dontRepeatIds = Array.from(new Set(authorIds))
       const dontRepeatIdsNumber = dontRepeatIds.map((i) => parseInt(i))
       setEmployeesFromUrl(dontRepeatIdsNumber) // * Cet the selected employees for the URL
+    } else {
+      setEmployeesFromUrl([])
+      setEmployeesPictures([])
     }
   }, [searchParams])
 
@@ -63,7 +65,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
 
   useEffect(() => {
     if (employeesFromIds !== undefined) {
-      const pictures = employeesFromIds?.map((e) => e.profilePicture)
+      const pictures = employeesFromIds?.map((e) => e.profilePicture) ?? []
       setEmployeesPictures(pictures)
     }
   }, [employeesFromIds])
@@ -78,14 +80,10 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
     props.getAuthorsIDValues(selectedEmployeesIDs) // * Pass the selected employee Ids to the parent component
     const selectedEmployeesString = selectedEmployeesIDs?.join('-')
 
-    if (searchParams?.toString().includes('author') === true) {
-      // * If the string is empty, it means we want to show all employees
-      searchParams.set(
-        'author',
-        selectedEmployeesIDs.length === 0 ? 'all' : selectedEmployeesString
-      ) // ? Set, because author already exists in the URL
-    } else if (searchParams?.toString().includes('author') === false) {
-      searchParams.append('author', selectedEmployeesString) // ? Append, because author doesn't exist in the URL (yet!)
+    searchParams.set('author', selectedEmployeesString)
+
+    if (selectedEmployeesIDs.length === 0) {
+      searchParams.delete('author')
     }
 
     const newUrl = `${pathname}?${searchParams?.toString()}`
