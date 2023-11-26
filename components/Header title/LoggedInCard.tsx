@@ -24,7 +24,6 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
         <RippleButton
           text={props.buttonText ?? ''}
           icon="add"
-          iconSize="20px"
           width={props.buttonWidth ?? '125px'}
           href={props.buttonHref}
         />

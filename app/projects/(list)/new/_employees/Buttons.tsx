@@ -11,7 +11,6 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
         <div className={styles.buttonwrapper}>
           <RippleButton
             text={`Add ${selectedEmployees.length} employees`}
-            width="120px"
             backgroundColor="#80B3FF"
             textColor="white"
             func={handleSubmit}
@@ -29,7 +28,6 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
         <div className={styles.buttonwrapper}>
           <RippleButton
             text="Continue without adding employees"
-            width="250px"
             backgroundColor="var(--darker-banner-color)"
             effectColor="var(--banner-color)"
             textColor="var(--text-color)"

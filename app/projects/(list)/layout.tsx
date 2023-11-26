@@ -35,7 +35,6 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
                     <RippleButton
                       text="More projects..."
                       href={`/projects/client/${projects[0].company.companyId}/${companyName}`}
-                      width="125px"
                       textColor="white"
                       backgroundColor="#80B3FF"
                     />

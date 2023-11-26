@@ -15,8 +15,8 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
 
   const {
     text,
-    width,
-    height,
+    // width,
+    // height,
     backgroundColor,
     textColor,
     effectColor,
@@ -32,8 +32,8 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   useEffect(() => {
     const button = buttonRef.current
     const styleConfig = {
-      '--width': width,
-      '--height': height,
+      // '--width': width,
+      // '--height': height,
       '--background-color': backgroundColor,
       '--text-color': textColor,
       '--effect-color': effectColor,

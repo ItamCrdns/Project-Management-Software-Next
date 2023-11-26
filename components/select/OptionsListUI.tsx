@@ -4,6 +4,7 @@ import SelectPaginationUI from './SelectPaginationUI'
 import { type SelectUIProps } from './SelectUI'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { updateStateWithQueryParams } from './updateStateWithQueryParams'
+import RippleButton from '../ripplebutton/RippleButton'
 
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const showPicture = props.showPictures !== null && props.showPictures === true
@@ -43,12 +44,6 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   if (props.toggle === true && Array.isArray(props.options)) {
     return (
       <div className={styles.optionswrapper}>
-        <span
-          onClick={handleClose}
-          className={`material-symbols-outlined ${styles.closebtn}`}
-        >
-          close
-        </span>
         <ul>
           {props.options.map((opt) => (
             <li
@@ -80,6 +75,14 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
           onPageChange={props.onPageChange}
           isPaginated={props.isPaginated}
         />
+        {props.showCloseButton === true && (
+          <RippleButton
+            text="Close"
+            backgroundColor="rgb(255, 80, 120)"
+            textColor="white"
+            func={handleClose}
+          />
+        )}
       </div>
     )
   }

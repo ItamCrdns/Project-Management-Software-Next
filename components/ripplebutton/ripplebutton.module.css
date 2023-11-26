@@ -15,22 +15,19 @@
     overflow: hidden;
     outline: none;
     display: flex;
+    align-items: center;
     margin: 0 auto;
     justify-content: center;
 
-    width: var(--width);
-    height: var(--height);
+    /* width: var(--width); */
+    /* height: var(--height); */
+    padding: .5rem 1rem;
     font-size: 12px !important;
     background: var(--background-color);
     color: var(--text-color);
     font-family: inherit;
     border-radius: var(--border-radius);
 }
-
-/* Trigger this styles when the button its clicked */
-/* .button:active {
-    color: red;
-} */
 
 .loadertextwrapper {
     display: flex;

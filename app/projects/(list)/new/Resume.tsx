@@ -119,7 +119,6 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
         <RippleButton
           text="Create project"
           backgroundColor="#80B3FF"
-          width="120px"
           textColor="white"
           asyncFunc={handleCreateProject}
         />
