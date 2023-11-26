@@ -18,6 +18,7 @@ export interface CustomSelectProps {
   optionsWidth?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
   clearSelectedOption?: () => void // ? Optional callback function that will clear the selected option in the parent component
+  clearSelectedOptions?: boolean // ? Optional callback function that will clear the selected options in the parent component
   showReset?: boolean // ? Will use it to show the reset button based on a condition
   isPaginated?: boolean // ? Sometimes, the options might be a lot, so we need to paginate it
   pageSize?: number // ? Dependant of isPaginated

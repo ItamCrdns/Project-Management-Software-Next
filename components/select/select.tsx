@@ -8,7 +8,6 @@ import SelectUI from './SelectUI'
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
 
   const disabled = props.disabled !== null && props.disabled === true
 
@@ -21,17 +20,26 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(toggleValue)
   }
 
-  // ? Single option selection
+  // * Single option selection and resetting
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+
   const handleOptionClick = (option: Option): void => {
     setSelectedOption(option)
     props.onSelect(option)
     setToggle(false)
   }
 
-  // TODO: Default values of this should be gotten from the URL
+  const resetSelectedOption = (): void => {
+    setSelectedOption(null)
+    if (props.clearSelectedOption !== undefined) {
+      props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
+    }
+  }
+  // * End of single option selection and resetting
+
+  // * Multiple options selection and resetting
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
-  // ? Multiple options selection
   const handleOptionClickMultiple = (option: Option): void => {
     // * Same as handleEmployeeClick in AddEmployeesToProject
     setSelectedOptions((prevState) => {
@@ -48,16 +56,17 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   }
 
   useEffect(() => {
+    if (props.clearSelectedOptions === true) {
+      setSelectedOptions([])
+    }
+  }, [props.clearSelectedOptions])
+
+  // * End of multiple options selection and resetting
+
+  useEffect(() => {
     // * Fix state not ready when calling onSelect inside handleOptionClickMultiple
     props.onSelect(selectedOptions)
   }, [selectedOptions])
-
-  const resetSelectedOption = (): void => {
-    setSelectedOption(null)
-    if (props.clearSelectedOption !== undefined) {
-      props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
-    }
-  }
 
   return (
     <SelectUI

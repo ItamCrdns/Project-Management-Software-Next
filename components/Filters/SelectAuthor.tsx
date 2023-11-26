@@ -10,6 +10,7 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
 // * This will do a dropdown menu showing authors. Clicking on them will filter the <entity> by author
+// TODO: If its all (&author=all), we will handle it differently. We will show all employees and not filter by author. Will do it later.
 
 const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   const params: IParams = useParams()
@@ -37,28 +38,29 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
 
   const searchParams = setInitialSearchParams()
 
-  const [selectedOptions, setSelectedOptions] = useState<string>('')
+  const [employeesFromUrl, setEmployeesFromUrl] = useState<number[]>([])
 
   useEffect(() => {
     if (searchParams?.toString().includes('author') === true) {
       const authorIds = searchParams.get('author')?.split('-')
       const dontRepeatIds = Array.from(new Set(authorIds))
-      setSelectedOptions(dontRepeatIds.join('-')) // * Create a string with the selected employee Ids separated by a dash. Example: 1-2-3-4
+      const dontRepeatIdsNumber = dontRepeatIds.map((i) => parseInt(i))
+      setEmployeesFromUrl(dontRepeatIdsNumber) // * Cet the selected employees for the URL
     }
   }, [searchParams])
 
-  // * Use the query params to get employees from the API. This will return only the employees that exist.
-  // TODO: Find out which employee Ids have not been returned (if any). Those ids are invalid and should be removed from the URL
+  const [selectedEmployeesIDs, setSelectedEmployeesIDs] =
+    useState<number[]>(employeesFromUrl)
 
-  // TODO: If its all, we will handle it differently. We will show all employees and not filter by author. Will do it later.
-  const selectedOptionsHasValue = selectedOptions !== 'all'
-  const { employeesFromIds } =
-    getEmployeesByIdsArray(selectedOptions, selectedOptionsHasValue)
+  const shouldFetch = employeesFromUrl.length !== 0
 
-  // * Employees pictures. Gotten from the Ids on the URL. Send them to the select component to show them
-  // ? Use an state to fix the "undefined" error when the employeesFromIds is not ready
+  const { employeesFromIds } = getEmployeesByIdsArray(
+    employeesFromUrl,
+    shouldFetch
+  )
 
   const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
+
   useEffect(() => {
     if (employeesFromIds !== undefined) {
       const pictures = employeesFromIds?.map((e) => e.profilePicture)
@@ -68,28 +70,30 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
 
   const handleEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
     if (Array.isArray(selectedEmployees)) {
-      // * Save the selected employee Ids in an array and join the array into a string. Example: 1-2-3-4
-      // TODO: selectedEmployeesIDs gotten from the URL should be already selected in the filter. Currently, they are not (if we access directly from the URL)
-      const selectedEmployeesIDs = selectedEmployees?.map((e) => e.value)
-      const selectedEmployeesString = selectedEmployeesIDs?.join('-')
-      setSelectedOptions(selectedEmployeesString)
-
-      if (searchParams?.toString().includes('author') === true) {
-        searchParams.set(
-          'author',
-          selectedEmployeesString === '' ? 'all' : selectedEmployeesString // * If the string is empty, it means we want to show all employees
-        ) // ? Set, because author already exists in the URL
-      } else if (searchParams?.toString().includes('author') === false) {
-        searchParams.append('author', selectedEmployeesString) // ? Append, because author doesn't exist in the URL (yet!)
-      }
-
-      const newUrl = `${pathname}?${searchParams?.toString()}`
-
-      if (searchParams?.toString() !== undefined) {
-        router.replace(newUrl)
-      }
+      setSelectedEmployeesIDs(selectedEmployees?.map((e) => e.value))
     }
   }
+
+  useEffect(() => {
+    props.getAuthorsIDValues(selectedEmployeesIDs) // * Pass the selected employee Ids to the parent component
+    const selectedEmployeesString = selectedEmployeesIDs?.join('-')
+
+    if (searchParams?.toString().includes('author') === true) {
+      // * If the string is empty, it means we want to show all employees
+      searchParams.set(
+        'author',
+        selectedEmployeesIDs.length === 0 ? 'all' : selectedEmployeesString
+      ) // ? Set, because author already exists in the URL
+    } else if (searchParams?.toString().includes('author') === false) {
+      searchParams.append('author', selectedEmployeesString) // ? Append, because author doesn't exist in the URL (yet!)
+    }
+
+    const newUrl = `${pathname}?${searchParams?.toString()}`
+
+    if (searchParams?.toString() !== undefined) {
+      router.replace(newUrl)
+    }
+  }, [selectedEmployeesIDs])
 
   return (
     <CustomSelect
@@ -101,8 +105,9 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       onPageChange={handlePageChange}
       defaultValue={employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
       defaultEntities={employeesFromIds} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
-      defaultSelectedOptions={selectedOptions} // ? Will convert it to an array
+      defaultSelectedOptions={employeesFromUrl.join('-')} // ? Will convert it to an array
       showPictures={props.showPictures}
+      clearSelectedOptions={props.clearAuthorsIDValues}
       multiple={true} // ? This will allow multiple option selection
     />
   )

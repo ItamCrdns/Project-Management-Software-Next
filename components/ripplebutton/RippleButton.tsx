@@ -97,12 +97,12 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
       ref={buttonRef}
       className={styles.button}
       style={{
-        backgroundColor: disabled ? '#8CA1A5' : '',
         cursor: disabled ? 'not-allowed' : ''
       }} // Override the background color and cursor if the button is disabled
       onClick={
         // ! Determine if the function being passed its the async one or the default one
-        asyncFunc !== undefined ? handleButtonClickAsync : handleButtonClick
+        // ? Only run if the button its not disabled
+        asyncFunc !== undefined && !disabled ? handleButtonClickAsync : handleButtonClick
       }
       onMouseLeave={handleClearRipples}
     >
