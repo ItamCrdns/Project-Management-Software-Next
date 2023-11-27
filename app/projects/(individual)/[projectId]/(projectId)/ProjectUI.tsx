@@ -1,4 +1,4 @@
-import EntityPriority from '@/components/Generic Entity Renderer/EntityPriority'
+import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPriority'
 import styles from './project.module.css'
 import ProjectCreator from './ProjectCreator'
 import ExpectedDeliveryDate from './ExpectedDeliveryDate'
@@ -20,6 +20,8 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
     employeeCount,
     tasksCount
   } = props
+
+  const priority = setEntityPriority(project?.priority ?? 0)
 
   return (
     <section className={styles.contentwrapper}>
@@ -54,7 +56,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
             </section>
             <aside className={styles.projectsideb}>
               <p className={styles.grayedtext}>Priority</p>
-              <EntityPriority priority={project?.priority ?? 0} />
+              <p style={{ color: priority.color }}>{priority.priorityText}</p>
               <p className={styles.grayedtext}>Created by</p>
               <ProjectCreator creator={projectCreator} showUsername />
               <p className={styles.grayedtext}>Status</p>

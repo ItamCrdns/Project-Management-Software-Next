@@ -5,7 +5,7 @@ import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTh
 import { type Position } from '@/components/Generic Entity Renderer/IEmployeeListProps'
 import getProjectLimited from '@/api-calls/getProjectLimited'
 import Link from 'next/link'
-import EntityPriority from '@/components/Generic Entity Renderer/EntityPriority'
+import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPriority'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 
 interface ProjectUIProps {
@@ -30,6 +30,8 @@ const ProjectUI: React.FC<ProjectUIProps> = async (props) => {
   const isProjectParticipant = data?.isParticipant
   const isProjectOwner = data?.isOwner
 
+  const priority = setEntityPriority(project?.priority ?? 0)
+
   return (
     <aside className={styles.projectwrapper}>
       <div>
@@ -43,7 +45,7 @@ const ProjectUI: React.FC<ProjectUIProps> = async (props) => {
           <div className={styles.entitybottomtext}>
             <p>{project?.lifecycle}</p>
             <p style={{ userSelect: 'none' }}>&middot;</p>
-            <EntityPriority priority={project?.priority ?? 1} />
+            <p style={{ color: priority.color }}>{priority.priorityText}</p>
           </div>
         </div>
         <div className={styles.employeeswrapper}>

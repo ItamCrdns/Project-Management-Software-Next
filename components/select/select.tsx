@@ -40,7 +40,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   // ? Reset from a parent component
   useEffect(() => {
     if (props.clearSelectedOptionBoolean === true) {
-      console.log('xxx')
       setSelectedOption(null)
     }
   }, [props.clearSelectedOptionBoolean])
@@ -53,9 +52,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const handleOptionClickMultiple = (option: Option): void => {
     // * Same as handleEmployeeClick in AddEmployeesToProject
     setSelectedOptions((prevState) => {
-      if (
-        prevState?.some((opt) => opt.value === option.value)
-      ) {
+      if (prevState?.some((opt) => opt.value === option.value)) {
         // ? If already selected, remove it from the array
         return prevState.filter((opt) => opt.value !== option.value)
       } else {

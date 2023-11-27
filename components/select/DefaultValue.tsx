@@ -34,11 +34,11 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
 
   if (typeof defaultValue === 'string') {
     // TODO: Handle string default values
-    return defaultText
+    return defaultValue
   }
 
   if (typeof defaultValue === 'undefined') {
-    return defaultText
+    return defaultValue
   }
 }
 

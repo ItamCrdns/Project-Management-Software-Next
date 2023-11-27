@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { relativeTime } from '@/utility/relativeTime'
 import EntityCreator from './EntityCreator'
 import EntityEmployees from './EntityEmployees'
-import EntityPriority from './EntityPriority'
+import { setEntityPriority } from './EntityPriority'
 import styles from '@/app/projects/(list)/projectslist.module.css'
 
 // * We would have to map the items to fit as the Entity interface
@@ -40,6 +40,8 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
     maxWidth: props.maxWidth
   }
 
+  const priority = setEntityPriority(props.entity.priority ?? 0)
+
   return (
     <>
       <div style={style}>
@@ -61,7 +63,9 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
           )}
       {props.entity.priority !== null &&
         props.entity.priority !== undefined && (
-          <EntityPriority style={style} priority={props.entity.priority} />
+          <div style={style}>
+            <p style={{ color: priority.color }}>{priority.priorityText}</p>
+          </div>
       )}
       <div style={style}>
         <p>{relativeTime(new Date(props.entity.created).getTime())}</p>

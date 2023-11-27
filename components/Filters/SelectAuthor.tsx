@@ -1,13 +1,11 @@
 import getEmployeesThatHaveCreatedProjects from '@/api-calls/getEmployeesThatHaveCreatedProjects'
-import { useParams, usePathname, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { employeesAsOptions } from './employeesAsOptions'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { type IParams, type ISelectAuthorProps } from './SelectAuthorInterfaces'
-import { setInitialSearchParams } from './setInitialSearchParams'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
 const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   const params: IParams = useParams()
@@ -30,66 +28,11 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
     queryParams
   )
 
-  const pathname = usePathname()
-  const router = useRouter()
-
-  const searchParams = setInitialSearchParams()
-
-  const [employeesFromUrl, setEmployeesFromUrl] = useState<number[]>([])
-
-  useEffect(() => {
-    if (searchParams.has('author')) {
-      const authorIds = searchParams.get('author')?.split('-')
-      const dontRepeatIds = Array.from(new Set(authorIds))
-      const dontRepeatIdsNumber = dontRepeatIds.map((i) => parseInt(i))
-      setEmployeesFromUrl(dontRepeatIdsNumber) // * Cet the selected employees for the URL
-    } else {
-      setEmployeesFromUrl([])
-      setEmployeesPictures([])
-    }
-  }, [searchParams])
-
-  const [selectedEmployeesIDs, setSelectedEmployeesIDs] =
-    useState<number[]>(employeesFromUrl)
-
-  const shouldFetch = employeesFromUrl.length !== 0
-
-  const { employeesFromIds } = getEmployeesByIdsArray(
-    employeesFromUrl,
-    shouldFetch
-  )
-
-  const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
-
-  useEffect(() => {
-    if (employeesFromIds !== undefined) {
-      const pictures = employeesFromIds?.map((e) => e.profilePicture) ?? []
-      setEmployeesPictures(pictures)
-    }
-  }, [employeesFromIds])
-
   const handleEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
     if (Array.isArray(selectedEmployees)) {
-      setSelectedEmployeesIDs(selectedEmployees?.map((e) => e.value))
+      props.getAuthorsIDValues(selectedEmployees?.map((e) => e.value))
     }
   }
-
-  useEffect(() => {
-    props.getAuthorsIDValues(selectedEmployeesIDs) // * Pass the selected employee Ids to the parent component
-    const selectedEmployeesString = selectedEmployeesIDs?.join('-')
-
-    searchParams.set('author', selectedEmployeesString)
-
-    if (selectedEmployeesIDs.length === 0) {
-      searchParams.delete('author')
-    }
-
-    const newUrl = `${pathname}?${searchParams?.toString()}`
-
-    if (searchParams?.toString() !== undefined) {
-      router.replace(newUrl)
-    }
-  }, [selectedEmployeesIDs])
 
   return (
     <CustomSelect
@@ -99,9 +42,9 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       isPaginated
       pageSize={employees?.pages}
       onPageChange={handlePageChange}
-      defaultValue={employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
-      defaultEntities={employeesFromIds} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
-      defaultSelectedOptions={employeesFromUrl.join('-')} // ? Will convert it to an array
+      defaultValue={props.employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
+      defaultEntities={props.defaultEmployees} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
+      defaultSelectedOptions={props.defaultSelectedOptions} // ? Will convert it to an array
       showPictures={props.showPictures}
       clearSelectedOptions={props.clearAuthorsIDValues}
       multiple={true} // ? This will allow multiple option selection
