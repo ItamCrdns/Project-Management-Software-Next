@@ -5,6 +5,7 @@ import DefaultValue from './DefaultValue'
 import { useState } from 'react'
 
 // TODO: SPAN STYLE DOWN BELOW IS NOT WORKING WHEN WE GO BACK IN THE NEW PROJECT PAGE. FIX IT (MAYBE?)
+// TODO: Clicking outside
 
 const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const disabledOrNotText = {
@@ -18,11 +19,13 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const selectedOptImg = props.selectedOption?.picture ?? ''
   const selectOptLabel = props.selectedOption?.label ?? ''
 
-  const [toggle, setToggle] = useState<boolean>(false)
+  const [toggle, setToggle] = useState<boolean>(true)
 
   const handleOpen = (): void => {
     setToggle(!toggle)
+
     props.handleToggleDropdown?.(toggle)
+    props.onShowDropdown?.()
   }
 
   const showPicture =

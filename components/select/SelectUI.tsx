@@ -31,9 +31,11 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           text={props.text}
           showPictures={props.showPictures}
           multiple={props.multiple}
+          onShowDropdown={props.onShowDropdown}
         />
         <OptionsListUI
           toggle={props.toggle}
+          shouldShowDropdown={props.shouldShowDropdown}
           options={props.options}
           handleToggleDropdown={props.handleToggleDropdown}
           handleOptionClick={props.handleOptionClick}

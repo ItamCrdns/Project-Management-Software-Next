@@ -29,4 +29,8 @@ export interface CustomSelectProps {
   showPictures?: boolean // ? If true, will switch to an alternate listing with pictures
   multiple?: boolean // ? If true, will allow multiple selections
   showCloseButton?: boolean // ? If true, will show a close button at the bottom of the dropdown
+
+  // * Only one options dropdown can be expanded at a given time
+  shouldShowDropdown?: boolean
+  onShowDropdown?: () => void
 }

@@ -97,6 +97,8 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       multiple={props.multiple}
       optionsWidth={props.optionsWidth}
       showCloseButton={props.showCloseButton}
+      shouldShowDropdown={props.shouldShowDropdown}
+      onShowDropdown={props.onShowDropdown}
     />
   )
 }

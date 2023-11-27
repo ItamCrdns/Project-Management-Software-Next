@@ -1,13 +1,18 @@
 import { type Employee } from '@/interfaces/employee'
 
-export interface ISelectAuthorProps {
+export interface ISharedProps {
+  clearValues: boolean
+  defaultSectedValues: string
+  shouldShowDropdown: boolean
+  onShowDropdown: () => void
+}
+
+export interface ISelectAuthorProps extends ISharedProps {
   toggle: boolean
   showPictures?: boolean
   getAuthorsIDValues: (values: number[]) => void
-  clearAuthorsIDValues: boolean // ? Check if the filter.authorIds is empty
   employeesPictures: string[]
   defaultEmployees: Employee[] | undefined
-  defaultSelectedOptions: string
 }
 
 export interface IParams {

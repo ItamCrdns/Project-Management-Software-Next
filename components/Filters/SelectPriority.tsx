@@ -2,11 +2,10 @@ import CustomSelect from '../select/select'
 import { priorityOptions } from '@/app/projects/(list)/new/priorityOptions'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import setEntityPriority from '../Generic Entity Renderer/EntityPriority'
+import { type ISharedProps } from './SelectAuthorInterfaces'
 
-interface ISelectPriorityProps {
+interface ISelectPriorityProps extends ISharedProps {
   getPriorityValue: (priority: number) => void
-  clearPriorityValue: boolean
-  defaultSelectedPriority: string
 }
 
 const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
@@ -16,7 +15,7 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
     }
   }
 
-  const priority = setEntityPriority(parseInt(props.defaultSelectedPriority ?? '0'))
+  const priority = setEntityPriority(parseInt(props.defaultSectedValues ?? '0'))
 
   return (
     <CustomSelect
@@ -27,7 +26,9 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
       defaultSelectedOptions="" // TODO: Migh make it null
       optionsWidth="400px"
       showCloseButton={false}
-      clearSelectedOptionBoolean={props.clearPriorityValue}
+      clearSelectedOptionBoolean={props.clearValues}
+      shouldShowDropdown={props.shouldShowDropdown}
+      onShowDropdown={props.onShowDropdown}
     />
   )
 }

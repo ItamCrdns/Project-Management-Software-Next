@@ -39,9 +39,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
     props.handleToggleDropdown?.(false)
   }
 
-  // TODO: Pass a prop to specify the text align (center, left or right)
-
-  if (props.toggle === true && Array.isArray(props.options)) {
+  if (props.toggle === true && props.shouldShowDropdown === true && Array.isArray(props.options)) {
     return (
       <div
         style={{ width: props.optionsWidth ?? '' }}

@@ -44,11 +44,13 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       onPageChange={handlePageChange}
       defaultValue={props.employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
       defaultEntities={props.defaultEmployees} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
-      defaultSelectedOptions={props.defaultSelectedOptions} // ? Will convert it to an array
+      defaultSelectedOptions={props.defaultSectedValues} // ? Will convert it to an array
       showPictures={props.showPictures}
-      clearSelectedOptions={props.clearAuthorsIDValues}
+      clearSelectedOptions={props.clearValues}
       multiple={true} // ? This will allow multiple option selection
       showCloseButton={true}
+      shouldShowDropdown={props.shouldShowDropdown}
+      onShowDropdown={props.onShowDropdown}
     />
   )
 }
