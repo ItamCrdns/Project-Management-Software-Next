@@ -59,15 +59,17 @@ const NewProjectModal = (): JSX.Element => {
    * Callback function passed as props that updates the state with the selected company's ID and name.
    * @param selectedValue - The selected company's option object.
    */
-  const handleCompanySelect = (selectedValue: Option): void => {
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        companyId: selectedValue.value,
-        companyName: selectedValue.label
-      }
-    }))
+  const handleCompanySelect = (selectedValue: Option | Option[]): void => {
+    if (!Array.isArray(selectedValue)) {
+      setData((prevState) => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          companyId: selectedValue.value,
+          companyName: selectedValue.label
+        }
+      }))
+    }
   }
 
   const handleInputSubmit = (projectName: string): void => {
@@ -190,7 +192,7 @@ const NewProjectModal = (): JSX.Element => {
                 onSubmit={handleInputSubmit}
               />
               <ClientSelection
-                clientName={data.data.companyName ?? ''}
+                clientName={data.data.companyName as string}
                 handleClientSelection={handleCompanySelect}
                 clearSelectedOption={clearSelectedOption}
                 isFormOpen={isFormOpen}

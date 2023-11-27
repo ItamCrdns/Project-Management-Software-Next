@@ -10,11 +10,12 @@ export interface Option {
 export interface CustomSelectProps {
   options: Option[]
   text: string
+  // ? When using onSelect, handle if its an array or not inside the function (if (Array.isArray(selectedValue)) { ... })
   onSelect: (value: Option | Option[]) => void // * Can handle multiple selections too (see multiple prop)
   defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
   // TODO: Fix it. Might not fix it unless I need to handle different entities.
   defaultEntities?: Employee[] | undefined // ! Not generic at all. Will only work for Employee[] for now
-  defaultSelectedOptions: string
+  defaultSelectedOptions?: string
   optionsWidth?: string
   textAlignment?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition

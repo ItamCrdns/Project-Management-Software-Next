@@ -24,6 +24,8 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
     )
   }
 
+  const [toggle, setToggle] = useState<boolean>(false)
+
   return (
     <CustomSelect
       defaultValue={props.clientName}
@@ -36,6 +38,9 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       pageSize={clients?.pages ?? 0}
       onPageChange={handlePageChange}
       showReset
+      shouldShowDropdown={toggle}
+      onShowDropdown={() => { setToggle(!toggle) }}
+      resetActiveDropdown={() => { setToggle(false) }}
     />
   )
 }

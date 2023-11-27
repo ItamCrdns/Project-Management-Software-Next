@@ -29,15 +29,17 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
    * @param selectedValue - The selected priority value.
    * @returns void
    */
-  const handlePrioritySelect = (selectedValue: Option): void => {
-    setNewData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        priority: selectedValue.value,
-        priorityLabel: selectedValue.label
-      }
-    }))
+  const handlePrioritySelect = (selectedValue: Option | Option[]): void => {
+    if (!Array.isArray(selectedValue)) {
+      setNewData((prevState) => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          priority: selectedValue.value,
+          priorityLabel: selectedValue.label
+        }
+      }))
+    }
   }
 
   /**
@@ -83,6 +85,8 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
     }))
   }
 
+  const [toggle, setToggle] = useState<boolean>(false)
+
   return (
     <>
       {dependency
@@ -105,11 +109,13 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
               onSubmit={handleTextAreaSubmit}
             />
             <CustomSelect
-              defaultValue={newData.data.priorityLabel ?? ''}
+              defaultValue={newData.data.priorityLabel as string}
               options={priorityOptions}
               text="Pick a priority..."
-              onSelect={handlePrioritySelect as (selectedValue: Option | Option[]) => void}
-              defaultSelectedOptions=''
+              onSelect={handlePrioritySelect}
+              shouldShowDropdown={toggle}
+              onShowDropdown={() => { setToggle(!toggle) }}
+              resetActiveDropdown={() => { setToggle(false) }}
             />
           </form>
           <div className={styles.buttonwrapper}>

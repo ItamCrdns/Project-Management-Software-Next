@@ -91,7 +91,12 @@
 .customselect ul li p {
     display: flex;
     flex-direction: column;
+    user-select: none;
     margin: 0;
+}
+
+.customselect ul li img {
+    user-select: none;
 }
 
 .customselect ul li h4 {
@@ -101,6 +106,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: capitalize;
+    user-select: none;
     width: 100px;
 }
 

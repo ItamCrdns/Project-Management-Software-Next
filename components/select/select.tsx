@@ -92,7 +92,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       resetSelectedOption={resetSelectedOption}
       disabled={disabled}
       selectedOption={selectedOption}
-      selectedOptions={props.defaultSelectedOptions}
+      selectedOptions={props.defaultSelectedOptions as string}
       toggle={toggle}
       showPictures={props.showPictures}
       multiple={props.multiple}

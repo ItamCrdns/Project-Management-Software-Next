@@ -12,6 +12,7 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   }
 
   const label = props.selectedOption?.label ?? ''
+
   const defaultValue = props.defaultValue
   const defaultText = props.text
 
