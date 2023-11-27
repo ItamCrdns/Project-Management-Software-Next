@@ -46,7 +46,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
     entity: props.entity
   }
 
-  useFilterSetterAndUrlPusher(orderSetter)
+  useFilterSetterAndUrlPusher(!props.dashboard, orderSetter)
 
   const style: Style = {
     width: props.width
