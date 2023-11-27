@@ -41,6 +41,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   const authorIdFilterSet = filter.authorIds?.length !== 0
   const priorityFilterSet = filter.priority !== 0
 
+  // * This boolean will be used to track if the clear filters button should be shown or not
   const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
   const searchParams = setInitialSearchParams()

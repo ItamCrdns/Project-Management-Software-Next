@@ -5,7 +5,7 @@ import {
 } from '@/interfaces/props/CustomSelectProps'
 import ResetUI from './ResetUI'
 import OptionsListUI from './OptionsListUI'
-import OptionsInitialUI from './OptionsUI'
+import OptionsInitialUI from './OptionsInitialUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null

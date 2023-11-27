@@ -2,6 +2,9 @@ import Image from 'next/image'
 import { type SelectUIProps } from './SelectUI'
 import styles from './select.module.css'
 import DefaultValue from './DefaultValue'
+import { useState } from 'react'
+
+// TODO: SPAN STYLE DOWN BELOW IS NOT WORKING WHEN WE GO BACK IN THE NEW PROJECT PAGE. FIX IT (MAYBE?)
 
 const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const disabledOrNotText = {
@@ -15,10 +18,11 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const selectedOptImg = props.selectedOption?.picture ?? ''
   const selectOptLabel = props.selectedOption?.label ?? ''
 
-  let isToggled = false
+  const [toggle, setToggle] = useState<boolean>(false)
+
   const handleOpen = (): void => {
-    isToggled = !isToggled
-    props.handleToggleDropdown?.(isToggled)
+    setToggle(!toggle)
+    props.handleToggleDropdown?.(toggle)
   }
 
   const showPicture =
@@ -26,7 +30,6 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
     props.showPictures === true &&
     selectedOptImg !== ''
 
-  // TODO: SPAN STYLE DOWN BELOW IS NOT WORKING WHEN WE GO BACK IN THE NEW PROJECT PAGE. FIX IT (MAYBE?)
   return (
     <div onClick={handleOpen} className={styles.optionselected}>
       {showPicture && (
