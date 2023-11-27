@@ -36,10 +36,11 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   }
 
   const handleClose = (): void => {
-    props.handleToggleDropdown?.(false)
+    // props.handleToggleDropdown?.(false)
+    props.resetActiveDropdown?.()
   }
 
-  if (props.toggle === true && props.shouldShowDropdown === true && Array.isArray(props.options)) {
+  if (props.shouldShowDropdown === true && Array.isArray(props.options)) {
     return (
       <div
         style={{ width: props.optionsWidth ?? '' }}

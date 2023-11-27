@@ -51,6 +51,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       showCloseButton={true}
       shouldShowDropdown={props.shouldShowDropdown}
       onShowDropdown={props.onShowDropdown}
+      resetActiveDropdown={props.resetActiveDropdown}
     />
   )
 }

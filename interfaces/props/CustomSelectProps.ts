@@ -33,4 +33,5 @@ export interface CustomSelectProps {
   // * Only one options dropdown can be expanded at a given time
   shouldShowDropdown?: boolean
   onShowDropdown?: () => void
+  resetActiveDropdown: () => void
 }

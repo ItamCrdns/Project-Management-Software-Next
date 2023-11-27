@@ -108,7 +108,20 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
 
-  console.log(activeDropdown)
+  const resetActiveDropdown = (): void => {
+    setActiveDropdown('')
+  }
+
+  const onShowDropdown = (dropdown: string): void => {
+    // * If the dropdown is already active, reset it
+    if (dropdown === activeDropdown) {
+      resetActiveDropdown()
+      return
+    }
+
+    setActiveDropdown(dropdown)
+  }
+
   return (
     <div className={styles.filterwrapper}>
       <SelectAuthor
@@ -120,14 +133,16 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
         defaultEmployees={employeesFromIds}
         defaultSectedValues={searchParams.get('author') as string}
         shouldShowDropdown={activeDropdown === 'author'}
-        onShowDropdown={() => { setActiveDropdown('author') }}
+        onShowDropdown={() => { onShowDropdown('author') }}
+        resetActiveDropdown={resetActiveDropdown}
       />
       <SelectPriority
         getPriorityValue={getPriorityValue}
         clearValues={!priorityFilterSet}
         defaultSectedValues={searchParams.get('priority') as string}
         shouldShowDropdown={activeDropdown === 'priority'}
-        onShowDropdown={() => { setActiveDropdown('priority') }}
+        onShowDropdown={() => { onShowDropdown('priority') }}
+        resetActiveDropdown={resetActiveDropdown}
       />
       {filtersHaveBeenSet && (
         <div style={{ marginTop: '.75rem' }}>

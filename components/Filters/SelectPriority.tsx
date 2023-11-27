@@ -25,10 +25,11 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
       defaultValue={priority.priorityText}
       defaultSelectedOptions="" // TODO: Migh make it null
       optionsWidth="400px"
-      showCloseButton={false}
+      showCloseButton={true}
       clearSelectedOptionBoolean={props.clearValues}
       shouldShowDropdown={props.shouldShowDropdown}
       onShowDropdown={props.onShowDropdown}
+      resetActiveDropdown={props.resetActiveDropdown}
     />
   )
 }

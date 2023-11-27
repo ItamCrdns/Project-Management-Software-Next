@@ -5,6 +5,7 @@ export interface ISharedProps {
   defaultSectedValues: string
   shouldShowDropdown: boolean
   onShowDropdown: () => void
+  resetActiveDropdown: () => void
 }
 
 export interface ISelectAuthorProps extends ISharedProps {

@@ -27,6 +27,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setSelectedOption(option)
     props.onSelect(option)
     setToggle(false)
+    props.resetActiveDropdown?.()
   }
 
   // ? Reset from the child component
@@ -99,6 +100,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       showCloseButton={props.showCloseButton}
       shouldShowDropdown={props.shouldShowDropdown}
       onShowDropdown={props.onShowDropdown}
+      resetActiveDropdown={props.resetActiveDropdown}
     />
   )
 }
