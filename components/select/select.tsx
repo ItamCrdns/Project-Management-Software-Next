@@ -33,9 +33,9 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   // ? Reset from the child component
   const resetSelectedOption = (): void => {
     setSelectedOption(null)
-    if (props.clearSelectedOption !== undefined) {
-      props.clearSelectedOption() // ? Pass the callback function that will clear the selected option in the parent component
-    }
+    setSelectedOptions([])
+    props.clearSelectedOption?.() // ? Pass the callback function that will clear the selected option in the parent component
+    props.clearSelectedOptionsFunction?.() // ? Pass the callback function that will clear the selected options in the parent component
   }
 
   // ? Reset from a parent component
@@ -64,17 +64,17 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   }
 
   useEffect(() => {
+    // * Fix state not ready when calling onSelect inside handleOptionClickMultiple
+    props.onSelect(selectedOptions)
+  }, [selectedOptions])
+
+  useEffect(() => {
     if (props.clearSelectedOptions === true) {
       setSelectedOptions([])
     }
   }, [props.clearSelectedOptions])
 
   // * End of multiple options selection and resetting
-
-  useEffect(() => {
-    // * Fix state not ready when calling onSelect inside handleOptionClickMultiple
-    props.onSelect(selectedOptions)
-  }, [selectedOptions])
 
   return (
     <SelectUI
@@ -92,7 +92,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       resetSelectedOption={resetSelectedOption}
       disabled={disabled}
       selectedOption={selectedOption}
-      selectedOptions={props.defaultSelectedOptions as string}
+      defaultSelectedOptions={props.defaultSelectedOptions as number}
       toggle={toggle}
       showPictures={props.showPictures}
       multiple={props.multiple}

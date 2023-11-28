@@ -11,17 +11,7 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
     color: props.disabled === true ? 'gray' : 'var(--text-color)'
   }
 
-  const label = props.selectedOption?.label ?? ''
-
-  const defaultValue = props.defaultValue
-  const defaultText = props.text
-
   const selectedOptImg = props.selectedOption?.picture ?? ''
-  const selectOptLabel = props.selectedOption?.label ?? ''
-
-  const handleOpen = (): void => {
-    props.onShowDropdown?.()
-  }
 
   const showPicture =
     props.showPictures !== null &&
@@ -29,11 +19,14 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
     selectedOptImg !== ''
 
   return (
-    <div onClick={handleOpen} className={styles.optionselected}>
+    <div
+      onClick={() => props.onShowDropdown?.()}
+      className={styles.optionselected}
+    >
       {showPicture && (
         <Image
-          src={selectedOptImg}
-          alt={selectOptLabel}
+          src={props.selectedOption?.picture as string}
+          alt={props.selectedOption?.label as string}
           width={25}
           height={25}
         />
@@ -43,14 +36,14 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
           ? (
               (
             <span style={{ textTransform: 'capitalize', fontWeight: '600' }}>
-              {label}
+              {props.selectedOption?.label}
             </span>
               ) ?? ''
             )
           : (
           <DefaultValue
-            defaultValue={defaultValue as string | string[]}
-            defaultText={defaultText as string}
+            defaultValue={props.defaultValue as string | string[]}
+            defaultText={props.text as string}
           />
             )}
       </div>

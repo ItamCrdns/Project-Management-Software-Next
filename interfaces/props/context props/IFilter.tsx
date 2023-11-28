@@ -16,7 +16,12 @@ export interface IFilterProperties {
   pageSize?: string
   sort?: Sort
   orderBy?: OrderBy
-  author?: string
+  // * Example of how to use this:
+  // * filterBy: 'priority' or filterBy: 'author'
+  // * filterValue: '1' or filterValue: '1-2-3'
+  // * Query params will be constructed like this: ?filterBy=priority&filterValue=1
+  filterBy?: string
+  filterValue?: string
 }
 
 export interface IFilter {

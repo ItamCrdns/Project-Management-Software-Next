@@ -9,35 +9,18 @@ import RippleButton from '../ripplebutton/RippleButton'
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const showPicture = props.showPictures !== null && props.showPictures === true
 
-  const handleSingleSelection = (option: Option): void => {
-    props.handleOptionClick?.(option)
-  }
-
-  // * Convert the string to an array of strings
-  const selectedEmployeesStrings = Array.from(
-    props.selectedOptions?.split('-') ?? []
-  )
-
-  // * then, convert the array of strings to an array of numbers
-  const selectedEmployees = selectedEmployeesStrings.map((e) => parseInt(e))
+  const selectedEmployees = props.defaultSelectedOptions ?? []
 
   const defaultEmployees = props.defaultEntities ?? []
 
   updateStateWithQueryParams(defaultEmployees, props)
 
-  const handleMultipleSelection = (option: Option): void => {
-    props.handleMultipleOptionClick?.(option)
-  }
-
   const handleClick = (option: Option): void => {
-    props.multiple === true
-      ? handleMultipleSelection(option)
-      : handleSingleSelection(option)
-  }
-
-  const handleClose = (): void => {
-    // props.handleToggleDropdown?.(false)
-    props.resetActiveDropdown?.()
+    if (props.multiple === true) {
+      props.handleMultipleOptionClick?.(option)
+    } else {
+      props.handleOptionClick?.(option)
+    }
   }
 
   if (props.shouldShowDropdown === true && Array.isArray(props.options)) {
@@ -54,9 +37,11 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
               }}
               key={opt.value}
               style={{
-                background: selectedEmployees?.some((e) => e === opt.value) // * Highlight selected options
-                  ? 'var(--banner-color)'
-                  : ''
+                background:
+                  Array.isArray(selectedEmployees) &&
+                  selectedEmployees?.some((e) => e === opt.value) // * Highlight selected options
+                    ? 'var(--banner-color)'
+                    : ''
               }}
             >
               {showPicture && (
@@ -82,7 +67,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
             text="Close"
             backgroundColor="rgb(255, 80, 120)"
             textColor="white"
-            func={handleClose}
+            func={() => props.resetActiveDropdown?.()}
           />
         )}
       </div>

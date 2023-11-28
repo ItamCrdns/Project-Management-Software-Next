@@ -3,7 +3,7 @@ import { useParams } from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { employeesAsOptions } from './employeesAsOptions'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { type IParams, type ISelectAuthorProps } from './SelectAuthorInterfaces'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 
@@ -22,9 +22,10 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
     page: currentPage,
     pageSize: '5'
   }
+
   const { employees } = getEmployeesThatHaveCreatedProjects(
     clientId,
-    props.toggle,
+    true, // TODO: Change this dependency.
     queryParams
   )
 
@@ -52,6 +53,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       shouldShowDropdown={props.shouldShowDropdown}
       onShowDropdown={props.onShowDropdown}
       resetActiveDropdown={props.resetActiveDropdown}
+      showReset
     />
   )
 }

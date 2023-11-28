@@ -9,7 +9,6 @@ import OptionsInitialUI from './OptionsInitialUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null
-  selectedOptions: string // * Pretty much as above. But will be for multiple options selection
   text: string
   toggle: boolean
   disabled: boolean
@@ -47,7 +46,7 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           isPaginated={props.isPaginated}
           showPictures={props.showPictures}
           // * This is to have a visual representation of whats selected
-          selectedOptions={props.selectedOptions} // TODO: Add single selectedOption too.
+          defaultSelectedOptions={props.defaultSelectedOptions} // TODO: Add single selectedOption too.
           multiple={props.multiple}
           showCloseButton={props.showCloseButton} // ! Change this to actually take it from the props
           defaultEntities={props.defaultEntities}

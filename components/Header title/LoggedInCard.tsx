@@ -28,13 +28,14 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
           href={props.buttonHref}
         />
       )}
-      <Filters
-        entityName={props.entityName}
-        toggle={toggle}
-        isDashboard={props.isDashboard}
-        isPage={props.isPage}
-        showPictures={props.showPictures}
-      />
+      {toggle && (
+        <Filters
+          entityName={props.entityName}
+          isDashboard={props.isDashboard}
+          isPage={props.isPage}
+          showPictures={props.showPictures}
+        />
+      )}
     </section>
   )
 }

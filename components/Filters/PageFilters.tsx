@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import RippleButton from '../ripplebutton/RippleButton'
 import SelectAuthor from './SelectAuthor'
 import { filterInitialState } from './filterInitialState'
@@ -8,10 +8,9 @@ import { setInitialSearchParams } from './setInitialSearchParams'
 import { usePathname, useRouter } from 'next/navigation'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
-// TODO: NO MORE THAN ONE SELECT ACTIVE AT THE SAME TIME
+// TODO: Lots of re-rendering going on here. Might need to refactor this component
 
 interface IPageFiltersProps {
-  toggle: boolean
   showPictures?: boolean
 }
 
@@ -21,14 +20,14 @@ export interface IFilter {
 }
 
 const PageFilters: React.FC<IPageFiltersProps> = (props) => {
-  const { toggle } = props
-
   const [filter, setFilter] = useState<IFilter>(filterInitialState)
 
-  // * Pass getAuthorsIDValues and getPriorityValue to the select components to take the values from there
-  const getAuthorsIDValues = (authorIds: number[]): void => {
-    setFilter({ ...filter, authorIds })
-  }
+  const getAuthorsIDValues = useCallback(
+    (authorIds: number[]): void => {
+      setFilter({ ...filter, authorIds })
+    },
+    [filter]
+  )
 
   const getPriorityValue = (priority: number): void => {
     setFilter({ ...filter, priority })
@@ -36,6 +35,14 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
 
   const handleClearFilters = (): void => {
     setFilter(filterInitialState) // * Visually clear the filters
+  }
+
+  const handleClearPriority = (): void => {
+    setFilter({ ...filter, priority: 0 })
+  }
+
+  const handleClearAuthors = (): void => {
+    setFilter({ ...filter, authorIds: [] })
   }
 
   const authorIdFilterSet = filter.authorIds?.length !== 0
@@ -49,16 +56,25 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   const pathname = usePathname()
   const router = useRouter()
 
+  const setFiltersFromUrl = useCallback(
+    (authorIds: number[], priority: number): void => {
+      setFilter({ ...filter, authorIds, priority })
+    },
+    [filter, searchParams]
+  )
+
+  // ! Only executes once when the URL changes. No need to optimize this
   useEffect(() => {
     // * If any of the query params its provided, set the filter state
     if (searchParams.has('author') || searchParams.has('priority')) {
       const authorIds = searchParams.get('author')?.split('-')
       const dontRepeatIds = Array.from(new Set(authorIds))
       const dontRepeatIdsNumber = dontRepeatIds.map((i) => parseInt(i))
+
       const priority = parseInt(searchParams.get('priority') ?? '0')
-      setFilter({ ...filter, authorIds: dontRepeatIdsNumber, priority }) // * Cet the selected employees for the URL
+      setFiltersFromUrl(dontRepeatIdsNumber, priority)
     } else {
-      setFilter({ ...filter, authorIds: [], priority: 0 })
+      setFiltersFromUrl([], 0)
       setEmployeesPictures([])
     }
   }, [searchParams])
@@ -81,30 +97,42 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   }, [employeesFromIds])
   // * End of fetching employees from the given IDs
 
+  // TODO: Trying to not replace the URL in initial render, but it's not working. If priority and or author are declared, it will replace it with the same URL. Not a big deal, but it's not working as intended
+  // ? At least, using useRef it replaces the URL only once instead of two.
+  const prevFilter = useRef<IFilter>(filter)
+
   useEffect(() => {
-    // * Replace the URL, based on the filter state
-    const priorityString = filter.priority?.toString()
-    const selectedEmployeesString = filter.authorIds?.join('-')
+    const areFiltersEqual =
+      prevFilter.current.authorIds?.toString() ===
+        filter.authorIds?.toString() &&
+      prevFilter.current.priority === filter.priority
 
-    searchParams.set('priority', priorityString as string)
-    searchParams.set('author', selectedEmployeesString as string)
+    if (!areFiltersEqual) {
+      prevFilter.current = { ...filter }
 
-    // * Delete query params if the state that handles them is empty
-    // TODO: This should fallback to the default query params when making the API call. Currently, will return all priorities and all entiies authors
-    if (filter.priority === 0) {
-      searchParams.delete('priority')
+      // * Replace the URL, based on the filter state
+      const priorityString = filter.priority?.toString() ?? '0'
+      const selectedEmployeesString = filter.authorIds?.join('-')
+
+      searchParams.set('priority', priorityString)
+      searchParams.set('author', selectedEmployeesString as string)
+
+      // * Delete query params if the state that handles them is empty
+      if (filter.priority === 0) {
+        searchParams.delete('priority')
+      }
+
+      if (filter.authorIds?.length === 0) {
+        searchParams.delete('author')
+      }
+
+      const newUrl = `${pathname}?${searchParams.toString()}`
+
+      if (searchParams.toString() !== undefined) {
+        router.replace(newUrl)
+      }
     }
-
-    if (filter.authorIds?.length === 0) {
-      searchParams.delete('author')
-    }
-
-    const newUrl = `${pathname}?${searchParams.toString()}`
-
-    if (searchParams.toString() !== undefined) {
-      router.replace(newUrl)
-    }
-  }, [filter])
+  }, [filter, searchParams])
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
 
@@ -125,29 +153,34 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   return (
     <div className={styles.filterwrapper}>
       <SelectAuthor
-        toggle={toggle}
         showPictures={props.showPictures}
         getAuthorsIDValues={getAuthorsIDValues}
         clearValues={!authorIdFilterSet} // * If not set, clear. Same for priority
         employeesPictures={employeesPictures}
         defaultEmployees={employeesFromIds}
-        defaultSectedValues={searchParams.get('author') as string}
+        defaultSectedValues={filter.authorIds as number[]}
         shouldShowDropdown={activeDropdown === 'author'}
-        onShowDropdown={() => { onShowDropdown('author') }}
+        onShowDropdown={() => {
+          onShowDropdown('author')
+        }}
         resetActiveDropdown={resetActiveDropdown}
+        clearSelectedOptions={handleClearAuthors}
       />
       <SelectPriority
         getPriorityValue={getPriorityValue}
         clearValues={!priorityFilterSet}
-        defaultSectedValues={searchParams.get('priority') as string}
+        defaultSectedValues={filter.priority as number}
         shouldShowDropdown={activeDropdown === 'priority'}
-        onShowDropdown={() => { onShowDropdown('priority') }}
+        onShowDropdown={() => {
+          onShowDropdown('priority')
+        }}
         resetActiveDropdown={resetActiveDropdown}
+        clearSelectedOptions={handleClearPriority}
       />
       {filtersHaveBeenSet && (
         <div style={{ marginTop: '.75rem' }}>
           <RippleButton
-            text="Clear filters"
+            text="Clear all filters"
             textColor="white"
             backgroundColor="rgb(255, 80, 120)"
             func={handleClearFilters}

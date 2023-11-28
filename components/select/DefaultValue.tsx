@@ -9,6 +9,8 @@ interface DefaultValueProps {
 const DefaultValue: React.FC<DefaultValueProps> = (props) => {
   const { defaultValue, defaultText } = props
 
+  const returnedText = defaultValue === '' ? defaultText : defaultValue
+
   if (typeof defaultValue === 'object') {
     const employeePictures = defaultValue
     return (
@@ -34,7 +36,7 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
 
   if (typeof defaultValue === 'string' || typeof defaultValue === 'undefined') {
     // TODO: Handle string default values
-    return defaultValue !== '' ? defaultValue : defaultText
+    return returnedText
   }
 }
 

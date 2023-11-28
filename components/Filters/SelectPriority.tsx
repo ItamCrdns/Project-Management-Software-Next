@@ -15,7 +15,7 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
     }
   }
 
-  const priority = setEntityPriority(parseInt(props.defaultSectedValues ?? '0'))
+  const priority = setEntityPriority(props.defaultSectedValues as number)
 
   return (
     <CustomSelect
@@ -23,13 +23,13 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
       text="Priority"
       onSelect={handlePrioritySelect}
       defaultValue={priority.priorityText}
-      defaultSelectedOptions="" // TODO: Migh make it null
       optionsWidth="400px"
       showCloseButton={true}
       clearSelectedOptionBoolean={props.clearValues}
       shouldShowDropdown={props.shouldShowDropdown}
       onShowDropdown={props.onShowDropdown}
       resetActiveDropdown={props.resetActiveDropdown}
+      showReset
     />
   )
 }

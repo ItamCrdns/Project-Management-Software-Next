@@ -15,11 +15,12 @@ export interface CustomSelectProps {
   defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
   // TODO: Fix it. Might not fix it unless I need to handle different entities.
   defaultEntities?: Employee[] | undefined // ! Not generic at all. Will only work for Employee[] for now
-  defaultSelectedOptions?: string
+  defaultSelectedOptions?: number | number[] // ? Will be used to set the default selected options
   optionsWidth?: string
   textAlignment?: string
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
   clearSelectedOption?: () => void // ? Optional callback function that will clear the selected option in the parent component
+  clearSelectedOptionsFunction?: () => void // ? Same purpose as above but made to come from the parent component as a function
   clearSelectedOptionBoolean?: boolean // ? Same purpose as above but made to come from the parent component as a boolean
   clearSelectedOptions?: boolean // ? Optional callback function that will clear the selected options in the parent component
   showReset?: boolean // ? Will use it to show the reset button based on a condition

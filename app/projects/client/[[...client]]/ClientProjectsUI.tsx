@@ -41,7 +41,8 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
             entityName="Projects"
             totalEntitesCount={props.totalProjects}
           />
-          {Array.isArray(props.projects) && (
+          {Array.isArray(props.projects) && props.projects.length > 0
+            ? (
             <ul>
               {props.projects.map((project: Project, index: number) => (
                 <li key={index}>
@@ -49,7 +50,8 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
                 </li>
               ))}
             </ul>
-          )}
+              )
+            : (<p style={{ textAlign: 'center' }}>No projects match your filtering criteria. Clear your filters and try again.</p>)}
         </div>
       </section>
     </main>

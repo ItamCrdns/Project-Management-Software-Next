@@ -24,7 +24,7 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   }
 
   // * Access the company name from one of the projects (its fine they all have the same company name)
-  const companyName = projects[0].company.name.split('.').join('') // ? Remove dots from company name ("Inc.")
+  const companyName = projects[0]?.company.name.split('.').join('') ?? '' // ? Remove dots from company name ("Inc.")
   const clientName = projects.length > 0 && companyName
 
   return (
