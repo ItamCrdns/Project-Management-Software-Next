@@ -25,6 +25,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     (authorIds: number[]): void => {
       if (authorIds.length === 0) return
       searchParams.set('author', authorIds.join('-'))
+      searchParams.set('pagesize', '10')
 
       if (searchParams.toString() !== undefined && authorIds.length !== 0) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -38,6 +39,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     (priority: number) => {
       if (priority === 0) return
       searchParams.set('priority', priority.toString())
+      searchParams.set('pagesize', '10')
 
       if (searchParams.toString() !== undefined && priority !== 0) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -54,12 +56,15 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     // * Clear the URL query params
     searchParams.delete('author')
     searchParams.delete('priority')
+    searchParams.set('pagesize', '10')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
   }
 
   const handleClearPriority = (): void => {
     searchParams.delete('priority')
+    searchParams.set('pagesize', '10')
+
     router.replace(`${pathname}?${searchParams.toString()}`)
 
     setFilter({ ...filter, priority: 0 })
@@ -67,6 +72,8 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
 
   const handleClearAuthors = (): void => {
     searchParams.delete('author')
+    searchParams.set('pagesize', '10')
+
     router.replace(`${pathname}?${searchParams.toString()}`)
 
     setFilter({ ...filter, authorIds: [] })
@@ -115,12 +122,14 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     if (filter.authorIds?.length === 0) {
       setEmployeeIds([])
     }
+  }, [employeesFromIds])
 
+  useEffect(() => {
     if (employeeIds !== undefined) {
       const pictures = employeeIds?.map((e) => e.profilePicture) ?? []
       setEmployeesPictures(pictures)
     }
-  }, [employeesFromIds, employeeIds])
+  }, [employeeIds])
 
   const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
 

@@ -6,13 +6,15 @@ import { type PaginationUIProps } from './IPaginationUIProps'
 const PaginationUI: React.FC<PaginationUIProps> = (props) => {
   const { handleCurrentPageInputChange, handlePageSizeInputChange } = props
 
+  const pageSizeValue = props.currentPageSize > props.totalEntitesCount ? props.totalEntitesCount : props.currentPageSize
+
   return (
     <div className={styles.pagination}>
       <div className={styles.pagesize}>
         <p>Showing</p>
         <input
           type="number"
-          value={props.currentPageSize}
+          value={pageSizeValue}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
         />

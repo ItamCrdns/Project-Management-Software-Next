@@ -6,13 +6,13 @@ import {
 } from '@/interfaces/props/context props/IFilter'
 
 export interface Order {
-  column: OrderBy
-  order: Sort
+  orderBy: OrderBy
+  sort: Sort
 }
 
 export const orderInitialState: Order = {
-  column: 'Created',
-  order: 'descending'
+  orderBy: 'Created',
+  sort: 'descending'
 }
 
 export const filterProperties: IFilterProperties = {
