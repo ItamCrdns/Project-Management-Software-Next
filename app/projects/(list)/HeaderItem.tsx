@@ -1,10 +1,17 @@
+import { type Order } from '@/context/Filter/filterInitialState'
 import { type Style } from '@/interfaces/props/HeaderDescriptorProps'
-import React from 'react'
+
+// TODO: See if we can optimize this component
+// TODO: CHECK IF THE ARROW IS AT THE CORRECT POSITION
+// TODO: Query params sort and orderby its pretty slow
+// TODO: 'Created' its always selected in non dashboard pages
+// TODO: HeaderDescriptor its broken everywhere except in the dashboard and in the projects/client/[...client]/page.tsx [FIX IT!!!]
 
 interface HeaderItemProps {
   style: Style
   handleSortChange: (orderBy: string, sort: string) => void
   icon: string
+  order: Order
   label: string
   sortValue: string | undefined
   searchParams: URLSearchParams
@@ -12,8 +19,9 @@ interface HeaderItemProps {
 
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   const isSelected =
+    props.order.orderBy.toLowerCase() === props.sortValue?.toLowerCase() ||
     props.searchParams?.get('orderby')?.toString() ===
-    props.sortValue?.toLowerCase()
+      props.sortValue?.toLowerCase()
 
   return (
     <span
@@ -33,7 +41,8 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
       <p style={{ fontWeight: isSelected ? 700 : 400 }}>{props.label}</p>
       {isSelected && (
         <span className="material-symbols-outlined">
-          {props.searchParams.get('sort')?.toString() === 'ascending'
+          {props.order.sort === 'ascending' ||
+          props.searchParams.get('sort')?.toString() === 'ascending'
             ? 'expand_more'
             : 'expand_less'}
         </span>
@@ -42,4 +51,4 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   )
 }
 
-export default React.memo(HeaderItem)
+export default HeaderItem

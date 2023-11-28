@@ -7,7 +7,16 @@ import {
 import HeaderItem from './HeaderItem'
 import { setInitialSearchParams } from '@/components/Filters/setInitialSearchParams'
 import { usePathname, useRouter } from 'next/navigation'
-import { type OrderBy, type IFilterProperties, type Sort, type IFilter } from '@/interfaces/props/context props/IFilter'
+import {
+  type OrderBy,
+  type IFilterProperties,
+  type IFilter
+} from '@/interfaces/props/context props/IFilter'
+import { useEffect, useState } from 'react'
+import {
+  orderInitialState,
+  type Order
+} from '@/context/Filter/filterInitialState'
 
 const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
   const pathname = usePathname()
@@ -15,17 +24,19 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
 
   const searchParams = setInitialSearchParams()
 
+  const [order, setOrder] = useState<Order>(orderInitialState)
+
   const handleSortChange = (sortValue: string, sort: string): void => {
     // TODO: Fix dashboard state pagination
     if (props.dashboard) {
-      const newFilter: IFilterProperties = {
+      setOrder((prevState) => ({
+        ...prevState,
         orderBy: sortValue as OrderBy,
-        sort: sort === 'ascending' ? 'descending' : 'ascending' as Sort
-      }
-
-      console.log(newFilter)
-
-      props.updateFilter?.(props.entity as keyof IFilter, newFilter)
+        sort:
+          prevState.sort === 'ascending' && prevState.orderBy === sortValue
+            ? 'descending'
+            : 'ascending'
+      }))
     } else {
       searchParams.set('orderby', sortValue.toLowerCase())
       searchParams.set('sort', sort.toLowerCase())
@@ -35,6 +46,18 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       }
     }
   }
+
+  useEffect(() => {
+    // * Its hard to see, but if dont use useEffect hook and call this updateFilter right after setOrder in handleSortChange, the state will be one step behind.
+    if (props.dashboard) {
+      const newFilter: IFilterProperties = {
+        orderBy: order.orderBy,
+        sort: order.sort
+      }
+
+      props.updateFilter?.(props.entity as keyof IFilter, newFilter)
+    }
+  }, [order])
 
   const style: Style = {
     width: props.width
@@ -48,6 +71,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         style={style}
         handleSortChange={handleSortChange}
         icon="signature"
+        order={order}
         label="Name"
         sortValue={props.sortValues.name}
         searchParams={searchParams}
@@ -56,6 +80,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         style={style}
         handleSortChange={handleSortChange}
         icon="person"
+        order={order}
         label="Creator"
         sortValue={props.sortValues.creator}
         searchParams={searchParams}
@@ -64,6 +89,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         style={style}
         handleSortChange={handleSortChange}
         icon="group"
+        order={order}
         label="Team"
         sortValue={props.sortValues.team}
         searchParams={searchParams}
@@ -73,6 +99,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           style={style}
           handleSortChange={handleSortChange}
           icon="priority_high"
+          order={order}
           label="Priority"
           sortValue={props.sortValues.priority}
           searchParams={searchParams}
@@ -82,6 +109,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         style={style}
         handleSortChange={handleSortChange}
         icon="calendar_month"
+        order={order}
         label="Created"
         sortValue={props.sortValues.created}
         searchParams={searchParams}
@@ -91,6 +119,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           style={style}
           handleSortChange={handleSortChange}
           icon="store"
+          order={order}
           label="Company"
           sortValue={props.sortValues.company}
           searchParams={searchParams}
@@ -100,8 +129,8 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-
           icon="emoji_objects"
+          order={order}
           label="Project"
           sortValue={props.sortValues.project}
           searchParams={searchParams}
@@ -111,8 +140,8 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          // order={order}
           icon="note_stack"
+          order={order}
           label="Task"
           sortValue={props.sortValues.task}
           searchParams={searchParams}
