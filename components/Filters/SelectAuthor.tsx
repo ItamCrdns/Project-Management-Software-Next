@@ -3,7 +3,7 @@ import { useParams } from 'next/navigation'
 import CustomSelect from '../select/select'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { employeesAsOptions } from './employeesAsOptions'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { type IParams, type ISelectAuthorProps } from './SelectAuthorInterfaces'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 
@@ -46,7 +46,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       defaultValue={props.employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
       defaultEntities={props.defaultEmployees} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
       defaultSelectedOptions={props.defaultSectedValues} // ? Will convert it to an array
-      showPictures={props.showPictures}
+      showPictures={props.showPictures} // ? Show pictures inside the dropdown
       multiple={true} // ? This will allow multiple option selection
       showCloseButton={true}
       shouldShowDropdown={props.shouldShowDropdown}
@@ -54,6 +54,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       resetActiveDropdown={props.resetActiveDropdown}
       showReset
       clearSelectedOptionsFunction={props.clearSelectedOptionsFunction}
+      clearSelectedOptions={props.clearValues}
     />
   )
 }

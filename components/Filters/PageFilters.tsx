@@ -9,8 +9,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 import { type Employee } from '@/interfaces/employee'
 
-// TODO: The clear filters button does clear the filters visually. But it doesnt clear the employees inside the select component. It should clear them too.
-
 interface IPageFiltersProps {
   showPictures?: boolean
 }
@@ -58,10 +56,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     searchParams.delete('priority')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
-
-    // * Execute handleClearAuthors and handleClearPriority
-    handleClearAuthors()
-    handleClearPriority()
   }
 
   const handleClearPriority = (): void => {
@@ -78,16 +72,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     setFilter({ ...filter, authorIds: [] })
   }
 
-  const authorIdFilterSet = filter.authorIds?.length !== 0
-  const priorityFilterSet = filter.priority !== 0
-
-  // * This boolean will be used to track if the clear filters button should be shown or not
-  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
-
   const searchParams = setInitialSearchParams()
-
-  const pathname = usePathname()
-  const router = useRouter()
 
   const setFiltersFromUrl = useCallback(
     (authorIds: number[], priority: number): void => {
@@ -96,12 +81,15 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     [filter, searchParams]
   )
 
-  // ! Only executes once when the URL changes. No need to optimize this
+  const pathname = usePathname()
+  const router = useRouter()
+
   useEffect(() => {
     // * If any of the query params its provided, set the filter state
     if (searchParams.has('author') || searchParams.has('priority')) {
-      const authorIds = searchParams.get('author')?.split('-')
-      const dontRepeatIds = Array.from(new Set(authorIds))
+      const dontRepeatIds = Array.from(
+        new Set(searchParams.get('author')?.split('-'))
+      )
       const dontRepeatIdsNumber = dontRepeatIds.map((i) => parseInt(i))
 
       const priority = parseInt(searchParams.get('priority') ?? '0')
@@ -112,7 +100,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     }
   }, [searchParams])
 
-  // * Fetch the employees from the given IDs, return a list of employees with their pictures to show which employees the user has selected
   const { employeesFromIds } = getEmployeesByIdsArray(
     filter.authorIds ?? [],
     filter.authorIds?.length !== 0
@@ -128,33 +115,32 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     if (filter.authorIds?.length === 0) {
       setEmployeeIds([])
     }
-  }, [employeesFromIds])
 
-  const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
-
-  useEffect(() => {
     if (employeeIds !== undefined) {
       const pictures = employeeIds?.map((e) => e.profilePicture) ?? []
       setEmployeesPictures(pictures)
     }
-  }, [employeeIds])
-  // * End of fetching employees from the given IDs
+  }, [employeesFromIds, employeeIds])
+
+  const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
-
-  const resetActiveDropdown = (): void => {
-    setActiveDropdown('')
-  }
 
   const onShowDropdown = (dropdown: string): void => {
     // * If the dropdown is already active, reset it
     if (dropdown === activeDropdown) {
-      resetActiveDropdown()
+      setActiveDropdown('')
       return
     }
 
     setActiveDropdown(dropdown)
   }
+
+  const authorIdFilterSet = filter.authorIds?.length !== 0
+  const priorityFilterSet = filter.priority !== 0
+
+  // * This boolean will be used to track if the clear filters button should be shown or not
+  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
   return (
     <div className={styles.filterwrapper}>
@@ -169,7 +155,9 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
         onShowDropdown={() => {
           onShowDropdown('author')
         }}
-        resetActiveDropdown={resetActiveDropdown}
+        resetActiveDropdown={() => {
+          setActiveDropdown('')
+        }}
         clearSelectedOptionsFunction={handleClearAuthors}
       />
       <SelectPriority
@@ -180,7 +168,9 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
         onShowDropdown={() => {
           onShowDropdown('priority')
         }}
-        resetActiveDropdown={resetActiveDropdown}
+        resetActiveDropdown={() => {
+          setActiveDropdown('')
+        }}
         clearSelectedOptionsFunction={handleClearPriority}
       />
       {filtersHaveBeenSet && (

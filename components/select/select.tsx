@@ -20,33 +20,31 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(toggleValue)
   }
 
-  // * Single option selection and resetting
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
 
   const handleOptionClick = (option: Option): void => {
     setSelectedOption(option)
-    props.onSelect(option)
     setToggle(false)
+    props.onSelect(option)
     props.resetActiveDropdown?.()
   }
 
-  // ? Reset from the child component
   const resetSelectedOption = (): void => {
     props.clearSelectedOptionsFunction?.() // ? Pass the callback function that will clear the selected options in the parent component
     setSelectedOption(null)
     setSelectedOptions([])
   }
 
-  // ? Reset from a parent component
   useEffect(() => {
     if (props.clearSelectedOptionBoolean === true) {
       setSelectedOption(null)
     }
-  }, [props.clearSelectedOptionBoolean])
 
-  // * End of single option selection and resetting
+    if (props.clearSelectedOptions === true) {
+      setSelectedOptions([])
+    }
+  }, [props.clearSelectedOptionBoolean, props.clearSelectedOptions])
 
-  // * Multiple options selection and resetting
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
 
   const handleOptionClickMultiple = (option: Option): void => {
@@ -66,15 +64,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     // * Fix state not ready when calling onSelect inside handleOptionClickMultiple
     props.onSelect(selectedOptions)
   }, [selectedOptions])
-
-  // useEffect(() => {
-  //   if (props.clearSelectedOptionsFunction !== undefined) {
-  //     console.log('executed')
-  //     props.clearSelectedOptionsFunction?.()
-  //   }
-  // }, [props.clearSelectedOptionsFunction !== undefined])
-
-  // * End of multiple options selection and resetting
 
   return (
     <SelectUI
