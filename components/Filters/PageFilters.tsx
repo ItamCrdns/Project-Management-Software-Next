@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import RippleButton from '../ripplebutton/RippleButton'
 import SelectAuthor from './SelectAuthor'
 import { filterInitialState } from './filterInitialState'
@@ -7,8 +7,9 @@ import SelectPriority from './SelectPriority'
 import { setInitialSearchParams } from './setInitialSearchParams'
 import { usePathname, useRouter } from 'next/navigation'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
+import { type Employee } from '@/interfaces/employee'
 
-// TODO: Lots of re-rendering going on here. Might need to refactor this component
+// TODO: The clear filters button does clear the filters visually. But it doesnt clear the employees inside the select component. It should clear them too.
 
 interface IPageFiltersProps {
   showPictures?: boolean
@@ -24,24 +25,56 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
 
   const getAuthorsIDValues = useCallback(
     (authorIds: number[]): void => {
+      if (authorIds.length === 0) return
+      searchParams.set('author', authorIds.join('-'))
+
+      if (searchParams.toString() !== undefined && authorIds.length !== 0) {
+        router.replace(`${pathname}?${searchParams.toString()}`)
+      }
       setFilter({ ...filter, authorIds })
     },
     [filter]
   )
 
-  const getPriorityValue = (priority: number): void => {
-    setFilter({ ...filter, priority })
-  }
+  const getPriorityValue = useCallback(
+    (priority: number) => {
+      if (priority === 0) return
+      searchParams.set('priority', priority.toString())
+
+      if (searchParams.toString() !== undefined && priority !== 0) {
+        router.replace(`${pathname}?${searchParams.toString()}`)
+      }
+      setFilter({ ...filter, priority })
+    },
+    [filter]
+  )
 
   const handleClearFilters = (): void => {
-    setFilter(filterInitialState) // * Visually clear the filters
+    // * Visually clear the filters
+    setFilter(filterInitialState)
+
+    // * Clear the URL query params
+    searchParams.delete('author')
+    searchParams.delete('priority')
+
+    router.replace(`${pathname}?${searchParams.toString()}`)
+
+    // * Execute handleClearAuthors and handleClearPriority
+    handleClearAuthors()
+    handleClearPriority()
   }
 
   const handleClearPriority = (): void => {
+    searchParams.delete('priority')
+    router.replace(`${pathname}?${searchParams.toString()}`)
+
     setFilter({ ...filter, priority: 0 })
   }
 
   const handleClearAuthors = (): void => {
+    searchParams.delete('author')
+    router.replace(`${pathname}?${searchParams.toString()}`)
+
     setFilter({ ...filter, authorIds: [] })
   }
 
@@ -79,60 +112,33 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     }
   }, [searchParams])
 
-  const shouldFetch = filter.authorIds?.length !== 0
-
   // * Fetch the employees from the given IDs, return a list of employees with their pictures to show which employees the user has selected
   const { employeesFromIds } = getEmployeesByIdsArray(
     filter.authorIds ?? [],
-    shouldFetch
+    filter.authorIds?.length !== 0
   )
+
+  const [employeeIds, setEmployeeIds] = useState<Employee[]>([])
+
+  useEffect(() => {
+    if (employeesFromIds !== undefined) {
+      setEmployeeIds(employeesFromIds)
+    }
+
+    if (filter.authorIds?.length === 0) {
+      setEmployeeIds([])
+    }
+  }, [employeesFromIds])
 
   const [employeesPictures, setEmployeesPictures] = useState<string[]>([])
 
   useEffect(() => {
-    if (employeesFromIds !== undefined) {
-      const pictures = employeesFromIds?.map((e) => e.profilePicture) ?? []
+    if (employeeIds !== undefined) {
+      const pictures = employeeIds?.map((e) => e.profilePicture) ?? []
       setEmployeesPictures(pictures)
     }
-  }, [employeesFromIds])
+  }, [employeeIds])
   // * End of fetching employees from the given IDs
-
-  // TODO: Trying to not replace the URL in initial render, but it's not working. If priority and or author are declared, it will replace it with the same URL. Not a big deal, but it's not working as intended
-  // ? At least, using useRef it replaces the URL only once instead of two.
-  const prevFilter = useRef<IFilter>(filter)
-
-  useEffect(() => {
-    const areFiltersEqual =
-      prevFilter.current.authorIds?.toString() ===
-        filter.authorIds?.toString() &&
-      prevFilter.current.priority === filter.priority
-
-    if (!areFiltersEqual) {
-      prevFilter.current = { ...filter }
-
-      // * Replace the URL, based on the filter state
-      const priorityString = filter.priority?.toString() ?? '0'
-      const selectedEmployeesString = filter.authorIds?.join('-')
-
-      searchParams.set('priority', priorityString)
-      searchParams.set('author', selectedEmployeesString as string)
-
-      // * Delete query params if the state that handles them is empty
-      if (filter.priority === 0) {
-        searchParams.delete('priority')
-      }
-
-      if (filter.authorIds?.length === 0) {
-        searchParams.delete('author')
-      }
-
-      const newUrl = `${pathname}?${searchParams.toString()}`
-
-      if (searchParams.toString() !== undefined) {
-        router.replace(newUrl)
-      }
-    }
-  }, [filter, searchParams])
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
 
@@ -157,14 +163,14 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
         getAuthorsIDValues={getAuthorsIDValues}
         clearValues={!authorIdFilterSet} // * If not set, clear. Same for priority
         employeesPictures={employeesPictures}
-        defaultEmployees={employeesFromIds}
+        defaultEmployees={employeeIds}
         defaultSectedValues={filter.authorIds as number[]}
         shouldShowDropdown={activeDropdown === 'author'}
         onShowDropdown={() => {
           onShowDropdown('author')
         }}
         resetActiveDropdown={resetActiveDropdown}
-        clearSelectedOptions={handleClearAuthors}
+        clearSelectedOptionsFunction={handleClearAuthors}
       />
       <SelectPriority
         getPriorityValue={getPriorityValue}
@@ -175,7 +181,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
           onShowDropdown('priority')
         }}
         resetActiveDropdown={resetActiveDropdown}
-        clearSelectedOptions={handleClearPriority}
+        clearSelectedOptionsFunction={handleClearPriority}
       />
       {filtersHaveBeenSet && (
         <div style={{ marginTop: '.75rem' }}>

@@ -30,6 +30,7 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
       onShowDropdown={props.onShowDropdown}
       resetActiveDropdown={props.resetActiveDropdown}
       showReset
+      clearSelectedOptionsFunction={props.clearSelectedOptionsFunction}
     />
   )
 }

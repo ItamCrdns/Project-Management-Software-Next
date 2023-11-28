@@ -32,10 +32,9 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
   // ? Reset from the child component
   const resetSelectedOption = (): void => {
+    props.clearSelectedOptionsFunction?.() // ? Pass the callback function that will clear the selected options in the parent component
     setSelectedOption(null)
     setSelectedOptions([])
-    props.clearSelectedOption?.() // ? Pass the callback function that will clear the selected option in the parent component
-    props.clearSelectedOptionsFunction?.() // ? Pass the callback function that will clear the selected options in the parent component
   }
 
   // ? Reset from a parent component
@@ -68,11 +67,12 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     props.onSelect(selectedOptions)
   }, [selectedOptions])
 
-  useEffect(() => {
-    if (props.clearSelectedOptions === true) {
-      setSelectedOptions([])
-    }
-  }, [props.clearSelectedOptions])
+  // useEffect(() => {
+  //   if (props.clearSelectedOptionsFunction !== undefined) {
+  //     console.log('executed')
+  //     props.clearSelectedOptionsFunction?.()
+  //   }
+  // }, [props.clearSelectedOptionsFunction !== undefined])
 
   // * End of multiple options selection and resetting
 

@@ -8,7 +8,7 @@ export interface ISharedProps {
   shouldShowDropdown: boolean
   onShowDropdown: () => void
   resetActiveDropdown: () => void
-  clearSelectedOptions: () => void
+  clearSelectedOptionsFunction: () => void
 }
 
 export interface ISelectAuthorProps extends ISharedProps {
