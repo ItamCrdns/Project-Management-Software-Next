@@ -4,38 +4,17 @@ import ProjectUI from './ProjectUI'
 import generateQueryParams from '@/app/projects/client/queryParams'
 
 const EmployeeProjects: React.FC<EmployeeProjectsProps> = async (props) => {
-  const { params, searchParams } = props
-  const { username } = params
-
-  if (
-    props.searchParams.page === undefined ||
-    props.searchParams.page === null
-  ) {
-    // Set the value to 1 if the user removes the page?=# from the URL
-    props.searchParams.page = '1'
-  }
-
-  if (
-    props.searchParams.pagesize === undefined ||
-    props.searchParams.pagesize === null
-  ) {
-    // Set the value to 10 if the user removes the pagesize?=# from the URL
-    props.searchParams.pagesize = '10'
-  }
-
-  const queryParams = generateQueryParams(props.searchParams)
-
-  const { data } = await getUserProjects(username, queryParams)
-
-  const projects = data?.data ?? []
+  const { data } = await getUserProjects(
+    props.params.username,
+    generateQueryParams(props.searchParams)
+  )
 
   return (
     <ProjectUI
-      username={username}
-      projects={projects}
+      username={props.params.username}
+      projects={data?.data ?? []}
       totalPages={data?.pages ?? 0}
       totalProjects={data?.count ?? 0}
-      searchParams={searchParams}
     />
   )
 }

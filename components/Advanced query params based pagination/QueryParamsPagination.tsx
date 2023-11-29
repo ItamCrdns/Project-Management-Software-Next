@@ -88,8 +88,8 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
 
   return (
     <PaginationUI
-      currentPageSize={parseInt(props.searchParams.pagesize) ?? 10}
-      currentPage={parseInt(props.searchParams.page) ?? 1}
+      currentPageSize={parseInt(searchParams.get('pagesize')?.toString() ?? '10')}
+      currentPage={parseInt(searchParams.get('page')?.toString() ?? '1')}
       totalEntitesCount={totalEntitesCount}
       entityName={entityName}
       totalPages={totalPages}

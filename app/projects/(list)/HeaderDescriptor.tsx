@@ -28,7 +28,14 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
 
   const handleSortChange = (sortValue: string, sort: string): void => {
     // TODO: Fix dashboard state pagination
-    if (props.dashboard) {
+    if (props.pushSearchParams) {
+      searchParams.set('orderby', sortValue.toLowerCase())
+      searchParams.set('sort', sort.toLowerCase())
+
+      if (searchParams !== undefined) {
+        router.replace(`${pathname}?${searchParams.toString()}`)
+      }
+    } else {
       setOrder((prevState) => ({
         ...prevState,
         orderBy: sortValue as OrderBy,
@@ -37,13 +44,6 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
             ? 'descending'
             : 'ascending'
       }))
-    } else {
-      searchParams.set('orderby', sortValue.toLowerCase())
-      searchParams.set('sort', sort.toLowerCase())
-
-      if (searchParams !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
     }
   }
 
@@ -76,6 +76,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         sortValue={props.sortValues.name}
         searchParams={searchParams}
         dashboard={props.dashboard}
+        pushSearchParams={props.pushSearchParams}
       />
       <HeaderItem
         style={style}
@@ -86,6 +87,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         sortValue={props.sortValues.creator}
         searchParams={searchParams}
         dashboard={props.dashboard}
+        pushSearchParams={props.pushSearchParams}
       />
       <HeaderItem
         style={style}
@@ -96,6 +98,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         sortValue={props.sortValues.team}
         searchParams={searchParams}
         dashboard={props.dashboard}
+        pushSearchParams={props.pushSearchParams}
       />
       {props.entity === 'projects' && (
         <HeaderItem
@@ -107,6 +110,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           sortValue={props.sortValues.priority}
           searchParams={searchParams}
           dashboard={props.dashboard}
+          pushSearchParams={props.pushSearchParams}
         />
       )}
       <HeaderItem
@@ -118,6 +122,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         sortValue={props.sortValues.created}
         searchParams={searchParams}
         dashboard={props.dashboard}
+        pushSearchParams={props.pushSearchParams}
       />
       {props.dashboard && props.entity === 'projects' && (
         <HeaderItem
@@ -129,6 +134,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           sortValue={props.sortValues.company}
           searchParams={searchParams}
           dashboard={props.dashboard}
+          pushSearchParams={props.pushSearchParams}
         />
       )}
       {props.dashboard && props.entity === 'tasks' && (
@@ -141,6 +147,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           sortValue={props.sortValues.project}
           searchParams={searchParams}
           dashboard={props.dashboard}
+          pushSearchParams={props.pushSearchParams}
         />
       )}
       {props.dashboard && props.entity === 'issues' && (
@@ -153,6 +160,7 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
           sortValue={props.sortValues.task}
           searchParams={searchParams}
           dashboard={props.dashboard}
+          pushSearchParams={props.pushSearchParams}
         />
       )}
     </header>

@@ -3,7 +3,6 @@ import { type Style } from '@/interfaces/props/HeaderDescriptorProps'
 
 // TODO: See if we can optimize this component
 // TODO: CHECK IF THE ARROW IS AT THE CORRECT POSITION
-// TODO: Query params sort and orderby its pretty slow
 // TODO: HeaderDescriptor its broken everywhere except in the dashboard and in the projects/client/[...client]/page.tsx [FIX IT!!!]
 
 interface HeaderItemProps {
@@ -15,11 +14,13 @@ interface HeaderItemProps {
   sortValue: string | undefined
   searchParams: URLSearchParams
   dashboard: boolean
+  pushSearchParams: boolean
 }
 
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   const isSelected =
     (props.dashboard &&
+      !props.pushSearchParams &&
       props.order.orderBy.toLowerCase() === props.sortValue?.toLowerCase()) ||
     props.searchParams?.get('orderby')?.toString() ===
       props.sortValue?.toLowerCase()

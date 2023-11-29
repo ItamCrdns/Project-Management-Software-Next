@@ -28,16 +28,14 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
       <section className={styles.projectswrapper}>
         <HeaderDescriptor
           dashboard={false}
+          pushSearchParams
           entity="projects"
           width="300px"
           sortValues={projectSortValues}
-          pushSearchParams
-          searchParams={props.searchParams}
         />
         <div className={styles.projectscontainer}>
           <QueryParamsPagination
             totalPages={props.totalPages}
-            searchParams={props.searchParams}
             entityName="Projects"
             totalEntitesCount={props.totalProjects}
           />

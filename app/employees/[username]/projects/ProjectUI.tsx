@@ -3,7 +3,6 @@ import projectStyles from '@/app/projects/(list)/projectslist.module.css'
 import { type Project } from '@/interfaces/project'
 import EachProject from '@/app/projects/(list)/EachProject'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
-import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import Link from 'next/link'
 import EmployeeCardProfile from '../(employee)/@employeeCard/page'
 import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
@@ -14,13 +13,10 @@ interface ProjectUIProps {
   projects: Project[]
   totalPages: number
   totalProjects: number
-  searchParams: SearchParamsPageSize
 }
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const username: string = props.username
-
-  const baseUrl = `/employees/${username}/projects/`
 
   return (
     <section className={styles.mainwrapper}>
@@ -37,12 +33,10 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
         <div className={styles.headerdescriptorwrapper}>
           <HeaderDescriptor
             dashboard
+            pushSearchParams
             entity="projects"
             width="300px"
             sortValues={projectSortValues}
-            pushSearchParams
-            url={baseUrl}
-            searchParams={props.searchParams}
           />
         </div>
         <section className={styles.projects}>
@@ -50,7 +44,6 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           <div className={styles.paramsandprojectswrapper}>
             <QueryParamsPagination
               totalPages={props.totalPages}
-              searchParams={props.searchParams}
               entityName="Projects"
               totalEntitesCount={props.totalProjects}
             />
