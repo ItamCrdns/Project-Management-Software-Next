@@ -1,7 +1,8 @@
 import styles from './project.module.css'
 import Link from 'next/link'
 import { type Employee } from '@/interfaces/employee'
-import EmployeeOfTheList, { type Position } from '@/components/Generic Entity Renderer/EmployeeOfTheList'
+import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
+import { type Position } from '@/components/Generic Entity Renderer/IEmployeeListProps'
 
 interface ProjectEmployeeProps {
   employees: Employee[]
