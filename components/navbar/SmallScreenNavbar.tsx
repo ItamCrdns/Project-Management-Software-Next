@@ -45,12 +45,12 @@ const SmallScreenNavbar = ({
               <Link href={`/profile/${employee.username}`}>Your profile</Link>
             </section>
             <RippleButton
-              text="Logout"
-              icon="logout"
-              iconSize="20px"
-              backgroundColor="rgb(255, 80, 120)"
-              effectColor="rgb(255, 50, 120)"
-              textColor="white"
+              text='Logout'
+              icon='logout'
+              iconSize='20px'
+              backgroundColor='rgb(255, 80, 120)'
+              effectColor='rgb(255, 50, 120)'
+              textColor='white'
               func={handleLogout}
             />
           </section>
@@ -61,11 +61,11 @@ const SmallScreenNavbar = ({
           <section className={styles.usercontainer}>
             <span>You are not logged in.</span>
             <RippleButton
-              text="Login"
-              backgroundColor="#90E0EF"
-              effectColor="#CAF0F8"
-              textColor="white"
-              href="/login"
+              text='Login'
+              backgroundColor='#90E0EF'
+              effectColor='#CAF0F8'
+              textColor='white'
+              href='/login'
             />
           </section>
         </section>

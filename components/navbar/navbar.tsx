@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
     <>
       <nav className={styles.navbar}>
         <section className={styles.navlinks}>
-          <Link style={{ fontWeight: 700 }} href="/">
+          <Link style={{ fontWeight: 700 }} href='/'>
             ACME Corporation
           </Link>
           <section className={styles.links}>{navItems}</section>

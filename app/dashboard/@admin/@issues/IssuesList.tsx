@@ -24,17 +24,17 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
 
   return (
     <section>
-      <EntityHeader color="#FF6969" entityName="issues" />
+      <EntityHeader color='#FF6969' entityName='issues' />
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor
           dashboard
           pushSearchParams={false}
-          entity="issues"
-          width="200px"
+          entity='issues'
+          width='200px'
           updateFilter={props.updateFilter}
           sortValues={issueSortValues}
         />
-        {isLoading && <LoadingFetch entityName="issues" />}
+        {isLoading && <LoadingFetch entityName='issues' />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(issues?.data) && (
           <ul>

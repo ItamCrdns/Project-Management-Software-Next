@@ -82,14 +82,14 @@ const ProjectUI: React.FC<ProjectUIProps> = async (props) => {
       </div>
       <div className={styles.buttonswrapper}>
         {isProjectOwner === true && (
-          <RippleButton text="Create new task" width="125px" />
+          <RippleButton text='Create new task' width='125px' />
         )}
         {isProjectParticipant === true && (
           <div className={styles.buttonswrapper}>
-            <RippleButton text="My tasks" width="85px" />
+            <RippleButton text='My tasks' width='85px' />
             <RippleButton
-              text="Request new task"
-              backgroundColor="#80B3FF"
+              text='Request new task'
+              backgroundColor='#80B3FF'
             />
           </div>
         )}

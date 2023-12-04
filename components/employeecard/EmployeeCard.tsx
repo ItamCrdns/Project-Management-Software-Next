@@ -47,15 +47,15 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
         {isProfile && <EmployeeNumbers employee={employee} />}
         <div className={styles.buttonwrapper}>
           <RippleButton
-            text="Message"
-            backgroundColor="#272829"
-            effectColor="#61677A"
-            textColor="white"
+            text='Message'
+            backgroundColor='#272829'
+            effectColor='#61677A'
+            textColor='white'
           />
           <RippleButton
-            text="More"
-            backgroundColor="#80B3FF"
-            textColor="white"
+            text='More'
+            backgroundColor='#80B3FF'
+            textColor='white'
           />
         </div>
       </section>

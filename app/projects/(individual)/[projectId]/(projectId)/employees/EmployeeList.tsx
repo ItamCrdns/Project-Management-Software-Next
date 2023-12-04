@@ -1,8 +1,8 @@
 import Search from '@/components/search/search'
 import { type Employee } from '@/interfaces/employee'
 import styles from './employees.module.css'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface EmployeeListProps {
   employeeList: Employee[]

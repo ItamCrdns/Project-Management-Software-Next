@@ -113,7 +113,7 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
           {icon !== null && (
             <span
               style={{ fontSize: iconSize }}
-              className="material-symbols-outlined"
+              className='material-symbols-outlined'
             >
               {icon}
             </span>
@@ -127,7 +127,7 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
           {icon !== null && (
             <span
               style={{ fontSize: iconSize }}
-              className="material-symbols-outlined"
+              className='material-symbols-outlined'
             >
               {icon}
             </span>

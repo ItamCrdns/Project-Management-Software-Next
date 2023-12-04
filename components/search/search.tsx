@@ -66,8 +66,8 @@ const Search: React.FunctionComponent<SearchProps> = ({
         search
       </span>
       <input
-        type="text"
-        placeholder="Press enter to search"
+        type='text'
+        placeholder='Press enter to search'
         defaultValue={searchValueFromParams ?? ''}
         maxLength={maxInputLength}
         onChange={handleInputChange}

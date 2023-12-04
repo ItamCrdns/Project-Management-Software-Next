@@ -47,7 +47,7 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
           />
             )}
       </div>
-      <span className="material-symbols-outlined">expand_more</span>
+      <span className='material-symbols-outlined'>expand_more</span>
     </div>
   )
 }

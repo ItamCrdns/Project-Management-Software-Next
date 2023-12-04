@@ -18,10 +18,10 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
       {props.children}
       <main className={styles.main}>
         <TitleWrapper
-          title="Projects overview"
-          icon="emoji_objects"
-          buttonText="New project"
-          buttonHref="/projects/new"
+          title='Projects overview'
+          icon='emoji_objects'
+          buttonText='New project'
+          buttonHref='/projects/new'
           showButton={true}
         />
         <section className={styles.projectswrapper}>
@@ -33,10 +33,10 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
                 {Array.isArray(projects) && projects.length > 0 && (
                   <div>
                     <RippleButton
-                      text="More projects..."
+                      text='More projects...'
                       href={`/projects/client/${projects[0].company.companyId}/${companyName}`}
-                      textColor="white"
-                      backgroundColor="#80B3FF"
+                      textColor='white'
+                      backgroundColor='#80B3FF'
                     />
                   </div>
                 )}

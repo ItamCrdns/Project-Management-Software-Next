@@ -21,14 +21,14 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
       <span>
         <span
           style={{ fontSize: '50px' }}
-          className="material-symbols-outlined"
+          className='material-symbols-outlined'
         >
           {props.icon}
         </span>
         <h1>{props.title}</h1>
       </span>
       <LoggedInCard
-        optionsText="Filters"
+        optionsText='Filters'
         isDashboard={props.isDashboard}
         isPage={props.isPage}
         showButton={props.showButton}

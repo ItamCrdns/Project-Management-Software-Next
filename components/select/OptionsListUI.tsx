@@ -64,9 +64,9 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
         />
         {props.showCloseButton === true && (
           <RippleButton
-            text="Close"
-            backgroundColor="rgb(255, 80, 120)"
-            textColor="white"
+            text='Close'
+            backgroundColor='rgb(255, 80, 120)'
+            textColor='white'
             func={() => props.resetActiveDropdown?.()}
           />
         )}

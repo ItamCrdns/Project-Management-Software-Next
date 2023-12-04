@@ -20,10 +20,10 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
   return (
     <CustomSelect
       options={priorityOptions}
-      text="Priority"
+      text='Priority'
       onSelect={handlePrioritySelect}
       defaultValue={priority.priorityText}
-      optionsWidth="400px"
+      optionsWidth='400px'
       showCloseButton={true}
       clearSelectedOptionBoolean={props.clearValues}
       shouldShowDropdown={props.shouldShowDropdown}

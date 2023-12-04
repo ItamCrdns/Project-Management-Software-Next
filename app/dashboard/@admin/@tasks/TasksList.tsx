@@ -24,23 +24,23 @@ const TasksList: React.FC<TasksProps> = (props) => {
 
   return (
     <section>
-      <EntityHeader color="#1A4D1A" entityName="tasks" />
+      <EntityHeader color='#1A4D1A' entityName='tasks' />
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor
           dashboard
           pushSearchParams={false}
-          entity="tasks"
-          width="200px"
+          entity='tasks'
+          width='200px'
           updateFilter={props.updateFilter}
           sortValues={taskSortValues}
         />
-        {isLoading && <LoadingFetch entityName="tasks" />}
+        {isLoading && <LoadingFetch entityName='tasks' />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(tasks?.data) && (
           <ul>
             {tasks?.data.map((task: Task, index: number) => (
               <li key={index}>
-                <EachTask task={task} showProjectName width="200px" />
+                <EachTask task={task} showProjectName width='200px' />
               </li>
             ))}
           </ul>

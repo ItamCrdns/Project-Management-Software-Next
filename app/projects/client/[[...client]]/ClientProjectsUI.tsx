@@ -20,7 +20,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
     <main className={styles.main}>
       <TitleWrapper
         title={props.title}
-        icon="emoji_objects"
+        icon='emoji_objects'
         showButton={false}
         isPage
         showPictures // ? Options with pictures for the employees
@@ -29,14 +29,14 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
         <HeaderDescriptor
           dashboard={false}
           pushSearchParams
-          entity="projects"
-          width="300px"
+          entity='projects'
+          width='300px'
           sortValues={projectSortValues}
         />
         <div className={styles.projectscontainer}>
           <QueryParamsPagination
             totalPages={props.totalPages}
-            entityName="Projects"
+            entityName='Projects'
             totalEntitesCount={props.totalProjects}
           />
           {Array.isArray(props.projects) && props.projects.length > 0
@@ -49,7 +49,12 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
               ))}
             </ul>
               )
-            : (<p style={{ textAlign: 'center' }}>No projects match your filtering criteria. Clear your filters and try again.</p>)}
+            : (
+            <p style={{ textAlign: 'center' }}>
+              No projects match your filtering criteria. Clear your filters and
+              try again.
+            </p>
+              )}
         </div>
       </section>
     </main>

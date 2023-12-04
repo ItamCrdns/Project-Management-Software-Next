@@ -103,7 +103,7 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
             </p>
             <InputAndCharacterCount
               defaultValue={newData.data.description ?? ''}
-              name="description"
+              name='description'
               placeholder={`Add a description for ${data.data.name}`}
               limit={255}
               onSubmit={handleTextAreaSubmit}
@@ -111,7 +111,7 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
             <CustomSelect
               defaultValue={newData.data.priorityLabel as string}
               options={priorityOptions}
-              text="Pick a priority..."
+              text='Pick a priority...'
               onSelect={handlePrioritySelect}
               shouldShowDropdown={toggle}
               onShowDropdown={() => { setToggle(!toggle) }}
@@ -120,17 +120,17 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
           </form>
           <div className={styles.buttonwrapper}>
             <RippleButton
-              text="Next"
-              backgroundColor="#80B3FF"
-              textColor="white"
-              effectColor="var(--banner-color)"
+              text='Next'
+              backgroundColor='#80B3FF'
+              textColor='white'
+              effectColor='var(--banner-color)'
               func={handleClick}
             />
             <RippleButton
-              text="Go back"
-              backgroundColor="var(--darker-banner-color)"
-              effectColor="var(--banner-color)"
-              textColor="var(--text-color)"
+              text='Go back'
+              backgroundColor='var(--darker-banner-color)'
+              effectColor='var(--banner-color)'
+              textColor='var(--text-color)'
               func={handleGoBack}
             />
           </div>

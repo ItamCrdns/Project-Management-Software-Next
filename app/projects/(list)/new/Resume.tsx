@@ -117,16 +117,16 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
             ))}
       <div className={styles.buttonwrapper}>
         <RippleButton
-          text="Create project"
-          backgroundColor="#80B3FF"
-          textColor="white"
+          text='Create project'
+          backgroundColor='#80B3FF'
+          textColor='white'
           asyncFunc={handleCreateProject}
         />
         <RippleButton
-          text="Go back"
-          backgroundColor="var(--darker-banner-color)"
-          effectColor="var(--banner-color)"
-          textColor="var(--text-color)"
+          text='Go back'
+          backgroundColor='var(--darker-banner-color)'
+          effectColor='var(--banner-color)'
+          textColor='var(--text-color)'
           func={handleGoBack}
         />
       </div>

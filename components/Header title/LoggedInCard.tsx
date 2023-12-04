@@ -23,7 +23,7 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
       {props.showButton !== null && props.showButton === true && (
         <RippleButton
           text={props.buttonText ?? ''}
-          icon="add"
+          icon='add'
           width={props.buttonWidth ?? '125px'}
           href={props.buttonHref}
         />

@@ -63,7 +63,7 @@ const ExpectedDeliveryDate: React.FC<Props> = (props) => {
           onMouseLeave={() => {
             setToggle(false)
           }}
-          className="material-symbols-outlined"
+          className='material-symbols-outlined'
         >
           info
         </span>

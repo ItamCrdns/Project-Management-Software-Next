@@ -38,7 +38,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   return (
     <CustomSelect
       options={employeesAsOptions(employees?.data)} // ? Make the employees fit the options interface
-      text="Author or authors"
+      text='Author or authors'
       onSelect={handleEmployeeSelect}
       isPaginated
       pageSize={employees?.pages}

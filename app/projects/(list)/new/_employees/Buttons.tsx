@@ -11,15 +11,15 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
         <div className={styles.buttonwrapper}>
           <RippleButton
             text={`Add ${selectedEmployees.length} employees`}
-            backgroundColor="#80B3FF"
-            textColor="white"
+            backgroundColor='#80B3FF'
+            textColor='white'
             func={handleSubmit}
           />
           <RippleButton
-            text="Go back"
-            backgroundColor="var(--darker-banner-color)"
-            effectColor="var(--banner-color)"
-            textColor="var(--text-color)"
+            text='Go back'
+            backgroundColor='var(--darker-banner-color)'
+            effectColor='var(--banner-color)'
+            textColor='var(--text-color)'
             func={handleGoBack}
           />
         </div>
@@ -27,17 +27,17 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
         : (
         <div className={styles.buttonwrapper}>
           <RippleButton
-            text="Continue without adding employees"
-            backgroundColor="var(--darker-banner-color)"
-            effectColor="var(--banner-color)"
-            textColor="var(--text-color)"
+            text='Continue without adding employees'
+            backgroundColor='var(--darker-banner-color)'
+            effectColor='var(--banner-color)'
+            textColor='var(--text-color)'
             func={handleSubmit}
           />
           <RippleButton
-            text="Go back"
-            backgroundColor="var(--darker-banner-color)"
-            effectColor="var(--banner-color)"
-            textColor="var(--text-color)"
+            text='Go back'
+            backgroundColor='var(--darker-banner-color)'
+            effectColor='var(--banner-color)'
+            textColor='var(--text-color)'
             func={handleGoBack}
           />
         </div>

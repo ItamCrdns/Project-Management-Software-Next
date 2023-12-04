@@ -34,8 +34,8 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           <HeaderDescriptor
             dashboard
             pushSearchParams
-            entity="projects"
-            width="300px"
+            entity='projects'
+            width='300px'
             sortValues={projectSortValues}
           />
         </div>
@@ -44,7 +44,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           <div className={styles.paramsandprojectswrapper}>
             <QueryParamsPagination
               totalPages={props.totalPages}
-              entityName="Projects"
+              entityName='Projects'
               totalEntitesCount={props.totalProjects}
             />
             <div className={projectStyles.projectswrapper}>
