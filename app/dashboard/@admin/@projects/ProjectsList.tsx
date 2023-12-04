@@ -28,6 +28,7 @@ const ProjectsList: React.FC<ProjectsProps> = (props) => {
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor
           dashboard
+          pushSearchParams={false}
           entity="projects"
           width="300px"
           updateFilter={props.updateFilter}

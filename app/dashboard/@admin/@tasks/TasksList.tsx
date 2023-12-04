@@ -28,6 +28,7 @@ const TasksList: React.FC<TasksProps> = (props) => {
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor
           dashboard
+          pushSearchParams={false}
           entity="tasks"
           width="200px"
           updateFilter={props.updateFilter}
