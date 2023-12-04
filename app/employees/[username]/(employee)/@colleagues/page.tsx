@@ -15,7 +15,7 @@ const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
     <section className={styles.employees}>
       <div className={styles.headerwrapper}>
         <div>
-          <span className="material-symbols-outlined">groups</span>
+          <span className='material-symbols-outlined'>groups</span>
           <h1>Colleagues</h1>
         </div>
         <h3>List</h3>

@@ -31,7 +31,7 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
       <div className={tasksStyles.paginationwrapper}>
         <QueryParamsPagination
           totalPages={totalPages}
-          entityName="Tasks"
+          entityName='Tasks'
           totalEntitesCount={totalTasks}
         />
       </div>

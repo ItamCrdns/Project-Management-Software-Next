@@ -185,9 +185,9 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
       {filtersHaveBeenSet && (
         <div style={{ marginTop: '.75rem' }}>
           <RippleButton
-            text="Clear all filters"
-            textColor="white"
-            backgroundColor="rgb(255, 80, 120)"
+            text='Clear all filters'
+            textColor='white'
+            backgroundColor='rgb(255, 80, 120)'
             func={handleClearFilters}
           />
         </div>

@@ -26,6 +26,7 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "standard": "17.1.0"
   }
 }

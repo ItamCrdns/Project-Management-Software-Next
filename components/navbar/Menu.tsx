@@ -32,26 +32,26 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
         </p>
       </section>
       <section className={styles.popupmenu}>
-        <Link href="/projects">
-          <span className="material-symbols-outlined">emoji_objects</span>
+        <Link href='/projects'>
+          <span className='material-symbols-outlined'>emoji_objects</span>
           <p>Projects</p>
         </Link>
-        <Link href="/tasks">
-          <span className="material-symbols-outlined">note_stack</span>
+        <Link href='/tasks'>
+          <span className='material-symbols-outlined'>note_stack</span>
           <p>Tasks</p>
         </Link>
-        <Link href="/issues">
-          <span className="material-symbols-outlined">campaign</span>
+        <Link href='/issues'>
+          <span className='material-symbols-outlined'>campaign</span>
           <p>Issues</p>
         </Link>
       </section>
       <section className={styles.popupmenusettings}>
         <Link href=''>
-          <span className="material-symbols-outlined">settings</span>
+          <span className='material-symbols-outlined'>settings</span>
           <p>Settings</p>
         </Link >
         <span onClick={toggleDarkMode}>
-          <span className="material-symbols-outlined">
+          <span className='material-symbols-outlined'>
             {!darkMode ? 'dark_mode' : 'light_mode'}
           </span>
           <p>{!darkMode ? 'Dark mode' : 'Light mode'}</p>
@@ -59,12 +59,12 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
       </section>
       <section className={styles.logout}>
         <RippleButton
-          text="Logout"
-          icon="logout"
-          iconSize="20px"
-          backgroundColor="rgb(255, 80, 120)"
-          effectColor="rgb(255, 50, 120)"
-          textColor="white"
+          text='Logout'
+          icon='logout'
+          iconSize='20px'
+          backgroundColor='rgb(255, 80, 120)'
+          effectColor='rgb(255, 50, 120)'
+          textColor='white'
           func={handleLogout}
         />
       </section>

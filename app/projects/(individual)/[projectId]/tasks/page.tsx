@@ -17,8 +17,8 @@ const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
         <div className={styles.headerwrapper}>
           <HeaderDescriptor
             dashboard={false}
-            entity="tasks"
-            width="300px"
+            entity='tasks'
+            width='300px'
             sortValues={taskSortValues}
             pushSearchParams
           />

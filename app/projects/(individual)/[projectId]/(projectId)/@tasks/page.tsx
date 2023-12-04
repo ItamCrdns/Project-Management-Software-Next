@@ -32,9 +32,9 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
           <h1>Tasks</h1>
           <div>
             <RippleButton
-              text="Show all tasks"
-              backgroundColor="#80B3FF"
-              textColor="white"
+              text='Show all tasks'
+              backgroundColor='#80B3FF'
+              textColor='white'
               href={`/projects/${projectId}/tasks`}
             />
           </div>

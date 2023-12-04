@@ -18,7 +18,7 @@ const AdminBanners: React.FC = async () => {
           </div>
           <span
             style={{ color: 'white', backgroundColor: '#00A9FF' }}
-            className="material-symbols-outlined"
+            className='material-symbols-outlined'
           >
             emoji_objects
           </span>
@@ -32,7 +32,7 @@ const AdminBanners: React.FC = async () => {
           </div>
           <span
             style={{ color: 'white', backgroundColor: '#1A5D1A' }}
-            className="material-symbols-outlined"
+            className='material-symbols-outlined'
           >
             note_stack
           </span>
@@ -46,7 +46,7 @@ const AdminBanners: React.FC = async () => {
           </div>
           <span
             style={{ color: 'white', backgroundColor: '#FF6969' }}
-            className="material-symbols-outlined"
+            className='material-symbols-outlined'
           >
             campaign
           </span>

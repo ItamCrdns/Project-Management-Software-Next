@@ -70,9 +70,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        icon="signature"
+        icon='signature'
         order={order}
-        label="Name"
+        label='Name'
         sortValue={props.sortValues.name}
         searchParams={searchParams}
         dashboard={props.dashboard}
@@ -81,9 +81,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        icon="person"
+        icon='person'
         order={order}
-        label="Creator"
+        label='Creator'
         sortValue={props.sortValues.creator}
         searchParams={searchParams}
         dashboard={props.dashboard}
@@ -92,9 +92,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        icon="group"
+        icon='group'
         order={order}
-        label="Team"
+        label='Team'
         sortValue={props.sortValues.team}
         searchParams={searchParams}
         dashboard={props.dashboard}
@@ -104,9 +104,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          icon="priority_high"
+          icon='priority_high'
           order={order}
-          label="Priority"
+          label='Priority'
           sortValue={props.sortValues.priority}
           searchParams={searchParams}
           dashboard={props.dashboard}
@@ -116,9 +116,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
       <HeaderItem
         style={style}
         handleSortChange={handleSortChange}
-        icon="calendar_month"
+        icon='calendar_month'
         order={order}
-        label="Created"
+        label='Created'
         sortValue={props.sortValues.created}
         searchParams={searchParams}
         dashboard={props.dashboard}
@@ -128,9 +128,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          icon="store"
+          icon='store'
           order={order}
-          label="Company"
+          label='Company'
           sortValue={props.sortValues.company}
           searchParams={searchParams}
           dashboard={props.dashboard}
@@ -141,9 +141,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          icon="emoji_objects"
+          icon='emoji_objects'
           order={order}
-          label="Project"
+          label='Project'
           sortValue={props.sortValues.project}
           searchParams={searchParams}
           dashboard={props.dashboard}
@@ -154,9 +154,9 @@ const HeaderDescriptor: React.FC<HeaderDescriptorProps> = (props) => {
         <HeaderItem
           style={style}
           handleSortChange={handleSortChange}
-          icon="note_stack"
+          icon='note_stack'
           order={order}
-          label="Task"
+          label='Task'
           sortValue={props.sortValues.task}
           searchParams={searchParams}
           dashboard={props.dashboard}

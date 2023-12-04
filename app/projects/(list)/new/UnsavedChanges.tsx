@@ -18,17 +18,17 @@ const UnsavedChanges: React.FC<UnsavedChangesProps> = (props) => {
         <p>Changes you have made will not be saved.</p>
         <div className={styles.buttonwrapper}>
           <RippleButton
-            text="Go back"
-            backgroundColor="#80B3FF"
-            textColor="white"
+            text='Go back'
+            backgroundColor='#80B3FF'
+            textColor='white'
             func={handleGoBack}
           />
 
           <RippleButton
-            text="Discard"
-            backgroundColor="rgb(255, 80, 120)"
-            effectColor="rgb(255, 50, 120)"
-            textColor="white"
+            text='Discard'
+            backgroundColor='rgb(255, 80, 120)'
+            effectColor='rgb(255, 50, 120)'
+            textColor='white'
             func={() => {
               router.push('/projects')
             }}

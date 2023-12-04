@@ -13,7 +13,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
       <div className={styles.pagesize}>
         <p>Showing</p>
         <input
-          type="number"
+          type='number'
           value={pageSizeValue}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
@@ -27,17 +27,17 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         <div>
           <span
             onClick={props.goToFirstPage}
-            className="material-symbols-outlined"
+            className='material-symbols-outlined'
           >
             keyboard_double_arrow_left
           </span>
           <div onClick={props.goToPreviousPage}>
-            <span className="material-symbols-outlined">navigate_before</span>
+            <span className='material-symbols-outlined'>navigate_before</span>
             <p className={styles.prevnexttext}>Previous</p>
           </div>
         </div>
         <input
-          type="number"
+          type='number'
           value={props.currentPage}
           onClick={handleInputClick}
           onChange={handleCurrentPageInputChange}
@@ -46,11 +46,11 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         <div>
           <div onClick={props.goToNextPage}>
             <p className={styles.prevnexttext}>Next</p>
-            <span className="material-symbols-outlined">navigate_next</span>
+            <span className='material-symbols-outlined'>navigate_next</span>
           </div>
           <span
             onClick={props.goToLastPage}
-            className="material-symbols-outlined"
+            className='material-symbols-outlined'
           >
             keyboard_double_arrow_right
           </span>

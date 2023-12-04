@@ -66,7 +66,7 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
         onClick={() => {
           handleChangePage('previous')
         }}
-        className="material-symbols-outlined"
+        className='material-symbols-outlined'
       >
         navigate_before
       </span>
@@ -77,7 +77,7 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
         onClick={() => {
           handleChangePage('next')
         }}
-        className="material-symbols-outlined"
+        className='material-symbols-outlined'
       >
         navigate_next
       </span>

@@ -80,24 +80,24 @@ const LoginPage = (): JSX.Element => {
         <h1>Company Logo here</h1>
         <form ref={formRef} onSubmit={handleSubmit}>
           <input
-            type="text"
-            name="username"
+            type='text'
+            name='username'
             required
-            placeholder="Username"
+            placeholder='Username'
             autoFocus
           />
           <input
-            type="password"
-            name="password"
+            type='password'
+            name='password'
             required
-            placeholder="Password"
+            placeholder='Password'
           />
-          <input type="submit" />
+          <input type='submit' />
         </form>
         <RippleButton
-          text="Login"
-          backgroundColor="rgb(0, 210, 255)"
-          textColor="white"
+          text='Login'
+          backgroundColor='rgb(0, 210, 255)'
+          textColor='white'
           func={handleClick}
         />
       </section>
@@ -105,7 +105,7 @@ const LoginPage = (): JSX.Element => {
         ready={isAnyFieldTruthy}
         message={message?.message ?? ''}
         backgroundColor={bgColor}
-        color="white"
+        color='white'
         width={alertWidth}
       />
     </main>

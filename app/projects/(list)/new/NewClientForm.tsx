@@ -19,17 +19,17 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
     <section className={styles.newclientform}>
       <input
         ref={inputRef}
-        type="text"
-        placeholder="Client name"
+        type='text'
+        placeholder='Client name'
         autoComplete='off'
         defaultValue={props.defaultInputValue}
-        name="clientName"
+        name='clientName'
         maxLength={255}
       />
       <RippleButton
         text={props.buttonText}
-        backgroundColor="#80B3FF"
-        textColor="white"
+        backgroundColor='#80B3FF'
+        textColor='white'
         func={handleClick}
       />
       <span

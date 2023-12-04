@@ -39,10 +39,10 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
         )
       }}
     >
-      <span className="material-symbols-outlined">{props.icon}</span>
+      <span className='material-symbols-outlined'>{props.icon}</span>
       <p style={{ fontWeight: isSelected ? 700 : 400 }}>{props.label}</p>
       {isSelected && (
-        <span className="material-symbols-outlined">
+        <span className='material-symbols-outlined'>
           {props.order.sort === 'ascending' ||
           props.searchParams.get('sort')?.toString() === 'ascending'
             ? 'expand_more'

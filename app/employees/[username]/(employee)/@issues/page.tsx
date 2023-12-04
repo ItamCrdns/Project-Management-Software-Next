@@ -16,7 +16,7 @@ const CurrentIssues: React.FunctionComponent<UsernameParamsProps> = async ({
     <section className={styles.employees}>
       <div className={styles.headerwrapper}>
         <div>
-          <span className="material-symbols-outlined">campaign</span>
+          <span className='material-symbols-outlined'>campaign</span>
           <h1>Current issues</h1>
         </div>
         <h3>List</h3>

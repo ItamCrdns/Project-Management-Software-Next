@@ -186,8 +186,8 @@ const NewProjectModal = (): JSX.Element => {
               </p>
               <InputAndCharacterCount
                 defaultValue={data.data.name ?? ''}
-                name="name"
-                placeholder="Project name"
+                name='name'
+                placeholder='Project name'
                 limit={255}
                 onSubmit={handleInputSubmit}
               />
@@ -209,9 +209,9 @@ const NewProjectModal = (): JSX.Element => {
               />
             </form>
             <RippleButton
-              text="Next"
-              backgroundColor="#80B3FF"
-              textColor="white"
+              text='Next'
+              backgroundColor='#80B3FF'
+              textColor='white'
               func={handleClick}
             />
           </>

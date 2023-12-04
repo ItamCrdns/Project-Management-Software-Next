@@ -37,7 +37,7 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
       pathname={pathname}
       closeButtonHref={`/projects/${params.projectId}`}
       paginationUrl={`/projects/${params.projectId}/employees`}
-      headerText="All employees"
+      headerText='All employees'
     />
   )
 }

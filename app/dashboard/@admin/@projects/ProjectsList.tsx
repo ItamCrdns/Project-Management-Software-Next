@@ -24,17 +24,17 @@ const ProjectsList: React.FC<ProjectsProps> = (props) => {
 
   return (
     <section>
-      <EntityHeader color="#00A9FF" entityName="projects" />
+      <EntityHeader color='#00A9FF' entityName='projects' />
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <HeaderDescriptor
           dashboard
           pushSearchParams={false}
-          entity="projects"
-          width="300px"
+          entity='projects'
+          width='300px'
           updateFilter={props.updateFilter}
           sortValues={projectSortValues}
         />
-        {isLoading && <LoadingFetch entityName="projects" />}
+        {isLoading && <LoadingFetch entityName='projects' />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(projects?.data) && (
           <ul>

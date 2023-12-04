@@ -32,7 +32,7 @@ const Colleagues: React.FunctionComponent<EmployeeColleaguesProps> = (
       pathname={pathname}
       closeButtonHref={`/employees/${username}`}
       paginationUrl={`/employees/${username}/colleagues`}
-      headerText="Colleagues"
+      headerText='Colleagues'
     />
   )
 }

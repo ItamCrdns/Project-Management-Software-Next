@@ -11,7 +11,7 @@ const Options: React.FC<OptionsProps> = (props) => {
   return (
     <div className={styles.options}>
       <p onClick={handleToggle}>{props.text}</p>
-      <span onClick={handleToggle} className="material-symbols-outlined">
+      <span onClick={handleToggle} className='material-symbols-outlined'>
         {!toggle ? 'expand_more' : 'expand_less'}
       </span>
     </div>

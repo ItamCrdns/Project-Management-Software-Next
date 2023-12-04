@@ -1,5 +1,4 @@
 declare const styles: {
-  readonly "inputwrapper": string;
-};
-export = styles;
-
+  readonly 'inputwrapper': string
+}
+export = styles

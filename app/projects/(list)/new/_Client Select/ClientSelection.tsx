@@ -30,7 +30,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
     <CustomSelect
       defaultValue={props.clientName}
       options={companyOptions ?? []}
-      text="Select a client..."
+      text='Select a client...'
       onSelect={props.handleClientSelection}
       disabled={props.isFormOpen}
       clearSelectedOption={props.clearSelectedOption}

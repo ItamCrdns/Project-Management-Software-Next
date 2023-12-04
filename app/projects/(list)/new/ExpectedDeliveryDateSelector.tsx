@@ -23,7 +23,7 @@ ExpectedDeliveryDateSelectorProps
           onMouseLeave={() => {
             setToggle(false)
           }}
-          className="material-symbols-outlined"
+          className='material-symbols-outlined'
         >
           info
         </span>
@@ -35,7 +35,7 @@ ExpectedDeliveryDateSelectorProps
       </div>
       <input
         onChange={getDate}
-        type="date"
+        type='date'
         defaultValue={props.defaultValue ?? ''}
       />
     </>
