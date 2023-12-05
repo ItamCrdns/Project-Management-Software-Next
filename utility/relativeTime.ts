@@ -1,10 +1,23 @@
-export const relativeTime = (date: number): string => {
+export const relativeTime = (date: string): string => {
   const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
   const pastDate = new Date(date)
-  const currentDate = new Date()
 
-  const timeDifferenceInSeconds: number = Math.floor(
-    (currentDate.getTime() - pastDate.getTime()) / 1000
+  const userTimezoneOffset = pastDate.getTimezoneOffset() * 60000
+  const UTCTimeRightNow = new Date(pastDate.getTime() - userTimezoneOffset)
+
+  const currentDateUTC = new Date(
+    Date.UTC(
+      new Date().getUTCFullYear(),
+      new Date().getUTCMonth(),
+      new Date().getUTCDate(),
+      new Date().getUTCHours(),
+      new Date().getUTCMinutes(),
+      new Date().getUTCSeconds()
+    )
+  )
+
+  const timeDifferenceInSeconds = Math.floor(
+    (currentDateUTC.getTime() - UTCTimeRightNow.getTime()) / 1000
   )
 
   if (timeDifferenceInSeconds < 60) {

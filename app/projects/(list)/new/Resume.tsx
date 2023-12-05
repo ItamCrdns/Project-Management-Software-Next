@@ -17,13 +17,14 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
   const handleCreateProject = async (): Promise<void> => {
     const formData = new FormData()
 
+    const selectedDeliveryDate = new Date(
+      project.data.expectedDeliveryDate
+    ).toISOString()
+
     formData.append('name', project.data.name)
     formData.append('description', project.data.description)
     formData.append('priority', project.data.priority?.toString() ?? '')
-    formData.append(
-      'expectedDeliveryDate',
-      project.data.expectedDeliveryDate ?? null
-    )
+    formData.append('expectedDeliveryDate', selectedDeliveryDate)
 
     const companyClientName = project.data.clientName
     const companyId = project.data.companyId

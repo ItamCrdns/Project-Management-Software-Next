@@ -11,6 +11,7 @@ interface Props {
 const ExpectedDeliveryDate: React.FC<Props> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
 
+  // TODO: Fix to work properly with UTC time
   const daysBeforeDeliveryDate = (date: string): number => {
     const today = new Date()
     const deliveryDate = new Date(date)

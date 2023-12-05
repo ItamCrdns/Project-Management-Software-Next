@@ -23,6 +23,8 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
 
   const priority = setEntityPriority(project?.priority ?? 0)
 
+  const projectCreatedAt = relativeTime(project?.created ?? '')
+
   return (
     <section className={styles.contentwrapper}>
       {props.children}
@@ -62,10 +64,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
               <p className={styles.grayedtext}>Status</p>
               <p>{project?.lifecycle}</p>
               <p className={styles.grayedtext}>Date</p>
-              <p>
-                Created{' '}
-                {relativeTime(new Date(project?.created ?? '').getTime())}
-              </p>
+              <p>Created {projectCreatedAt}</p>
               <ExpectedDeliveryDate project={project as Project} />
             </aside>
           </div>
