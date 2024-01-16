@@ -1,4 +1,4 @@
-# Company Project Management Office
+# ProjectXHub
 *Designed to help organizations effectively plan, execute, and manage client projects.*
 
 # Introduction
@@ -17,10 +17,10 @@ Create projects, tasks, report issues, set deadlines, publish pictures, track em
 # Tech stack
 * Next.js (frontend)
 * .NET (backend)
-* SQL Server
+* PostgreSQL
 * Cloudinary (API to upload and retrieve images)
 
-* # List of features
+# List of features
 
 ### Create projects
 * Assign projects to your team members.
