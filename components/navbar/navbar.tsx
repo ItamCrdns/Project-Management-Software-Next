@@ -37,6 +37,10 @@ const Navbar: React.FC = () => {
     return showOptions
   }
 
+  const handleClickOutside = (): void => {
+    setShowOptions(false)
+  }
+
   return (
     <>
       <nav className={styles.navbar}>
@@ -62,7 +66,9 @@ const Navbar: React.FC = () => {
                   />
                     )
                   : (
-                  <div className={`${stylesloader.loaderwrapper} ${styles.nouser}`}>
+                  <div
+                    className={`${stylesloader.loaderwrapper} ${styles.nouser}`}
+                  >
                     <span
                       style={{
                         borderTop: '2px solid rgba(0, 0, 0, 0.25)',
@@ -74,7 +80,12 @@ const Navbar: React.FC = () => {
                   </div>
                     )}
               </section>
-              {showOptions && <DropdownMenu employee={employee} />}
+              {showOptions && (
+                <DropdownMenu
+                  employee={employee}
+                  closeDropdownMenu={handleClickOutside}
+                />
+              )}
             </>
           )}
         </section>

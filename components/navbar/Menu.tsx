@@ -5,17 +5,38 @@ import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
 import { useDarkMode } from '@/context/DarkModeContext'
+import { useEffect, useRef } from 'react'
 
 interface DropdownMenuProps {
   employee: Employee
+  closeDropdownMenu: () => void
 }
 
-const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  employee,
+  closeDropdownMenu
+}): JSX.Element => {
   const { handleLogout } = useLogout()
   const { toggleDarkMode, darkMode } = useDarkMode()
 
+  const ref = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: Event): void => {
+      if (ref.current !== null && !ref.current.contains(event.target as Node)) {
+        closeDropdownMenu()
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [ref])
+
   return (
-    <aside className={styles.userpopup}>
+    <aside className={styles.userpopup} ref={ref}>
       <section className={styles.userpopuser}>
         <section className={styles.userdatacontainer}>
           <Image
@@ -49,7 +70,7 @@ const DropdownMenu = ({ employee }: DropdownMenuProps): JSX.Element => {
         <Link href=''>
           <span className='material-symbols-outlined'>settings</span>
           <p>Settings</p>
-        </Link >
+        </Link>
         <span onClick={toggleDarkMode}>
           <span className='material-symbols-outlined'>
             {!darkMode ? 'dark_mode' : 'light_mode'}

@@ -7,7 +7,10 @@ import fetcher from '@/utility/fetcher'
 const getUserProjects = async (
   username: string,
   params: IFilterProperties
-): Promise<{ data: DictionaryResponse<Project> | null, status: number }> => {
+): Promise<{
+  data: DictionaryResponse<Project> | null
+  status: number
+}> => {
   const queryParams = new URLSearchParams(params as string).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Employee/${username}/projects/all?${queryParams}`
 

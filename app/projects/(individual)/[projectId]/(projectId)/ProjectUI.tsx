@@ -69,7 +69,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
             </aside>
           </div>
         </div>
-        {Array.isArray(employees) && (
+        {Array.isArray(employees) && employees.length > 0 && (
           <ProjectEmployees
             employees={employees}
             projectId={projectId}

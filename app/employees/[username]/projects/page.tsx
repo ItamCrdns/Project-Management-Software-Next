@@ -4,17 +4,21 @@ import ProjectUI from './ProjectUI'
 import generateQueryParams from '@/app/projects/client/queryParams'
 
 const EmployeeProjects: React.FC<EmployeeProjectsProps> = async (props) => {
-  const { data } = await getUserProjects(
+  const data = await getUserProjects(
     props.params.username,
     generateQueryParams(props.searchParams)
   )
 
+  const projects = data.data?.data ?? []
+  const totalPages = data.data?.pages ?? 0
+  const totalProjects = data.data?.count ?? 0
+
   return (
     <ProjectUI
       username={props.params.username}
-      projects={data?.data ?? []}
-      totalPages={data?.pages ?? 0}
-      totalProjects={data?.count ?? 0}
+      projects={projects}
+      totalPages={totalPages}
+      totalProjects={totalProjects}
     />
   )
 }

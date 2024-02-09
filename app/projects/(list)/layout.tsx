@@ -41,7 +41,7 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
                   </div>
                 )}
               </div>
-              {Array.isArray(projects) && (
+              {Array.isArray(projects) && projects.length > 0 && (
                 <ul>
                   {projects.map((project: Project, index: number) => (
                     <li key={index}>
