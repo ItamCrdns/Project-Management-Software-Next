@@ -5,6 +5,7 @@ import styles from './navbar.module.css'
 import { type Employee } from '@/interfaces/employee'
 import { navItems } from './SmallScreenNavLinks'
 import useLogout from './logout'
+import NoPicture from '../No profile picture/NoPicture'
 
 interface SmallScreenNavbarProps {
   toggle: boolean
@@ -36,7 +37,11 @@ const SmallScreenNavbar = ({
               />
                 )
               : (
-              <div className={styles.nouser}>?</div>
+              <NoPicture
+                width='50px'
+                height='50px'
+                questionMarkSize='1.75rem'
+              />
                 )}
             <section className={styles.userinfo}>
               <span>

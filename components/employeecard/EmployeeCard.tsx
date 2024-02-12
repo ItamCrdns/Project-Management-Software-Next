@@ -4,6 +4,7 @@ import styles from '@/app/employees/[username]/(employee)/employee.module.css'
 import { type Employee } from '@/interfaces/employee'
 import RippleButton from '../ripplebutton/RippleButton'
 import EmployeeNumbers from './EmployeeNumbers'
+import NoPicture from '../No profile picture/NoPicture'
 
 interface EmployeeCardProps {
   employee: Employee | null
@@ -18,14 +19,18 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
   return (
     <section className={styles.cardswrapper}>
       <section className={styles.employeecard}>
-        {employee?.profilePicture !== null && (
+        {employee?.profilePicture !== null
+          ? (
           <Image
             src={employee?.profilePicture ?? ''}
             alt={employee?.username ?? ''}
             width={175}
             height={175}
           />
-        )}
+            )
+          : (
+          <NoPicture width='175px' height='175px' questionMarkSize='6.5rem' />
+            )}
         {isProfile
           ? (
           <h1>{employee?.username}</h1>

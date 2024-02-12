@@ -8,7 +8,7 @@ import Navbar from '@/components/navbar/navbar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Company PMO App',
+  title: 'ProjectXHub',
   description: 'Created by Martin Cardenas'
 }
 

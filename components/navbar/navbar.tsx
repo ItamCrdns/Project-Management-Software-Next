@@ -2,13 +2,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './navbar.module.css'
-import stylesloader from '@/components/ripplebutton/ripplebutton.module.css'
 import { useAuth } from '@/context/AuthContext'
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import DropdownMenu from './Menu'
 import SmallScreenNavbar from './SmallScreenNavbar'
 import { navItems } from './SmallScreenNavLinks'
+import NoPicture from '../No profile picture/NoPicture'
+
+// TODO: Fix when user has no profile picture
 
 const Navbar: React.FC = () => {
   const { user } = useAuth()
@@ -54,7 +56,8 @@ const Navbar: React.FC = () => {
           {user !== null && (
             <>
               <section className={styles.navuser}>
-                {employee.profilePicture !== ''
+                {employee.profilePicture !== '' &&
+                employee.profilePicture !== null
                   ? (
                   <Image
                     onClick={handleOpenMenu}
@@ -66,18 +69,11 @@ const Navbar: React.FC = () => {
                   />
                     )
                   : (
-                  <div
-                    className={`${stylesloader.loaderwrapper} ${styles.nouser}`}
-                  >
-                    <span
-                      style={{
-                        borderTop: '2px solid rgba(0, 0, 0, 0.25)',
-                        width: '25px',
-                        height: '25px'
-                      }}
-                      className={stylesloader.loader}
-                    ></span>
-                  </div>
+                  <NoPicture
+                    width='50px'
+                    height='50px'
+                    questionMarkSize='1.75rem'
+                  />
                     )}
               </section>
               {showOptions && (

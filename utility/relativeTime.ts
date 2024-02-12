@@ -1,4 +1,4 @@
-export const relativeTime = (date: string): string => {
+export const relativeTime = (date: number): string => {
   const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
   const pastDate = new Date(date)
 
