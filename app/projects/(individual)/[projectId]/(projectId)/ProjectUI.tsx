@@ -2,7 +2,7 @@ import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPr
 import styles from './project.module.css'
 import ProjectCreator from './ProjectCreator'
 import ExpectedDeliveryDate from './ExpectedDeliveryDate'
-import { relativeTime } from '@/utility/relativeTime'
+import { getRelativeTimeString } from '@/utility/relativeTime'
 import ProjectEmployees from './ProjectEmployees'
 import { type Project } from '@/interfaces/project'
 import { type Images } from '@/interfaces/images'
@@ -23,7 +23,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
 
   const priority = setEntityPriority(project?.priority ?? 0)
 
-  const projectCreatedAt = relativeTime(project?.created ?? '')
+  const projectCreatedAt = getRelativeTimeString(project?.created ?? '')
 
   return (
     <section className={styles.contentwrapper}>

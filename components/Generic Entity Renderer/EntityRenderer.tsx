@@ -1,10 +1,10 @@
 import { type Employee } from '@/interfaces/employee'
 import Link from 'next/link'
-import { relativeTime } from '@/utility/relativeTime'
 import EntityCreator from './EntityCreator'
 import EntityEmployees from './EntityEmployees'
 import { setEntityPriority } from './EntityPriority'
 import styles from '@/app/projects/(list)/projectslist.module.css'
+import { getRelativeTimeString } from '@/utility/relativeTime'
 
 // * We would have to map the items to fit as the Entity interface
 export interface Entity {
@@ -68,7 +68,7 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
           </div>
       )}
       <div style={style}>
-        <p>{relativeTime(new Date(props.entity.created).getTime())}</p>
+        <p>{getRelativeTimeString(props.entity.created)}</p>
       </div>
       {props.showParentEntity && (
         <div style={style}>

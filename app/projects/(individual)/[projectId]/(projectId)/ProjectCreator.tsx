@@ -7,6 +7,7 @@ import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisib
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import { type Employee } from '@/interfaces/employee'
 import { type Position } from '@/components/Generic Entity Renderer/IEmployeeListProps'
+import NoPicture from '@/components/No profile picture/NoPicture'
 
 interface ProjectCreatorProps {
   creator: Employee
@@ -28,14 +29,22 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
 
   return (
     <div className={`${styles.userwrapper} ${pop.userwrapper}`}>
-      <Image
-        onMouseOver={handleShowCard}
-        onMouseLeave={handleHideCard}
-        src={profilePicture}
-        alt={username}
-        width={props.pictureSize ?? 45}
-        height={props.pictureSize ?? 45}
-      />
+      {profilePicture !== null
+        ? (
+        <Image
+          onMouseOver={handleShowCard}
+          onMouseLeave={handleHideCard}
+          src={profilePicture}
+          alt={username}
+          width={props.pictureSize ?? 45}
+          height={props.pictureSize ?? 45}
+        />
+          )
+        : (
+        <div onMouseOver={handleShowCard} onMouseLeave={handleHideCard}>
+          <NoPicture width='45px' height='45px' />
+        </div>
+          )}
       {props.showUsername && (
         <h3>
           <Link href={`/employees/${username}`}>{username}</Link>

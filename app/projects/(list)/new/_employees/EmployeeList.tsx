@@ -2,6 +2,7 @@ import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import styles from '../newProject.module.css'
 import { type EmployeeListProps } from '@/interfaces/props/EmployeeListProps'
+import NoPicture from '@/components/No profile picture/NoPicture'
 
 const EmployeeList: React.FC<EmployeeListProps> = (props) => {
   const { employeeList, handleEmployeeClick, selectedEmployees, message } =
@@ -20,12 +21,18 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                 }}
               >
                 <div>
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={50}
-                    height={50}
-                  />
+                  {employee.profilePicture !== null
+                    ? (
+                    <Image
+                      src={employee.profilePicture}
+                      alt={employee.username}
+                      width={50}
+                      height={50}
+                    />
+                      )
+                    : (
+                    <NoPicture width='50px' height='50px' />
+                      )}
                   <p>{employee.username}</p>
                 </div>
                 <span

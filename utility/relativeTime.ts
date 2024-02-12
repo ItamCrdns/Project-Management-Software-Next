@@ -1,36 +1,37 @@
-export const relativeTime = (date: number): string => {
-  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
-  const pastDate = new Date(date)
+export const getRelativeTimeString = (date: string): string => {
+  const currentDate = new Date()
+  const inputDate = new Date(date)
 
-  const userTimezoneOffset = pastDate.getTimezoneOffset() * 60000
-  const UTCTimeRightNow = new Date(pastDate.getTime() - userTimezoneOffset)
+  const timeDiff = currentDate.getTime() - inputDate.getTime()
+  const seconds = Math.floor(timeDiff / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  const months = Math.floor(days / 30)
 
-  const currentDateUTC = new Date(
-    Date.UTC(
-      new Date().getUTCFullYear(),
-      new Date().getUTCMonth(),
-      new Date().getUTCDate(),
-      new Date().getUTCHours(),
-      new Date().getUTCMinutes(),
-      new Date().getUTCSeconds()
-    )
-  )
-
-  const timeDifferenceInSeconds = Math.floor(
-    (currentDateUTC.getTime() - UTCTimeRightNow.getTime()) / 1000
-  )
-
-  if (timeDifferenceInSeconds < 60) {
-    return rtf.format(Math.round(-timeDifferenceInSeconds), 'second')
-  } else if (timeDifferenceInSeconds < 3600) {
-    return rtf.format(Math.round(-timeDifferenceInSeconds / 60), 'minute')
-  } else if (timeDifferenceInSeconds < 86400) {
-    return rtf.format(Math.round(-timeDifferenceInSeconds / 3600), 'hour')
-  } else if (timeDifferenceInSeconds < 604800) {
-    return rtf.format(Math.round(-timeDifferenceInSeconds / 86400), 'day')
-  } else if (timeDifferenceInSeconds < 2419200) {
-    return rtf.format(Math.round(-timeDifferenceInSeconds / 604800), 'week')
-  } else {
-    return rtf.format(Math.round(-timeDifferenceInSeconds / 2419200), 'month')
+  if (months > 12) {
+    return 'Too long ago'
   }
+
+  if (months > 0) {
+    return months === 1 ? '1 month ago' : months + ' months ago'
+  }
+
+  if (days > 0) {
+    return days === 1 ? '1 day ago' : days + ' days ago'
+  }
+
+  if (hours > 0) {
+    return hours === 1 ? '1 hour ago' : hours + ' hours ago'
+  }
+
+  if (minutes > 0) {
+    return minutes === 1 ? '1 minute ago' : minutes + ' minutes ago'
+  }
+
+  if (seconds > 30) {
+    return seconds === 31 ? '31 seconds ago' : seconds + ' seconds ago'
+  }
+
+  return 'Just now'
 }
