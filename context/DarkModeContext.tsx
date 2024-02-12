@@ -47,6 +47,7 @@ export const DarkModeProvider: React.FC<React.PropsWithChildren> = ({
       '--darker-banner-color',
       darkMode ? '#1A1A1A' : 'whitesmoke'
     )
+    root.style.setProperty('--user', darkMode ? 'rgba(45, 45, 45)' : 'lightgray')
 
     if (!darkModeButtonPressed) {
       // Get the data from localstorage if the darkMode button was not pressed, so meaning the initial render when its still false

@@ -4,7 +4,8 @@
   --darker-banner-color: #f5f5f5;
   --text-color: black;
   --lighter-text-color: rgba(0, 0, 0, .5);
-  --small-font: rgba(255, 0, 0, .1)
+  --small-font: rgba(255, 0, 0, .1);
+  --user: lightgray;
 }
 
 body {

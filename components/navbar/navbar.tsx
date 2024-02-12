@@ -69,11 +69,13 @@ const Navbar: React.FC = () => {
                   />
                     )
                   : (
-                  <NoPicture
-                    width='50px'
-                    height='50px'
-                    questionMarkSize='1.75rem'
-                  />
+                  <div onClick={handleOpenMenu} style={{ cursor: 'pointer' }}>
+                    <NoPicture
+                      width='50px'
+                      height='50px'
+                      questionMarkSize='1.75rem'
+                    />
+                  </div>
                     )}
               </section>
               {showOptions && (

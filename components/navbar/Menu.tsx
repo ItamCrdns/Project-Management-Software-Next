@@ -6,6 +6,7 @@ import useLogout from './logout'
 import Link from 'next/link'
 import { useDarkMode } from '@/context/DarkModeContext'
 import { useEffect, useRef } from 'react'
+import NoPicture from '../No profile picture/NoPicture'
 
 interface DropdownMenuProps {
   employee: Employee
@@ -15,7 +16,7 @@ interface DropdownMenuProps {
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
   employee,
   closeDropdownMenu
-}): JSX.Element => {
+}) => {
   const { handleLogout } = useLogout()
   const { toggleDarkMode, darkMode } = useDarkMode()
 
@@ -39,13 +40,19 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     <aside className={styles.userpopup} ref={ref}>
       <section className={styles.userpopuser}>
         <section className={styles.userdatacontainer}>
-          <Image
-            src={employee.profilePicture}
-            alt={employee.username}
-            width={50}
-            height={50}
-            style={{ borderRadius: '50%' }}
-          />
+          {employee.profilePicture !== null
+            ? (
+            <Image
+              src={employee.profilePicture}
+              alt={employee.username}
+              width={50}
+              height={50}
+              style={{ borderRadius: '50%' }}
+            />
+              )
+            : (
+            <NoPicture width='50px' height='50px' questionMarkSize='1.75rem' />
+              )}
           <p>{employee.username}</p>
         </section>
         <p>
