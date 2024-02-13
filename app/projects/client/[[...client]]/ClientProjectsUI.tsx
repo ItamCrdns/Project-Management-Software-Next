@@ -1,11 +1,11 @@
 import styles from '@/app/projects/(list)/projectslist.module.css'
 import TitleWrapper from '@/components/Header title/TitleWrapper'
-import HeaderDescriptor from '../../(list)/HeaderDescriptor'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import EachProject from '../../(list)/EachProject'
 import { type Project } from '@/interfaces/project'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
-import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
+import { projectSortValues } from '@/components/Data Header/sortValues'
+import DataHeader from '../../../../components/Data Header/DataHeader'
 
 interface ClientProjectsUIProps {
   title: string
@@ -26,7 +26,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
         showPictures // ? Options with pictures for the employees
       />
       <section className={styles.projectswrapper}>
-        <HeaderDescriptor
+        <DataHeader
           dashboard={false}
           pushSearchParams
           entity='projects'

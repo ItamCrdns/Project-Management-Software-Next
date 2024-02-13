@@ -2,8 +2,8 @@ import styles from './tasks.module.css'
 import ProjectUI from './ProjectUI'
 import TasksUI from './TasksUI'
 import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
-import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
+import DataHeader from '@/components/Data Header/DataHeader'
 
 interface ProjectTasksProps {
   params: { projectId: string }
@@ -15,7 +15,7 @@ const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
     <section className={styles.mainwrapper}>
       <div>
         <div className={styles.headerwrapper}>
-          <HeaderDescriptor
+          <DataHeader
             dashboard={false}
             entity='tasks'
             width='300px'

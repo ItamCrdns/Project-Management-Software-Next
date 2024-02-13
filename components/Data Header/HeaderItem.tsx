@@ -1,5 +1,5 @@
 import { type Order } from '@/context/Filter/filterInitialState'
-import { type Style } from '@/interfaces/props/HeaderDescriptorProps'
+import { type Style } from '@/interfaces/props/DataHeaderProps'
 
 // TODO: See if we can optimize this component
 // TODO: CHECK IF THE ARROW IS AT THE CORRECT POSITION

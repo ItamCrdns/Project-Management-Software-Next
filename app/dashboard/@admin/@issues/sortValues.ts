@@ -1,4 +1,4 @@
-import { type SortValues } from '../@projects/sortValues'
+import { type SortValues } from '../../../../components/Data Header/sortValues'
 
 export const issueSortValues: SortValues = {
   name: 'Name',

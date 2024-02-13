@@ -42,25 +42,6 @@
     margin: 0;
 }
 
-.descriptor {
-    display: flex;
-    padding: 0 2rem;
-    margin-bottom: 2rem;
-    justify-content: center;
-}
-
-.descriptor > span {
-    display: flex;
-    gap: .5rem;
-    align-items: center;
-    justify-content: center;
-}
-
-.descriptor > span span, .descriptor > span p {
-    user-select: none;
-    cursor: pointer;
-}
-
 .listofemployees ul {
     display: flex !important;
     align-items: center !important;

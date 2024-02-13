@@ -1,6 +1,5 @@
 import styles from '@/app/projects/(list)/projectslist.module.css'
 import dashboardstyles from '@/app/dashboard/dashboard.module.css'
-import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 import EntityHeader from '../EntityHeader'
 import LoadingFetch from '../_fetch loader/LoadingFetch'
 import EachProject from '@/app/projects/(list)/EachProject'
@@ -10,7 +9,8 @@ import {
   type IFilter,
   type IFilterProperties
 } from '@/interfaces/props/context props/IFilter'
-import { projectSortValues } from './sortValues'
+import { projectSortValues } from '../../../../components/Data Header/sortValues'
+import DataHeader from '@/components/Data Header/DataHeader'
 
 interface ProjectsProps {
   isLoading: boolean
@@ -26,7 +26,7 @@ const ProjectsList: React.FC<ProjectsProps> = (props) => {
     <section>
       <EntityHeader color='#00A9FF' entityName='projects' />
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
-        <HeaderDescriptor
+        <DataHeader
           dashboard
           pushSearchParams={false}
           entity='projects'

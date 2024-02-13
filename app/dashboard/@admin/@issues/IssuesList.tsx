@@ -3,7 +3,6 @@ import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import { type Issue } from '@/interfaces/Issue'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import EntityHeader from '../EntityHeader'
-import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
 import EachIssue from '@/app/issues/EachIssue'
 import LoadingFetch from '../_fetch loader/LoadingFetch'
 import {
@@ -11,6 +10,7 @@ import {
   type IFilter
 } from '@/interfaces/props/context props/IFilter'
 import { issueSortValues } from './sortValues'
+import DataHeader from '@/components/Data Header/DataHeader'
 
 interface IssuesProps {
   isLoading: boolean
@@ -26,7 +26,7 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
     <section>
       <EntityHeader color='#FF6969' entityName='issues' />
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
-        <HeaderDescriptor
+        <DataHeader
           dashboard
           pushSearchParams={false}
           entity='issues'

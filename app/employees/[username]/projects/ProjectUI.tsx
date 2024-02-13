@@ -5,8 +5,8 @@ import EachProject from '@/app/projects/(list)/EachProject'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import Link from 'next/link'
 import EmployeeCardProfile from '../(employee)/@employeeCard/page'
-import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
-import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
+import { projectSortValues } from '@/components/Data Header/sortValues'
+import DataHeader from '@/components/Data Header/DataHeader'
 
 interface ProjectUIProps {
   username: string
@@ -31,7 +31,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           <h1>All {username}&apos;s projects</h1>
         </div>
         <div className={styles.headerdescriptorwrapper}>
-          <HeaderDescriptor
+          <DataHeader
             dashboard
             pushSearchParams
             entity='projects'
