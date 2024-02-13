@@ -4,11 +4,11 @@ import { type Task } from '@/interfaces/task'
 import cookieOptions from '@/utility/cookieOptions'
 
 // Returns tasks, grouped by project
-interface GetTasksProps {
-  page: number
-  pageSize: number
-  projectsPage: number
-  projectsPageSize: number
+export interface GetTasksProps {
+  page: string
+  pageSize: string
+  tasksPage?: string
+  tasksPageSize?: string
 }
 
 interface Response {
@@ -25,7 +25,7 @@ const getTasks = async (
   const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Task/grouped')
 
   Object.entries(props).forEach(([key, value]) => {
-    url.searchParams.set(key, value.toString())
+    url.searchParams.set(key, value)
   })
 
   const requestOptions = cookieOptions()

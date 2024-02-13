@@ -1,8 +1,9 @@
 import styles from '@/app/projects/(list)/projectslist.module.css'
 import TitleWrapper from '@/components/Header title/TitleWrapper'
 import Tasks from './Tasks'
+import { type TasksProps } from './TaskProps'
 
-const TasksPage: React.FC = () => {
+const TasksPage: React.FC<TasksProps> = (props) => {
   return (
     <main className={styles.main}>
       <TitleWrapper
@@ -13,7 +14,7 @@ const TasksPage: React.FC = () => {
         buttonWidth='100px'
       />
       <section>
-        <Tasks />
+        <Tasks searchParams={props.searchParams} />
       </section>
     </main>
   )

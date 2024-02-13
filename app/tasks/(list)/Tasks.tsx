@@ -1,21 +1,31 @@
-import getTasks from '@/api-calls/getTasks'
+import getTasks, { type GetTasksProps } from '@/api-calls/getTasks'
 import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import React from 'react'
 import styles from '@/app/projects/(list)/projectslist.module.css'
+import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
+import { type TasksProps } from './TaskProps'
+import generateQueryParams from '@/app/projects/client/queryParams'
 
-const Tasks: React.FC = async () => {
-  const { data } = await getTasks({
-    page: 1,
-    pageSize: 10,
-    projectsPage: 1,
-    projectsPageSize: 10
-  })
+const Tasks: React.FC<TasksProps> = async (props) => {
+  const cleanParams = generateQueryParams(props.searchParams)
+
+  const params: GetTasksProps = {
+    page: cleanParams.page ?? '1',
+    pageSize: cleanParams.pageSize ?? '5'
+  }
+
+  const { data } = await getTasks(params)
 
   const tasks = data?.data ?? []
 
   return (
     <>
+      <QueryParamsPagination
+        totalPages={data?.pages ?? 0}
+        entityName='Projects'
+        totalEntitesCount={data?.count ?? 0}
+      />
       {Array.isArray(tasks) && tasks.length > 0 && (
         <ul>
           {tasks.map((task, index) => (
