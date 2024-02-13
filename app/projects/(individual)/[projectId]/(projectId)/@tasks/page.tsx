@@ -5,7 +5,8 @@ import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
-// import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
+import HeaderDescriptor from '@/app/projects/(list)/HeaderDescriptor'
+import { projectSortValues } from '@/app/dashboard/@admin/@projects/sortValues'
 
 interface TasksProps {
   params: { projectId: string }
@@ -39,7 +40,13 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
             />
           </div>
         </div>
-        {/* <HeaderDescriptor entity='tasks' dashboard={false} width='300px' /> */}
+        <HeaderDescriptor
+          entity='tasks'
+          dashboard={false}
+          width='300px'
+          pushSearchParams={false}
+          sortValues={projectSortValues} // TODO: FIX WRONG
+        />
         {Array.isArray(tasks) && (
           <ul>
             {tasks.length > 0 &&
