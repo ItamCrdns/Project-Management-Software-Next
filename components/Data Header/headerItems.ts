@@ -15,7 +15,7 @@ export const getHeaderItems = (props: Props): HeaderItem[] => [
   { icon: 'signature', label: 'Name', sortValue: props.sortValues.name },
   { icon: 'person', label: 'Creator', sortValue: props.sortValues.creator },
   { icon: 'group', label: 'Team', sortValue: props.sortValues.team },
-  ...(props.entity === 'projects'
+  ...(props.entity === 'projects' || props.entity === 'projectsfromcompany'
     ? [
         {
           icon: 'priority_high',

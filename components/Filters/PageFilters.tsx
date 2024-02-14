@@ -4,8 +4,7 @@ import SelectAuthor from './SelectAuthor'
 import { filterInitialState } from './filterInitialState'
 import styles from './filters.module.css'
 import SelectPriority from './SelectPriority'
-import { setInitialSearchParams } from './setInitialSearchParams'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 import { type Employee } from '@/interfaces/employee'
 
@@ -79,7 +78,8 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     setFilter({ ...filter, authorIds: [] })
   }
 
-  const searchParams = setInitialSearchParams()
+  const nextJsParams = useSearchParams()
+  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
   const setFiltersFromUrl = useCallback(
     (authorIds: number[], priority: number): void => {

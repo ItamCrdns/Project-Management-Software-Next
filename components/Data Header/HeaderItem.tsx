@@ -5,7 +5,7 @@ import { type Style } from '@/interfaces/props/DataHeaderProps'
 // TODO: CHECK IF THE ARROW IS AT THE CORRECT POSITION
 // TODO: HeaderDescriptor its broken everywhere except in the dashboard and in the projects/client/[...client]/page.tsx [FIX IT!!!]
 
-interface HeaderItemProps {
+export interface HeaderItemProps {
   style: Style
   handleSortChange: (orderBy: string, sort: string) => void
   icon: string

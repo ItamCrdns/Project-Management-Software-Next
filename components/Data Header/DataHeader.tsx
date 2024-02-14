@@ -5,8 +5,7 @@ import {
   type Style
 } from '@/interfaces/props/DataHeaderProps'
 import HeaderItem from './HeaderItem'
-import { setInitialSearchParams } from '@/components/Filters/setInitialSearchParams'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   type OrderBy,
   type IFilterProperties,
@@ -23,7 +22,8 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const searchParams = setInitialSearchParams()
+  const nextJsParams = useSearchParams()
+  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
   const [order, setOrder] = useState<Order>(orderInitialState)
 
@@ -66,6 +66,17 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
 
   const headerItems = getHeaderItems(props)
 
+  const { dashboard, pushSearchParams } = props
+
+  const headerItemsProps = {
+    style,
+    handleSortChange,
+    order,
+    searchParams,
+    dashboard,
+    pushSearchParams
+  }
+
   // TODO: Fix initial render problem that will render that we are always at the "Created" column.
   // TODO: Fix slow state when clicking a different column and you can see two columns being highlighted at the same time.
   return (
@@ -73,15 +84,10 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
       {headerItems.map((item, index) => (
         <HeaderItem
           key={index}
-          style={style}
-          handleSortChange={handleSortChange}
           icon={item.icon}
-          order={order}
           label={item.label}
           sortValue={item.sortValue}
-          searchParams={searchParams}
-          dashboard={props.dashboard}
-          pushSearchParams={props.pushSearchParams}
+          {...headerItemsProps}
         />
       ))}
     </header>

@@ -6,6 +6,7 @@ import { type Project } from '@/interfaces/project'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import { projectSortValues } from '@/components/Data Header/sortValues'
 import DataHeader from '../../../../components/Data Header/DataHeader'
+import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 
 interface ClientProjectsUIProps {
   title: string
@@ -16,6 +17,14 @@ interface ClientProjectsUIProps {
 }
 
 const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
+  const { totalPages, totalProjects } = props
+
+  const paginationProps: PaginationProps = {
+    totalPages,
+    entityName: 'Projects',
+    totalEntitesCount: totalProjects
+  }
+
   return (
     <main className={styles.main}>
       <TitleWrapper
@@ -29,16 +38,12 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
         <DataHeader
           dashboard={false}
           pushSearchParams
-          entity='projects'
+          entity='projectsfromcompany'
           width='300px'
           sortValues={projectSortValues}
         />
         <div className={styles.projectscontainer}>
-          <QueryParamsPagination
-            totalPages={props.totalPages}
-            entityName='Projects'
-            totalEntitesCount={props.totalProjects}
-          />
+          <QueryParamsPagination paginationProps={paginationProps} />
           {Array.isArray(props.projects) && props.projects.length > 0
             ? (
             <ul>

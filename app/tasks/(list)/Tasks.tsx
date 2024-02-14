@@ -6,6 +6,7 @@ import styles from '@/app/projects/(list)/projectslist.module.css'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type TasksProps } from './TaskProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
+import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 
 const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
@@ -19,13 +20,15 @@ const Tasks: React.FC<TasksProps> = async (props) => {
 
   const tasks = data?.data ?? []
 
+  const paginationProps: PaginationProps = {
+    totalPages: data?.pages ?? 1,
+    entityName: 'Tasks',
+    totalEntitesCount: data?.count ?? 1
+  }
+
   return (
     <>
-      <QueryParamsPagination
-        totalPages={data?.pages ?? 0}
-        entityName='Projects'
-        totalEntitesCount={data?.count ?? 0}
-      />
+      <QueryParamsPagination paginationProps={paginationProps} />
       {Array.isArray(tasks) && tasks.length > 0 && (
         <ul>
           {tasks.map((task, index) => (
@@ -38,6 +41,13 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                       <EachTask task={task} showProjectName={false} />
                     </li>
                   ))}
+                  <p style={{ alignSelf: 'flex-end' }}>
+                    Total{' '}
+                    <span style={{ fontWeight: 'bold' }}>
+                      {task.projectName}
+                    </span>{' '}
+                    tasks: {task.count}
+                  </p>
                 </ul>
               </div>
             </li>

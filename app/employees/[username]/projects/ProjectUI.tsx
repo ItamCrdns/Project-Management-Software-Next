@@ -7,6 +7,7 @@ import Link from 'next/link'
 import EmployeeCardProfile from '../(employee)/@employeeCard/page'
 import { projectSortValues } from '@/components/Data Header/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
+import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 
 interface ProjectUIProps {
   username: string
@@ -16,7 +17,14 @@ interface ProjectUIProps {
 }
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
+  const { totalPages, totalProjects } = props
   const username: string = props.username
+
+  const paginationProps: PaginationProps = {
+    totalPages,
+    entityName: 'Projects',
+    totalEntitesCount: totalProjects
+  }
 
   return (
     <section className={styles.mainwrapper}>
@@ -42,11 +50,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
         <section className={styles.projects}>
           <EmployeeCardProfile params={{ username }} />
           <div className={styles.paramsandprojectswrapper}>
-            <QueryParamsPagination
-              totalPages={props.totalPages}
-              entityName='Projects'
-              totalEntitesCount={props.totalProjects}
-            />
+            <QueryParamsPagination paginationProps={paginationProps} />
             <div className={projectStyles.projectswrapper}>
               {Array.isArray(props.projects) && (
                 <ul>

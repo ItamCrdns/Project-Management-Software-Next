@@ -4,9 +4,32 @@ import { type PaginationUIProps } from './IPaginationUIProps'
 // import Search from '../search/search'
 
 const PaginationUI: React.FC<PaginationUIProps> = (props) => {
-  const { handleCurrentPageInputChange, handlePageSizeInputChange } = props
+  const {
+    currentPageSize,
+    currentPage,
+    totalEntitesCount,
+    totalPages,
+    goToFirstPage,
+    goToLastPage,
+    goToNextPage,
+    goToPreviousPage
+  } = props.paginationProps
 
-  const pageSizeValue = props.currentPageSize > props.totalEntitesCount ? props.totalEntitesCount : props.currentPageSize
+  const {
+    entityName,
+    handleCurrentPageInputChange,
+    handlePageSizeInputChange
+  } = props.entityProps
+
+  // const { secondEntity } = props.secondEntityProps
+
+  const pageSize =
+    currentPageSize > totalEntitesCount ? totalEntitesCount : currentPageSize
+
+  // const secondEntityPageSizeValue =
+  //   props.secondEntityTotalCount > props.secondEntityTotalPages
+  //     ? props.secondEntityTotalCount
+  //     : props.secondEntityTotalPages
 
   return (
     <div className={styles.pagination}>
@@ -14,44 +37,46 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         <p>Showing</p>
         <input
           type='number'
-          value={pageSizeValue}
+          value={pageSize}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
         />
         <p>
-          of {props.totalEntitesCount} {props.entityName.toLowerCase()}
+          of {totalEntitesCount} {entityName.toLowerCase()}
         </p>
       </div>
+      {props.secondEntityProps?.secondEntity !== undefined &&
+        props.secondEntityProps?.secondEntity !== '' && (
+          <div className={styles.pagesize}>
+            <p>Showing</p>
+            <input type='number' />
+            <p>{props.secondEntityProps?.secondEntity.toLowerCase()}</p>
+          </div>
+      )}
       {/* <Search maxInputLength={255} url={props.url} stateBasedSearch={false} /> */}
       <div className={styles.prevandnextpage}>
         <div>
-          <span
-            onClick={props.goToFirstPage}
-            className='material-symbols-outlined'
-          >
+          <span onClick={goToFirstPage} className='material-symbols-outlined'>
             keyboard_double_arrow_left
           </span>
-          <div onClick={props.goToPreviousPage}>
+          <div onClick={goToPreviousPage}>
             <span className='material-symbols-outlined'>navigate_before</span>
             <p className={styles.prevnexttext}>Previous</p>
           </div>
         </div>
         <input
           type='number'
-          value={props.currentPage}
+          value={currentPage}
           onClick={handleInputClick}
           onChange={handleCurrentPageInputChange}
         />
-        <p>of {props.totalPages}</p>
+        <p>of {totalPages}</p>
         <div>
-          <div onClick={props.goToNextPage}>
+          <div onClick={goToNextPage}>
             <p className={styles.prevnexttext}>Next</p>
             <span className='material-symbols-outlined'>navigate_next</span>
           </div>
-          <span
-            onClick={props.goToLastPage}
-            className='material-symbols-outlined'
-          >
+          <span onClick={goToLastPage} className='material-symbols-outlined'>
             keyboard_double_arrow_right
           </span>
         </div>

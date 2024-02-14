@@ -6,6 +6,7 @@ import EachTask from '../(projectId)/@tasks/EachTask'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
+import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 
 interface TasksUIProps {
   projectId: string
@@ -24,16 +25,18 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
   const totalPages = data?.entity.pages ?? 1
   const totalTasks = data?.entity.count ?? 1
 
+  const paginationProps: PaginationProps = {
+    totalPages,
+    entityName: 'Tasks',
+    totalEntitesCount: totalTasks
+  }
+
   return (
     <section
       className={`${styles.projectswrapper} ${tasksStyles.taskswrapper}`}
     >
       <div className={tasksStyles.paginationwrapper}>
-        <QueryParamsPagination
-          totalPages={totalPages}
-          entityName='Tasks'
-          totalEntitesCount={totalTasks}
-        />
+        <QueryParamsPagination paginationProps={paginationProps} />
       </div>
       {Array.isArray(tasks) && (
         <ul>
