@@ -5,8 +5,9 @@ import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
 import { useDarkMode } from '@/context/DarkModeContext'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import NoPicture from '../No profile picture/NoPicture'
+import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 
 interface DropdownMenuProps {
   employee: Employee
@@ -20,21 +21,8 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   const { handleLogout } = useLogout()
   const { toggleDarkMode, darkMode } = useDarkMode()
 
-  const ref = useRef<HTMLElement | null>(null)
-
-  useEffect(() => {
-    const handleClickOutside = (event: Event): void => {
-      if (ref.current !== null && !ref.current.contains(event.target as Node)) {
-        closeDropdownMenu()
-      }
-    }
-
-    document.addEventListener('click', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [ref])
+  const ref = useRef<HTMLElement>(null)
+  closeOnOutsideClick({ ref, closeThis: closeDropdownMenu })
 
   return (
     <aside className={styles.userpopup} ref={ref}>

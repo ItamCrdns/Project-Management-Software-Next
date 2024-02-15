@@ -10,8 +10,6 @@ import SmallScreenNavbar from './SmallScreenNavbar'
 import { navItems } from './SmallScreenNavLinks'
 import NoPicture from '../No profile picture/NoPicture'
 
-// TODO: Fix when user has no profile picture
-
 const Navbar: React.FC = () => {
   const { user } = useAuth()
   const [toggle, setToggle] = useState<boolean>(false)

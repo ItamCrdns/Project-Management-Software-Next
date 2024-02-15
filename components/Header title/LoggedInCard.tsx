@@ -25,11 +25,16 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
     setToggle(!toggle)
   }
 
+  const close = (): void => {
+    setToggle(false)
+  }
+
   const filtersProps = {
     entityName,
     isDashboard,
     isPage,
-    showPictures
+    showPictures,
+    close
   }
 
   const rippleButtonProps = {

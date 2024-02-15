@@ -26,8 +26,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
       .get('author')
       ?.split('-')
       .map((i) => Number(i)) ?? [],
-    searchParams.get('author') !== undefined &&
-      searchParams.get('author') !== ''
+    searchParams.get('author') !== null
   )
 
   const getAuthorsIDValues = (authorIds: number[]): void => {
@@ -66,6 +65,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     searchParams.set('pagesize', '10')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
+    setActiveDropdown('')
   }
 
   const handleClearAuthors = (): void => {
@@ -73,6 +73,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     searchParams.set('pagesize', '10')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
+    setActiveDropdown('')
   }
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
