@@ -5,6 +5,7 @@ import { type SelectUIProps } from './SelectUI'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { updateStateWithQueryParams } from './updateStateWithQueryParams'
 import RippleButton from '../ripplebutton/RippleButton'
+import NoPicture from '../No profile picture/NoPicture'
 
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const showPicture = props.showPictures !== null && props.showPictures === true
@@ -44,14 +45,21 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
                     : ''
               }}
             >
-              {showPicture && (
+              {showPicture &&
+              opt.picture !== null &&
+              opt.picture !== undefined &&
+              opt.label !== undefined
+                ? (
                 <Image
-                  src={opt.picture ?? ''}
-                  alt={opt.label ?? ''}
+                  src={opt.picture}
+                  alt={opt.label}
                   width={25}
                   height={25}
                 />
-              )}
+                  )
+                : (
+                <NoPicture width='25px' height='25px' />
+                  )}
               <h4>{opt.label}</h4>
               <p style={{ textAlign: 'right' }}>{opt.info}</p>
             </li>

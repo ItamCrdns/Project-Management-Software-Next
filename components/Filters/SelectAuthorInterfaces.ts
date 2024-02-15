@@ -4,7 +4,7 @@ export interface ISharedProps {
   clearValues: boolean
   // * Can we both. To handle selected authors (array of numbers) and selected priority (number)
   // * Use type assertion when passing them as props
-  defaultSectedValues: number[] | number
+  defaultSelectedValues: number[] | number
   shouldShowDropdown: boolean
   onShowDropdown: () => void
   resetActiveDropdown: () => void

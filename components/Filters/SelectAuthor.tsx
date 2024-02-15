@@ -11,16 +11,16 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
   const params: IParams = useParams()
   if (params.client === undefined) return null // ? Should never return null, but just in case
 
-  const clientId = parseInt(params.client[0]) ?? 1
+  const clientId = Number(params.client[0])
 
-  const [currentPage, setCurrentPage] = useState<string>('1')
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const handlePageChange = (page: number): void => {
-    setCurrentPage(page.toString())
+    setCurrentPage(page)
   }
 
   const queryParams: Partial<IFilterProperties> = {
     page: currentPage,
-    pageSize: '5'
+    pageSize: 5
   }
 
   const { employees } = getEmployeesThatHaveCreatedProjects(
@@ -45,7 +45,7 @@ const SelectAuthor: React.FC<ISelectAuthorProps> = (props) => {
       onPageChange={handlePageChange}
       defaultValue={props.employeesPictures} // ? This will show the employees pictures on the select component default value. Only if they exist in the URL
       defaultEntities={props.defaultEmployees} // ! Will pass the employees object down to the select. Might not be the most generic way to do it, but I just want to get it done.
-      defaultSelectedOptions={props.defaultSectedValues} // ? Will convert it to an array
+      defaultSelectedOptions={props.defaultSelectedValues} // ? Will convert it to an array
       showPictures={props.showPictures} // ? Show pictures inside the dropdown
       multiple={true} // ? This will allow multiple option selection
       showCloseButton={true}

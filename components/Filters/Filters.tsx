@@ -1,7 +1,6 @@
 import styles from '@/app/projects/(list)/userbanner.module.css'
 import EntityDashboardOptions from '../Header title/_dashboard/EntityDashboardOptions'
 import PageFilters from './PageFilters'
-import React from 'react'
 
 interface FiltersProps {
   entityName?: string

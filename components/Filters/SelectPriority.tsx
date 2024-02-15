@@ -15,7 +15,7 @@ const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
     }
   }
 
-  const priority = setEntityPriority(props.defaultSectedValues as number)
+  const priority = setEntityPriority(props.defaultSelectedValues as number)
 
   return (
     <CustomSelect

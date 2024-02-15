@@ -12,8 +12,8 @@ export type OrderBy =
   | 'Project'
 
 export interface IFilterProperties {
-  page?: string
-  pageSize?: string
+  page?: number
+  pageSize?: number
   sort?: Sort
   orderBy?: OrderBy
   // * Example of how to use this:

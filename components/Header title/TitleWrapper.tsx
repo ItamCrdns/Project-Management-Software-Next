@@ -16,6 +16,28 @@ interface TitleWrapperProps {
 // ? TitleWrapper component holds a big title for an entity and a button that can contain options, a button, and some text
 
 const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
+  const {
+    title,
+    icon,
+    showButton,
+    buttonText,
+    buttonHref,
+    buttonWidth,
+    isDashboard,
+    showPictures,
+    isPage
+  } = props
+
+  const cardProps = {
+    optionsText: 'Filters',
+    isDashboard,
+    isPage,
+    showButton,
+    buttonText,
+    buttonHref,
+    buttonWidth,
+    showPictures
+  }
   return (
     <div className={styles.titlewrapper}>
       <span>
@@ -23,20 +45,11 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
           style={{ fontSize: '50px' }}
           className='material-symbols-outlined'
         >
-          {props.icon}
+          {icon}
         </span>
-        <h1>{props.title}</h1>
+        <h1>{title}</h1>
       </span>
-      <LoggedInCard
-        optionsText='Filters'
-        isDashboard={props.isDashboard}
-        isPage={props.isPage}
-        showButton={props.showButton}
-        buttonText={props.buttonText}
-        buttonHref={props.buttonHref}
-        buttonWidth={props.buttonWidth}
-        showPictures={props.showPictures}
-      />
+      <LoggedInCard {...cardProps} />
     </div>
   )
 }

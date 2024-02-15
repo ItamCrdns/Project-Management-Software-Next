@@ -7,35 +7,43 @@ import Options from './Options'
 import Filters from '../Filters/Filters'
 
 const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
+  const {
+    optionsText,
+    showButton,
+    buttonText,
+    buttonWidth,
+    buttonHref,
+    entityName,
+    isDashboard,
+    isPage,
+    showPictures
+  } = props
+
   const [toggle, setToggle] = useState<boolean>(false)
 
   const handleToggle = (): void => {
     setToggle(!toggle)
   }
 
+  const filtersProps = {
+    entityName,
+    isDashboard,
+    isPage,
+    showPictures
+  }
+
+  const rippleButtonProps = {
+    text: buttonText ?? '',
+    icon: 'add',
+    width: buttonWidth ?? '125px',
+    href: buttonHref
+  }
+
   return (
     <section className={styles.banner}>
-      <Options
-        text={props.optionsText}
-        toggle={toggle}
-        handleToggle={handleToggle}
-      />
-      {props.showButton !== null && props.showButton === true && (
-        <RippleButton
-          text={props.buttonText ?? ''}
-          icon='add'
-          width={props.buttonWidth ?? '125px'}
-          href={props.buttonHref}
-        />
-      )}
-      {toggle && (
-        <Filters
-          entityName={props.entityName}
-          isDashboard={props.isDashboard}
-          isPage={props.isPage}
-          showPictures={props.showPictures}
-        />
-      )}
+      <Options text={optionsText} toggle={toggle} handleToggle={handleToggle} />
+      {showButton === true && <RippleButton {...rippleButtonProps} />}
+      {toggle && <Filters {...filtersProps} />}
     </section>
   )
 }

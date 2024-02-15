@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import styles from './select.module.css'
+import NoPicture from '../No profile picture/NoPicture'
 
 interface DefaultValueProps {
   defaultValue: string | string[] // * We will check its type and render accordingly
@@ -17,18 +18,18 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
       <div className={styles.defaultimageswrapper}>
         <ul>
           {Array.isArray(employeePictures) && employeePictures.length > 0
-            ? (
-            <>
-              {employeePictures.map((pic, index) => (
+            ? employeePictures.map((pic, index) => (
                 <li key={index}>
-                  <Image src={pic} alt={defaultText} width={25} height={25} />
+                  {pic !== null
+                    ? (
+                    <Image src={pic} alt={defaultText} width={25} height={25} />
+                      )
+                    : (
+                    <NoPicture width='25px' height='25px' />
+                      )}
                 </li>
-              ))}
-            </>
-              )
-            : (
-                defaultText
-              )}
+            ))
+            : defaultText}
         </ul>
       </div>
     )
