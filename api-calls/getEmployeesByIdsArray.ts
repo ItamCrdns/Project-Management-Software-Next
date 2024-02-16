@@ -1,10 +1,10 @@
 import { type Employee } from '@/interfaces/employee'
-import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
-import { fetcher } from '@/utility/fetcherSWR'
+import { fetcher2 } from '@/utility/fetcherSWR'
 import useSWR from 'swr'
 
 interface GetEmployeesByIdsArrayReturn {
   employeesFromIds: Employee[] | []
+  pictures: string[]
   isLoading: boolean
   isError: unknown
 }
@@ -19,13 +19,14 @@ export const getEmployeesByIdsArray = (
 
   const endpoint = `${process.env.NEXT_PUBLIC_API_URL}Employee/employees/by-employee-ids?employeeIds=${arrayString}`
 
-  const { data, error, isLoading } = useSWR<SWRGetterReturn<Employee>>(
+  const { data, error, isLoading } = useSWR<Employee[]>(
     shouldFetch ? endpoint : null,
-    fetcher
+    fetcher2
   )
 
   return {
-    employeesFromIds: data as unknown as Employee[], // * Too lazy to find a solution for this weird typing issue
+    employeesFromIds: data ?? [],
+    pictures: data?.map((employee) => employee.profilePicture) ?? [],
     isLoading,
     isError: error
   }

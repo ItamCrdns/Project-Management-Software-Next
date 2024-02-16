@@ -8,7 +8,6 @@ export interface Option {
 export interface CustomSelectProps {
   // Basic properties
   options: Option[] // Options for the select
-  text: string // Text to display
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
 
   // Selection properties

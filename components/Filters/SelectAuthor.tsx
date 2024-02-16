@@ -54,7 +54,7 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
     props.closeDropdown()
   }
 
-  const { employeesFromIds } = getEmployeesByIdsArray(
+  const { employeesFromIds, pictures } = getEmployeesByIdsArray(
     searchParams
       .get('author')
       ?.split('-')
@@ -67,13 +67,12 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
 
   const selectProps = {
     options: employeesAsOptions(employees?.data),
-    text: 'Author or authors',
     onSelect: handleEmployeeSelect,
     clearOptions: handleEmployeeFilterClear,
     isPaginated: true,
     pageSize: employees?.pages,
     onPageChange: handlePageChange,
-    defaultValue: employeesFromIds?.map((e) => e.profilePicture) ?? [],
+    defaultValue: pictures.length > 0 ? pictures : 'Select author',
     defaultEntities: employeesAsOptions(employeesFromIds),
     multiple: true,
     showCloseButton: true,

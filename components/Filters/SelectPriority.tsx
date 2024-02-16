@@ -35,7 +35,6 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
 
   const priorityProps = {
     options: priorityOptions,
-    text: 'Priority',
     onSelect: handlePrioritySelect,
     clearOptions: handleClearPriority,
     defaultValue: priority.priorityText,

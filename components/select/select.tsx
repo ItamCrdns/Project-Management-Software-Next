@@ -20,7 +20,19 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     setToggle(toggleValue)
   }
 
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+  const selectedOptionInitialState = (): Option | null => {
+    if (
+      props.defaultEntities !== undefined &&
+      !Array.isArray(props.defaultEntities)
+    ) {
+      return props.defaultEntities
+    } else {
+      return null
+    }
+  }
+  const [selectedOption, setSelectedOption] = useState<Option | null>(
+    selectedOptionInitialState
+  )
 
   const handleOptionClick = (option: Option, event: React.MouseEvent): void => {
     event.nativeEvent.stopImmediatePropagation() // * Avoids closing Filters when clicking on the dropdown
@@ -73,7 +85,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       isPaginated={props.isPaginated}
       pageSize={props.pageSize}
       showReset={props.showReset}
-      text={props.text}
+      // text={props.text}
       onPageChange={props.onPageChange}
       handleToggleDropdown={handleToggleDropdown}
       handleOptionClick={handleOptionClick}

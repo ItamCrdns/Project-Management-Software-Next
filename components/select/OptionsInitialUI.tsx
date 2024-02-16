@@ -33,10 +33,7 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
               ) ?? ''
             )
           : (
-          <DefaultValue
-            defaultValue={props.defaultValue as string | string[]}
-            defaultText={props.text as string}
-          />
+          <DefaultValue defaultValue={props.defaultValue} />
             )}
       </div>
       <span className='material-symbols-outlined'>expand_more</span>

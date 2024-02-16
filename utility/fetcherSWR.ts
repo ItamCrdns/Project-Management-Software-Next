@@ -8,5 +8,15 @@ export const fetcher = async <T>(url: string): Promise<SWRGetterReturn<T>> => {
     throw new Error(`Something went wrong. Status code: ${res.status}`)
   }
 
-  return await res.json() as SWRGetterReturn<T>
+  return await res.json()
+}
+
+export const fetcher2 = async <T>(url: string): Promise<T> => {
+  const res = await fetch(url, clientRequestOptions)
+
+  if (!res.ok) {
+    throw new Error(`Something went wrong. Status code: ${res.status}`)
+  }
+
+  return await res.json()
 }

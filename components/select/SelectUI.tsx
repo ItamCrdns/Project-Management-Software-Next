@@ -9,7 +9,7 @@ import OptionsInitialUI from './OptionsInitialUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null
-  text: string
+  // text: string
   toggle: boolean
   disabled: boolean
   handleToggleDropdown: (toggleValue: boolean) => void
@@ -27,7 +27,6 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           disabled={props.disabled}
           selectedOption={props.selectedOption}
           defaultValue={props.defaultValue}
-          text={props.text}
           multiple={props.multiple}
           onShowDropdown={props.onShowDropdown}
           closeDropdown={props.closeDropdown}

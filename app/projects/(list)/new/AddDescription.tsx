@@ -91,55 +91,59 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
     <>
       {dependency
         ? (
-        <AddEmployeesToProject data={newData} goBack={handleReturnHere} />
+          <AddEmployeesToProject data={newData} goBack={handleReturnHere} />
           )
         : (
-        <>
-          <h1>Now, add a description:</h1>
-          <form ref={formRef} onSubmit={handleSubmit}>
-            <p style={{ width: '400px', marginTop: '10px' }}>
-              Add a project description with objectives, goals, or key details
-              to help your team understand its purpose and importance.
-            </p>
-            <InputAndCharacterCount
-              defaultValue={newData.data.description ?? ''}
-              name='description'
-              placeholder={`Add a description for ${data.data.name}`}
-              limit={255}
-              onSubmit={handleTextAreaSubmit}
-            />
-            <CustomSelect
-              defaultValue={newData.data.priorityLabel as string}
-              options={priorityOptions}
-              text='Pick a priority...'
-              onSelect={handlePrioritySelect}
-              shouldShowDropdown={toggle}
-              onShowDropdown={() => {
-                setToggle(!toggle)
-              }}
-              closeDropdown={() => {
-                setToggle(false)
-              }}
-            />
-          </form>
-          <div className={styles.buttonwrapper}>
-            <RippleButton
-              text='Next'
-              backgroundColor='#80B3FF'
-              textColor='white'
-              effectColor='var(--banner-color)'
-              func={handleClick}
-            />
-            <RippleButton
-              text='Go back'
-              backgroundColor='var(--darker-banner-color)'
-              effectColor='var(--banner-color)'
-              textColor='var(--text-color)'
-              func={handleGoBack}
-            />
-          </div>
-        </>
-          )}
+          <>
+            <h1>Now, add a description:</h1>
+            <form ref={formRef} onSubmit={handleSubmit}>
+              <p style={{ width: '400px', marginTop: '10px' }}>
+                Add a project description with objectives, goals, or key details
+                to help your team understand its purpose and importance.
+              </p>
+              <InputAndCharacterCount
+                defaultValue={newData.data.description ?? ''}
+                name='description'
+                placeholder={`Add a description for ${data.data.name}`}
+                limit={255}
+                onSubmit={handleTextAreaSubmit}
+              />
+              <CustomSelect
+                defaultValue={
+                  newData.data.priorityLabel === ''
+                    ? 'Pick a priority...'
+                    : (newData.data.priorityLabel as string)
+                }
+                options={priorityOptions}
+                onSelect={handlePrioritySelect}
+                shouldShowDropdown={toggle}
+                onShowDropdown={() => {
+                  setToggle(!toggle)
+                }}
+                closeDropdown={() => {
+                  setToggle(false)
+                }}
+              />
+            </form>
+            <div className={styles.buttonwrapper}>
+              <RippleButton
+                text='Next'
+                backgroundColor='#80B3FF'
+                textColor='white'
+                effectColor='var(--banner-color)'
+                func={handleClick}
+              />
+              <RippleButton
+                text='Go back'
+                backgroundColor='var(--darker-banner-color)'
+                effectColor='var(--banner-color)'
+                textColor='var(--text-color)'
+                func={handleGoBack}
+              />
+            </div>
+          </>
+          )
+      }
     </>
   )
 }
