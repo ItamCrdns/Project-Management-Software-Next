@@ -13,7 +13,7 @@ export interface SelectUIProps extends Partial<CustomSelectProps> {
   toggle: boolean
   disabled: boolean
   handleToggleDropdown: (toggleValue: boolean) => void
-  handleOptionClick: (option: Option) => void
+  handleOptionClick: (option: Option, event: React.MouseEvent) => void
   handleMultipleOptionClick: (option: Option) => void // ? This is for multiple options selection
   resetSelectedOption: () => void
 }
@@ -28,15 +28,14 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           selectedOption={props.selectedOption}
           defaultValue={props.defaultValue}
           text={props.text}
-          showPictures={props.showPictures}
           multiple={props.multiple}
           onShowDropdown={props.onShowDropdown}
-          resetActiveDropdown={props.resetActiveDropdown}
+          closeDropdown={props.closeDropdown}
         />
         <OptionsListUI
           toggle={props.toggle}
           shouldShowDropdown={props.shouldShowDropdown}
-          resetActiveDropdown={props.resetActiveDropdown}
+          closeDropdown={props.closeDropdown}
           options={props.options}
           handleToggleDropdown={props.handleToggleDropdown}
           handleOptionClick={props.handleOptionClick}
@@ -44,13 +43,11 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           pageSize={props.pageSize}
           onPageChange={props.onPageChange}
           isPaginated={props.isPaginated}
-          showPictures={props.showPictures}
           // * This is to have a visual representation of whats selected
-          defaultSelectedOptions={props.defaultSelectedOptions} // TODO: Add single selectedOption too.
           multiple={props.multiple}
           showCloseButton={props.showCloseButton} // ! Change this to actually take it from the props
           defaultEntities={props.defaultEntities}
-          optionsWidth={props.optionsWidth}
+          showPictures={props.showPictures}
         />
       </div>
       <ResetUI

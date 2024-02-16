@@ -114,8 +114,12 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
               text='Pick a priority...'
               onSelect={handlePrioritySelect}
               shouldShowDropdown={toggle}
-              onShowDropdown={() => { setToggle(!toggle) }}
-              resetActiveDropdown={() => { setToggle(false) }}
+              onShowDropdown={() => {
+                setToggle(!toggle)
+              }}
+              closeDropdown={() => {
+                setToggle(false)
+              }}
             />
           </form>
           <div className={styles.buttonwrapper}>

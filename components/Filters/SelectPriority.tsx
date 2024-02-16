@@ -1,38 +1,53 @@
 import CustomSelect from '../select/select'
-import { priorityOptions } from '@/app/projects/(list)/new/priorityOptions'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import setEntityPriority from '../Generic Entity Renderer/EntityPriority'
 import { type ISharedProps } from './SelectAuthorInterfaces'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { priorityOptions } from '@/app/projects/(list)/new/priorityOptions'
 
-interface ISelectPriorityProps extends ISharedProps {
-  getPriorityValue: (priority: number) => void
-}
+const SelectPriority: React.FC<ISharedProps> = (props) => {
+  const pathname = usePathname()
+  const router = useRouter()
+  const nextJsParams = useSearchParams()
+  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
-const SelectPriority: React.FC<ISelectPriorityProps> = (props) => {
-  const handlePrioritySelect = (selectedValue: Option | Option[]): void => {
-    if (!Array.isArray(selectedValue)) {
-      props.getPriorityValue(selectedValue.value)
+  const handlePrioritySelect = (priority: Option | Option[]): void => {
+    if (!Array.isArray(priority)) {
+      if (priority.value === 0) return
+      searchParams.set('priority', priority.value.toString())
+      searchParams.set('pagesize', '10')
+
+      router.replace(`${pathname}?${searchParams.toString()}`)
     }
   }
 
-  const priority = setEntityPriority(props.defaultSelectedValues as number)
+  const handleClearPriority = (): void => {
+    searchParams.delete('priority')
+    searchParams.set('pagesize', '10')
 
-  return (
-    <CustomSelect
-      options={priorityOptions}
-      text='Priority'
-      onSelect={handlePrioritySelect}
-      defaultValue={priority.priorityText}
-      optionsWidth='400px'
-      showCloseButton={true}
-      clearSelectedOptionBoolean={props.clearValues}
-      shouldShowDropdown={props.shouldShowDropdown}
-      onShowDropdown={props.onShowDropdown}
-      resetActiveDropdown={props.resetActiveDropdown}
-      showReset
-      clearSelectedOptionsFunction={props.clearSelectedOptionsFunction}
-    />
-  )
+    router.replace(`${pathname}?${searchParams.toString()}`)
+    props.closeDropdown()
+  }
+
+  const { onShowDropdown, closeDropdown, shouldShowDropdown } = props
+
+  const priority = setEntityPriority(Number(props.defaultValue))
+
+  const priorityProps = {
+    options: priorityOptions,
+    text: 'Priority',
+    onSelect: handlePrioritySelect,
+    clearOptions: handleClearPriority,
+    defaultValue: priority.priorityText,
+    defaultEntities: priorityOptions.find((x) => x.label === priority.priorityText),
+    showCloseButton: true,
+    shouldShowDropdown,
+    showReset: true,
+    closeDropdown,
+    onShowDropdown
+  }
+
+  return <CustomSelect {...priorityProps} />
 }
 
 export default SelectPriority

@@ -1,21 +1,13 @@
-import { type Employee } from '@/interfaces/employee'
+// import { type Employee } from '@/interfaces/employee'
 
 export interface ISharedProps {
   clearValues: boolean
   // * Can we both. To handle selected authors (array of numbers) and selected priority (number)
   // * Use type assertion when passing them as props
-  defaultSelectedValues: number[] | number
+  defaultValue?: string
   shouldShowDropdown: boolean
   onShowDropdown: () => void
-  resetActiveDropdown: () => void
-  clearSelectedOptionsFunction: () => void
-}
-
-export interface ISelectAuthorProps extends ISharedProps {
-  showPictures?: boolean
-  getAuthorsIDValues: (values: number[]) => void
-  employeesPictures: string[]
-  defaultEmployees: Employee[] | undefined
+  closeDropdown: () => void
 }
 
 export interface IParams {

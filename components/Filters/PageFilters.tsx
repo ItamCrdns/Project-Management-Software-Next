@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import RippleButton from '../ripplebutton/RippleButton'
-import SelectAuthor from './SelectAuthor'
 import styles from './filters.module.css'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
+import SelectAuthor from './SelectAuthor'
 import SelectPriority from './SelectPriority'
 
 interface IPageFiltersProps {
@@ -21,27 +20,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   const nextJsParams = useSearchParams()
   const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
-  const { employeesFromIds } = getEmployeesByIdsArray(
-    searchParams
-      .get('author')
-      ?.split('-')
-      .map((i) => Number(i)) ?? [],
-    searchParams.get('author') !== null
-  )
-
-  const getAuthorsIDValues = (authorIds: number[]): void => {
-    if (authorIds.length === 0) {
-      handleClearAuthors()
-    }
-
-    searchParams.set('author', authorIds.join('-'))
-    searchParams.set('pagesize', '10')
-
-    if (searchParams.toString() !== undefined && authorIds.length !== 0) {
-      router.replace(`${pathname}?${searchParams.toString()}`)
-    }
-  }
-
   const getPriorityValue = (priority: number): void => {
     if (priority === 0) return
     searchParams.set('priority', priority.toString())
@@ -58,22 +36,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
     searchParams.set('pagesize', '10')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
-  }
-
-  const handleClearPriority = (): void => {
-    searchParams.delete('priority')
-    searchParams.set('pagesize', '10')
-
-    router.replace(`${pathname}?${searchParams.toString()}`)
-    setActiveDropdown('')
-  }
-
-  const handleClearAuthors = (): void => {
-    searchParams.delete('author')
-    searchParams.set('pagesize', '10')
-
-    router.replace(`${pathname}?${searchParams.toString()}`)
-    setActiveDropdown('')
   }
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
@@ -99,38 +61,27 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
   const selectAuthorProps = {
-    showPictures: props.showPictures,
-    getAuthorsIDValues,
     clearValues: !authorIdFilterSet, // * If not set, clear. Same for priority
-    employeesPictures: employeesFromIds?.map((e) => e.profilePicture) ?? [],
-    defaultEmployees: employeesFromIds,
-    defaultSelectedValues:
-      searchParams
-        .get('author')
-        ?.split('-')
-        .map((i) => Number(i)) ?? [],
     shouldShowDropdown: activeDropdown === 'author',
     onShowDropdown: () => {
       onShowDropdown('author')
     },
-    resetActiveDropdown: () => {
+    closeDropdown: () => {
       setActiveDropdown('')
-    },
-    clearSelectedOptionsFunction: handleClearAuthors
+    }
   }
 
   const selectPriorityProps = {
     getPriorityValue,
     clearValues: !priorityFilterSet,
-    defaultSelectedValues: Number(searchParams.get('priority')),
+    defaultValue: searchParams.get('priority') ?? '',
     shouldShowDropdown: activeDropdown === 'priority',
     onShowDropdown: () => {
       onShowDropdown('priority')
     },
-    resetActiveDropdown: () => {
+    closeDropdown: () => {
       setActiveDropdown('')
-    },
-    clearSelectedOptionsFunction: handleClearPriority
+    }
   }
 
   return (

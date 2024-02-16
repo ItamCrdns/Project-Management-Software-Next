@@ -28,7 +28,7 @@ export const setEntityPriority = (priority: number): PriorityTextAndColor => {
       color = 'red'
       break
     default:
-      priorityText = 'Not valid'
+      priorityText = 'Priority'
   }
 
   return { priorityText, color }

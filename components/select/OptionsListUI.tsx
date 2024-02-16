@@ -2,64 +2,50 @@ import Image from 'next/image'
 import styles from './select.module.css'
 import SelectPaginationUI from './SelectPaginationUI'
 import { type SelectUIProps } from './SelectUI'
-import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { updateStateWithQueryParams } from './updateStateWithQueryParams'
 import RippleButton from '../ripplebutton/RippleButton'
 import NoPicture from '../No profile picture/NoPicture'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
-  const showPicture = props.showPictures !== null && props.showPictures === true
+  const { handleMultipleOptionClick, handleOptionClick } = props
 
-  const selectedEmployees = props.defaultSelectedOptions ?? []
-
-  const defaultEmployees = props.defaultEntities ?? []
-
-  updateStateWithQueryParams(defaultEmployees, props)
-
-  const handleClick = (option: Option): void => {
-    if (props.multiple === true) {
-      props.handleMultipleOptionClick?.(option)
+  const contrastSelectedOption = (opt: Option): string => {
+    if (Array.isArray(props.defaultEntities)) {
+      return props.defaultEntities.some((e) => e.value === opt.value) ? 'var(--banner-color)' : ''
     } else {
-      props.handleOptionClick?.(option)
+      return props.defaultEntities?.value === opt.value ? 'var(--banner-color)' : ''
     }
   }
 
   if (props.shouldShowDropdown === true && Array.isArray(props.options)) {
     return (
-      <div
-        style={{ width: props.optionsWidth ?? '' }}
-        className={styles.optionswrapper}
-      >
+      <div className={styles.optionswrapper}>
         <ul>
           {props.options.map((opt) => (
             <li
-              onClick={() => {
-                handleClick(opt)
+              onClick={(event) => {
+                props.multiple === true
+                  ? handleMultipleOptionClick?.(opt)
+                  : handleOptionClick?.(opt, event)
               }}
               key={opt.value}
-              style={{
-                background:
-                  Array.isArray(selectedEmployees) &&
-                  selectedEmployees?.some((e) => e === opt.value) // * Highlight selected options
-                    ? 'var(--banner-color)'
-                    : ''
-              }}
+              style={{ backgroundColor: contrastSelectedOption(opt) }}
             >
-              {showPicture &&
-              opt.picture !== null &&
-              opt.picture !== undefined &&
-              opt.label !== undefined
-                ? (
-                <Image
-                  src={opt.picture}
-                  alt={opt.label}
-                  width={25}
-                  height={25}
-                />
-                  )
-                : (
-                <NoPicture width='25px' height='25px' />
-                  )}
+              {props.showPictures === true &&
+                (opt.picture !== undefined &&
+                opt.picture !== '' &&
+                opt.picture !== null
+                  ? (
+                  <Image
+                    src={opt.picture}
+                    alt={opt.label}
+                    width={25}
+                    height={25}
+                  />
+                    )
+                  : (
+                  <NoPicture width='25px' height='25px' />
+                    ))}
               <h4>{opt.label}</h4>
               <p style={{ textAlign: 'right' }}>{opt.info}</p>
             </li>
@@ -75,7 +61,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
             text='Close'
             backgroundColor='rgb(255, 80, 120)'
             textColor='white'
-            func={() => props.resetActiveDropdown?.()}
+            func={() => props.closeDropdown?.()}
           />
         )}
       </div>

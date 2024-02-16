@@ -22,46 +22,46 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
 
-  const handleOptionClick = (option: Option): void => {
+  const handleOptionClick = (option: Option, event: React.MouseEvent): void => {
+    event.nativeEvent.stopImmediatePropagation() // * Avoids closing Filters when clicking on the dropdown
     setSelectedOption(option)
     setToggle(false)
     props.onSelect(option)
-    props.resetActiveDropdown?.()
+    props.closeDropdown?.()
   }
 
   const resetSelectedOption = (): void => {
-    props.clearSelectedOptionsFunction?.() // ? Pass the callback function that will clear the selected options in the parent component
     setSelectedOption(null)
     setSelectedOptions([])
+    props.onSelect([])
+    props.clearOptions?.()
   }
 
-  useEffect(() => {
-    if (props.clearSelectedOptionBoolean === true) {
-      setSelectedOption(null)
-    }
-
-    if (props.clearSelectedOptions === true) {
-      setSelectedOptions([])
-    }
-  }, [props.clearSelectedOptionBoolean, props.clearSelectedOptions])
-
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const [initialRender, setInitialRender] = useState<boolean>(true)
 
   const handleOptionClickMultiple = (option: Option): void => {
-    // * Same as handleEmployeeClick in AddEmployeesToProject
-    setSelectedOptions((prevState) => {
-      if (prevState?.some((opt) => opt.value === option.value)) {
-        // ? If already selected, remove it from the array
-        return prevState.filter((opt) => opt.value !== option.value)
-      } else {
-        // ? If not selected, add it to the array
-        return [...prevState, option]
+    if (
+      Array.isArray(props.defaultEntities) &&
+      props.defaultEntities.length > 0
+    ) {
+      setSelectedOptions(props.defaultEntities)
+    }
+
+    setSelectedOptions((prev) => {
+      if (prev.some((o) => o.value === option.value)) {
+        return prev.filter((o) => o.value !== option.value)
       }
+      return [...prev, option]
     })
   }
 
   useEffect(() => {
-    // * Fix state not ready when calling onSelect inside handleOptionClickMultiple
+    if (initialRender) {
+      setInitialRender(false)
+      return
+    }
+
     props.onSelect(selectedOptions)
   }, [selectedOptions])
 
@@ -81,15 +81,13 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       resetSelectedOption={resetSelectedOption}
       disabled={disabled}
       selectedOption={selectedOption}
-      defaultSelectedOptions={props.defaultSelectedOptions as number}
       toggle={toggle}
-      showPictures={props.showPictures}
       multiple={props.multiple}
-      optionsWidth={props.optionsWidth}
       showCloseButton={props.showCloseButton}
       shouldShowDropdown={props.shouldShowDropdown}
       onShowDropdown={props.onShowDropdown}
-      resetActiveDropdown={props.resetActiveDropdown}
+      closeDropdown={props.closeDropdown}
+      showPictures={props.showPictures}
     />
   )
 }

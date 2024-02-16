@@ -33,14 +33,17 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       text='Select a client...'
       onSelect={props.handleClientSelection}
       disabled={props.isFormOpen}
-      clearSelectedOption={props.clearSelectedOption}
       isPaginated
       pageSize={clients?.pages ?? 0}
       onPageChange={handlePageChange}
       showReset
       shouldShowDropdown={toggle}
-      onShowDropdown={() => { setToggle(!toggle) }}
-      resetActiveDropdown={() => { setToggle(false) }}
+      onShowDropdown={() => {
+        setToggle(!toggle)
+      }}
+      closeDropdown={() => {
+        setToggle(false)
+      }}
     />
   )
 }
