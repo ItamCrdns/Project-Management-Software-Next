@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-redux": "^9.1.0",
     "swr": "^2.2.4"
   },
   "devDependencies": {
@@ -26,7 +28,7 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
-    "typescript": "^5.2.2",
-    "standard": "17.1.0"
+    "standard": "17.1.0",
+    "typescript": "^5.2.2"
   }
 }

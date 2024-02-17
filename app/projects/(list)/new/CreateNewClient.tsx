@@ -3,8 +3,10 @@ import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import NewClientForm from './NewClientForm'
 import { type CreateNewClientProps } from '@/interfaces/props/CreateNewClientProps'
+import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 
 const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
+  const { setClientName } = useNewProjectActions()
   const [toggle, setToggle] = useState<boolean>(false)
 
   const handleCloseForm = (): void => {
@@ -17,8 +19,8 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
     setToggle(true)
   }
 
-  const getClientName = (clientNameFromForm: string): void => {
-    props.sendClientName(clientNameFromForm)
+  const getClientName = (newName: string): void => {
+    setClientName(newName)
     setToggle(false)
   }
 
@@ -60,6 +62,7 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
             edit
           </span>
         </div>
+
       )}
     </>
   )

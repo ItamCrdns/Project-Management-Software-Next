@@ -1,14 +1,14 @@
-import { type NewProjectData } from '../NewProjectData'
+// import { type NewProjectData } from '../NewProjectData'
 import { type Employee } from '../employee'
 
 export interface EmployeesRenderProps {
   showResume: boolean
-  newData: NewProjectData
-  selectedEmployees: Employee[] | null
+  // newData: NewProjectData
+  // selectedEmployees: Employee[] | null
   handleReturnHere: () => void
-  data: NewProjectData
+  // data: NewProjectData
   getInputValue: (input: string) => void
-  handleInputChange: (value: boolean) => void
+  // handleInputChange: (value: boolean) => void
   employeeList: Employee[]
   message: string
   handleEmployeeClick: (employee: Employee) => void

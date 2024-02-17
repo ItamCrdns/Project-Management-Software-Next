@@ -2,12 +2,19 @@ import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import { type UnsavedChangesProps } from '@/interfaces/props/UnsavedChangesProps'
+import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 
 const UnsavedChanges: React.FC<UnsavedChangesProps> = (props) => {
+  const { clear } = useNewProjectActions()
   const router = useRouter()
 
   const handleGoBack = (): void => {
     props.goBack()
+  }
+
+  const handleExit = (): void => {
+    clear()
+    router.push('/projects')
   }
 
   return (
@@ -29,9 +36,7 @@ const UnsavedChanges: React.FC<UnsavedChangesProps> = (props) => {
             backgroundColor='rgb(255, 80, 120)'
             effectColor='rgb(255, 50, 120)'
             textColor='white'
-            func={() => {
-              router.push('/projects')
-            }}
+            func={handleExit}
           />
         </div>
       </section>

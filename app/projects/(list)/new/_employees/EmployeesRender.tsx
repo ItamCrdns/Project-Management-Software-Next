@@ -4,60 +4,52 @@ import EmployeeList from './EmployeeList'
 import Pagination from '@/components/pagination/pagination'
 import Buttons from './Buttons'
 import { type EmployeesRenderProps } from '@/interfaces/props/EmployeesRenderProps'
+import { useAppSelector } from '@/lib/hooks/hooks'
 
 const EmployeesRender: React.FC<EmployeesRenderProps> = (props) => {
+  const newProject = useAppSelector((state) => state.newProjectData)
+
   const {
-    data,
-    newData,
     employeeList,
-    selectedEmployees,
     message,
     handleEmployeeClick,
     handleSubmit,
     handleGoBack,
     showResume,
     handleReturnHere,
-    handleInputChange,
     handlePageChange,
     totalPages,
     resetPage,
     getInputValue
   } = props
+
   return (
     <>
       {showResume
         ? (
-        <Resume
-          project={newData}
-          employees={selectedEmployees}
-          goBack={handleReturnHere}
-        />
+        <Resume goBack={handleReturnHere} />
           )
         : (
         <>
-          <h1>Who will be working on {data.data.name}?</h1>
+          <h1>Who will be working on {newProject.name}?</h1>
           <Search
             maxInputLength={16}
-            onInputChange={handleInputChange}
             stateBasedSearch={true}
             stateBasedGetInputValue={getInputValue}
           />
           <EmployeeList
             employeeList={employeeList}
-            selectedEmployees={selectedEmployees}
+            selectedEmployees={newProject.employees}
             message={message}
             handleEmployeeClick={handleEmployeeClick}
           />
-          <p style={{ margin: 0, fontSize: '12px' }}>
-            Showing only {data.data.companyName} employees
-          </p>
           <Pagination
             totalPages={totalPages}
             onPageChange={handlePageChange}
             reset={resetPage}
           />
           <Buttons
-            selectedEmployees={selectedEmployees}
+            selectedEmployees={newProject.employees}
             handleSubmit={handleSubmit}
             handleGoBack={handleGoBack}
           />

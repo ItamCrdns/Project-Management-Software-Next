@@ -3,34 +3,20 @@ import { useRef, useState } from 'react'
 import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import { type NewProjectData } from '@/interfaces/NewProjectData'
 import AddDescription from './AddDescription'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
-import { type Employee } from '@/interfaces/employee'
 import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
 import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
 import CreateNewClient from './CreateNewClient'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import ClientSelection from './_Client Select/ClientSelection'
+import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useAppSelector } from '@/lib/hooks/hooks'
 
-const initialState: NewProjectData = {
-  data: {
-    name: '',
-    description: '',
-    companyId: 0,
-    companyName: '',
-    priority: 0,
-    priorityLabel: '',
-    employees: null,
-    expectedDeliveryDate: '',
-    clientName: ''
-  },
-  setData: () => {}
-}
-
-const NewProjectModal = (): JSX.Element => {
-  const [data, setData] = useState<NewProjectData>(initialState) // * The new project data
+const NewProjectModal: React.FC = () => {
+  const newProject = useAppSelector((state) => state.newProjectData)
+  const { setCompany, setName } = useNewProjectActions()
 
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
@@ -43,65 +29,23 @@ const NewProjectModal = (): JSX.Element => {
 
   const handleClick = useSubmitRef(formRef)
 
-  const projectName = data.data.name
-  const companyId = data.data.companyId
-  const expectedDeliveryDate = data.data.expectedDeliveryDate
-
-  const clientProvided = data.data.clientName !== '' || companyId !== 0
+  const clientProvided =
+    newProject.clientName !== '' || newProject.companyId !== 0
 
   const dependency =
-    projectName !== '' &&
+    newProject.name !== '' &&
+    newProject.expectedDeliveryDate !== '' &&
     clientProvided &&
-    expectedDeliveryDate !== '' &&
     readyForNextPage
 
-  /**
-   * Callback function passed as props that updates the state with the selected company's ID and name.
-   * @param selectedValue - The selected company's option object.
-   */
-  const handleCompanySelect = (selectedValue: Option | Option[]): void => {
-    if (!Array.isArray(selectedValue)) {
-      setData((prevState) => ({
-        ...prevState,
-        data: {
-          ...prevState.data,
-          companyId: selectedValue.value,
-          companyName: selectedValue.label
-        }
-      }))
+  const handleCompanySelect = (company: Option | Option[]): void => {
+    if (!Array.isArray(company)) {
+      setCompany(company.value, company.label)
     }
   }
 
-  const handleInputSubmit = (projectName: string): void => {
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        name: projectName
-      }
-    }))
-  }
-
-  // Catch the values of the description and priority fields from the next page
-  const handleReturnHere = (
-    descriptionValue: string,
-    priorityValue: number | null,
-    priorityLabel: string | null,
-    employeesValue: Employee[] | null
-  ): void => {
-    setReadyForNextPage(false)
-
-    // * And set the again so we dont lose the data when navigating with the buttons
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        description: descriptionValue,
-        priorityLabel: priorityLabel ?? '',
-        priority: priorityValue ?? 0,
-        employees: employeesValue
-      }
-    }))
+  const handleInputSubmit = (name: string): void => {
+    setName(name)
   }
 
   const [showUnsavedChanges, setShowUnsavedChanges] = useState<boolean>(false)
@@ -109,38 +53,12 @@ const NewProjectModal = (): JSX.Element => {
   const router = useRouter()
 
   const handleExitNewProjectCreation = (): void => {
-    if (data.data.name !== '' || data.data.companyId !== 0) {
+    if (newProject.name !== '' || newProject.companyId !== 0) {
       setShowUnsavedChanges(true)
     } else {
       router.push('/projects/')
       setShowUnsavedChanges(false)
     }
-  }
-
-  const handleCancelClose = (): void => {
-    setShowUnsavedChanges(false)
-  }
-
-  const getDateCallback = (date: string): void => {
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        expectedDeliveryDate: date
-      }
-    }))
-  }
-
-  const getClientName = (clientName: string): void => {
-    // If the user creates a new client, the client name will be passed to the data state
-    // ? And later one we will be posting it to the API
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        clientName
-      }
-    }))
   }
 
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false)
@@ -149,22 +67,17 @@ const NewProjectModal = (): JSX.Element => {
     setIsFormOpen(isOpen)
   }
 
-  const companySelected = data.data.companyId !== 0
-
-  const clearSelectedOption = (): void => {
-    setData((prevState) => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        companyId: 0,
-        companyName: ''
-      }
-    }))
-  }
+  const companySelected = newProject.companyId !== 0
 
   return (
     <section className={styles.newprojectwrapper}>
-      {showUnsavedChanges && <UnsavedChanges goBack={handleCancelClose} />}
+      {showUnsavedChanges && (
+        <UnsavedChanges
+          goBack={() => {
+            setShowUnsavedChanges(false)
+          }}
+        />
+      )}
       <section className={styles.newproject}>
         <span
           onClick={handleExitNewProjectCreation}
@@ -174,38 +87,41 @@ const NewProjectModal = (): JSX.Element => {
         </span>
         {dependency
           ? (
-          <AddDescription data={data} goBack={handleReturnHere} />
+          <AddDescription
+            goBack={() => {
+              setReadyForNextPage(false)
+            }}
+          />
             )
           : (
           <>
             <h1>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
-              <p style={{ width: '400px', marginTop: '0' }}>
+              <p
+                style={{ width: '400px', marginTop: '0', textAlign: 'center' }}
+              >
                 Enter a clear project name. It&apos;ll appear to your team
                 members and should indicate what the project is focused on.
               </p>
               <InputAndCharacterCount
-                defaultValue={data.data.name ?? ''}
+                defaultValue={newProject.name ?? ''}
                 name='name'
                 placeholder='Project name'
                 limit={255}
                 onSubmit={handleInputSubmit}
               />
               <ClientSelection
-                clientName={data.data.companyName as string}
+                clientName={newProject.companyName as string}
                 handleClientSelection={handleCompanySelect}
-                clearSelectedOption={clearSelectedOption}
                 isFormOpen={isFormOpen}
               />
               <CreateNewClient
-                sendClientName={getClientName}
                 newClientOpen={checkIfNewClientFormIsOpen}
                 companySelected={companySelected}
-                clientName={data.data.clientName ?? ''}
+                clientName={newProject.clientName as string}
               />
               <ExpectedDeliveryDateSelector
-                getDate={getDateCallback}
-                defaultValue={expectedDeliveryDate}
+                defaultValue={newProject.expectedDeliveryDate}
               />
             </form>
             <RippleButton

@@ -3,12 +3,13 @@ import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import styles from './newProject.module.css'
 import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
-import { type NewProjectResumeProps } from '@/interfaces/props/NewProjectResumeProps'
 import { handleCreateClient } from './handlePostClient'
 import { useState } from 'react'
+import { useAppSelector } from '@/lib/hooks/hooks'
 
-const Resume: React.FC<NewProjectResumeProps> = (props) => {
-  const { project, employees, goBack } = props
+const Resume: React.FC<{ goBack: () => void }> = (props) => {
+  const newProject = useAppSelector((state) => state.newProjectData)
+  const employees = newProject.employees
 
   const router = useRouter()
 
@@ -18,16 +19,16 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
     const formData = new FormData()
 
     const selectedDeliveryDate = new Date(
-      project.data.expectedDeliveryDate
+      newProject.expectedDeliveryDate
     ).toISOString()
 
-    formData.append('name', project.data.name)
-    formData.append('description', project.data.description)
-    formData.append('priority', project.data.priority?.toString() ?? '')
+    formData.append('name', newProject.name)
+    formData.append('description', newProject.description)
+    formData.append('priority', newProject.priority?.toString() ?? '')
     formData.append('expectedDeliveryDate', selectedDeliveryDate)
 
-    const companyClientName = project.data.clientName
-    const companyId = project.data.companyId
+    const companyClientName = newProject.clientName
+    const companyId = newProject.companyId
 
     try {
       // * Check if the clientName has been provided. If it is, it means that the user its creating a new client instead of selecting an existing one
@@ -39,7 +40,7 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
         formData.append('companyId', companyId.toString())
       }
 
-      if (employees !== null) {
+      if (employees !== null && employees.length > 0) {
         employees.forEach((employee) => {
           formData.append('employees', employee.employeeId.toString())
         })
@@ -52,19 +53,14 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
         }
       }
     } catch (error: any) {
-      console.error(error)
       setError(error.toString())
     }
   }
 
-  const handleGoBack = (): void => {
-    goBack()
-  }
-
   const client =
-    project.data.companyName === ''
-      ? project.data.clientName
-      : project.data.companyName
+    newProject.companyName === ''
+      ? newProject.clientName
+      : newProject.companyName
 
   return (
     <section className={styles.summary}>
@@ -73,49 +69,48 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
       <div className={styles.summarydatawrapper}>
         <span className={styles.summaryinfo}>
           <p>Name</p>
-          <h2>{project.data.name}</h2>
+          <h2>{newProject.name}</h2>
         </span>
         <span className={styles.summaryinfo}>
           <p>Description</p>
-          <h2>{project.data.description}</h2>
+          <h2>{newProject.description}</h2>
         </span>
         <span className={styles.summaryinfo}>
           <p>Expected delivery date</p>
-          <h2>{project.data.expectedDeliveryDate}</h2>
+          <h2>{newProject.expectedDeliveryDate}</h2>
         </span>
       </div>
       <div className={styles.companyprioritywrapper}>
         <span>
           <p>Priority</p>
-          <h2>{project.data.priorityLabel}</h2>
+          <h2>{newProject.priorityLabel}</h2>
         </span>
         <span>
           <p>Client</p>
           <h2>{client}</h2>
         </span>
       </div>
-      {Array.isArray(employees) &&
-        (employees.length > 0
-          ? (
-          <section className={styles.employeesresume}>
-            <ul>
-              {employees.map((employee) => (
-                <EmployeeOfTheList
-                  key={employee.username}
-                  employee={employee}
-                  size={50}
-                  redirectMe={false}
-                />
-              ))}
-            </ul>
-          </section>
-            )
-          : (
-          <p>
-            You didn&apos;t add any employees, but don&apos;t worry, you can add
-            them later.
-          </p>
+      {Array.isArray(employees) && employees.length > 0
+        ? (
+        <section className={styles.employeesresume}>
+          <ul>
+            {employees.map((employee) => (
+              <EmployeeOfTheList
+                key={employee.username}
+                employee={employee}
+                size={50}
+                redirectMe={false}
+              />
             ))}
+          </ul>
+        </section>
+          )
+        : (
+        <p>
+          You didn&apos;t add any employees, but don&apos;t worry, you can add
+          them later.
+        </p>
+          )}
       <div className={styles.buttonwrapper}>
         <RippleButton
           text='Create project'
@@ -128,7 +123,9 @@ const Resume: React.FC<NewProjectResumeProps> = (props) => {
           backgroundColor='var(--darker-banner-color)'
           effectColor='var(--banner-color)'
           textColor='var(--text-color)'
-          func={handleGoBack}
+          func={() => {
+            props.goBack()
+          }}
         />
       </div>
       {error !== '' && <p>{error}</p>}

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/context/AuthContext'
 import { DarkModeProvider } from '@/context/DarkModeContext'
 import Navbar from '@/components/navbar/navbar'
+import StoreProvider from './StoreProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,7 +30,7 @@ const RootLayout = ({
         <DarkModeProvider>
           <AuthProvider>
             <Navbar />
-            {children}
+            <StoreProvider>{children}</StoreProvider>
           </AuthProvider>
         </DarkModeProvider>
       </body>
