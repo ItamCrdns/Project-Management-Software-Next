@@ -126,7 +126,7 @@ const NewProjectModal: React.FC = () => {
             </form>
             <RippleButton
               text='Next'
-              backgroundColor='#80B3FF'
+              backgroundColor='var(--blue)'
               textColor='white'
               func={handleClick}
             />

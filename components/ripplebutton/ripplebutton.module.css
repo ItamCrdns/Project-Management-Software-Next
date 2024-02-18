@@ -5,8 +5,7 @@
     --background-color: var(--banner-color);
     --effect-color: white;
     --text-color: var(--text-color);
-    --border-radius: 10px;
-
+    --border-radius: 5px;
 
     position: relative;
     cursor: pointer;
@@ -18,9 +17,6 @@
     align-items: center;
     margin: 0 auto;
     justify-content: center;
-
-    /* width: var(--width); */
-    /* height: var(--height); */
     padding: .5rem 1rem;
     font-size: 12px !important;
     background: var(--background-color);

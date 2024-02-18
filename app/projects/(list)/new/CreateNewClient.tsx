@@ -36,7 +36,7 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
       {!toggle && props.clientName === '' && (
         <RippleButton
           text='Create new client instead'
-          backgroundColor='#80B3FF'
+          backgroundColor='var(--blue)'
           textColor='white'
           func={handleOpenForm}
           disabled={props.companySelected}

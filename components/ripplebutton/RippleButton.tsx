@@ -15,14 +15,12 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
 
   const {
     text,
-    // width,
-    // height,
     backgroundColor,
     textColor,
     effectColor,
     borderRadius,
-    icon,
-    iconSize,
+    // icon,
+    // iconSize,
     href,
     loading = null,
     func,
@@ -32,8 +30,6 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
   useEffect(() => {
     const button = buttonRef.current
     const styleConfig = {
-      // '--width': width,
-      // '--height': height,
       '--background-color': backgroundColor,
       '--text-color': textColor,
       '--effect-color': effectColor,
@@ -102,7 +98,9 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
       onClick={
         // ! Determine if the function being passed its the async one or the default one
         // ? Only run if the button its not disabled
-        asyncFunc !== undefined && !disabled ? handleButtonClickAsync : handleButtonClick
+        asyncFunc !== undefined && !disabled
+          ? handleButtonClickAsync
+          : handleButtonClick
       }
       onMouseLeave={handleClearRipples}
     >
@@ -110,28 +108,28 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
         ? (
         <Link href={href} className={styles.loadertextwrapper}>
           {loading !== null && <span className={styles.loader} />}
-          {icon !== null && (
+          {/* {icon !== null && (
             <span
               style={{ fontSize: iconSize }}
               className='material-symbols-outlined'
             >
               {icon}
             </span>
-          )}
+          )} */}
           {text}
         </Link>
           )
         : (
         <div className={styles.loadertextwrapper}>
           {loading !== null && <span className={styles.loader} />}
-          {icon !== null && (
+          {/* {icon !== null && (
             <span
               style={{ fontSize: iconSize }}
               className='material-symbols-outlined'
             >
               {icon}
             </span>
-          )}
+          )} */}
           {text}
         </div>
           )}

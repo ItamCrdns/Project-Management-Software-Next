@@ -65,7 +65,12 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           </span>
           <div onClick={goToPreviousPage}>
             <span className='material-symbols-outlined'>navigate_before</span>
-            <p className={styles.prevnexttext}>Previous</p>
+            <p
+              className={styles.prevnexttext}
+              style={{ color: totalPages <= 1 || currentPage === 1 ? 'gray' : '' }}
+            >
+              Previous
+            </p>
           </div>
         </div>
         <input
@@ -73,14 +78,23 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           value={currentPage}
           onClick={handleInputClick}
           onChange={handleCurrentPageInputChange}
+          disabled={totalPages === 1}
         />
         <p>of {totalPages}</p>
         <div>
-          <div onClick={goToNextPage}>
-            <p className={styles.prevnexttext}>Next</p>
+          <div onClick={totalPages > 1 ? goToNextPage : () => {}}>
+            <p
+              className={styles.prevnexttext}
+              style={{ color: totalPages <= 1 || totalPages === currentPage ? 'gray' : '' }}
+            >
+              Next
+            </p>
             <span className='material-symbols-outlined'>navigate_next</span>
           </div>
-          <span onClick={goToLastPage} className='material-symbols-outlined'>
+          <span
+            onClick={totalPages > 1 ? goToLastPage : () => {}}
+            className='material-symbols-outlined'
+          >
             keyboard_double_arrow_right
           </span>
         </div>

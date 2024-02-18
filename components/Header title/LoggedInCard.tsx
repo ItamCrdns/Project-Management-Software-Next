@@ -11,7 +11,6 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
     optionsText,
     showButton,
     buttonText,
-    buttonWidth,
     buttonHref,
     entityName,
     isDashboard,
@@ -39,9 +38,9 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
 
   const rippleButtonProps = {
     text: buttonText ?? '',
-    icon: 'add',
-    width: buttonWidth ?? '125px',
-    href: buttonHref
+    href: buttonHref,
+    backgroundColor: 'var(--blue)',
+    textColor: 'white'
   }
 
   return (

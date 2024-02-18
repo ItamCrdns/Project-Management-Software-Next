@@ -67,7 +67,7 @@ const SmallScreenNavbar = ({
             <span>You are not logged in.</span>
             <RippleButton
               text='Login'
-              backgroundColor='#90E0EF'
+              backgroundColor='var(--blue)'
               effectColor='#CAF0F8'
               textColor='white'
               href='/login'

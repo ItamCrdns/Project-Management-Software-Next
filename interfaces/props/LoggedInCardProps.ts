@@ -8,5 +8,4 @@ export interface LoggedInCardProps {
   // * Dont pass any of the button props below if you dont want to show the button
   buttonText?: string
   buttonHref?: string
-  buttonWidth?: string
 }

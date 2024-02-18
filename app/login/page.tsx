@@ -96,7 +96,7 @@ const LoginPage = (): JSX.Element => {
         </form>
         <RippleButton
           text='Login'
-          backgroundColor='rgb(0, 210, 255)'
+          backgroundColor='var(--blue)'
           textColor='white'
           func={handleClick}
         />

@@ -6,13 +6,7 @@ import { type TasksProps } from './TaskProps'
 const TasksPage: React.FC<TasksProps> = (props) => {
   return (
     <main className={styles.main}>
-      <TitleWrapper
-        title='Tasks overview'
-        icon='note_stack'
-        buttonText='New task'
-        buttonHref='/tasks/new'
-        buttonWidth='100px'
-      />
+      <TitleWrapper title='Tasks overview' icon='note_stack' />
       <section>
         <Tasks searchParams={props.searchParams} />
       </section>

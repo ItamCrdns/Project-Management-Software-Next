@@ -28,7 +28,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
       />
       <RippleButton
         text={props.buttonText}
-        backgroundColor='#80B3FF'
+        backgroundColor='var(--blue)'
         textColor='white'
         func={handleClick}
       />

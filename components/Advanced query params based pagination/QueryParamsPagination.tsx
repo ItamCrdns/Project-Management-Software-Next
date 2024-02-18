@@ -11,8 +11,6 @@ import { type PaginationUIProps } from './IPaginationUIProps'
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const { totalPages, entityName, totalEntitesCount } = props.paginationProps
 
-  // const { secondEntityTotalCount } = props.secondEntityProps ?? { secondEntityTotalCount: 0 }
-
   const pathname = usePathname()
   const router = useRouter()
 

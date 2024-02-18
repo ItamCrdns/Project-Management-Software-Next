@@ -53,13 +53,12 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
         <div className={styles.buttonwrapper}>
           <RippleButton
             text='Message'
-            backgroundColor='#272829'
-            effectColor='#61677A'
+            backgroundColor='var(--blue)'
             textColor='white'
           />
           <RippleButton
             text='More'
-            backgroundColor='#80B3FF'
+            backgroundColor='var(--blue)'
             textColor='white'
           />
         </div>

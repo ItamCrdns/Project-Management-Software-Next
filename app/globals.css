@@ -6,6 +6,7 @@
   --lighter-text-color: rgba(0, 0, 0, .5);
   --small-font: rgba(255, 0, 0, .1);
   --user: lightgray;
+  --blue: #3f79ef;
 }
 
 body {

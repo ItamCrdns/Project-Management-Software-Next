@@ -114,7 +114,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
       <div className={styles.buttonwrapper}>
         <RippleButton
           text='Create project'
-          backgroundColor='#80B3FF'
+          backgroundColor='var(--blue)'
           textColor='white'
           asyncFunc={handleCreateProject}
         />

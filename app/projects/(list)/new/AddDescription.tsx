@@ -85,9 +85,8 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
           <div className={styles.buttonwrapper}>
             <RippleButton
               text='Next'
-              backgroundColor='#80B3FF'
+              backgroundColor='var(--blue)'
               textColor='white'
-              effectColor='var(--banner-color)'
               func={handleClick}
             />
             <RippleButton

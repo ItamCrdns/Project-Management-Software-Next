@@ -2,11 +2,13 @@ import getTasks, { type GetTasksProps } from '@/api-calls/getTasks'
 import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import styles from '@/app/projects/(list)/projectslist.module.css'
+import styles2 from './tasks.module.css'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type TasksProps } from './TaskProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
+import RippleButton from '@/components/ripplebutton/RippleButton'
 
 const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
@@ -23,7 +25,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
 
   const paginationProps: PaginationProps = {
     totalPages: data?.pages ?? 1,
-    entityName: 'Tasks',
+    entityName: 'Projects',
     totalEntitesCount: data?.count ?? 1
   }
 
@@ -43,7 +45,16 @@ const Tasks: React.FC<TasksProps> = async (props) => {
         <ul>
           {tasks.map((task, index) => (
             <li key={index}>
-              <h2>{task.projectName}</h2>
+              <div className={styles2.tasktitlewrapper}>
+                <h2>{task.projectName}</h2>
+                <div>
+                  <RippleButton
+                    text='Create a new task'
+                    textColor='white'
+                    backgroundColor='var(--blue)'
+                  />
+                </div>
+              </div>
               <div className={styles.projectswrapper}>
                 <ul>
                   {task.tasks.map((task: Task, index: number) => (

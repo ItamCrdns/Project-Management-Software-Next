@@ -9,7 +9,7 @@ import TitleWrapper from '../../../components/Header title/TitleWrapper'
 import { type ProjectsListProps } from '@/interfaces/props/ProjectsListProps'
 
 const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
-  const { data } = await getProjects('1', '2') // Page 1 (always) 3 projects per company
+  const { data } = await getProjects('1', '5') // Page 1 (always) 3 projects per company
   const projects = data as Project[]
 
   // TODO: Fix TitleWrapper props
@@ -20,7 +20,7 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
         <TitleWrapper
           title='Projects overview'
           icon='emoji_objects'
-          buttonText='New project'
+          buttonText='Create a new project'
           buttonHref='/projects/new'
           showButton={true}
         />
@@ -33,10 +33,10 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
                 {Array.isArray(projects) && projects.length > 0 && (
                   <div>
                     <RippleButton
-                      text='More projects...'
+                      text={`More projects from ${companyName}`}
                       href={`/projects/client/${projects[0].company.companyId}/${companyName}`}
                       textColor='white'
-                      backgroundColor='#80B3FF'
+                      backgroundColor='var(--blue)'
                     />
                   </div>
                 )}

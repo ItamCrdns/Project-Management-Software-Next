@@ -26,7 +26,7 @@ const UnsavedChanges: React.FC<UnsavedChangesProps> = (props) => {
         <div className={styles.buttonwrapper}>
           <RippleButton
             text='Go back'
-            backgroundColor='#80B3FF'
+            backgroundColor='var(--blue)'
             textColor='white'
             func={handleGoBack}
           />

@@ -89,7 +89,7 @@ const ProjectUI: React.FC<ProjectUIProps> = async (props) => {
             <RippleButton text='My tasks' width='85px' />
             <RippleButton
               text='Request new task'
-              backgroundColor='#80B3FF'
+              backgroundColor ='var(--blue)'
             />
           </div>
         )}
