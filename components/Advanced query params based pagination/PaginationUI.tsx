@@ -1,11 +1,11 @@
 import styles from './queryparamspag.module.css'
 import { handleInputClick } from './handleInputClick'
 import { type PaginationUIProps } from './IPaginationUIProps'
-// import Search from '../search/search'
 
 const PaginationUI: React.FC<PaginationUIProps> = (props) => {
   const {
     currentPageSize,
+    currentSecondEntityPageSize,
     currentPage,
     totalEntitesCount,
     totalPages,
@@ -18,18 +18,18 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
   const {
     entityName,
     handleCurrentPageInputChange,
-    handlePageSizeInputChange
+    handlePageSizeInputChange,
+    handleSecondPageSizeInputChange
   } = props.entityProps
-
-  // const { secondEntity } = props.secondEntityProps
 
   const pageSize =
     currentPageSize > totalEntitesCount ? totalEntitesCount : currentPageSize
 
-  // const secondEntityPageSizeValue =
-  //   props.secondEntityTotalCount > props.secondEntityTotalPages
-  //     ? props.secondEntityTotalCount
-  //     : props.secondEntityTotalPages
+  const secondPageSize =
+    (currentSecondEntityPageSize ?? 0) >
+    (props.secondEntityProps?.secondEntityTotalCount ?? 0)
+      ? props.secondEntityProps?.secondEntityTotalCount
+      : currentSecondEntityPageSize
 
   return (
     <div className={styles.pagination}>
@@ -37,7 +37,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         <p>Showing</p>
         <input
           type='number'
-          value={pageSize}
+          defaultValue={pageSize}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
         />
@@ -49,11 +49,15 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         props.secondEntityProps?.secondEntity !== '' && (
           <div className={styles.pagesize}>
             <p>Showing</p>
-            <input type='number' />
+            <input
+              type='number'
+              defaultValue={secondPageSize}
+              onClick={handleInputClick}
+              onChange={handleSecondPageSizeInputChange}
+            />
             <p>{props.secondEntityProps?.secondEntity.toLowerCase()}</p>
           </div>
       )}
-      {/* <Search maxInputLength={255} url={props.url} stateBasedSearch={false} /> */}
       <div className={styles.prevandnextpage}>
         <div>
           <span onClick={goToFirstPage} className='material-symbols-outlined'>

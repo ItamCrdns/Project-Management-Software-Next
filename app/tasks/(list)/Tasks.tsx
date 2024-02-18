@@ -1,7 +1,6 @@
 import getTasks, { type GetTasksProps } from '@/api-calls/getTasks'
 import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
-import React from 'react'
 import styles from '@/app/projects/(list)/projectslist.module.css'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type TasksProps } from './TaskProps'
@@ -13,8 +12,9 @@ const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
 
   const params: GetTasksProps = {
-    page: cleanParams.page ?? '1',
-    pageSize: cleanParams.pageSize ?? '5'
+    page: cleanParams.page?.toString() ?? '1',
+    pageSize: cleanParams.pageSize ?? '5',
+    tasksPageSize: cleanParams.secondPageSize ?? '5'
   }
 
   const { data } = await getTasks(params)
@@ -31,7 +31,6 @@ const Tasks: React.FC<TasksProps> = async (props) => {
     secondEntity: 'Tasks per project',
     secondEntityTotalCount: tasks[0].count,
     secondEntityTotalPages: tasks[0].pages
-    // currentSecondEntityPageSize: Number(cleanParams.pageSize)
   }
 
   return (

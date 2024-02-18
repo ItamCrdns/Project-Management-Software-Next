@@ -11,6 +11,8 @@ import { type PaginationUIProps } from './IPaginationUIProps'
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const { totalPages, entityName, totalEntitesCount } = props.paginationProps
 
+  // const { secondEntityTotalCount } = props.secondEntityProps ?? { secondEntityTotalCount: 0 }
+
   const pathname = usePathname()
   const router = useRouter()
 
@@ -35,12 +37,23 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const handlePageSizeInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    handleMaxAllowedPageSize(e, totalEntitesCount)
-    const newValue = Number(e.target.value)
+    const checkedValue = handleMaxAllowedPageSize(e, totalEntitesCount)
 
-    if (!isNaN(newValue)) {
+    if (!isNaN(checkedValue)) {
       searchParams.set('page', '1')
-      searchParams.set('pagesize', newValue.toString())
+      searchParams.set('pagesize', checkedValue.toString())
+
+      if (searchParams.toString() !== undefined) {
+        router.replace(`${pathname}?${searchParams.toString()}`)
+      }
+    }
+  }
+
+  const handleSecondPageSizeInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const checkedValue = handleMaxAllowedPageSize(e, props.secondEntityProps?.secondEntityTotalCount ?? 0)
+
+    if (!isNaN(checkedValue)) {
+      searchParams.set('secondpagesize', checkedValue.toString())
 
       if (searchParams.toString() !== undefined) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -92,6 +105,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     paginationProps: {
       currentPageSize: Number(searchParams.get('pagesize') ?? 10),
       currentPage: Number(searchParams.get('page') ?? 1),
+      currentSecondEntityPageSize: Number(searchParams.get('secondpagesize') ?? 10),
       totalEntitesCount,
       totalPages,
       goToFirstPage,
@@ -102,7 +116,8 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     entityProps: {
       entityName,
       handleCurrentPageInputChange,
-      handlePageSizeInputChange
+      handlePageSizeInputChange,
+      handleSecondPageSizeInputChange
     },
     secondEntityProps: props.secondEntityProps
   }

@@ -7,6 +7,7 @@ export interface SearchParamsPageSize extends SearchParams {
   sort: Sort
   author: string
   priority: string
+  secondpagesize?: string
 }
 
 export interface ClientNameProps {

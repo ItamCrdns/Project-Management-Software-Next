@@ -3,14 +3,15 @@
 export const handleMaxAllowedPageSize = (
   e: React.ChangeEvent<HTMLInputElement>,
   maxPageSize: number
-): void => {
-  if (parseInt(e.target.value) > maxPageSize) {
-    e.target.value = maxPageSize.toString()
-    e.target.dispatchEvent(new Event('input', { bubbles: true }))
+): number => {
+  const valueFromInput = Number(e.target.value)
+  if (valueFromInput > maxPageSize) {
+    return maxPageSize
   }
 
-  if (parseInt(e.target.value) === 0) {
-    e.target.value = '1'
-    e.target.dispatchEvent(new Event('input', { bubbles: true }))
+  if (Number(e.target.value) === 0) {
+    return 1
   }
+
+  return valueFromInput
 }

@@ -17,6 +17,8 @@ const generateQueryParams = (
     searchParams.pagesize ?? '10'
   )
 
+  const sanitizedSecondPageSize = urlSearchParamsNumberVerifier(searchParams.secondpagesize ?? '10')
+
   // TODO: Send search params based on whats in the URL.
   // * I think ill just conditionally check if author or priority exists, and send the the
   // * FilterBy: Author and FilterValue: 1-2-3 (whatever is the author query param value)
@@ -50,6 +52,7 @@ const generateQueryParams = (
   const queryParams: IFilterProperties = {
     page: sanitizedPage,
     pageSize: sanitizedPageSize,
+    secondPageSize: sanitizedSecondPageSize,
     sort: checkAndSetSort(searchParams.sort) ?? 'ascending',
     orderBy: checkAndSetOrderBy(searchParams.orderby) ?? 'Name',
     filterBy,
@@ -57,11 +60,11 @@ const generateQueryParams = (
   }
 
   if (searchParams.page !== sanitizedPage) {
-    searchParams.page = sanitizedPage
+    searchParams.page = sanitizedPage.toString()
   }
 
   if (searchParams.pagesize !== sanitizedPageSize) {
-    searchParams.pagesize = sanitizedPageSize
+    searchParams.pagesize = sanitizedPageSize.toString()
   }
 
   return queryParams
