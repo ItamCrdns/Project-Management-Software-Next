@@ -48,12 +48,22 @@ const Tasks: React.FC<TasksProps> = async (props) => {
               <div className={styles2.tasktitlewrapper}>
                 <h2>{task.projectName}</h2>
                 <div className={styles2.taskbtnswrapper}>
-                  <RippleButton
-                    text='Create a new task'
-                    href={`projects/${task.projectId}/tasks/create`}
-                    textColor='white'
-                    backgroundColor='var(--blue)'
-                  />
+                  {task.isCurrentUserOwner && (
+                    <RippleButton
+                      text='Create a new task'
+                      href={`projects/${task.projectId}/tasks/create`}
+                      textColor='white'
+                      backgroundColor='var(--blue)'
+                    />
+                  )}
+                  {task.isCurrentUserInTeam && (
+                    <RippleButton
+                      text='Your assigned tasks'
+                      href={`projects/${task.projectId}/tasks`}
+                      textColor='white'
+                      backgroundColor='var(--blue)'
+                    />
+                  )}
                   <RippleButton
                     text={`More tasks from ${task.projectName}`}
                     href={`projects/${task.projectId}/tasks`}

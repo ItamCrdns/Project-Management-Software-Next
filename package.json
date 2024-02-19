@@ -14,7 +14,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-redux": "^9.1.0",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "typed-css-modules": "0.9.1"
   },
   "devDependencies": {
     "@types/node": "latest",
@@ -28,6 +29,7 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
+    "sass": "^1.71.0",
     "standard": "17.1.0",
     "typescript": "^5.2.2"
   }

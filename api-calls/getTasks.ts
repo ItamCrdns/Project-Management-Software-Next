@@ -14,6 +14,8 @@ export interface GetTasksProps {
 interface Response {
   projectName: string
   projectId: number
+  isCurrentUserOwner: boolean
+  isCurrentUserInTeam: boolean
   tasks: Task[]
   count: number
   pages: number
