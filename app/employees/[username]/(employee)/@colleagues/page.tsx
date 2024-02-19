@@ -4,6 +4,7 @@ import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import Link from 'next/link'
 import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
+import NoPicture from '@/components/No profile picture/NoPicture'
 
 const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
   const { username } = props.params
@@ -27,12 +28,18 @@ const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
             {colleagues.map((colleague: Employee) => (
               <li key={colleague.employeeId}>
                 <Link href={`/employees/${colleague.username}`}>
-                  <Image
-                    src={colleague.profilePicture ?? ''}
-                    alt={colleague.username ?? ''}
-                    width={50}
-                    height={50}
-                  />
+                  {colleague?.profilePicture !== null
+                    ? (
+                    <Image
+                      src={colleague.profilePicture}
+                      alt={colleague.username}
+                      width={50}
+                      height={50}
+                    />
+                      )
+                    : (
+                    <NoPicture width='50px' height='50px' />
+                      )}
                 </Link>
                 <p>
                   <Link href={`/employees/${colleague.username}`}>

@@ -19,11 +19,12 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
   return (
     <section className={styles.cardswrapper}>
       <section className={styles.employeecard}>
-        {employee?.profilePicture !== null
+        {employee?.profilePicture !== null &&
+        employee?.profilePicture !== undefined
           ? (
           <Image
-            src={employee?.profilePicture ?? ''}
-            alt={employee?.username ?? ''}
+            src={employee?.profilePicture}
+            alt={employee?.username}
             width={175}
             height={175}
           />
@@ -67,12 +68,19 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
         <section className={styles.employeecard}>
           <h2>Supervisor</h2>
           <div className={styles.supervisorcontainer}>
-            <Image
-              src={supervisor?.profilePicture ?? ''}
-              alt={supervisor?.username ?? ''}
-              width={50}
-              height={50}
-            />
+            {supervisor?.profilePicture !== null &&
+            supervisor?.profilePicture !== undefined
+              ? (
+              <Image
+                src={supervisor?.profilePicture}
+                alt={supervisor?.username}
+                width={50}
+                height={50}
+              />
+                )
+              : (
+              <NoPicture width='50px' height='50px' />
+                )}
             <p>
               <Link
                 style={{ fontSize: '12px' }}

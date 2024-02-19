@@ -14,7 +14,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
 
   const params: GetTasksProps = {
-    page: cleanParams.page?.toString() ?? '1',
+    page: cleanParams.page ?? '1',
     pageSize: cleanParams.pageSize ?? '5',
     tasksPageSize: cleanParams.secondPageSize ?? '5'
   }
@@ -47,11 +47,16 @@ const Tasks: React.FC<TasksProps> = async (props) => {
             <li key={index}>
               <div className={styles2.tasktitlewrapper}>
                 <h2>{task.projectName}</h2>
-                <div>
+                <div className={styles2.taskbtnswrapper}>
                   <RippleButton
                     text='Create a new task'
+                    href={`projects/${task.projectId}/tasks/create`}
                     textColor='white'
                     backgroundColor='var(--blue)'
+                  />
+                  <RippleButton
+                    text={`More tasks from ${task.projectName}`}
+                    href={`projects/${task.projectId}/tasks`}
                   />
                 </div>
               </div>

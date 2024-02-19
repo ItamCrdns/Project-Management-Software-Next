@@ -3,7 +3,7 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 import setEntityPriority from '../Generic Entity Renderer/EntityPriority'
 import { type ISharedProps } from './SelectAuthorInterfaces'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { priorityOptions } from '@/app/projects/(list)/new/priorityOptions'
+import { priorityOptions } from '@/app/projects/(list)/create/priorityOptions'
 
 const SelectPriority: React.FC<ISharedProps> = (props) => {
   const pathname = usePathname()

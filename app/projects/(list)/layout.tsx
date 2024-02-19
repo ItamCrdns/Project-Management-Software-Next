@@ -21,7 +21,7 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
           title='Projects overview'
           icon='emoji_objects'
           buttonText='Create a new project'
-          buttonHref='/projects/new'
+          buttonHref='/projects/create'
           showButton={true}
         />
         <section className={styles.projectswrapper}>

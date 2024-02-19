@@ -14,10 +14,9 @@ interface DropdownMenuProps {
   closeDropdownMenu: () => void
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({
-  employee,
-  closeDropdownMenu
-}) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
+  const { employee, closeDropdownMenu } = props
+
   const { handleLogout } = useLogout()
   const { toggleDarkMode, darkMode } = useDarkMode()
 

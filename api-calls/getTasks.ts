@@ -13,6 +13,7 @@ export interface GetTasksProps {
 
 interface Response {
   projectName: string
+  projectId: number
   tasks: Task[]
   count: number
   pages: number

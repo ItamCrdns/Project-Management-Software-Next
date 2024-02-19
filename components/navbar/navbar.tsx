@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from './navbar.module.css'
 import { useAuth } from '@/context/AuthContext'
@@ -9,6 +9,7 @@ import DropdownMenu from './Menu'
 import SmallScreenNavbar from './SmallScreenNavbar'
 import { navItems } from './SmallScreenNavLinks'
 import NoPicture from '../No profile picture/NoPicture'
+import { usePathname } from 'next/navigation'
 
 const Navbar: React.FC = () => {
   const { user } = useAuth()
@@ -37,9 +38,12 @@ const Navbar: React.FC = () => {
     return showOptions
   }
 
-  const handleClickOutside = (): void => {
+  const pathname = usePathname()
+
+  useEffect(() => {
+    // * Listen for route changes and close the menu when the route changes
     setShowOptions(false)
-  }
+  }, [pathname])
 
   return (
     <>
@@ -79,7 +83,9 @@ const Navbar: React.FC = () => {
               {showOptions && (
                 <DropdownMenu
                   employee={employee}
-                  closeDropdownMenu={handleClickOutside}
+                  closeDropdownMenu={() => {
+                    setShowOptions(false)
+                  }}
                 />
               )}
             </>

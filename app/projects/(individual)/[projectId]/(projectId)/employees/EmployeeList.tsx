@@ -3,6 +3,7 @@ import { type Employee } from '@/interfaces/employee'
 import styles from './employees.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
+import NoPicture from '@/components/No profile picture/NoPicture'
 
 interface EmployeeListProps {
   employeeList: Employee[]
@@ -33,12 +34,18 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
               {employeeList.map((employee: Employee) => (
                 <li key={employee.employeeId}>
                   <Link href={`/employees/${employee.username}`}>
-                    <Image
-                      src={employee.profilePicture}
-                      alt={employee.username}
-                      width={50}
-                      height={50}
-                    />
+                    {employee.profilePicture !== null
+                      ? (
+                      <Image
+                        src={employee.profilePicture}
+                        alt={employee.username}
+                        width={50}
+                        height={50}
+                      />
+                        )
+                      : (
+                      <NoPicture width='50px' height='50px' />
+                        )}
                   </Link>
                   <p>
                     <Link href={`/employees/${employee.username}`}>
