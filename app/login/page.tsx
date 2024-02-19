@@ -1,11 +1,12 @@
 'use client'
-import { useAuth, type LoginData, type Result } from '@/context/AuthContext'
+import { useAuth } from '@/context/AuthContext'
 import styles from './login.module.css'
 import { useRef, useState } from 'react'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import Alert from '@/components/alert/alert'
 import { useSubmitRef } from '@/utility/formSubmitRef'
+import { type Result, type LoginData } from '@/context/authInitialState'
 
 const alertInitialState = {
   wrongCreds: false,

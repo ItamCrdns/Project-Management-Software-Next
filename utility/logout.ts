@@ -8,11 +8,7 @@ async function logout (): Promise<number> {
 
   const res = await fetch(url, requestOptions)
 
-  if (res.status === 204) {
-    return 204
-  } else {
-    throw new Error('Logout failed.')
-  }
+  return res.status
 }
 
 export default logout

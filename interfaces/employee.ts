@@ -19,3 +19,27 @@ export interface Employee {
   issuesCreated: number
   tier: EmployeeTier
 }
+
+export const employeeInitialState: Employee = {
+  employeeId: 0,
+  username: '',
+  role: '',
+  profilePicture: '',
+  supervisor: null,
+  company: null,
+  projectTotalCount: 0,
+  projectsParticipant: 0,
+  projectsCreated: 0,
+  taskTotalCount: 0,
+  tasksParticipant: 0,
+  tasksCreated: 0,
+  issueTotalCount: 0,
+  issuesParticipant: 0,
+  issuesCreated: 0,
+  tier: {
+    tierId: 0,
+    name: '',
+    duty: '',
+    created: ''
+  }
+}

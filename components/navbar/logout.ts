@@ -1,11 +1,7 @@
 import { useCallback } from 'react'
 import logout from '@/utility/logout'
 
-interface LogoutHook {
-  handleLogout: () => void
-}
-
-const useLogout = (): LogoutHook => {
+const useLogout = (): { handleLogout: () => void } => {
   const handleLogout = useCallback(() => {
     logout()
       .then(response => {
