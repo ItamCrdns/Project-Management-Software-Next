@@ -1,46 +1,24 @@
-import { useState } from 'react'
-import styles from './newProject.module.css'
-import { type ExpectedDeliveryDateSelectorProps } from '@/interfaces/props/ExpectedDeliveryDateSelectorProps'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { DatePicker, type DatePickerValue } from '@tremor/react'
 
-const ExpectedDeliveryDateSelector: React.FC<
-ExpectedDeliveryDateSelectorProps
-> = (props) => {
+const ExpectedDeliveryDateSelector: React.FC<{ defaultValue: Date }> = (
+  props
+) => {
   const { setExpectedDeliveryDate } = useNewProjectActions()
-  const [toggle, setToggle] = useState<boolean>(false)
 
-  const getDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const date = e.target.value.toString()
-    setExpectedDeliveryDate(date)
+  const getDate = (date: DatePickerValue): void => {
+    setExpectedDeliveryDate(date?.toString() ?? '')
   }
 
   return (
-    <>
-      <div className={styles.tinytitlewrapper}>
-        <p>Expected delivery date</p>
-        <span
-          onMouseOver={() => {
-            setToggle(true)
-          }}
-          onMouseLeave={() => {
-            setToggle(false)
-          }}
-          className='material-symbols-outlined'
-        >
-          info
-        </span>
-        {toggle && (
-          <div className={styles.absolutepopup}>
-            <p>Date we expect the project to be finalized.</p>
-          </div>
-        )}
-      </div>
-      <input
-        onChange={getDate}
-        type='date'
-        defaultValue={props.defaultValue ?? ''}
-      />
-    </>
+    <DatePicker
+      onValueChange={getDate}
+      placeholder='Set a delivery date for the project'
+      defaultValue={
+        !isNaN(props.defaultValue?.getTime()) ? props.defaultValue : undefined
+      }
+      minDate={new Date()}
+    />
   )
 }
 

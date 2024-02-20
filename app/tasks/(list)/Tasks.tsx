@@ -46,7 +46,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
           {tasks.map((task, index) => (
             <li key={index}>
               <div className={styles2.tasktitlewrapper}>
-                <h2>{task.projectName}</h2>
+                <h1>{task.projectName}</h1>
                 <div className={styles2.taskbtnswrapper}>
                   {task.isCurrentUserOwner && (
                     <RippleButton

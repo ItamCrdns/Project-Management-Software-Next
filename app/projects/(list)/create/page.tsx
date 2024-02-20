@@ -121,7 +121,7 @@ const NewProjectModal: React.FC = () => {
                 clientName={newProject.clientName as string}
               />
               <ExpectedDeliveryDateSelector
-                defaultValue={newProject.expectedDeliveryDate}
+                defaultValue={new Date(newProject.expectedDeliveryDate)}
               />
             </form>
             <RippleButton

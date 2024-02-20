@@ -85,7 +85,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
       isPaginated={props.isPaginated}
       pageSize={props.pageSize}
       showReset={props.showReset}
-      // text={props.text}
       onPageChange={props.onPageChange}
       handleToggleDropdown={handleToggleDropdown}
       handleOptionClick={handleOptionClick}

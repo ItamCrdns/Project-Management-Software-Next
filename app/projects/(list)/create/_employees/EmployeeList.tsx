@@ -20,7 +20,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                   handleEmployeeClick(employee)
                 }}
               >
-                <div>
+                <div className='flex items-center'>
                   {employee.profilePicture !== null
                     ? (
                     <Image

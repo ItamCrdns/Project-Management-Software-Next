@@ -20,7 +20,7 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
 
   return (
     <section className={styles.employees}>
-      <div className={styles.headerwrapper}>
+      <div className='flex items-center gap-8 justify-between border-b-2 border-azure-radiance-200 pb-2'>
         <h1>Employee</h1>
         <h3>List</h3>
       </div>

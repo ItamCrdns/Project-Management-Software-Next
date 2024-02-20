@@ -14,11 +14,9 @@ const CurrentIssues: React.FunctionComponent<UsernameParamsProps> = async ({
 
   return (
     <section className={styles.employees}>
-      <div className={styles.headerwrapper}>
-        <div>
-          <span className='material-symbols-outlined'>campaign</span>
-          <h1>Current issues</h1>
-        </div>
+      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-2'>
+        <span className='material-symbols-outlined'>campaign</span>
+        <h1>Current issues</h1>
         <h3>List</h3>
       </div>
       {Array.isArray(issues) && issues.length > 0

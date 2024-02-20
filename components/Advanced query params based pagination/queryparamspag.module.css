@@ -9,7 +9,7 @@
 }
 
 .pagination input[type=number] {
-    width: 20px;
+    width: 35px;
     border: none;
     outline: none;
     background-color: var(--darker-banner-color);
@@ -17,6 +17,7 @@
     padding: .5rem;
     border-radius: 5px;
     font-family: inherit;
+    text-align: center;
 }
 
 .pagination input::-webkit-outer-spin-button,

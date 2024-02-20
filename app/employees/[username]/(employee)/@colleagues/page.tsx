@@ -14,11 +14,9 @@ const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
 
   return (
     <section className={styles.employees}>
-      <div className={styles.headerwrapper}>
-        <div>
-          <span className='material-symbols-outlined'>groups</span>
-          <h1>Colleagues</h1>
-        </div>
+      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-2'>
+        <span className='material-symbols-outlined'>groups</span>
+        <h1>Colleagues</h1>
         <h3>List</h3>
       </div>
       {Array.isArray(colleagues) && colleagues.length > 0

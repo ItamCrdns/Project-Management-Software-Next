@@ -30,15 +30,15 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
       {props.children}
       <div className={styles.projectwrapper}>
         <div className={styles.project}>
-          <div className={styles.headerwrapper}>
-            <h1>{project?.name}</h1>
-            <h3>
+          <div className='flex items-center gap-8 justify-between border-b-2 border-azure-radiance-200 pb-2'>
+            <h1 className='text-2xl font-semibold'>{project?.name}</h1>
+            <h3 className='font-medium'>
               <span className={styles.grayedtext}>Company: </span>
               {company.name}
             </h3>
           </div>
           <div className={styles.projectcontainer}>
-            <section className={styles.projectsidea}>
+            <section className='max-w-md mt-4'>
               <p className={styles.grayedtext}>Description</p>
               <p>{project?.description}</p>
               {Array.isArray(images) && (
@@ -56,15 +56,23 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
                 </ul>
               )}
             </section>
-            <aside className={styles.projectsideb}>
-              <p className={styles.grayedtext}>Priority</p>
-              <p style={{ color: priority.color }}>{priority.priorityText}</p>
-              <p className={styles.grayedtext}>Created by</p>
-              <ProjectCreator creator={projectCreator} showUsername />
-              <p className={styles.grayedtext}>Status</p>
-              <p>{project?.lifecycle}</p>
-              <p className={styles.grayedtext}>Date</p>
-              <p>Created {projectCreatedAt}</p>
+            <aside className='p-4 max-w-xs flex flex-col gap-4 border-l-2 border-azure-radiance-200'>
+              <div>
+                <p className={styles.grayedtext}>Priority</p>
+                <p style={{ color: priority.color }}>{priority.priorityText}</p>
+              </div>
+              <div>
+                <p className={styles.grayedtext}>Created by</p>
+                <ProjectCreator creator={projectCreator} showUsername />
+              </div>
+              <div>
+                <p className={styles.grayedtext}>Status</p>
+                <p>{project?.lifecycle}</p>
+              </div>
+              <div>
+                <p className={styles.grayedtext}>Date</p>
+                <p>Created {projectCreatedAt}</p>
+              </div>
               <ExpectedDeliveryDate project={project as Project} />
             </aside>
           </div>

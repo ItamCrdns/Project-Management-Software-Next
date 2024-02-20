@@ -1,15 +1,12 @@
 import { useCallback } from 'react'
 import logout from '@/utility/logout'
+import { useRouter } from 'next/navigation'
 
 const useLogout = (): { handleLogout: () => void } => {
+  const router = useRouter()
   const handleLogout = useCallback(() => {
     logout()
-      .then(response => {
-        if (response === 204) {
-          window.localStorage.removeItem('user')
-          window.location.reload()
-        }
-      })
+      .then(() => { router.push('/login') })
       .catch(error => {
         console.error(error)
       })

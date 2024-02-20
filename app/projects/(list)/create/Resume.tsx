@@ -6,9 +6,12 @@ import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTh
 import { handleCreateClient } from './handlePostClient'
 import { useState } from 'react'
 import { useAppSelector } from '@/lib/hooks/hooks'
+import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { Divider } from '@tremor/react'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
+  const { clear } = useNewProjectActions()
   const employees = newProject.employees
 
   const router = useRouter()
@@ -49,6 +52,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
       if (companyClientName !== undefined || companyId !== 0) {
         const res = await handleSubmitProject(formData) // * Post the new project if atleast a new client has been created or existing company has been selected
         if (res.status === 200) {
+          clear() // Clear new project state after project has been created
           router.push(`/projects/${res.data}`)
         }
       }
@@ -65,41 +69,47 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
   return (
     <section className={styles.summary}>
       <h1>Your new project overview</h1>
-      <p>Please carefully review the information you are about to submit.</p>
+      <p className='mb-4'>
+        Please carefully review the information you are about to submit.
+      </p>
       <div className={styles.summarydatawrapper}>
-        <span className={styles.summaryinfo}>
-          <p>Name</p>
-          <h2>{newProject.name}</h2>
-        </span>
-        <span className={styles.summaryinfo}>
-          <p>Description</p>
-          <h2>{newProject.description}</h2>
-        </span>
-        <span className={styles.summaryinfo}>
-          <p>Expected delivery date</p>
-          <h2>{newProject.expectedDeliveryDate}</h2>
-        </span>
+        <div className='flex items-start w-full justify-center gap-4 rounded-lg p-4 pt-0 bg-azure-radiance-50'>
+          <div className='flex flex-col w-full items-center'>
+            <Divider>Name</Divider>
+            <h2 className='text-center w-80'>{newProject.name}</h2>
+          </div>
+          <div className='flex flex-col w-full items-center'>
+            <Divider>Description</Divider>
+            <h2 className='text-center w-80'>{newProject.description}</h2>
+          </div>
+        </div>
+        <Divider>Expected delivery date</Divider>
+        <h2>
+          {new Date(newProject.expectedDeliveryDate).toLocaleDateString()}
+        </h2>
+        <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 pt-0 bg-azure-radiance-50 mt-4'>
+          <div className='flex flex-col items-center w-full'>
+            <Divider>Priority</Divider>
+            <h2>{newProject.priorityLabel}</h2>
+          </div>
+          <div className='flex flex-col items-center w-full'>
+            <Divider>Client</Divider>
+            <h2>{client}</h2>
+          </div>
+        </div>
       </div>
-      <div className={styles.companyprioritywrapper}>
-        <span>
-          <p>Priority</p>
-          <h2>{newProject.priorityLabel}</h2>
-        </span>
-        <span>
-          <p>Client</p>
-          <h2>{client}</h2>
-        </span>
-      </div>
+      <Divider>Employees</Divider>
       {Array.isArray(employees) && employees.length > 0
         ? (
         <section className={styles.employeesresume}>
-          <ul>
+          <ul className='relative'>
             {employees.map((employee) => (
               <EmployeeOfTheList
                 key={employee.username}
                 employee={employee}
                 size={50}
                 redirectMe={false}
+                position={{ left: '2rem' }}
               />
             ))}
           </ul>

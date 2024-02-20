@@ -9,7 +9,6 @@ import OptionsInitialUI from './OptionsInitialUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null
-  // text: string
   toggle: boolean
   disabled: boolean
   handleToggleDropdown: (toggleValue: boolean) => void

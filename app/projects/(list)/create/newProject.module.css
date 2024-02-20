@@ -229,37 +229,16 @@
     justify-content: center;
 }
 
-.summary > p {
-    margin-bottom: 3rem;
-}
-
 .summarydatawrapper {
+    width: 100%;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 2rem;
-}
-
-.summaryinfo {
-    border-radius: 5px;
-    background-color: var(--darker-banner-color);
-    color: var(--text-color);
-    width: 400px;
-    max-width: 400px;
-    position: relative;
-}
-
-.summaryinfo > p {
-    position: absolute;
-    bottom: 2.25rem;
-}
-
-.summaryinfo h2 {
-    font-weight: 400;
-    margin: 1rem !important;
 }
 
 .summary h2 {
     font-weight: 400;
+    margin: 0;
 }
 
 .buttonwrapper {

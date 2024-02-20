@@ -14,11 +14,9 @@ const Tasks: React.FunctionComponent<UsernameParamsProps> = async ({
 
   return (
     <section className={styles.employees}>
-      <div className={styles.headerwrapper}>
-        <div>
-          <span className='material-symbols-outlined'>note_stack</span>
-          <h1>Current tasks</h1>
-        </div>
+      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-2'>
+        <span className='material-symbols-outlined'>note_stack</span>
+        <h1>Current tasks</h1>
         <h3>List</h3>
       </div>
       {Array.isArray(tasks) && tasks.length > 0

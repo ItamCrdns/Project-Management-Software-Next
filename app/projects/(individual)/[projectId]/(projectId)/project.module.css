@@ -2,38 +2,15 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin: 1rem;
+    margin: 2rem;
     padding: 0;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .contentwrapper {
     display: flex;
     align-items: center;
     flex-direction: column;
-}
-
-.headerwrapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    justify-content: space-between;
-    border-bottom: 2px solid var(--background-color);
-}
-
-.headerwrapper h1 {
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.headerwrapper > div {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-}
-
-.headerwrapper h3 {
-    font-weight: 500;
 }
 
 .project {
@@ -107,12 +84,6 @@
 
 .projectsidea {
     max-width: 500px;
-}
-
-.projectsideb {
-    border-left: 2px solid var(--background-color);
-    padding: 1rem 2.5rem;
-    max-width: 300px;
 }
 
 .grayedtext {

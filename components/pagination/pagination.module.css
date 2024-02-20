@@ -4,6 +4,7 @@
     justify-content: center;
     gap: 1rem;
     background-color: var(--banner-color);
+    padding: 1rem;
 }
 
 .pagination > span {
