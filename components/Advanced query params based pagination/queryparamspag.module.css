@@ -50,7 +50,7 @@
 .pagesize {
     display: flex;
     align-items: inherit;
-    gap: .25rem;
+    gap: .5rem;
 }
 
 .prevandnextpage {

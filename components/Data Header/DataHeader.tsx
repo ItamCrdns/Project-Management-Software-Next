@@ -1,5 +1,4 @@
 'use client'
-import styles from './data-header.module.css'
 import {
   type DataHeaderProps,
   type Style
@@ -80,7 +79,7 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
   // TODO: Fix initial render problem that will render that we are always at the "Created" column.
   // TODO: Fix slow state when clicking a different column and you can see two columns being highlighted at the same time.
   return (
-    <header className={styles.descriptor}>
+    <header className='flex justify-center py-0 px-8 mb-8'>
       {headerItems.map((item, index) => (
         <HeaderItem
           key={index}

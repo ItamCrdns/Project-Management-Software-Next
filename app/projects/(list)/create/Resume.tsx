@@ -73,7 +73,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
         Please carefully review the information you are about to submit.
       </p>
       <div className={styles.summarydatawrapper}>
-        <div className='flex items-start w-full justify-center gap-4 rounded-lg p-4 pt-0 bg-azure-radiance-50'>
+        <div className='flex items-start w-full justify-center gap-4 rounded-lg p-4 pt-0'>
           <div className='flex flex-col w-full items-center'>
             <Divider>Name</Divider>
             <h2 className='text-center w-80'>{newProject.name}</h2>
@@ -87,7 +87,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
         <h2>
           {new Date(newProject.expectedDeliveryDate).toLocaleDateString()}
         </h2>
-        <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 pt-0 bg-azure-radiance-50 mt-4'>
+        <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 pt-0'>
           <div className='flex flex-col items-center w-full'>
             <Divider>Priority</Divider>
             <h2>{newProject.priorityLabel}</h2>
@@ -116,7 +116,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
         </section>
           )
         : (
-        <p>
+        <p className='mb-4'>
           You didn&apos;t add any employees, but don&apos;t worry, you can add
           them later.
         </p>

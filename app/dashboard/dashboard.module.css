@@ -1,6 +1,6 @@
 .welcomewrapper {
     display: flex;
-    align-items: flex-start;
+    justify-content: center;
     gap: 1rem;
 }
 

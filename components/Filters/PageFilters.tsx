@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import RippleButton from '../ripplebutton/RippleButton'
-import styles from './filters.module.css'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import SelectAuthor from './SelectAuthor'
 import SelectPriority from './SelectPriority'
@@ -85,7 +84,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   }
 
   return (
-    <div className={styles.filterwrapper}>
+    <div className='flex flex-col gap-4'>
       <SelectAuthor {...selectAuthorProps} />
       <SelectPriority {...selectPriorityProps} />
       {filtersHaveBeenSet && (

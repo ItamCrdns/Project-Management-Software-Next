@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-import styles from './charactercount.module.css'
+// import styles from './charactercount.module.css'
 
 /**
  * Props for the InputAndCharacterCount component
@@ -56,8 +56,9 @@ CharacterCountProps
   }
 
   return (
-    <div className={styles.inputwrapper}>
+    <div className='flex flex-col gap-2'>
       <textarea
+        className='box-border resize-none text-lg overflow-hidden min-w-full'
         ref={textAreaRef}
         name={name}
         placeholder={placeholder}
@@ -66,7 +67,7 @@ CharacterCountProps
         defaultValue={defaultValue}
         maxLength={255}
       />
-      <p>
+      <p className='flex justify-end text-xs'>
         {characters}/{limit}
       </p>
     </div>

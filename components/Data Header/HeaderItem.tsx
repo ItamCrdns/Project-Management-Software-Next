@@ -27,6 +27,7 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
 
   return (
     <span
+      className='flex gap-2 items-center justify-center'
       style={props.style}
       onClick={() => {
         props.handleSortChange(
@@ -39,10 +40,16 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
         )
       }}
     >
-      <span className='material-symbols-outlined'>{props.icon}</span>
-      <p style={{ fontWeight: isSelected ? 700 : 400 }}>{props.label}</p>
+      <span className='material-symbols-outlined select-none cursor-pointer'>{props.icon}</span>
+      <p
+        className={`select-none cursor-pointer ${
+          isSelected ? 'font-bold' : 'font-normal'
+        }`}
+      >
+        {props.label}
+      </p>
       {isSelected && (
-        <span className='material-symbols-outlined'>
+        <span className='material-symbols-outlined select-none cursor-pointer'>
           {props.order.sort === 'ascending' ||
           props.searchParams.get('sort')?.toString() === 'ascending'
             ? 'expand_more'

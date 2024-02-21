@@ -13,6 +13,8 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 import ClientSelection from './_Client Select/ClientSelection'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
+import DialogComponent from './Dialog'
+import { errorMessageInitialState, type ErrorMessages } from './errorMessages'
 
 const NewProjectModal: React.FC = () => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -22,9 +24,52 @@ const NewProjectModal: React.FC = () => {
 
   const formRef = useRef<HTMLFormElement>(null)
 
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
+  const [messages, setMessages] = useState<ErrorMessages>(
+    errorMessageInitialState
+  )
+
+  const openUnsavedChanges = (val: boolean): void => {
+    setShowUnsavedChanges(val)
+  }
+
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    setReadyForNextPage(true)
+
+    const newMessages = { ...messages }
+
+    if (newProject.name === '') {
+      newMessages.projectName = 'Project name'
+    } else {
+      newMessages.projectName = ''
+    }
+
+    if (!clientProvided) {
+      newMessages.clientName = 'Client'
+    } else {
+      newMessages.clientName = ''
+    }
+
+    if (newProject.expectedDeliveryDate === '') {
+      newMessages.expectedDeliveryDate = 'Expected delivery date'
+    } else {
+      newMessages.expectedDeliveryDate = ''
+    }
+
+    setMessages(newMessages)
+
+    if (Object.values(newMessages).some((message) => message !== '')) {
+      setIsDialogOpen(true)
+    }
+
+    if (
+      newProject.name !== '' &&
+      newProject.expectedDeliveryDate !== '' &&
+      clientProvided
+    ) {
+      setMessages(errorMessageInitialState)
+      setReadyForNextPage(true)
+    }
   }
 
   const handleClick = useSubmitRef(formRef)
@@ -67,17 +112,19 @@ const NewProjectModal: React.FC = () => {
     setIsFormOpen(isOpen)
   }
 
-  const companySelected = newProject.companyId !== 0
-
   return (
     <section className={styles.newprojectwrapper}>
-      {showUnsavedChanges && (
-        <UnsavedChanges
-          goBack={() => {
-            setShowUnsavedChanges(false)
-          }}
-        />
-      )}
+      <DialogComponent
+        isOpen={isDialogOpen}
+        setIsOpen={(val) => {
+          setIsDialogOpen(val)
+        }}
+        messages={messages}
+      />
+      <UnsavedChanges
+        isOpen={showUnsavedChanges}
+        setIsOpen={openUnsavedChanges}
+      />
       <section className={styles.newproject}>
         <span
           onClick={handleExitNewProjectCreation}
@@ -97,9 +144,7 @@ const NewProjectModal: React.FC = () => {
           <>
             <h1>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
-              <p
-                style={{ width: '400px', marginTop: '0', textAlign: 'center' }}
-              >
+              <p className='w-96 mt-0 text-center'>
                 Enter a clear project name. It&apos;ll appear to your team
                 members and should indicate what the project is focused on.
               </p>
@@ -117,7 +162,7 @@ const NewProjectModal: React.FC = () => {
               />
               <CreateNewClient
                 newClientOpen={checkIfNewClientFormIsOpen}
-                companySelected={companySelected}
+                companySelected={newProject.companyId !== 0}
                 clientName={newProject.clientName as string}
               />
               <ExpectedDeliveryDateSelector
