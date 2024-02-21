@@ -1,4 +1,3 @@
-import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRef } from 'react'
 import { type NewClientFormProps } from '@/interfaces/props/NewClientFormProps'
@@ -16,7 +15,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
   }
 
   return (
-    <section className={styles.newclientform}>
+    <section className='flex items-center'>
       <input
         ref={inputRef}
         type='text'
@@ -25,6 +24,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         defaultValue={props.defaultInputValue}
         name='clientName'
         maxLength={255}
+        className='w-48'
       />
       <RippleButton
         text={props.buttonText}
@@ -32,12 +32,21 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         textColor='white'
         func={handleClick}
       />
-      <span
+      <svg
         onClick={handleCloseForm}
-        className={`material-symbols-outlined ${styles.closebuttonnotabsolute}`}
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        strokeWidth={1.5}
+        stroke='currentColor'
+        className='w-6 h-6 hover:text-azure-radiance-700 cursor-pointer'
       >
-        close
-      </span>
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          d='M6 18 18 6M6 6l12 12'
+        />
+      </svg>
     </section>
   )
 }

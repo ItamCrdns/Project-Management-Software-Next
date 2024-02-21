@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
-import styles from '@/app/projects/(list)/userbanner.module.css'
 import { type Position, type EmployeeListProps } from './IEmployeeListProps'
 import NoPicture from '../No profile picture/NoPicture'
 
@@ -21,7 +20,7 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
 
   return (
     <>
-      <li className={styles.userwrapper} key={props.employee.employeeId}>
+      <li className='relative' key={props.employee.employeeId}>
         {employee.profilePicture !== null
           ? (
           <Image
@@ -31,6 +30,7 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
             alt={employee.username}
             width={props.size}
             height={props.size}
+            className='rounded-full'
           />
             )
           : (
@@ -43,7 +43,7 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
         <section
           onMouseOver={handleShowCard}
           onMouseLeave={handleHideCard}
-          className={styles.employeecard}
+          className='absolute z-50 top-7 p-4'
           style={style}
         >
           <EmployeeCard

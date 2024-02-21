@@ -59,14 +59,3 @@
     margin: 0;
     padding: 0;
 }
-
-.userwrapper {
-    position: relative;
-}
-
-.employeecard {
-    position: absolute;
-    z-index: 8888;
-    top: 1.75rem;
-    padding: 1rem;
-}

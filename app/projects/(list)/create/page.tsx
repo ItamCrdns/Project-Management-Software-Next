@@ -149,7 +149,8 @@ const NewProjectModal: React.FC = () => {
                 members and should indicate what the project is focused on.
               </p>
               <InputAndCharacterCount
-                defaultValue={newProject.name ?? ''}
+                defaultValue={newProject.name}
+                defaultCharacterCount={newProject.name.length}
                 name='name'
                 placeholder='Project name'
                 limit={255}

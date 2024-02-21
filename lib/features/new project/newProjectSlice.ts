@@ -48,9 +48,7 @@ export const newProjectSlice = createSlice({
         state.employees = [...(employees ?? []), action.payload]
       }
     },
-    clear: (state) => {
-      Object.assign(state, initialState)
-    }
+    clear: () => initialState
   }
 })
 

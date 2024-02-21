@@ -14,6 +14,9 @@ const config = {
     transparent: 'transparent',
     current: 'currentColor',
     extend: {
+      width: {
+        500: '500px'
+      },
       colors: {
         // light mode
         tremor: {

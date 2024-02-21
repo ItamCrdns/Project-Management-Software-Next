@@ -90,7 +90,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
           )
         : (
         <>
-          <h1>Now, add a description:</h1>
+          <h1>Now, add a description</h1>
           <form ref={formRef} onSubmit={handleSubmit}>
             <p style={{ width: '400px', marginTop: '10px' }}>
               Add a project description with objectives, goals, or key details
@@ -98,6 +98,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
             </p>
             <InputAndCharacterCount
               defaultValue={newProject.description ?? ''}
+              defaultCharacterCount={newProject.description.length}
               name='description'
               placeholder={`Add a description for ${newProject.name}`}
               limit={255}

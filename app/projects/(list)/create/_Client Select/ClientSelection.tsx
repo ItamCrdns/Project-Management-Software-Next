@@ -17,18 +17,16 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
   }
 
   if (isError !== undefined) {
-    return (
-      <p style={{ fontSize: '8px', textAlign: 'center' }}>
-        {isError?.toString()}
-      </p>
-    )
+    return <p className='text-xs text-center'>{isError?.toString()}</p>
   }
 
   const [toggle, setToggle] = useState<boolean>(false)
 
   return (
     <CustomSelect
-      defaultValue={props.clientName === '' ? 'Select a client...' : props.clientName}
+      defaultValue={
+        props.clientName === '' ? 'Select a client...' : props.clientName
+      }
       options={companyOptions ?? []}
       onSelect={props.handleClientSelection}
       disabled={props.isFormOpen}

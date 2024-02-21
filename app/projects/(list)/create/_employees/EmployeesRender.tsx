@@ -31,7 +31,7 @@ const EmployeesRender: React.FC<EmployeesRenderProps> = (props) => {
           )
         : (
         <>
-          <h1>Who will be working on {newProject.name}?</h1>
+          <h1 className='text-center line-clamp-2'>Who will be working on {newProject.name}?</h1>
           <Search
             maxInputLength={16}
             stateBasedSearch={true}

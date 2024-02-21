@@ -1,13 +1,12 @@
 import handleSubmitProject from '@/api-calls/postProject'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
-import styles from './newProject.module.css'
 import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
 import { handleCreateClient } from './handlePostClient'
 import { useState } from 'react'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 import { Divider } from '@tremor/react'
+import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -52,8 +51,10 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
       if (companyClientName !== undefined || companyId !== 0) {
         const res = await handleSubmitProject(formData) // * Post the new project if atleast a new client has been created or existing company has been selected
         if (res.status === 200) {
-          clear() // Clear new project state after project has been created
+          clear()
           router.push(`/projects/${res.data}`)
+        } else {
+          setError('An error occurred while creating the project')
         }
       }
     } catch (error: any) {
@@ -67,42 +68,46 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
       : newProject.companyName
 
   return (
-    <section className={styles.summary}>
+    <section className='w-500 flex items-center flex-col justify-center'>
       <h1>Your new project overview</h1>
       <p className='mb-4'>
         Please carefully review the information you are about to submit.
       </p>
-      <div className={styles.summarydatawrapper}>
-        <div className='flex items-start w-full justify-center gap-4 rounded-lg p-4 pt-0'>
-          <div className='flex flex-col w-full items-center'>
+      <div className='w-500 flex items-center flex-col'>
+        <div className='flex items-start w-full justify-center gap-4 rounded-lg p-4 py-0'>
+          <div className='flex flex-col items-center w-full'>
             <Divider>Name</Divider>
-            <h2 className='text-center w-80'>{newProject.name}</h2>
+            <h2 className='text-center line-clamp-2'>{newProject.name}</h2>
           </div>
-          <div className='flex flex-col w-full items-center'>
+          <div className='flex flex-col items-center w-full'>
             <Divider>Description</Divider>
-            <h2 className='text-center w-80'>{newProject.description}</h2>
+            <h2 className='text-center line-clamp-2'>
+              {newProject.description}
+            </h2>
           </div>
         </div>
-        <Divider>Expected delivery date</Divider>
-        <h2>
-          {new Date(newProject.expectedDeliveryDate).toLocaleDateString()}
-        </h2>
-        <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 pt-0'>
+        <div className='flex items-center flex-col w-full p-4 py-0'>
+          <Divider>Expected delivery date</Divider>
+          <h2>
+            {new Date(newProject.expectedDeliveryDate).toLocaleDateString()}
+          </h2>
+        </div>
+        <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 py-0'>
           <div className='flex flex-col items-center w-full'>
             <Divider>Priority</Divider>
-            <h2>{newProject.priorityLabel}</h2>
+            <h2 className='text-center'>{newProject.priorityLabel}</h2>
           </div>
           <div className='flex flex-col items-center w-full'>
             <Divider>Client</Divider>
-            <h2>{client}</h2>
+            <h2 className='text-center'>{client}</h2>
           </div>
         </div>
       </div>
-      <Divider>Employees</Divider>
-      {Array.isArray(employees) && employees.length > 0
-        ? (
-        <section className={styles.employeesresume}>
-          <ul className='relative'>
+      <div className='flex items-center flex-col w-full p-4 py-0'>
+        <Divider>Employees</Divider>
+        {Array.isArray(employees) && employees.length > 0
+          ? (
+          <ul className='relative list-none flex items-center justify-center space-x-2 p-6 pt-0'>
             {employees.map((employee) => (
               <EmployeeOfTheList
                 key={employee.username}
@@ -113,15 +118,15 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
               />
             ))}
           </ul>
-        </section>
-          )
-        : (
-        <p className='mb-4'>
-          You didn&apos;t add any employees, but don&apos;t worry, you can add
-          them later.
-        </p>
-          )}
-      <div className={styles.buttonwrapper}>
+            )
+          : (
+          <p className='mb-4 text-center'>
+            You didn&apos;t add any employees, but don&apos;t worry, you can add
+            them later.
+          </p>
+            )}
+      </div>
+      <div className='flex gap-4'>
         <RippleButton
           text='Create project'
           backgroundColor='var(--blue)'

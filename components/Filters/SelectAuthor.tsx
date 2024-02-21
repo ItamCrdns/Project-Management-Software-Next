@@ -24,7 +24,7 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
   const { employees } = getEmployeesThatHaveCreatedProjects(
     Number(params.client[0]),
     true,
-    { page: currentPage, pageSize: 5 }
+    { page: currentPage.toString(), pageSize: '5' }
   )
 
   const pathname = usePathname()
