@@ -1,6 +1,5 @@
 'use client'
 import styles from '@/app/projects/(list)/projectslist.module.css'
-import bannerStyles from '@/app/projects/(list)/userbanner.module.css'
 import { type Employee } from '@/interfaces/employee'
 import EmployeeOfTheList from './EmployeeOfTheList'
 import { type Style } from './EntityRenderer'
@@ -14,9 +13,9 @@ const EntityEmployees: React.FunctionComponent<EntityEmployeesProps> = (
   props
 ) => {
   return (
-    <div style={props.style} className={`${styles.listofemployees} ${bannerStyles.userwrapper}`}>
+    <div style={props.style} className={styles.listofemployees}>
       {Array.isArray(props.employees) && (
-        <ul>
+        <ul className='relative'>
           {props.employees.slice(0, 5).map((employee) => (
             <EmployeeOfTheList
               key={employee.username}

@@ -57,7 +57,7 @@
     flex-direction: row !important;
     background-color: none !important;
     box-shadow: none !important;
-    padding: .1rem !important;
+    padding: 0 !important; 
 }
 
 .projectswrapper li img {

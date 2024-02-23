@@ -1,6 +1,6 @@
 'use client'
 import { type Employee } from '@/interfaces/employee'
-import styles from '@/app/projects/(list)/userbanner.module.css'
+// import styles from '@/app/projects/(list)/userbanner.module.css'
 import Image from 'next/image'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
@@ -18,7 +18,7 @@ const EntityCreator: React.FunctionComponent<EntityCreatorProps> = (props) => {
   const { creator } = props
 
   return (
-    <div style={props.style} className={styles.userwrapper}>
+    <div style={props.style} className='relative'>
       {creator.profilePicture !== null
         ? (
         <Image
@@ -39,7 +39,7 @@ const EntityCreator: React.FunctionComponent<EntityCreatorProps> = (props) => {
         <section
           onMouseOver={handleShowCard}
           onMouseLeave={handleHideCard}
-          className={styles.employeecard}
+          className='absolute z-50 top-8 left-40 p-4'
         >
           <EmployeeCard
             employee={creator}

@@ -38,21 +38,21 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
             <NoPicture width={props.size + 'px'} height={props.size + 'px'} />
           </div>
             )}
+        {showCard && (
+          <section
+            onMouseOver={handleShowCard}
+            onMouseLeave={handleHideCard}
+            className='absolute z-50 top-8 left-8 p-4'
+            style={style}
+          >
+            <EmployeeCard
+              employee={employee}
+              isProfile={false}
+              redirectMe={props.redirectMe}
+            />
+          </section>
+        )}
       </li>
-      {showCard && (
-        <section
-          onMouseOver={handleShowCard}
-          onMouseLeave={handleHideCard}
-          className='absolute z-50 top-7 p-4'
-          style={style}
-        >
-          <EmployeeCard
-            employee={employee}
-            isProfile={false}
-            redirectMe={props.redirectMe}
-          />
-        </section>
-      )}
     </>
   )
 }

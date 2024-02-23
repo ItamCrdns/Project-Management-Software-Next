@@ -2,7 +2,6 @@ import React from 'react'
 import { type Project } from '@/interfaces/project'
 import getProjects from '@/api-calls/getProjects'
 import styles from './projectslist.module.css'
-// import HeaderDescriptor from './HeaderDescriptor'
 import EachProject from './EachProject'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import TitleWrapper from '../../../components/Header title/TitleWrapper'
@@ -25,7 +24,6 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
           showButton={true}
         />
         <section className={styles.projectswrapper}>
-          {/* <HeaderDescriptor dashboard={false} entity='projects' width="300px" /> MIGHT NOT IMPLEMENT THIS HERE AGAIN IDK */}
           {Object.entries(projects).map(([companyName, projects]) => (
             <React.Fragment key={companyName}>
               <div key={companyName} className={styles.companywrapper}>
