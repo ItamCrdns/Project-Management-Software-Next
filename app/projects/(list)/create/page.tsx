@@ -77,12 +77,6 @@ const NewProjectModal: React.FC = () => {
   const clientProvided =
     newProject.clientName !== '' || newProject.companyId !== 0
 
-  const dependency =
-    newProject.name !== '' &&
-    newProject.expectedDeliveryDate !== '' &&
-    clientProvided &&
-    readyForNextPage
-
   const handleCompanySelect = (company: Option | Option[]): void => {
     if (!Array.isArray(company)) {
       setCompany(company.value, company.label)
@@ -132,7 +126,7 @@ const NewProjectModal: React.FC = () => {
         >
           close
         </span>
-        {dependency
+        {readyForNextPage
           ? (
           <AddDescription
             goBack={() => {

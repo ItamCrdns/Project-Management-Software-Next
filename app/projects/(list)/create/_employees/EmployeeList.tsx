@@ -36,8 +36,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                   <p>{employee.username}</p>
                 </div>
                 <span
-                  style={{ color: '#6499E9', userSelect: 'none' }}
-                  className='material-symbols-outlined'
+                  className='material-symbols-outlined text-azure-radiance-400 select-none'
                 >
                   {selectedEmployees !== null &&
                   selectedEmployees.includes(

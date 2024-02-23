@@ -64,11 +64,6 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
     setDescription(description)
   }
 
-  const dependency =
-    newProject.description !== '' &&
-    newProject.priority !== 0 &&
-    readyForNextPage
-
   const [toggle, setToggle] = useState<boolean>(false)
 
   return (
@@ -80,7 +75,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
         }}
         messages={messages}
       />
-      {dependency
+      {readyForNextPage
         ? (
         <AddEmployeesToProject
           goBack={() => {

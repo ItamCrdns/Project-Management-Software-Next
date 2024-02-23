@@ -1,4 +1,4 @@
 export interface PostReturn<T> {
-  data: T | null | string | number
+  data: T | null
   status: number
 }

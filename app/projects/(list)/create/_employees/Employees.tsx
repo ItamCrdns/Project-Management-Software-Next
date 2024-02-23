@@ -1,11 +1,18 @@
 'use client'
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
-import EmployeesRender from './EmployeesRender'
 import useGetEmployees from '@/utility/employees/useGetEmployees'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import Resume from '../Resume'
+import Search from '@/components/search/search'
+import EmployeeList from './EmployeeList'
+import Pagination from '@/components/pagination/pagination'
+import Buttons from './Buttons'
+import { useAppSelector } from '@/lib/hooks/hooks'
 
 const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
+  const newProject = useAppSelector((state) => state.newProjectData)
+
   const { setEmployee } = useNewProjectActions()
 
   const [showResume, setShowResume] = useState<boolean>(false)
@@ -41,25 +48,46 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
   const resetPage = searchValue !== ''
 
   return (
-    <EmployeesRender
-      showResume={showResume}
-      handleReturnHere={() => {
-        setShowResume(false)
-      }}
-      getInputValue={getInputValue}
-      employeeList={employeeList}
-      message={message}
-      handleEmployeeClick={handleEmployeeClick}
-      totalPages={totalPages}
-      handlePageChange={handlePageChange}
-      resetPage={resetPage}
-      handleSubmit={() => {
-        setShowResume(true)
-      }}
-      handleGoBack={() => {
-        props.goBack()
-      }}
-    />
+    <>
+      {showResume
+        ? (
+        <Resume
+          goBack={() => {
+            setShowResume(false)
+          }}
+        />
+          )
+        : (
+        <>
+          <h1 className='text-center line-clamp-2'>
+            Who will be working on {newProject.name}?
+          </h1>
+          <Search
+            maxInputLength={16}
+            stateBasedSearch={true}
+            stateBasedGetInputValue={getInputValue}
+          />
+          <EmployeeList
+            employeeList={employeeList}
+            selectedEmployees={newProject.employees}
+            message={message}
+            handleEmployeeClick={handleEmployeeClick}
+          />
+          <Pagination
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            reset={resetPage}
+          />
+          <Buttons
+            selectedEmployees={newProject.employees}
+            handleSubmit={() => {
+              setShowResume(true)
+            }}
+            handleGoBack={props.goBack}
+          />
+        </>
+          )}
+    </>
   )
 }
 
