@@ -14,6 +14,23 @@ const config = {
     transparent: 'transparent',
     current: 'currentColor',
     extend: {
+      animation: {
+        'slide-in': 'slideIn 0.25s forwards',
+        'slide-out': 'slideOut 0.25s forwards'
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateY(-100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' }
+        },
+        slideOut: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(-100%)', opacity: '0' }
+        }
+      },
+      height: {
+        '2px': '2px'
+      },
       width: {
         500: '500px'
       },
@@ -92,13 +109,14 @@ const config = {
           950: '#192352'
         },
         theming: {
-          default: 'rgb(245, 245, 245)',
-          banner: 'white',
-          darkerbanner: '#f5f5f5',
-          textcolor: 'black',
-          lighttextcolor: 'rgba(0, 0, 0, .5)',
-          smallfont: 'rgba(255, 0, 0, .1)',
-          user: 'lightgray'
+          dark100: '#121212',
+          dark200: '#1E1E1E',
+          dark300: '#333333',
+          dark400: '#4F4F4F',
+          white100: '#FFFFFF',
+          white200: '#E5E5E5',
+          white300: '#CCCCCC',
+          white400: '#B2B2B2'
         }
       },
       boxShadow: {

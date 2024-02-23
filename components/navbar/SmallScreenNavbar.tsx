@@ -1,31 +1,31 @@
 import RippleButton from '../ripplebutton/RippleButton'
 import Link from 'next/link'
 import Image from 'next/image'
-import styles from './navbar.module.css'
 import { type Employee } from '@/interfaces/employee'
 import { navItems } from './SmallScreenNavLinks'
 import useLogout from './logout'
 import NoPicture from '../No profile picture/NoPicture'
 
 interface SmallScreenNavbarProps {
-  toggle: boolean
+  showOverlay: boolean
   employee: Employee
 }
 
-const SmallScreenNavbar = ({
-  toggle,
-  employee
-}: SmallScreenNavbarProps): JSX.Element => {
+const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
+  const { showOverlay, employee } = props
+
   const { handleLogout } = useLogout()
 
   return (
     <section
-      className={`${styles.overlay} ${toggle ? styles.fadeIn : styles.fadeOut}`}
+      className={`absolute w-full z-10 ${
+        showOverlay ? 'animate-slide-in' : 'animate-slide-out'
+      }`}
     >
       {employee.employeeId !== 0
         ? (
-        <section className={styles.useroverlay}>
-          <section className={styles.usercontainer}>
+        <div className='flex flex-col items-center justify-center gap-4 px-0 py-4 bg-theming-white100 dark:bg-theming-dark200'>
+          <div className='flex items-center gap-4'>
             {employee.profilePicture !== null
               ? (
               <Image
@@ -33,7 +33,7 @@ const SmallScreenNavbar = ({
                 alt={employee.username}
                 width={50}
                 height={50}
-                style={{ borderRadius: '50%' }}
+                className='rounded-full'
               />
                 )
               : (
@@ -43,12 +43,17 @@ const SmallScreenNavbar = ({
                 questionMarkSize='1.75rem'
               />
                 )}
-            <section className={styles.userinfo}>
+            <div className='flex flex-col'>
               <span>
                 Welcome, <span>{employee.username}</span>
               </span>
-              <Link href={`/profile/${employee.username}`}>Your profile</Link>
-            </section>
+              <Link
+                className='font-bold text-theming-dark100 dark:text-theming-white100'
+                href={`/profile/${employee.username}`}
+              >
+                Your profile
+              </Link>
+            </div>
             <RippleButton
               text='Logout'
               icon='logout'
@@ -58,12 +63,12 @@ const SmallScreenNavbar = ({
               textColor='white'
               func={handleLogout}
             />
-          </section>
-        </section>
+          </div>
+        </div>
           )
         : (
-        <section className={styles.useroverlay}>
-          <section className={styles.usercontainer}>
+        <div className='flex flex-col items-center justify-center gap-4 px-0 py-4 bg-theming-white100 dark:bg-theming-dark100'>
+          <div className='flex items-center gap-4'>
             <span>You are not logged in.</span>
             <RippleButton
               text='Login'
@@ -72,10 +77,10 @@ const SmallScreenNavbar = ({
               textColor='white'
               href='/login'
             />
-          </section>
-        </section>
+          </div>
+        </div>
           )}
-      <section className={styles.items}>{navItems}</section>
+      <div className='flex flex-col items-center'>{navItems}</div>
     </section>
   )
 }

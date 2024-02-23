@@ -61,7 +61,7 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
             </ul>
               )
             : (
-            <div className='flex items-center justify-center text-center bg-theming-darkerbanner w-full h-72 rounded-md'>
+            <div className='flex items-center justify-center text-center bg-theming-darkerbanner dark:bg-slate-900   w-full h-72 rounded-md'>
               <p className='w-40'>{message}</p>
             </div>
               )}

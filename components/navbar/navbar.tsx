@@ -1,9 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import styles from './navbar.module.css'
 import { useAuth } from '@/context/AuthContext'
-import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import DropdownMenu from './Menu'
 import SmallScreenNavbar from './SmallScreenNavbar'
@@ -17,9 +15,7 @@ const Navbar: React.FC = () => {
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
   const [showOptions, setShowOptions] = useState<boolean>(false)
 
-  const employee = user as Employee
-
-  const handleOpenSmallDevicesMenu = (): boolean => {
+  const handleOpenSmallDevicesMenu = (): void => {
     setToggle(!toggle)
 
     if (toggle) {
@@ -29,8 +25,6 @@ const Navbar: React.FC = () => {
     } else {
       setShowOverlay(true)
     }
-
-    return toggle
   }
 
   const handleOpenMenu = (): boolean => {
@@ -47,31 +41,33 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className={styles.navbar}>
-        <section className={styles.navlinks}>
-          <Link style={{ fontWeight: 700 }} href='/'>
+      <nav className='relative py-0 pl-4 flex items-center justify-between shadow-md z-50 h-20 bg-theming-white100 dark:bg-theming-dark200'>
+        <div className='flex items-center justify-center'>
+          <Link
+            className='font-bold text-theming-dark100 dark:text-theming-white100'
+            href='/'
+          >
             ACME Corporation
           </Link>
-          <section className={styles.links}>{navItems}</section>
-        </section>
-        <section className={styles.user}>
+          <div className='px-4 py-0'>{navItems}</div>
+        </div>
+        <div className='hidden lg:block'>
           {user !== null && (
             <>
-              <section className={styles.navuser}>
-                {employee.profilePicture !== '' &&
-                employee.profilePicture !== null
+              <div className='flex items-center gap-8 px-4 py-0'>
+                {user.profilePicture !== '' && user.profilePicture !== null
                   ? (
                   <Image
                     onClick={handleOpenMenu}
-                    src={employee.profilePicture}
-                    alt={employee.username}
+                    src={user.profilePicture}
+                    alt={user.username}
                     width={50}
                     height={50}
-                    style={{ borderRadius: '50%' }}
+                    className='rounded-full cursor-pointer'
                   />
                     )
                   : (
-                  <div onClick={handleOpenMenu} style={{ cursor: 'pointer' }}>
+                  <div onClick={handleOpenMenu} className='cursor-pointer'>
                     <NoPicture
                       width='50px'
                       height='50px'
@@ -79,10 +75,10 @@ const Navbar: React.FC = () => {
                     />
                   </div>
                     )}
-              </section>
+              </div>
               {showOptions && (
                 <DropdownMenu
-                  employee={employee}
+                  employee={user}
                   closeDropdownMenu={() => {
                     setShowOptions(false)
                   }}
@@ -90,14 +86,31 @@ const Navbar: React.FC = () => {
               )}
             </>
           )}
-        </section>
-        <section onClick={handleOpenSmallDevicesMenu} className={styles.menu}>
-          <span className={toggle ? styles.rotate : ''} />
-          <span className={toggle ? styles.opacity0 : ''} />
-          <span className={toggle ? styles.rotateminus : ''} />
-        </section>
+        </div>
+        <div
+          onClick={handleOpenSmallDevicesMenu}
+          className='lg:hidden flex flex-col items-center justify-center w-14 gap-3 pr-4 border-0 cursor-pointer'
+        >
+          <span
+            className={`h-2px w-full bg-black dark:bg-white transition-all duration-200 origin-left ${
+              toggle ? 'transform rotate-45' : ''
+            }`}
+          />
+          <span
+            className={`h-2px w-full bg-black dark:bg-white transition-all duration-200 origin-left ${
+              toggle ? 'opacity-0 h-1' : ''
+            }`}
+          />
+          <span
+            className={`h-2px w-full bg-black dark:bg-white transition-all duration-200 origin-left ${
+              toggle ? 'transform -rotate-45' : ''
+            }`}
+          />
+        </div>
       </nav>
-      {showOverlay && <SmallScreenNavbar toggle={toggle} employee={employee} />}
+      {showOverlay && user !== null && (
+        <SmallScreenNavbar showOverlay={toggle} employee={user} />
+      )}
     </>
   )
 }

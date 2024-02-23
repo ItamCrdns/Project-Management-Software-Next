@@ -1,15 +1,14 @@
-import styles from './navbar.module.css'
 import Image from 'next/image'
 import RippleButton from '../ripplebutton/RippleButton'
 import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
-import { useDarkMode } from '@/context/DarkModeContext'
 import { useRef } from 'react'
 import NoPicture from '../No profile picture/NoPicture'
 import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 import { Project } from '../Data Header/svg/Project'
 import { Task } from '../Data Header/svg/Task'
+import { useTheme } from '@/context/ThemeContext'
 
 interface DropdownMenuProps {
   employee: Employee
@@ -20,15 +19,18 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const { employee, closeDropdownMenu } = props
 
   const { handleLogout } = useLogout()
-  const { toggleDarkMode, darkMode } = useDarkMode()
+  const { theme, toggleTheme } = useTheme()
 
   const ref = useRef<HTMLElement>(null)
   closeOnOutsideClick({ ref, closeThis: closeDropdownMenu })
 
   return (
-    <aside className={styles.userpopup} ref={ref}>
-      <section className={styles.userpopuser}>
-        <section className={styles.userdatacontainer}>
+    <aside
+      className='absolute z-50 top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark200'
+      ref={ref}
+    >
+      <section className='rounded-md m-4 px-4 py-0 flex flex-col justify-center bg-theming-white200 dark:bg-theming-dark300'>
+        <section className='flex items-center gap-3 p-4 px-0 border-b-2 border-azure-radiance-500'>
           {employee.profilePicture !== null
             ? (
             <Image
@@ -36,28 +38,40 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
               alt={employee.username}
               width={50}
               height={50}
-              style={{ borderRadius: '50%' }}
+              className='rounded-full'
             />
               )
             : (
             <NoPicture width='50px' height='50px' questionMarkSize='1.75rem' />
               )}
-          <p>{employee.username}</p>
+          <p className='font-semibold'>{employee.username}</p>
         </section>
-        <p>
-          <Link href={`/employees/${employee.username}`}>Your profile</Link>
-        </p>
+        <Link
+          className='m-2 mx-0 text-theming-dark100 dark:text-theming-white100'
+          href={`/employees/${employee.username}`}
+        >
+          Your profile
+        </Link>
       </section>
-      <section className={styles.popupmenu}>
-        <Link href='/projects'>
+      <div className='select-none border-b-2 border-theming-dark100 dark:border-theming-white200 mb-4 pb-4'>
+        <Link
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          href='/projects'
+        >
           <Project />
           <p>Projects</p>
         </Link>
-        <Link href='/tasks'>
+        <Link
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          href='/tasks'
+        >
           <Task />
           <p>Tasks</p>
         </Link>
-        <Link href='/issues'>
+        <Link
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          href='/issues'
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -74,9 +88,12 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
           </svg>
           <p>Issues</p>
         </Link>
-      </section>
-      <section className={styles.popupmenusettings}>
-        <Link href=''>
+      </div>
+      <section>
+        <Link
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          href=''
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -98,8 +115,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
           </svg>
           <p>Settings</p>
         </Link>
-        <span onClick={toggleDarkMode}>
-          {!darkMode
+        <span
+          onClick={toggleTheme}
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300 cursor-pointer select-none'
+        >
+          {theme === 'dark'
             ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -132,10 +152,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
               />
             </svg>
               )}
-          <p>{!darkMode ? 'Dark mode' : 'Light mode'}</p>
+          <p>{theme === 'dark' ? 'Dark mode' : 'Light mode'}</p>
         </span>
       </section>
-      <section className={styles.logout}>
+      <section className='flex items-center justify-center mx-0 my-4'>
         <RippleButton
           text='Logout'
           icon='logout'
