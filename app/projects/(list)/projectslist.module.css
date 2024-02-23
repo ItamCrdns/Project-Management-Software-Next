@@ -22,26 +22,6 @@
     align-items: stretch;
 }
 
-.titlewrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
- } 
-
-.titlewrapper > span {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    gap: 1rem;
-    font-size: 45px;
-}
-
-.titlewrapper h1 {
-    font-size: 42px;
-    margin: 0;
-}
-
 .listofemployees ul {
     display: flex !important;
     align-items: center !important;

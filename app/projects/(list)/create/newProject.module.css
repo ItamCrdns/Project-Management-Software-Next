@@ -218,14 +218,3 @@
     cursor: pointer;
     opacity: 0.5;
 }
-
-.noemployeesfound {
-    padding: 1rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: inherit;
-    background-color: var(--banner-color);
-}

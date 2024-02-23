@@ -120,12 +120,21 @@ const NewProjectModal: React.FC = () => {
         setIsOpen={openUnsavedChanges}
       />
       <section className={styles.newproject}>
-        <span
+        <svg
           onClick={handleExitNewProjectCreation}
-          className={`material-symbols-outlined ${styles.closebutton}`}
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='w-6 h-6 absolute top-0 right-0 m-2 hover:text-azure-radiance-400 cursor-pointer'
         >
-          close
-        </span>
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M6 18 18 6M6 6l12 12'
+          />
+        </svg>
         {readyForNextPage
           ? (
           <AddDescription

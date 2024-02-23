@@ -1,14 +1,3 @@
-.banner {
-    display: flex;
-    align-items: center;
-    position: relative;
-    gap: 2rem;
-}
-
-.banner img {
-    border-radius: 50%;
-}
-
 .options {
     display: flex;
     align-items: center;

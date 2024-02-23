@@ -18,7 +18,13 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
             <li key={index}>
               {pic !== null
                 ? (
-                <Image src={pic} alt={pic} width={25} height={25} />
+                <Image
+                  src={pic}
+                  alt={pic}
+                  width={25}
+                  height={25}
+                  className='rounded-full'
+                />
                   )
                 : (
                 <NoPicture width='25px' height='25px' />

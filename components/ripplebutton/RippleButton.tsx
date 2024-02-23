@@ -19,8 +19,6 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
     textColor,
     effectColor,
     borderRadius,
-    // icon,
-    // iconSize,
     href,
     loading = null,
     func,
@@ -108,28 +106,12 @@ const RippleButton: React.FunctionComponent<RippleButtonProps> = (props) => {
         ? (
         <Link href={href} className={styles.loadertextwrapper}>
           {loading !== null && <span className={styles.loader} />}
-          {/* {icon !== null && (
-            <span
-              style={{ fontSize: iconSize }}
-              className='material-symbols-outlined'
-            >
-              {icon}
-            </span>
-          )} */}
           {text}
         </Link>
           )
         : (
         <div className={styles.loadertextwrapper}>
           {loading !== null && <span className={styles.loader} />}
-          {/* {icon !== null && (
-            <span
-              style={{ fontSize: iconSize }}
-              className='material-symbols-outlined'
-            >
-              {icon}
-            </span>
-          )} */}
           {text}
         </div>
           )}

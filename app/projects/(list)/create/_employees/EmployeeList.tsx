@@ -1,6 +1,5 @@
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
-import styles from '../newProject.module.css'
 import { type EmployeeListProps } from '@/interfaces/props/EmployeeListProps'
 import NoPicture from '@/components/No profile picture/NoPicture'
 
@@ -35,24 +34,50 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                       )}
                   <p>{employee.username}</p>
                 </div>
-                <span
-                  className='material-symbols-outlined text-azure-radiance-400 select-none'
-                >
-                  {selectedEmployees !== null &&
-                  selectedEmployees.includes(
-                    selectedEmployees.find(
-                      (e) => e.username === employee.username
-                    ) ?? employee
-                  )
-                    ? 'radio_button_checked'
-                    : 'radio_button_unchecked'}
-                </span>
+                {selectedEmployees !== null &&
+                selectedEmployees.includes(
+                  selectedEmployees.find(
+                    (x) => x.username === employee.username
+                  ) ?? employee
+                )
+                  ? (
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                    />
+                  </svg>
+                    )
+                  : (
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='w-6 h-6'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                    />
+                  </svg>
+                    )}
               </li>
                 ))
               )
             : (
-            <div className={styles.noemployeesfound}>
-              <p>{message}</p>
+            <div className='p-4 rounded-md flex items-center justify-center'>
+              <p className='text-center'>{message}</p>
             </div>
               )}
         </>

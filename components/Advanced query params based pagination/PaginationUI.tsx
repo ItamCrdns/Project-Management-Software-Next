@@ -60,14 +60,41 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
       )}
       <div className={styles.prevandnextpage}>
         <div>
-          <span onClick={goToFirstPage} className='material-symbols-outlined'>
-            keyboard_double_arrow_left
-          </span>
+          <svg
+            onClick={currentPage > 1 ? goToFirstPage : () => {}}
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6 cursor-pointer'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5'
+            />
+          </svg>
           <div onClick={goToPreviousPage}>
-            <span className='material-symbols-outlined'>navigate_before</span>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6 cursor-pointer mr-2'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M15.75 19.5 8.25 12l7.5-7.5'
+              />
+            </svg>
             <p
               className={styles.prevnexttext}
-              style={{ color: totalPages <= 1 || currentPage === 1 ? 'gray' : '' }}
+              style={{
+                color: totalPages <= 1 || currentPage === 1 ? 'gray' : ''
+              }}
             >
               Previous
             </p>
@@ -85,18 +112,43 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           <div onClick={totalPages > 1 ? goToNextPage : () => {}}>
             <p
               className={styles.prevnexttext}
-              style={{ color: totalPages <= 1 || totalPages === currentPage ? 'gray' : '' }}
+              style={{
+                color:
+                  totalPages <= 1 || totalPages === currentPage ? 'gray' : ''
+              }}
             >
               Next
             </p>
-            <span className='material-symbols-outlined'>navigate_next</span>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6 cursor-pointer ml-2'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='m8.25 4.5 7.5 7.5-7.5 7.5'
+              />
+            </svg>
           </div>
-          <span
+          <svg
             onClick={totalPages > 1 ? goToLastPage : () => {}}
-            className='material-symbols-outlined'
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6 cursor-pointer'
           >
-            keyboard_double_arrow_right
-          </span>
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5'
+            />
+          </svg>
         </div>
       </div>
     </div>

@@ -20,16 +20,15 @@ const Search: React.FunctionComponent<SearchProps> = ({
   const searchParams = useSearchParams()
   const searchValueFromParams = searchParams.get('search')
 
-  const [searchTerm, setSearchTerm] = useState<string>(searchValueFromParams ?? '')
+  const [searchTerm, setSearchTerm] = useState<string>(
+    searchValueFromParams ?? ''
+  )
   const [showSpinner, setShowSpinner] = useState<boolean>(false)
 
   const router = useRouter()
   useEffect(() => {
     const delaySearch = setTimeout(() => {
       if (searchTerm !== '' && !stateBasedSearch) {
-        // url?.searchParams.set('search', searchTerm)
-        // // url?.includes('search')
-        // console.log(`${url}&search=${searchTerm}`)
         router.push(`${url}&search=${searchTerm}`)
       }
       if (stateBasedSearch) {
@@ -62,9 +61,20 @@ const Search: React.FunctionComponent<SearchProps> = ({
 
   return (
     <section className={styles.search}>
-      <span className={`${styles.searchicon} material-symbols-outlined`}>
-        search
-      </span>
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        strokeWidth={1.5}
+        stroke='currentColor'
+        className='w-6 h-6 absolute left-4 select-none text-3xl'
+      >
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
+        />
+      </svg>
       <input
         type='text'
         placeholder='Press enter to search'

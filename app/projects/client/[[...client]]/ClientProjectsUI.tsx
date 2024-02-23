@@ -29,7 +29,6 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
     <main className={styles.main}>
       <TitleWrapper
         title={props.title}
-        icon='emoji_objects'
         showButton={false}
         isPage
         showPictures // ? Options with pictures for the employees
@@ -55,7 +54,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
             </ul>
               )
             : (
-            <p style={{ textAlign: 'center' }}>
+            <p className='text-center'>
               No projects match your filtering criteria. Clear your filters and
               try again.
             </p>

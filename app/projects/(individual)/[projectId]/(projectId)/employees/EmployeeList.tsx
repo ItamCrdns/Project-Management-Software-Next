@@ -1,6 +1,5 @@
 import Search from '@/components/search/search'
 import { type Employee } from '@/interfaces/employee'
-import styles from './employees.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import NoPicture from '@/components/No profile picture/NoPicture'
@@ -21,7 +20,7 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
     <>
       {Array.isArray(employeeList) && (
         <>
-          <h1>{headerText}</h1>
+          <h1 className='text-2xl m-0'>{headerText}</h1>
           <Search
             stateBasedSearch={false}
             onInputChange={onInputChange}
@@ -30,9 +29,12 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
           />
           {employeeList.length > 0
             ? (
-            <ul>
+            <ul className='list-none m-0 p-4 rounded-md w-full h-72 bg-theming-darkerbannerflex items-center flex-col'>
               {employeeList.map((employee: Employee) => (
-                <li key={employee.employeeId}>
+                <li
+                  className='flex items-center gap-4 py-1'
+                  key={employee.employeeId}
+                >
                   <Link href={`/employees/${employee.username}`}>
                     {employee.profilePicture !== null
                       ? (
@@ -41,24 +43,26 @@ const EmployeeList: React.FunctionComponent<EmployeeListProps> = (props) => {
                         alt={employee.username}
                         width={50}
                         height={50}
+                        className='rounded-full'
                       />
                         )
                       : (
                       <NoPicture width='50px' height='50px' />
                         )}
                   </Link>
-                  <p>
-                    <Link href={`/employees/${employee.username}`}>
-                      {employee.username}
-                    </Link>
-                  </p>
+                  <Link
+                    className='font-medium'
+                    href={`/employees/${employee.username}`}
+                  >
+                    {employee.username}
+                  </Link>
                 </li>
               ))}
             </ul>
               )
             : (
-            <div className={styles.noemployeesfound}>
-              <p>{message}</p>
+            <div className='flex items-center justify-center text-center bg-theming-darkerbanner w-full h-72 rounded-md'>
+              <p className='w-40'>{message}</p>
             </div>
               )}
         </>

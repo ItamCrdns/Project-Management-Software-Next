@@ -1,4 +1,13 @@
+import { type ComponentType } from 'react'
 import { type SortValues } from './sortValues'
+import { Icon } from './svg/Icon'
+import { Creator } from './svg/Creator'
+import { Users } from './svg/Users'
+import { Priority } from './svg/Priority'
+import { Calendar } from './svg/Calendar'
+import { Client } from './svg/Client'
+import { Project } from './svg/Project'
+import { Task } from './svg/Task'
 
 interface Props {
   entity?: string
@@ -6,33 +15,37 @@ interface Props {
 }
 
 interface HeaderItem {
-  icon: string
+  icon: ComponentType
   label: string
   sortValue?: string
 }
 
 export const getHeaderItems = (props: Props): HeaderItem[] => [
-  { icon: 'signature', label: 'Name', sortValue: props.sortValues.name },
-  { icon: 'person', label: 'Creator', sortValue: props.sortValues.creator },
-  { icon: 'group', label: 'Team', sortValue: props.sortValues.team },
+  {
+    icon: Icon,
+    label: 'Name',
+    sortValue: props.sortValues.name
+  },
+  { icon: Creator, label: 'Creator', sortValue: props.sortValues.creator },
+  { icon: Users, label: 'Team', sortValue: props.sortValues.team },
   ...(props.entity === 'projects' || props.entity === 'projectsfromcompany'
     ? [
         {
-          icon: 'priority_high',
+          icon: Priority,
           label: 'Priority',
           sortValue: props.sortValues.priority
         }
       ]
     : []),
   {
-    icon: 'calendar_month',
+    icon: Calendar,
     label: 'Created',
     sortValue: props.sortValues.created
   },
   ...(props.entity === 'projects'
     ? [
         {
-          icon: 'store',
+          icon: Client,
           label: 'Company',
           sortValue: props.sortValues.company
         }
@@ -41,13 +54,13 @@ export const getHeaderItems = (props: Props): HeaderItem[] => [
   ...(props.entity === 'tasks'
     ? [
         {
-          icon: 'emoji_objects',
+          icon: Project,
           label: 'Project',
           sortValue: props.sortValues.project
         }
       ]
     : []),
   ...(props.entity === 'issues'
-    ? [{ icon: 'note_stack', label: 'Task', sortValue: props.sortValues.task }]
+    ? [{ icon: Task, label: 'Task', sortValue: props.sortValues.task }]
     : [])
 ]

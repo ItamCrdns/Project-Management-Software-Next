@@ -90,6 +90,15 @@ const config = {
           800: '#233caa',
           900: '#223786',
           950: '#192352'
+        },
+        theming: {
+          default: 'rgb(245, 245, 245)',
+          banner: 'white',
+          darkerbanner: '#f5f5f5',
+          textcolor: 'black',
+          lighttextcolor: 'rgba(0, 0, 0, .5)',
+          smallfont: 'rgba(255, 0, 0, .1)',
+          user: 'lightgray'
         }
       },
       boxShadow: {

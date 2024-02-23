@@ -18,7 +18,6 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
       <main className={styles.main}>
         <TitleWrapper
           title='Projects overview'
-          icon='emoji_objects'
           buttonText='Create a new project'
           buttonHref='/projects/create'
           showButton={true}

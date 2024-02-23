@@ -24,7 +24,7 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
 
   return (
     <section>
-      <EntityHeader color='#FF6969' entityName='issues' />
+      <EntityHeader name='issues' />
       <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
         <DataHeader
           dashboard

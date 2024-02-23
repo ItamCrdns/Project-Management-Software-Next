@@ -41,6 +41,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
                     alt={opt.label}
                     width={25}
                     height={25}
+                    className='rounded-full'
                   />
                     )
                   : (

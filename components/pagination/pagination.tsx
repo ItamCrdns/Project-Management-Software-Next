@@ -1,5 +1,4 @@
 'use client'
-import styles from './pagination.module.css'
 import { useEffect, useState } from 'react'
 import { type PaginationProps } from '@/interfaces/props/PaginationProps'
 
@@ -35,7 +34,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
   }
 
   return (
-    <div className={styles.pagination} style={borderStyle}>
+    <div className='flex items-center justify-center gap-4 p-4' style={borderStyle}>
       <span onClick={goToPreviousPage}>Previous</span>
       <p>
         {currentPage} of {totalPages}

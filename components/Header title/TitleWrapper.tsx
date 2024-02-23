@@ -1,9 +1,7 @@
-import styles from '@/app/projects/(list)/projectslist.module.css'
 import LoggedInCard from './LoggedInCard'
 
 interface TitleWrapperProps {
   title: string
-  icon: string
   showButton?: boolean
   buttonText?: string
   buttonHref?: string
@@ -18,7 +16,6 @@ interface TitleWrapperProps {
 const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
   const {
     title,
-    icon,
     showButton,
     buttonText,
     buttonHref,
@@ -39,16 +36,8 @@ const TitleWrapper: React.FC<TitleWrapperProps> = (props) => {
     showPictures
   }
   return (
-    <div className={styles.titlewrapper}>
-      <span>
-        <span
-          style={{ fontSize: '50px' }}
-          className='material-symbols-outlined'
-        >
-          {icon}
-        </span>
-        <h1>{title}</h1>
-      </span>
+    <div className='flex items-center select-none w-full justify-between'>
+      <h1 className='text-2xl'>{title}</h1>
       <LoggedInCard {...cardProps} />
     </div>
   )

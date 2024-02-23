@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './project.module.css'
-import pop from '@/app/projects/(list)/userbanner.module.css'
 import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import { type Employee } from '@/interfaces/employee'
@@ -28,7 +27,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
   }
 
   return (
-    <div className={`${styles.userwrapper} ${pop.userwrapper}`}>
+    <div className={styles.userwrapper}>
       {profilePicture !== null
         ? (
         <Image
@@ -54,7 +53,6 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
         <section
           onMouseOver={handleShowCard}
           onMouseLeave={handleHideCard}
-          className={pop.employeecard}
           style={position}
         >
           <EmployeeCard

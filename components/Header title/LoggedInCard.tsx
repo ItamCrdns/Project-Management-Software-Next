@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import styles from '@/app/projects/(list)/userbanner.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type LoggedInCardProps } from '@/interfaces/props/LoggedInCardProps'
 import Options from './Options'
@@ -44,7 +43,7 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
   }
 
   return (
-    <section className={styles.banner}>
+    <section className='flex items-center relative gap-8'>
       <Options text={optionsText} toggle={toggle} handleToggle={handleToggle} />
       {showButton === true && <RippleButton {...rippleButtonProps} />}
       {toggle && <Filters {...filtersProps} />}

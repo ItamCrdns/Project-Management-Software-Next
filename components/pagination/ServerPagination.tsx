@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import styles from './pagination.module.css'
 import { useRouter } from 'next/navigation'
 import { type SearchParams } from '@/interfaces/searchParams'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
@@ -45,15 +44,21 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
   const handleChangePage = (action: string): void => {
     if (action === 'previous' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1)
-      const pageParam = url.includes('?') ? `&page=${currentPage - 1}` : `?page=${currentPage - 1}`
-      const searchParam = searchValue !== undefined ? `&search=${searchValue}` : ''
+      const pageParam = url.includes('?')
+        ? `&page=${currentPage - 1}`
+        : `?page=${currentPage - 1}`
+      const searchParam =
+        searchValue !== undefined ? `&search=${searchValue}` : ''
       const newUrl = `${url}${pageParam}${searchParam}`
       router.push(newUrl)
       searchParams.search = searchValue
     } else if (action === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
-      const pageParam = url.includes('?') ? `&page=${currentPage + 1}` : `?page=${currentPage + 1}`
-      const searchParam = searchValue !== undefined ? `&search=${searchValue}` : ''
+      const pageParam = url.includes('?')
+        ? `&page=${currentPage + 1}`
+        : `?page=${currentPage + 1}`
+      const searchParam =
+        searchValue !== undefined ? `&search=${searchValue}` : ''
       const newUrl = `${url}${pageParam}${searchParam}`
       router.push(newUrl)
       searchParams.search = searchValue
@@ -61,26 +66,44 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
   }
 
   return (
-    <div className={styles.pagination}>
-      <span
+    <div className='flex items-center justify-center gap-4 p-4'>
+      <svg
         onClick={() => {
           handleChangePage('previous')
         }}
-        className='material-symbols-outlined'
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        strokeWidth={1.5}
+        stroke='currentColor'
+        className='w-6 h-6 cursor-pointer text-azure-radiance-500'
       >
-        navigate_before
-      </span>
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          d='M15.75 19.5 8.25 12l7.5-7.5'
+        />
+      </svg>
       <p>
         {currentPage} of {totalPages}
       </p>
-      <span
+      <svg
         onClick={() => {
           handleChangePage('next')
         }}
-        className='material-symbols-outlined'
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        strokeWidth={1.5}
+        stroke='currentColor'
+        className='w-6 h-6 cursor-pointer text-azure-radiance-500'
       >
-        navigate_next
-      </span>
+        <path
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          d='m8.25 4.5 7.5 7.5-7.5 7.5'
+        />
+      </svg>
     </div>
   )
 }
