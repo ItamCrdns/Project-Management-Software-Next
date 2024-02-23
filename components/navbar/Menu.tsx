@@ -26,10 +26,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
 
   return (
     <aside
-      className='absolute z-50 top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark200'
+      className='absolute z-50 top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark300'
       ref={ref}
     >
-      <section className='rounded-md m-4 px-4 py-0 flex flex-col justify-center bg-theming-white200 dark:bg-theming-dark300'>
+      <section className='rounded-md m-4 px-4 py-0 flex flex-col justify-center bg-theming-white200 dark:bg-theming-dark400'>
         <section className='flex items-center gap-3 p-4 px-0 border-b-2 border-azure-radiance-500'>
           {employee.profilePicture !== null
             ? (
@@ -55,21 +55,21 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
       </section>
       <div className='select-none border-b-2 border-theming-dark100 dark:border-theming-white200 mb-4 pb-4'>
         <Link
-          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400'
           href='/projects'
         >
           <Project />
           <p>Projects</p>
         </Link>
         <Link
-          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400'
           href='/tasks'
         >
           <Task />
           <p>Tasks</p>
         </Link>
         <Link
-          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400'
           href='/issues'
         >
           <svg
@@ -91,7 +91,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
       </div>
       <section>
         <Link
-          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300'
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400'
           href=''
         >
           <svg
@@ -117,7 +117,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         </Link>
         <span
           onClick={toggleTheme}
-          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark300 cursor-pointer select-none'
+          className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400 cursor-pointer select-none'
         >
           {theme === 'dark'
             ? (

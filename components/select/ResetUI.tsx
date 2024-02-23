@@ -1,5 +1,4 @@
 import { type SelectUIProps } from './SelectUI'
-import styles from './select.module.css'
 
 const ResetUI: React.FC<Partial<SelectUIProps>> = (props) => {
   if (
@@ -9,7 +8,10 @@ const ResetUI: React.FC<Partial<SelectUIProps>> = (props) => {
     props.showReset === true
   ) {
     return (
-      <span className={styles.reset} onClick={props.resetSelectedOption}>
+      <span
+        className='ml-4 cursor-pointer hover:text-azure-radiance-600'
+        onClick={props.resetSelectedOption}
+      >
         Reset
       </span>
     )

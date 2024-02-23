@@ -34,7 +34,7 @@ const Pagination: React.FC<PaginationProps> = (props) => {
   }
 
   return (
-    <div className='flex items-center justify-center gap-4 p-4' style={borderStyle}>
+    <div className='flex items-center justify-center gap-4 p-2' style={borderStyle}>
       <span onClick={goToPreviousPage}>Previous</span>
       <p>
         {currentPage} of {totalPages}

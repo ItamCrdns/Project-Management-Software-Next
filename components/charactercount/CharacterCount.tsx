@@ -37,9 +37,9 @@ export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
   }
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 mb-4'>
       <textarea
-        className='box-border resize-none text-lg overflow-hidden min-w-full'
+        className='box-border resize-none text-lg overflow-hidden min-w-full rounded-md p-4 text-black bg-theming-white200 dark:bg-theming-dark300 dark:text-white'
         ref={textAreaRef}
         name={name}
         placeholder={placeholder}

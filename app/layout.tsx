@@ -20,7 +20,7 @@ const RootLayout = ({
 }): JSX.Element => {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={`bg-theming-white200 dark:bg-theming-dark200 ${inter.className}`}>
         <div className='dark:text-white'>
           <ThemeProvider>
             <AuthProvider>

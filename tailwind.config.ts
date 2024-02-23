@@ -114,7 +114,7 @@ const config = {
           dark300: '#333333',
           dark400: '#4F4F4F',
           white100: '#FFFFFF',
-          white200: '#E5E5E5',
+          white200: '#F5F5F5',
           white300: '#CCCCCC',
           white400: '#B2B2B2'
         }

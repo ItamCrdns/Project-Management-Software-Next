@@ -1,11 +1,10 @@
-import styles from './select.module.css'
 import {
   type CustomSelectProps,
   type Option
 } from '@/interfaces/props/CustomSelectProps'
 import ResetUI from './ResetUI'
-import OptionsListUI from './OptionsListUI'
 import OptionsInitialUI from './OptionsInitialUI'
+import OptionsListUI from './OptionsListUI'
 
 export interface SelectUIProps extends Partial<CustomSelectProps> {
   selectedOption: Option | null
@@ -19,8 +18,8 @@ export interface SelectUIProps extends Partial<CustomSelectProps> {
 
 const SelectUI: React.FC<SelectUIProps> = (props) => {
   return (
-    <div className={styles.customselectwrapper}>
-      <div className={styles.customselect}>
+    <div className='flex items-center'>
+      <div className='relative flex flex-col items-end justify-self-center justify-center rounded-md w-full min-h-10 m-0 py-0 px-6 bg-theming-white200 dark:bg-theming-dark300'>
         <OptionsInitialUI
           handleToggleDropdown={props.handleToggleDropdown}
           disabled={props.disabled}

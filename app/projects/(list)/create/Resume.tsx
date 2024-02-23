@@ -64,8 +64,8 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
         }}
       />
       <section className='w-500 flex items-center flex-col justify-center'>
-        <h1>Your new project overview</h1>
-        <p className='mb-4'>
+        <h1 className='text-2xl'>Your new project overview</h1>
+        <p className='w-96 mb-4 text-center'>
           Please carefully review the information you are about to submit.
         </p>
         <div className='w-500 flex items-center flex-col'>

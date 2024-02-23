@@ -59,7 +59,7 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
           )
         : (
         <>
-          <h1 className='text-center line-clamp-2'>
+          <h1 className='text-center line-clamp-2 text-2xl'>
             Who will be working on {newProject.name}?
           </h1>
           <Search
@@ -73,11 +73,13 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
             message={message}
             handleEmployeeClick={handleEmployeeClick}
           />
-          <Pagination
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            reset={resetPage}
-          />
+          <div className='p-2'>
+            <Pagination
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              reset={resetPage}
+            />
+          </div>
           <Buttons
             selectedEmployees={newProject.employees}
             handleSubmit={() => {

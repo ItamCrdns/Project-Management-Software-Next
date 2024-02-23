@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import styles from './select.module.css'
 import NoPicture from '../No profile picture/NoPicture'
 
 interface DefaultValueProps {
@@ -12,30 +11,32 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
   if (Array.isArray(defaultValue) && defaultValue.length > 0) {
     const employeePictures = defaultValue
     return (
-      <div className={styles.defaultimageswrapper}>
-        <ul>
-          {employeePictures.map((pic, index) => (
-            <li key={index}>
-              {pic !== null
-                ? (
-                <Image
-                  src={pic}
-                  alt={pic}
-                  width={25}
-                  height={25}
-                  className='rounded-full'
-                />
-                  )
-                : (
-                <NoPicture width='25px' height='25px' />
-                  )}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className='flex flex-row'>
+        {employeePictures.map((pic, index) => (
+          <li className='flex items-center justify-center px-1' key={index}>
+            {pic !== null
+              ? (
+              <Image
+                src={pic}
+                alt={pic}
+                width={25}
+                height={25}
+                className='rounded-full'
+              />
+                )
+              : (
+              <NoPicture width='25px' height='25px' />
+                )}
+          </li>
+        ))}
+      </ul>
     )
   } else if (typeof defaultValue === 'string') {
-    return defaultValue
+    return (
+      <p className='text-black dark:text-white'>
+        {defaultValue}
+      </p>
+    )
   }
 }
 

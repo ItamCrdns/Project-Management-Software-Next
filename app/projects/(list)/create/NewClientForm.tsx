@@ -15,7 +15,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
   }
 
   return (
-    <section className='flex items-center'>
+    <section className='flex items-center mb-4'>
       <input
         ref={inputRef}
         type='text'
@@ -24,7 +24,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         defaultValue={props.defaultInputValue}
         name='clientName'
         maxLength={255}
-        className='w-48'
+        className='w-48 p-2 rounded-md text-black bg-theming-white200 dark:bg-theming-dark300 dark:text-white'
       />
       <RippleButton
         text={props.buttonText}

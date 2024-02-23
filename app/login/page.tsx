@@ -1,6 +1,5 @@
 'use client'
 import { useAuth } from '@/context/AuthContext'
-import styles from './login.module.css'
 import { useRef, useState } from 'react'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
@@ -76,15 +75,16 @@ const LoginPage = (): JSX.Element => {
   const handleClick = useSubmitRef(formRef)
 
   return (
-    <main className={styles.main}>
-      <section className={styles.loginwrapper}>
-        <h1>Company Logo here</h1>
-        <form ref={formRef} onSubmit={handleSubmit}>
+    <main className='flex items-center justify-center mt-8'>
+      <section className='flex flex-col justify-center gap-4 p-8 rounded-xl shadow-md bg-theming-white100 dark:bg-theming-dark100'>
+        <h1 className='text-center'>Company Logo here</h1>
+        <form ref={formRef} onSubmit={handleSubmit} className='flex gap-6'>
           <input
             type='text'
             name='username'
             required
             placeholder='Username'
+            className='p-4 w-52 h-5 rounded-2xl focus:outline-none focus:ring-2 bg-theming-white100 text-black'
             autoFocus
           />
           <input
@@ -92,8 +92,9 @@ const LoginPage = (): JSX.Element => {
             name='password'
             required
             placeholder='Password'
+            className='p-4 w-52 h-5 rounded-2xl focus:outline-none focus:ring-2 bg-theming-white100 text-black'
           />
-          <input type='submit' />
+          <input type='submit' className='hidden' />
         </form>
         <RippleButton
           text='Login'

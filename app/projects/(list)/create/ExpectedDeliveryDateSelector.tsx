@@ -18,6 +18,7 @@ const ExpectedDeliveryDateSelector: React.FC<{ defaultValue: Date }> = (
         !isNaN(props.defaultValue?.getTime()) ? props.defaultValue : undefined
       }
       minDate={new Date()}
+      className='my-4'
     />
   )
 }

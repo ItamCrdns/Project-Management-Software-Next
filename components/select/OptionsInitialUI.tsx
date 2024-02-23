@@ -1,19 +1,14 @@
 import Image from 'next/image'
 import { type SelectUIProps } from './SelectUI'
-import styles from './select.module.css'
 import DefaultValue from './DefaultValue'
 
 const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
-  const disabledOrNotText = {
-    color: props.disabled === true ? 'gray' : 'var(--text-color)'
-  }
-
   const selectedOptImg = props.selectedOption?.picture ?? ''
 
   return (
     <div
       onClick={() => props.onShowDropdown?.()}
-      className={styles.optionselected}
+      className='flex items-center justify-end gap-4 select-none cursor-pointer'
     >
       {selectedOptImg !== '' && (
         <Image
@@ -24,19 +19,17 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
           className='rounded-full'
         />
       )}
-      <div style={disabledOrNotText}>
-        {props.selectedOption !== null
-          ? (
-              (
-            <span style={{ textTransform: 'capitalize', fontWeight: '600' }}>
-              {props.selectedOption?.label}
-            </span>
-              ) ?? ''
-            )
-          : (
-          <DefaultValue defaultValue={props.defaultValue} />
-            )}
-      </div>
+      {/* <div className={`text-${props.disabled === true ? 'gray' : 'red'}`}> */}
+      {props.selectedOption !== null
+        ? (
+        <span className='capitalize font-semibold text-black dark:text-white'>
+          {props.selectedOption?.label}
+        </span>
+          )
+        : (
+        <DefaultValue defaultValue={props.defaultValue} />
+          )}
+      {/* </div> */}
       <svg
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 20 20'

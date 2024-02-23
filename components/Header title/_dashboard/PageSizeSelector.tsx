@@ -1,5 +1,4 @@
 import { type IFilter } from '@/interfaces/props/context props/IFilter'
-import styles from './pagesize.module.css'
 import React from 'react'
 
 interface PageSizeSelectorProps {
@@ -19,8 +18,11 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
   )
 
   return (
-    <div className={styles.pagesizewrapper}>
-      <div className={styles.pagesizedots} onClick={handlePageSizeChange}>
+    <div className='flex items-center justify-center gap-4'>
+      <div
+        className='flex items-center justify-center gap-2'
+        onClick={handlePageSizeChange}
+      >
         {pageSizeOptions.map((pageSize) => (
           <span
             key={pageSize}
@@ -34,7 +36,7 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
                   ? 'white'
                   : ''
             }}
-            className={styles.dot}
+            className='select-none flex items-center justify-center w-8 h-8 rounded-full cursor-pointer text-xs bg-theming-white100 dark:bg-theming-dark100'
           >
             {pageSize}
           </span>
@@ -51,7 +53,7 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
                   ? 'white'
                   : ''
             }}
-            className={styles.dot}
+            className='select-none flex items-center justify-center w-8 h-8 rounded-full cursor-pointer text-xs bg-theming-white100 dark:bg-theming-dark100'
           >
             {entitiesCount}
           </span>

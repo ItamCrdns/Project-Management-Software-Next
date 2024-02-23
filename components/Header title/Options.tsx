@@ -1,5 +1,3 @@
-import styles from '@/app/projects/(list)/userbanner.module.css'
-
 interface OptionsProps {
   text: string
   toggle: boolean
@@ -9,8 +7,10 @@ interface OptionsProps {
 const Options: React.FC<OptionsProps> = (props) => {
   const { toggle, handleToggle } = props
   return (
-    <div className={styles.options}>
-      <p onClick={handleToggle}>{props.text}</p>
+    <div className='flex items-center gap-2'>
+      <p className='cursor-pointer select-none' onClick={handleToggle}>
+        {props.text}
+      </p>
       <div onClick={handleToggle}>
         {!toggle
           ? (

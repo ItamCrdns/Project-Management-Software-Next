@@ -1,6 +1,5 @@
 'use client'
 import { useRef, useState } from 'react'
-import styles from './newProject.module.css'
 import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import AddDescription from './AddDescription'
@@ -107,7 +106,7 @@ const NewProjectModal: React.FC = () => {
   }
 
   return (
-    <section className={styles.newprojectwrapper}>
+    <section className='fixed w-full h-screen flex flex-col items-center justify-center z-10 m-0 p-0 bg-black bg-opacity-50'>
       <DialogComponent
         isOpen={isDialogOpen}
         setIsOpen={(val) => {
@@ -119,7 +118,7 @@ const NewProjectModal: React.FC = () => {
         isOpen={showUnsavedChanges}
         setIsOpen={openUnsavedChanges}
       />
-      <section className={styles.newproject}>
+      <section className='absolute top-8 p-8 rounded-lg flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark200'>
         <svg
           onClick={handleExitNewProjectCreation}
           xmlns='http://www.w3.org/2000/svg'
@@ -145,9 +144,9 @@ const NewProjectModal: React.FC = () => {
             )
           : (
           <>
-            <h1>Create a new project</h1>
+            <h1 className='text-2xl'>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
-              <p className='w-96 mt-0 text-center'>
+              <p className='w-96 mb-4 text-center'>
                 Enter a clear project name. It&apos;ll appear to your team
                 members and should indicate what the project is focused on.
               </p>

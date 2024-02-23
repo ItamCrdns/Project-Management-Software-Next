@@ -1,4 +1,3 @@
-import styles from './queryparamspag.module.css'
 import { handleInputClick } from './handleInputClick'
 import { type PaginationUIProps } from './IPaginationUIProps'
 
@@ -32,14 +31,15 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
       : currentSecondEntityPageSize
 
   return (
-    <div className={styles.pagination}>
-      <div className={styles.pagesize}>
+    <div className='flex items-center justify-around rounded-md p-4 shadow-md bg-theming-white100 dark:bg-theming-dark100'>
+      <div className='flex items-center gap-2'>
         <p>Showing</p>
         <input
           type='number'
           defaultValue={pageSize}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
+          className='w-8 text-center border-0 outline-0 p-2 rounded-md text-black focus:outline-none focus:ring-2 bg-theming-white200'
         />
         <p>
           of {totalEntitesCount} {entityName.toLowerCase()}
@@ -47,19 +47,20 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
       </div>
       {props.secondEntityProps?.secondEntity !== undefined &&
         props.secondEntityProps?.secondEntity !== '' && (
-          <div className={styles.pagesize}>
+          <div className='flex items-center gap-2'>
             <p>Showing</p>
             <input
               type='number'
               defaultValue={secondPageSize}
               onClick={handleInputClick}
               onChange={handleSecondPageSizeInputChange}
+              className='w-8 text-center border-0 outline-0 p-2 rounded-md text-black focus:outline-none focus:ring-2 bg-theming-white200'
             />
             <p>{props.secondEntityProps?.secondEntity.toLowerCase()}</p>
           </div>
       )}
-      <div className={styles.prevandnextpage}>
-        <div>
+      <div className='flex items-center gap-4'>
+        <div className='flex items-center'>
           <svg
             onClick={currentPage > 1 ? goToFirstPage : () => {}}
             xmlns='http://www.w3.org/2000/svg'
@@ -75,7 +76,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
               d='m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5'
             />
           </svg>
-          <div onClick={goToPreviousPage}>
+          <div className='flex items-center' onClick={goToPreviousPage}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -91,7 +92,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
               />
             </svg>
             <p
-              className={styles.prevnexttext}
+              className='text-azure-radiance-600 font-semibold cursor-pointer'
               style={{
                 color: totalPages <= 1 || currentPage === 1 ? 'gray' : ''
               }}
@@ -106,12 +107,13 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           onClick={handleInputClick}
           onChange={handleCurrentPageInputChange}
           disabled={totalPages === 1}
+          className='w-8 text-center border-0 outline-0 p-2 rounded-md text-black focus:outline-none focus:ring-2 bg-theming-white200'
         />
         <p>of {totalPages}</p>
-        <div>
-          <div onClick={totalPages > 1 ? goToNextPage : () => {}}>
+        <div className='flex items-center'>
+          <div className='flex items-center' onClick={totalPages > 1 ? goToNextPage : () => {}}>
             <p
-              className={styles.prevnexttext}
+              className='text-azure-radiance-600 font-semibold cursor-pointer'
               style={{
                 color:
                   totalPages <= 1 || totalPages === currentPage ? 'gray' : ''

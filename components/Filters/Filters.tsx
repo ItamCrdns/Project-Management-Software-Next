@@ -1,4 +1,3 @@
-import styles from '@/app/projects/(list)/userbanner.module.css'
 import EntityDashboardOptions from '../Header title/_dashboard/EntityDashboardOptions'
 import PageFilters from './PageFilters'
 import { useRef } from 'react'
@@ -19,15 +18,16 @@ const Filters: React.FC<FiltersProps> = (props) => {
   closeOnOutsideClick({ ref, closeThis: props.close })
 
   return (
-      <div className={styles.popup} ref={ref}>
-        <p>Filters</p>
-        {isDashboard === true && entityName !== undefined && (
-          <EntityDashboardOptions entityName={entityName} />
-        )}
-        {isPage === true && (
-          <PageFilters showPictures={props.showPictures} />
-        )}
-      </div>
+    <div
+      className='absolute top-8 right-0 flex items-center justify-center flex-col p-4 rounded-md gap-4 min-w-80 shadow-md bg-theming-white100 dark:bg-theming-dark100'
+      ref={ref}
+    >
+      <p className='select-text'>Filters</p>
+      {isDashboard === true && entityName !== undefined && (
+        <EntityDashboardOptions entityName={entityName} />
+      )}
+      {isPage === true && <PageFilters showPictures={props.showPictures} />}
+    </div>
   )
 }
 

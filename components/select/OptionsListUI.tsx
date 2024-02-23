@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import styles from './select.module.css'
 import SelectPaginationUI from './SelectPaginationUI'
 import { type SelectUIProps } from './SelectUI'
 import RippleButton from '../ripplebutton/RippleButton'
@@ -9,18 +8,27 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const { handleMultipleOptionClick, handleOptionClick } = props
 
-  const contrastSelectedOption = (opt: Option): string => {
+  // TODO: Fix this to work with tw
+  const contrastSelectedOption = (opt: Option, isDark: boolean): string => {
     if (Array.isArray(props.defaultEntities)) {
-      return props.defaultEntities.some((e) => e.value === opt.value) ? 'var(--banner-color)' : ''
+      return props.defaultEntities.some((e) => e.value === opt.value)
+        ? isDark
+          ? 'dark400'
+          : 'white200'
+        : ''
     } else {
-      return props.defaultEntities?.value === opt.value ? 'var(--banner-color)' : ''
+      return props.defaultEntities?.value === opt.value
+        ? isDark
+          ? 'dark400'
+          : 'white200'
+        : ''
     }
   }
 
   if (props.shouldShowDropdown === true && Array.isArray(props.options)) {
     return (
-      <div className={styles.optionswrapper}>
-        <ul>
+      <div className='absolute top-14 right-0 z-50 rounded-md p-4 text-xs m-0 flex flex-col gap-4 shadow-md min-w-72 bg-theming-white100 dark:bg-theming-dark300'>
+        <ul className='flex flex-col gap-2'>
           {props.options.map((opt) => (
             <li
               onClick={(event) => {
@@ -29,7 +37,13 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
                   : handleOptionClick?.(opt, event)
               }}
               key={opt.value}
-              style={{ backgroundColor: contrastSelectedOption(opt) }}
+              className={`bg-theming-${contrastSelectedOption(
+                opt,
+                false
+              )} dark:bg-theming-${contrastSelectedOption(
+                opt,
+                true
+              )} flex items-start justify-between gap-2 p-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark400`}
             >
               {props.showPictures === true &&
                 (opt.picture !== undefined &&
@@ -48,7 +62,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
                   <NoPicture width='25px' height='25px' />
                     ))}
               <h4>{opt.label}</h4>
-              <p style={{ textAlign: 'right' }}>{opt.info}</p>
+              <p className='text-right'>{opt.info}</p>
             </li>
           ))}
         </ul>

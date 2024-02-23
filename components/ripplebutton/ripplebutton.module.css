@@ -56,14 +56,6 @@
     }
 }
 
-.loaderwrapper {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .loader {
     width: 15px;
     height: 15px;

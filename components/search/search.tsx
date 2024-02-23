@@ -60,7 +60,7 @@ const Search: React.FunctionComponent<SearchProps> = ({
   }, [searchValueFromParams])
 
   return (
-    <section className={styles.search}>
+    <section className='relative flex justify-center items-center'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
@@ -81,6 +81,7 @@ const Search: React.FunctionComponent<SearchProps> = ({
         defaultValue={searchValueFromParams ?? ''}
         maxLength={maxInputLength}
         onChange={handleInputChange}
+        className='w-72 h-10 pl-12 pr-4 rounded-md focus:outline-none focus:ring-2 focus:ring-theming-primary dark:focus:ring-theming-primary bg-theming-white200 dark:bg-theming-dark300'
       />
       {showSpinner && <span className={styles.loader} />}
     </section>

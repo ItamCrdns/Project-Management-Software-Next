@@ -5,7 +5,6 @@ import { useSubmitRef } from '@/utility/formSubmitRef'
 import CustomSelect from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
-import styles from './newProject.module.css'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
@@ -85,9 +84,9 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
           )
         : (
         <>
-          <h1>Now, add a description</h1>
+          <h1 className='text-2xl'>Now, add a description</h1>
           <form ref={formRef} onSubmit={handleSubmit}>
-            <p style={{ width: '400px', marginTop: '10px' }}>
+            <p className='w-96 mb-4 text-center'>
               Add a project description with objectives, goals, or key details
               to help your team understand its purpose and importance.
             </p>
@@ -116,7 +115,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
               }}
             />
           </form>
-          <div className={styles.buttonwrapper}>
+          <div className='flex gap-4 mt-4'>
             <RippleButton
               text='Next'
               backgroundColor='var(--blue)'
