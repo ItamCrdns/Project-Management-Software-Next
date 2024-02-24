@@ -48,8 +48,8 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
 
   return (
     <section className='fixed bg-black bg-opacity-20 w-full h-screen flex flex-col items-center justify-center z-10 m-0 p-0'>
-      <section className='absolute top-8 flex items-center justify-center flex-col gap-4 min-h-96 bg-white p-8 rounded-lg'>
-        <Link href={closeButtonHref}>
+      <section className='absolute top-8 flex items-center justify-center flex-col gap-4 min-h-96 bg-theming-white100 dark:bg-theming-dark300 p-8 rounded-lg'>
+        <Link className='text-black dark:text-white' href={closeButtonHref}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'

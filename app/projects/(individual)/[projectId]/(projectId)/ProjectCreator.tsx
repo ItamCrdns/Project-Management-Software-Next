@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from './project.module.css'
 import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisibility'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import { type Employee } from '@/interfaces/employee'
@@ -27,7 +26,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
   }
 
   return (
-    <div className={styles.userwrapper}>
+    <div className='flex items-center gap-3 relative'>
       {profilePicture !== null
         ? (
         <Image
@@ -37,6 +36,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
           alt={username}
           width={props.pictureSize ?? 45}
           height={props.pictureSize ?? 45}
+          className='rounded-full'
         />
           )
         : (
@@ -45,14 +45,18 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
         </div>
           )}
       {props.showUsername && (
-        <h3>
-          <Link href={`/employees/${username}`}>{username}</Link>
-        </h3>
+        <Link
+          className='font-semibold capitalize text-theming-dark100 dark:text-theming-white100'
+          href={`/employees/${username}`}
+        >
+          {username}
+        </Link>
       )}
       {showCard && (
         <section
           onMouseOver={handleShowCard}
           onMouseLeave={handleHideCard}
+          className='absolute z-50'
           style={position}
         >
           <EmployeeCard

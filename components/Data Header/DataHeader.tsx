@@ -79,7 +79,7 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
   // TODO: Fix initial render problem that will render that we are always at the "Created" column.
   // TODO: Fix slow state when clicking a different column and you can see two columns being highlighted at the same time.
   return (
-    <header className='flex justify-center py-0 px-8 mb-8'>
+    <header className='flex items-center justify-center py-0 px-8 mb-8'>
       {headerItems.map((item, index) => (
         <HeaderItem
           key={index}

@@ -1,6 +1,4 @@
 import { type Task } from '@/interfaces/task'
-import styles from '@/app/projects/(list)/projectslist.module.css'
-import taskstyles from './tasks.module.css'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
 import RippleButton from '@/components/ripplebutton/RippleButton'
@@ -27,9 +25,9 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
   const tasks = data?.entity.data
 
   return (
-    <section className={taskstyles.tasks}>
-      <section className={styles.projectswrapper}>
-        <div className={styles.companywrapper}>
+    <section className='flex items-center justify-center text-sm gap-4'>
+      <section>
+        <div>
           <h1>Tasks</h1>
           <div>
             <RippleButton

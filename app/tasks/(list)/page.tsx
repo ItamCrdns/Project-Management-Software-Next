@@ -1,13 +1,12 @@
-import styles from '@/app/projects/(list)/projectslist.module.css'
 import TitleWrapper from '@/components/Header title/TitleWrapper'
 import Tasks from './Tasks'
 import { type TasksProps } from './TaskProps'
 
 const TasksPage: React.FC<TasksProps> = (props) => {
   return (
-    <main className={styles.main}>
+    <main className='flex flex-col justify-center gap-8 rounded-md p-8'>
       <TitleWrapper title='Tasks overview' />
-      <section>
+      <section className='flex flex-col items-center justify-center'>
         <Tasks searchParams={props.searchParams} />
       </section>
     </main>

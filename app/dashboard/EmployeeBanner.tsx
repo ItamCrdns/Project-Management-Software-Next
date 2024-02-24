@@ -1,6 +1,5 @@
 import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
-import styles from './dashboard.module.css'
 import NoPicture from '@/components/No profile picture/NoPicture'
 
 /**
@@ -12,30 +11,27 @@ interface EmployeeBannerProps {
 
 const EmployeeBanner: React.FC<EmployeeBannerProps> = ({ employee }) => {
   return (
-    <>
-      <div className={styles.bannerwrapper} style={{ minWidth: '400px' }}>
-        <div>
-          {employee.profilePicture !== null
-            ? (
-            <Image
-              src={employee.profilePicture}
-              alt={employee.username}
-              width={50}
-              height={50}
-            />
-              )
-            : (
-            <NoPicture width='50px' height='50px' questionMarkSize='1.75rem' />
-              )}
-          <h1>
-            Welcome, <span>{employee?.username}</span>
-          </h1>
-        </div>
-        <div>
-          <p style={{ fontSize: '12px' }}>{employee.tier.name}</p>
-        </div>
+    <div className='flex items-center justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center'>
+        {employee.profilePicture !== null
+          ? (
+          <Image
+            src={employee.profilePicture}
+            alt={employee.username}
+            width={50}
+            height={50}
+            className='rounded-full'
+          />
+            )
+          : (
+          <NoPicture width='50px' height='50px' questionMarkSize='1.75rem' />
+            )}
+        <h1 className='font-semibold'>
+          Welcome, <span>{employee?.username}</span>
+        </h1>
       </div>
-    </>
+      <p className='text-xs'>{employee.tier.name}</p>
+    </div>
   )
 }
 

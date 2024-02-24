@@ -1,4 +1,3 @@
-import styles from './project.module.css'
 import Link from 'next/link'
 import { type Employee } from '@/interfaces/employee'
 import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
@@ -19,7 +18,7 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
   }
 
   return (
-    <section className={styles.employees}>
+    <section className='flex items-center flex-col text-sm p-8 shadow-md gap-4 bg-theming-white100 dark:bg-theming-dark300'>
       <div className='flex items-center gap-8 justify-between border-b-2 border-azure-radiance-200 pb-2'>
         <h1>Employee</h1>
         <h3>List</h3>
@@ -31,14 +30,20 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
         }}
       >
         {employees.map((employee: Employee, index: number) => (
-          <div key={index} className={styles.employeeslist}>
+          <div
+            key={index}
+            className='relative flex items-center justify-center flex-row gap-4'
+          >
             <EmployeeOfTheList
               employee={employee}
               size={50}
               redirectMe={false}
               position={position}
             />
-            <Link href={`/employees/${employee.username}`}>
+            <Link
+              className='capitalize font-semibold text-base text-theming-dark100 dark:text-theming-white100'
+              href={`/employees/${employee.username}`}
+            >
               {employee.username}
             </Link>
           </div>
@@ -46,7 +51,10 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
       </ul>
       {employeeCount > 5 && (
         <h3>
-          <Link href={`/projects/${projectId}/employees`}>
+          <Link
+            className='text-theming-dark100 dark:text-theming-white100'
+            href={`/projects/${projectId}/employees`}
+          >
             See all {employeeCount} employees
           </Link>
         </h3>

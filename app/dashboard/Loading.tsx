@@ -1,21 +1,9 @@
-import stylesloader from '@/components/ripplebutton/ripplebutton.module.css'
-import styles from './dashboard.module.css'
-
-const Loading: React.FunctionComponent = () => {
+const Loading: React.FC = () => {
   return (
-    <div className={styles.bannerwrapper} style={{ minWidth: '400px' }}>
-      <span>
-        <div className={stylesloader.loaderwrapper}>
-          <span
-            style={{
-              borderTop: '2px solid rgba(0, 0, 0, 0.5)',
-              width: '25px',
-              height: '25px'
-            }}
-            className={stylesloader.loader}
-          ></span>
-        </div>
-        <h1>Loading. Please wait...</h1>
+    <div className='flex items-center justify-between gap-4 p-4 shadow-md rounded-md min-w-96 bg-theming-white100 dark:bg-theming-dark300'>
+      <span className='flex items-center gap-4'>
+        <span className='h-6 w-6 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
+        <h1 className='font-semibold'>Loading. Please wait...</h1>
       </span>
     </div>
   )

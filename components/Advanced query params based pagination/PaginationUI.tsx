@@ -31,7 +31,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
       : currentSecondEntityPageSize
 
   return (
-    <div className='flex items-center justify-around rounded-md p-4 shadow-md bg-theming-white100 dark:bg-theming-dark100'>
+    <div className='flex items-center justify-around rounded-md p-4 shadow-md bg-theming-white100 dark:bg-theming-dark300'>
       <div className='flex items-center gap-2'>
         <p>Showing</p>
         <input

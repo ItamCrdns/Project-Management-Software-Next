@@ -1,4 +1,3 @@
-import styles from '@/app/projects/(list)/projectslist.module.css'
 import TitleWrapper from '@/components/Header title/TitleWrapper'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import EachProject from '../../(list)/EachProject'
@@ -26,14 +25,14 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
   }
 
   return (
-    <main className={styles.main}>
+    <main>
       <TitleWrapper
         title={props.title}
         showButton={false}
         isPage
         showPictures // ? Options with pictures for the employees
       />
-      <section className={styles.projectswrapper}>
+      <section>
         <DataHeader
           dashboard={false}
           pushSearchParams
@@ -41,7 +40,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
           width='300px'
           sortValues={projectSortValues}
         />
-        <div className={styles.projectscontainer}>
+        <div>
           <QueryParamsPagination paginationProps={paginationProps} />
           {Array.isArray(props.projects) && props.projects.length > 0
             ? (

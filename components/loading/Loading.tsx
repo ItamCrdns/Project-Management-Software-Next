@@ -1,21 +1,7 @@
-import styles from '@/components/ripplebutton/ripplebutton.module.css' // * Here we have the loader styles
-
-interface LoadingProps {
-  entityName: string
-}
-
-const Loading: React.FC<LoadingProps> = (props) => {
+const Loading: React.FC<{ entityName: string }> = (props) => {
   return (
-    <div
-      className='flex items-center justify-center w-12 h-12'
-      style={{ display: 'flex', gap: '1rem', width: 'auto', height: 'auto' }}
-    >
-      <span
-        style={{
-          borderTop: '2px solid var(--text-color)'
-        }}
-        className={styles.loader}
-      ></span>
+    <div className='flex gap-4 items-center justify-center w-12 h-12'>
+      <span className='h-6 w-6 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
       <p>Loading {props.entityName}...</p>
     </div>
   )

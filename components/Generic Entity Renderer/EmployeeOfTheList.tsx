@@ -42,7 +42,7 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
           <section
             onMouseOver={handleShowCard}
             onMouseLeave={handleHideCard}
-            className='absolute z-50 top-8 left-8 p-4'
+            className='absolute z-50 -top-2 left-8 p-4'
             style={style}
           >
             <EmployeeCard

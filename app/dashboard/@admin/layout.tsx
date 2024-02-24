@@ -1,5 +1,4 @@
 import FilterProvider from '@/context/Filter/FilterContext'
-import styles from '../dashboard.module.css'
 
 interface AdminDashboardProps {
   projects: React.ReactNode
@@ -12,10 +11,10 @@ interface AdminDashboardProps {
 const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
   return (
     <FilterProvider>
-      <section className={styles.dashboard}>
+      <section className='flex flex-col items-center p-8'>
         {props.user}
         {props.projects}
-        <section className={styles.menus}>
+        <section className='grid grid-cols-2 gap-4'>
           {props.tasks}
           {props.issues}
         </section>

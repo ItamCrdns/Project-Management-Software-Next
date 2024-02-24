@@ -1,21 +1,18 @@
-import { type Employee } from '@/interfaces/employee'
 import EmployeeBanner from '../../EmployeeBanner'
 import AdminBanners from './AdminBanners'
 import Loading from '../../Loading'
-import styles from '@/app/dashboard/dashboard.module.css'
 import { getMyEmployee } from '@/api-calls/getMyEmployee'
 
 const UserPage = async (): Promise<JSX.Element> => {
   const { data } = await getMyEmployee()
 
-  const employee = data as Employee
-
   return (
-    <section className={styles.welcomewrapper}>
-      {employee !== null && employee !== undefined
+    <section className='flex justify-center gap-4 h-24
+    '>
+      {data !== null
         ? (
         <>
-          <EmployeeBanner employee={employee} />
+          <EmployeeBanner employee={data} />
           <AdminBanners />
         </>
           )

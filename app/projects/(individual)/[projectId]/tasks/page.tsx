@@ -1,4 +1,3 @@
-import styles from './tasks.module.css'
 import ProjectUI from './ProjectUI'
 import TasksUI from './TasksUI'
 import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
@@ -12,9 +11,9 @@ interface ProjectTasksProps {
 
 const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
   return (
-    <section className={styles.mainwrapper}>
+    <section className='flex justify-center gap-4 py-6 px-0'>
       <div>
-        <div className={styles.headerwrapper}>
+        <div className='flex justify-end'>
           <DataHeader
             dashboard={false}
             width='300px'
@@ -22,7 +21,7 @@ const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
             pushSearchParams
           />
         </div>
-        <div className={styles.entitieswrapper}>
+        <div className='flex items-start gap-4'>
           <ProjectUI projectId={props.params.projectId} />
           <TasksUI
             projectId={props.params.projectId}

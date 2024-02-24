@@ -1,5 +1,4 @@
 'use client'
-import styles from '@/app/projects/(list)/projectslist.module.css'
 import { type Employee } from '@/interfaces/employee'
 import EmployeeOfTheList from './EmployeeOfTheList'
 import { type Style } from './EntityRenderer'
@@ -13,9 +12,9 @@ const EntityEmployees: React.FunctionComponent<EntityEmployeesProps> = (
   props
 ) => {
   return (
-    <div style={props.style} className={styles.listofemployees}>
+    <div style={props.style} className='flex items-center justify-center gap-2'>
       {Array.isArray(props.employees) && (
-        <ul className='relative'>
+        <ul className='relative flex gap-2'>
           {props.employees.slice(0, 5).map((employee) => (
             <EmployeeOfTheList
               key={employee.username}

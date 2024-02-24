@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import styles from '@/app/employees/[username]/(employee)/employee.module.css'
 import { type Employee } from '@/interfaces/employee'
 import RippleButton from '../ripplebutton/RippleButton'
 import EmployeeNumbers from './EmployeeNumbers'
@@ -14,11 +13,12 @@ interface EmployeeCardProps {
   redirectMe: boolean // * Should we redirect to the employee profile or not?
 }
 
-const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
+const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
   const { employee, supervisor, isProfile, redirectMe } = props
+
   return (
-    <section className={styles.cardswrapper}>
-      <section className={styles.employeecard}>
+    <section className='space-y-8'>
+      <section className='flex flex-col gap-4 items-center rounded-lg shadow-md p-4 max-w-52 bg-theming-white100 dark:bg-theming-dark300'>
         {employee?.profilePicture !== null &&
         employee?.profilePicture !== undefined
           ? (
@@ -27,6 +27,7 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
             alt={employee?.username}
             width={175}
             height={175}
+            className='rounded-full'
           />
             )
           : (
@@ -34,24 +35,22 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
             )}
         {isProfile
           ? (
-          <h1>{employee?.username}</h1>
+          <h1 className='text-xl font-bold'>{employee?.username}</h1>
             )
           : redirectMe
             ? (
-          <h1 style={{ marginBottom: '1rem' }}>
-            <Link href={`/employees/${employee?.username}`}>
-              {employee?.username}
-            </Link>
-          </h1>
+          <Link className='font-bold text-theming-dark100 dark:text-theming-white100' href={`/employees/${employee?.username}`}>
+            {employee?.username}
+          </Link>
               )
             : (
-          <h1 style={{ fontSize: '24px', marginBottom: '1rem' }}>
+          <h1 className='text-xl font-bold'>
             {employee?.username}
           </h1>
               )}
-        <p>{employee?.role}</p>
+        <p className='capitalize text-xs -mt-4'>{employee?.role}</p>
         {isProfile && <EmployeeNumbers employee={employee} />}
-        <div className={styles.buttonwrapper}>
+        <div className='flex gap-2'>
           <RippleButton
             text='Message'
             backgroundColor='var(--blue)'
@@ -65,9 +64,9 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
         </div>
       </section>
       {supervisor !== null && isProfile && (
-        <section className={styles.employeecard}>
+        <section className='flex flex-col items-center rounded-lg shadow-md p-4 max-w-52 bg-theming-white100 dark:bg-theming-dark300'>
           <h2>Supervisor</h2>
-          <div className={styles.supervisorcontainer}>
+          <div className='flex gap-4 p-2 items-center '>
             {supervisor?.profilePicture !== null &&
             supervisor?.profilePicture !== undefined
               ? (
@@ -76,19 +75,18 @@ const EmployeeCard: React.FunctionComponent<EmployeeCardProps> = (props) => {
                 alt={supervisor?.username}
                 width={50}
                 height={50}
+                className='rounded-full'
               />
                 )
               : (
               <NoPicture width='50px' height='50px' />
                 )}
-            <p>
-              <Link
-                style={{ fontSize: '12px' }}
-                href={`/employees/${supervisor?.username}`}
-              >
-                {supervisor?.username}
-              </Link>
-            </p>
+            <Link
+              className='font-bold text-sm text-theming-dark100 dark:text-theming-white100'
+              href={`/employees/${supervisor?.username}`}
+            >
+              {supervisor?.username}
+            </Link>
           </div>
         </section>
       )}

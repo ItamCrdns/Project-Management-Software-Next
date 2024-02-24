@@ -1,5 +1,3 @@
-import styles from '@/app/projects/(list)/projectslist.module.css'
-import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import EntityHeader from '../EntityHeader'
 import LoadingFetch from '../_fetch loader/LoadingFetch'
 import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
@@ -23,9 +21,9 @@ const TasksList: React.FC<TasksProps> = (props) => {
   const { isLoading, isError, tasks } = props
 
   return (
-    <section>
+    <section className='space-y-4'>
       <EntityHeader name='tasks' />
-      <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
+      <div>
         <DataHeader
           dashboard
           pushSearchParams={false}
@@ -37,9 +35,12 @@ const TasksList: React.FC<TasksProps> = (props) => {
         {isLoading && <LoadingFetch entityName='tasks' />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(tasks?.data) && (
-          <ul>
+          <ul className='space-y-4 items-stretch'>
             {tasks?.data.map((task: Task, index: number) => (
-              <li key={index}>
+              <li
+                className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
+                key={index}
+              >
                 <EachTask task={task} showProjectName width='200px' />
               </li>
             ))}

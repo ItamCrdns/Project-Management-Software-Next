@@ -1,5 +1,3 @@
-import styles from '@/app/projects/(list)/projectslist.module.css'
-import dashboardstyles from '@/app/dashboard/dashboard.module.css'
 import { type Issue } from '@/interfaces/Issue'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import EntityHeader from '../EntityHeader'
@@ -23,9 +21,9 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
   const { isLoading, isError, issues } = props
 
   return (
-    <section>
+    <section className='space-y-4'>
       <EntityHeader name='issues' />
-      <div className={`${styles.projectswrapper} ${dashboardstyles.menu}`}>
+      <div>
         <DataHeader
           dashboard
           pushSearchParams={false}
@@ -37,9 +35,9 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
         {isLoading && <LoadingFetch entityName='issues' />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(issues?.data) && (
-          <ul>
+          <ul className='space-y-4 items-stretch'>
             {issues?.data.map((issue: Issue, index: number) => (
-              <li key={index}>
+              <li className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300' key={index}>
                 <EachIssue issue={issue} showTaskName />
               </li>
             ))}

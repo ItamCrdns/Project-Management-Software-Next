@@ -1,8 +1,6 @@
 import getTasks, { type GetTasksProps } from '@/api-calls/getTasks'
 import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
-import styles from '@/app/projects/(list)/projectslist.module.css'
-import styles2 from './tasks.module.css'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type TasksProps } from './TaskProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
@@ -36,7 +34,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
   }
 
   return (
-    <>
+    <div className='flex flex-col'>
       <QueryParamsPagination
         paginationProps={paginationProps}
         secondEntityProps={secondEntityProps}
@@ -45,9 +43,9 @@ const Tasks: React.FC<TasksProps> = async (props) => {
         <ul>
           {tasks.map((task, index) => (
             <li key={index}>
-              <div className={styles2.tasktitlewrapper}>
-                <h1>{task.projectName}</h1>
-                <div className={styles2.taskbtnswrapper}>
+              <div className='flex items-center justify-between'>
+                <h1 className='m-0 my-6 text-2xl'>{task.projectName}</h1>
+                <div className='flex gap-4'>
                   {task.isCurrentUserOwner && (
                     <RippleButton
                       text='Create a new task'
@@ -70,27 +68,25 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                   />
                 </div>
               </div>
-              <div className={styles.projectswrapper}>
-                <ul>
-                  {task.tasks.map((task: Task, index: number) => (
-                    <li key={index}>
-                      <EachTask task={task} showProjectName={false} />
-                    </li>
-                  ))}
-                  <p style={{ alignSelf: 'flex-end' }}>
-                    Total{' '}
-                    <span style={{ fontWeight: 'bold' }}>
-                      {task.projectName}
-                    </span>{' '}
-                    tasks: {task.count}
-                  </p>
-                </ul>
-              </div>
+              <ul className='flex flex-col gap-4 items-stretch'>
+                {task.tasks.map((task: Task, index: number) => (
+                  <li
+                    className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
+                    key={index}
+                  >
+                    <EachTask task={task} showProjectName={false} />
+                  </li>
+                ))}
+                <p className='self-end'>
+                  Total <span className='font-bold'>{task.projectName}</span>{' '}
+                  tasks: {task.count}
+                </p>
+              </ul>
             </li>
           ))}
         </ul>
       )}
-    </>
+    </div>
   )
 }
 

@@ -3,7 +3,6 @@ import Link from 'next/link'
 import EntityCreator from './EntityCreator'
 import EntityEmployees from './EntityEmployees'
 import { setEntityPriority } from './EntityPriority'
-import styles from '@/app/projects/(list)/projectslist.module.css'
 import { getRelativeTimeString } from '@/utility/relativeTime'
 
 // * We would have to map the items to fit as the Entity interface
@@ -44,12 +43,13 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
 
   return (
     <>
-      <div style={style}>
-        <h1>
-          <Link href={`/${props.entityBasePath}/${props.entity.id}`}>
-            {props.entity.name}
-          </Link>
-        </h1>
+      <div className='flex items-center justify-center gap-2 p-4' style={style}>
+        <Link
+          className='font-bold text-theming-dark100 dark:text-theming-white100'
+          href={`/${props.entityBasePath}/${props.entity.id}`}
+        >
+          {props.entity.name}
+        </Link>
       </div>
       <EntityCreator style={style} creator={props.entity.creator} />
       {props.entity.employees.length > 0
@@ -57,28 +57,27 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
         <EntityEmployees style={style} employees={props.entity.employees} />
           )
         : (
-        <div style={style} className={styles.listofemployees}>
+        <div className='flex items-center justify-center gap-2' style={style}>
           No employees
         </div>
           )}
       {props.entity.priority !== null &&
         props.entity.priority !== undefined && (
-          <div style={style}>
+          <div className='flex items-center justify-center gap-2' style={style}>
             <p style={{ color: priority.color }}>{priority.priorityText}</p>
           </div>
       )}
-      <div style={style}>
+      <div className='flex items-center justify-center gap-2' style={style}>
         <p>{getRelativeTimeString(props.entity.created)}</p>
       </div>
       {props.showParentEntity && (
-        <div style={style}>
-          <h1 style={{ textAlign: 'center' }}>
-            <Link
-              href={`/${props.parentBasePath}/${props.entity.parentName}/${props.entity.id}/${props.entity.name}`}
-            >
-              {props.entity.parentName}
-            </Link>
-          </h1>
+        <div className='flex items-center justify-center gap-2' style={style}>
+          <Link
+            className='font-bold text-theming-dark100 dark:text-theming-white100'
+            href={`/${props.parentBasePath}/${props.entity.parentName}/${props.entity.id}/${props.entity.name}`}
+          >
+            {props.entity.parentName}
+          </Link>
         </div>
       )}
     </>

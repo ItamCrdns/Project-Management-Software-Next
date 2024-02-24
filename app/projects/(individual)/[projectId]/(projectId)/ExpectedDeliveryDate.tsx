@@ -1,6 +1,5 @@
 'use client'
 import { type Project } from '@/interfaces/project'
-import styles from './project.module.css'
 import { dateFormatter } from '@/utility/dateFormatter'
 import { useState } from 'react'
 
@@ -53,9 +52,11 @@ const ExpectedDeliveryDate: React.FC<Props> = (props) => {
 
   return (
     <>
-      <p className={styles.grayedtext}>Expected delivery date</p>
-      <div className={styles.informationcontainer}>
-        <p style={{ color }}>{date}</p>
+      <p className='text-gray-500'>Expected delivery date</p>
+      <div className='relative flex items-center m-0 p-0 gap-1'>
+        <p className='m-0 p-0' style={{ color }}>
+          {date}
+        </p>
         <svg
           style={{ color }}
           onMouseOver={() => {
@@ -78,8 +79,11 @@ const ExpectedDeliveryDate: React.FC<Props> = (props) => {
           />
         </svg>
         {toggle && (
-          <div style={{ backgroundColor }} className={styles.absolutepopup}>
-            <p>{message}</p>
+          <div
+            className='absolute p-2 rounded-md top-6 w-52'
+            style={{ backgroundColor }}
+          >
+            <p className='m-0 p-0 text-xs'>{message}</p>
           </div>
         )}
       </div>

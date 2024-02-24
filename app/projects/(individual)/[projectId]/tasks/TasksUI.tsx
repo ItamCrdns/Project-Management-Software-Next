@@ -1,6 +1,4 @@
 import getProjectTasks from '@/api-calls/getProjectTasks'
-import styles from '@/app/projects/(list)/projectslist.module.css'
-import tasksStyles from './tasks.module.css'
 import { type Task } from '@/interfaces/task'
 import EachTask from '../(projectId)/@tasks/EachTask'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
@@ -32,10 +30,8 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
   }
 
   return (
-    <section
-      className={`${styles.projectswrapper} ${tasksStyles.taskswrapper}`}
-    >
-      <div className={tasksStyles.paginationwrapper}>
+    <section>
+      <div className='w-full'>
         <QueryParamsPagination paginationProps={paginationProps} />
       </div>
       {Array.isArray(tasks) && (

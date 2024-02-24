@@ -1,5 +1,4 @@
 import { type Task } from '@/interfaces/task'
-import styles from '@/app/projects/(individual)/[projectId]/(projectId)/project.module.css'
 import getUserTasksShowcase from '@/api-calls/getUserTasksShowcase'
 import Link from 'next/link'
 import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
@@ -13,8 +12,8 @@ const Tasks: React.FunctionComponent<UsernameParamsProps> = async ({
   const tasksCount = data?.count
 
   return (
-    <section className={styles.employees}>
-      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-2'>
+    <section className='flex items-center flex-col text-sm gap-4 shadow-md px-8 py-4 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-4'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -29,8 +28,8 @@ const Tasks: React.FunctionComponent<UsernameParamsProps> = async ({
             d='M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3'
           />
         </svg>
-        <h1>Current tasks</h1>
-        <h3>List</h3>
+        <h1 className='text-2xl m-0'>Current tasks</h1>
+        <h3 className='m-0'>List</h3>
       </div>
       {Array.isArray(tasks) && tasks.length > 0
         ? (

@@ -1,13 +1,12 @@
-import styles from '../employee.module.css'
 import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
 const RecentActivity: React.FC<UsernameParamsProps> = ({ params }) => {
   return (
-    <section className={styles.activitywrapper}>
+    <section className='flex items-center flex-col text-sm shadow-md p-8 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
       <h1>
         Recent activity of <span>{params.username}</span>
       </h1>
-      <section className={styles.recentactivity}>
+      <section className='flex items-center justify-center flex-col'>
         <p>Here we will show their recent stuff.</p>
       </section>
     </section>

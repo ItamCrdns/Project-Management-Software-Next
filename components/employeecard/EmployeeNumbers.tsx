@@ -1,5 +1,4 @@
 'use client'
-import styles from '@/app/employees/[username]/(employee)/employee.module.css'
 import { type Employee } from '@/interfaces/employee'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -38,7 +37,7 @@ const EmployeeNumbers: React.FunctionComponent<EmployeeNumbersProps> = ({
   ]
 
   return (
-    <section className={styles.employeenumbers}>
+    <section className='relative flex w-full justify-around'>
       {employeeNumbersList.map((item, index) => {
         return (
           <Link
@@ -51,20 +50,17 @@ const EmployeeNumbers: React.FunctionComponent<EmployeeNumbersProps> = ({
             href={item.link}
             key={index}
           >
-            <p>{item.totalCount}</p> {item.name}
+            <div className='my-4'>
+              <p className='font-bold text-theming-dark100 dark:text-theming-white100 text-center text-xs'>{item.totalCount}</p>
+              <p className='font-bold text-theming-dark100 dark:text-theming-white100 text-center text-xs'>{item.name}</p>
+            </div>
             {hoveredLink === item.link && (
-              <div className={styles.employeenumbersbanner}>
-                <p>
-                  <span style={{ fontWeight: 700, fontSize: '18px' }}>
-                    {item.createdCount}
-                  </span>{' '}
-                  created {item.name}
+              <div className='absolute flex gap-4 shadow-md py-4 px-8 top-12 z-50 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
+                <p className='font-bold text-theming-dark100 dark:text-theming-white100 text-xs'>
+                  {item.createdCount} created {item.name}
                 </p>
-                <p>
-                  <span style={{ fontWeight: 700, fontSize: '18px' }}>
-                    {item.participantCount}
-                  </span>{' '}
-                  participant {item.name}
+                <p className='font-bold text-theming-dark100 dark:text-theming-white100 text-xs'>
+                  {item.participantCount} participant {item.name}
                 </p>
               </div>
             )}

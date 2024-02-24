@@ -16,7 +16,9 @@ const config = {
     extend: {
       animation: {
         'slide-in': 'slideIn 0.25s forwards',
-        'slide-out': 'slideOut 0.25s forwards'
+        'slide-out': 'slideOut 0.25s forwards',
+        'spin-slow': 'rotation 3s linear infinite',
+        'spin-fast': 'rotation 1s linear infinite'
       },
       keyframes: {
         slideIn: {
@@ -26,6 +28,10 @@ const config = {
         slideOut: {
           '0%': { transform: 'translateY(0)', opacity: '1' },
           '100%': { transform: 'translateY(-100%)', opacity: '0' }
+        },
+        rotation: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
         }
       },
       height: {
