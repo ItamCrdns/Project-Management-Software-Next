@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { type Employee } from '@/interfaces/employee'
-import RippleButton from '../ripplebutton/RippleButton'
+import { Button } from '../Button/Button'
 import EmployeeNumbers from './EmployeeNumbers'
 import NoPicture from '../No profile picture/NoPicture'
 
@@ -39,28 +39,21 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
             )
           : redirectMe
             ? (
-          <Link className='font-bold text-theming-dark100 dark:text-theming-white100' href={`/employees/${employee?.username}`}>
+          <Link
+            className='text-xl font-bold text-theming-dark100 dark:text-theming-white100'
+            href={`/employees/${employee?.username}`}
+          >
             {employee?.username}
           </Link>
               )
             : (
-          <h1 className='text-xl font-bold'>
-            {employee?.username}
-          </h1>
+          <h1 className='text-xl font-bold'>{employee?.username}</h1>
               )}
         <p className='capitalize text-xs -mt-4'>{employee?.role}</p>
         {isProfile && <EmployeeNumbers employee={employee} />}
         <div className='flex gap-2'>
-          <RippleButton
-            text='Message'
-            backgroundColor='var(--blue)'
-            textColor='white'
-          />
-          <RippleButton
-            text='More'
-            backgroundColor='var(--blue)'
-            textColor='white'
-          />
+          <Button text='Message' />
+          <Button text='More' />
         </div>
       </section>
       {supervisor !== null && isProfile && (

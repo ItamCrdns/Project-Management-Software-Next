@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import AddDescription from './AddDescription'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
@@ -172,12 +172,7 @@ const NewProjectModal: React.FC = () => {
                 defaultValue={new Date(newProject.expectedDeliveryDate)}
               />
             </form>
-            <RippleButton
-              text='Next'
-              backgroundColor='var(--blue)'
-              textColor='white'
-              func={handleClick}
-            />
+            <Button text='Next' func={handleClick} />
           </>
             )}
       </section>

@@ -1,10 +1,10 @@
 import { type Task } from '@/interfaces/task'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
-import RippleButton from '@/components/ripplebutton/RippleButton'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { projectSortValues } from '@/components/Data Header/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
+import { Button } from '@/components/Button/Button'
 
 interface TasksProps {
   params: { projectId: string }
@@ -27,13 +27,11 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
   return (
     <section className='flex items-center justify-center text-sm gap-4'>
       <section>
-        <div>
-          <h1>Tasks</h1>
+        <div className='flex items-center justify-between mb-8'>
+          <h1 className='font-semibold text-xl'>Tasks</h1>
           <div>
-            <RippleButton
+            <Button
               text='Show all tasks'
-              backgroundColor='var(--blue)'
-              textColor='white'
               href={`/projects/${projectId}/tasks`}
             />
           </div>
@@ -45,10 +43,13 @@ const TasksParallel: React.FC<TasksProps> = async (props) => {
           sortValues={projectSortValues} // TODO: FIX WRONG
         />
         {Array.isArray(tasks) && (
-          <ul>
+          <ul className='space-y-4 items-stretch'>
             {tasks.length > 0 &&
               tasks.map((task: Task, index: number) => (
-                <li key={index}>
+                <li
+                  className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
+                  key={index}
+                >
                   <EachTask task={task} showProjectName={false} />
                 </li>
               ))}

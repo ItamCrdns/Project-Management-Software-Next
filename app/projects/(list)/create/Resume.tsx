@@ -1,5 +1,5 @@
 import handleSubmitProject from '@/api-calls/postProject'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
 import { handleCreateClient } from './handlePostClient'
 import { useAppSelector } from '@/lib/hooks/hooks'
@@ -122,17 +122,9 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
               )}
         </div>
         <div className='flex gap-4'>
-          <RippleButton
-            text='Create project'
-            backgroundColor='var(--blue)'
-            textColor='white'
-            asyncFunc={handleCreateProject}
-          />
-          <RippleButton
+          <Button text='Create project' asyncFunc={handleCreateProject} />
+          <Button
             text='Go back'
-            backgroundColor='var(--darker-banner-color)'
-            effectColor='var(--banner-color)'
-            textColor='var(--text-color)'
             func={() => {
               props.goBack()
             }}

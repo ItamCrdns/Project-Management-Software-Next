@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import RippleButton from '../ripplebutton/RippleButton'
+import { Button } from '../Button/Button'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import SelectAuthor from './SelectAuthor'
 import SelectPriority from './SelectPriority'
@@ -88,13 +88,8 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
       <SelectAuthor {...selectAuthorProps} />
       <SelectPriority {...selectPriorityProps} />
       {filtersHaveBeenSet && (
-        <div style={{ marginTop: '.75rem' }}>
-          <RippleButton
-            text='Clear all filters'
-            textColor='white'
-            backgroundColor='rgb(255, 80, 120)'
-            func={handleClearFilters}
-          />
+        <div className='mt-3'>
+          <Button text='Clear all filters' func={handleClearFilters} />
         </div>
       )}
     </div>

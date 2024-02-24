@@ -1,11 +1,11 @@
 'use client'
 import { useAuth } from '@/context/AuthContext'
 import { useRef, useState } from 'react'
-import RippleButton from '@/components/ripplebutton/RippleButton'
 import { useRouter } from 'next/navigation'
 import Alert from '@/components/alert/alert'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import { type Result, type LoginData } from '@/context/authInitialState'
+import { Button } from '@/components/Button/Button'
 
 const alertInitialState = {
   wrongCreds: false,
@@ -96,12 +96,9 @@ const LoginPage = (): JSX.Element => {
           />
           <input type='submit' className='hidden' />
         </form>
-        <RippleButton
-          text='Login'
-          backgroundColor='var(--blue)'
-          textColor='white'
-          func={handleClick}
-        />
+        <div className='flex self-center'>
+          <Button text='Login' func={handleClick} />
+        </div>
       </section>
       <Alert
         ready={isAnyFieldTruthy}

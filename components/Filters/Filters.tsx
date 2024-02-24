@@ -19,7 +19,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
 
   return (
     <div
-      className='absolute top-8 right-0 flex items-center justify-center flex-col p-4 rounded-md gap-4 min-w-80 shadow-md bg-theming-white100 dark:bg-theming-dark100'
+      className='absolute z-50 top-8 right-0 flex items-center justify-center flex-col p-4 rounded-md gap-4 min-w-80 shadow-md bg-theming-white100 dark:bg-theming-dark300'
       ref={ref}
     >
       <p className='select-text'>Filters</p>

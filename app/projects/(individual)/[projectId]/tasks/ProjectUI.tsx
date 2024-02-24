@@ -5,7 +5,7 @@ import { type Position } from '@/components/Generic Entity Renderer/IEmployeeLis
 import getProjectLimited from '@/api-calls/getProjectLimited'
 import Link from 'next/link'
 import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPriority'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 
 interface ProjectUIProps {
   projectId: string
@@ -71,16 +71,11 @@ const ProjectUI: React.FC<ProjectUIProps> = async (props) => {
         </div>
       </div>
       <div className='space-x-4'>
-        {isProjectOwner === true && (
-          <RippleButton text='Create new task' width='125px' />
-        )}
+        {isProjectOwner === true && <Button text='Create new task' />}
         {isProjectParticipant === true && (
           <div className='space-x-4'>
-            <RippleButton text='My tasks' width='85px' />
-            <RippleButton
-              text='Request new task'
-              backgroundColor='var(--blue)'
-            />
+            <Button text='My tasks' />
+            <Button text='Request new task' />
           </div>
         )}
       </div>

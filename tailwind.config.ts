@@ -18,7 +18,8 @@ const config = {
         'slide-in': 'slideIn 0.25s forwards',
         'slide-out': 'slideOut 0.25s forwards',
         'spin-slow': 'rotation 3s linear infinite',
-        'spin-fast': 'rotation 1s linear infinite'
+        'spin-fast': 'rotation 1s linear infinite',
+        ripple: 'ripple 0.6s linear forwards'
       },
       keyframes: {
         slideIn: {
@@ -32,6 +33,10 @@ const config = {
         rotation: {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' }
+        },
+        ripple: {
+          '0%': { transform: 'translate(0, 0)', opacity: '0.75', width: 0, height: 0 },
+          '100%': { transform: 'translate(-100px, -100px)', opacity: '0', width: '200px', height: '200px' }
         }
       },
       height: {

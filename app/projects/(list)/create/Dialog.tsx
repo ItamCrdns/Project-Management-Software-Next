@@ -1,4 +1,4 @@
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { Dialog, DialogPanel, List, ListItem } from '@tremor/react'
 import { type ErrorMessages } from './errorMessages'
 
@@ -30,10 +30,8 @@ const DialogComponent: React.FC<DialogProps> = (props) => {
               )
           )}
         </div>
-        <RippleButton
+        <Button
           text='Close'
-          backgroundColor='var(--blue)'
-          textColor='white'
           func={() => {
             setIsOpen(false)
           }}

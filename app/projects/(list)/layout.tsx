@@ -2,7 +2,7 @@ import React from 'react'
 import { type Project } from '@/interfaces/project'
 import getProjects from '@/api-calls/getProjects'
 import EachProject from './EachProject'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import TitleWrapper from '../../../components/Header title/TitleWrapper'
 import { type ProjectsListProps } from '@/interfaces/props/ProjectsListProps'
 
@@ -32,11 +32,9 @@ const ProjectsPage: React.FC<ProjectsListProps> = async (props) => {
                   <h1 className='m-0 my-6 text-2xl'>{companyName}</h1>
                   {Array.isArray(projects) && projects.length > 0 && (
                     <div>
-                      <RippleButton
+                      <Button
                         text={`More projects from ${companyName}`}
                         href={`/projects/client/${projects[0].company.companyId}/${companyName}`}
-                        textColor='white'
-                        backgroundColor='var(--blue)'
                       />
                     </div>
                   )}

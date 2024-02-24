@@ -1,6 +1,6 @@
 import AddEmployeesToProject from './_employees/Employees'
 import { useRef, useState } from 'react'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import CustomSelect from '@/components/select/select'
 import { priorityOptions } from './priorityOptions'
@@ -116,19 +116,8 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
             />
           </form>
           <div className='flex gap-4 mt-4'>
-            <RippleButton
-              text='Next'
-              backgroundColor='var(--blue)'
-              textColor='white'
-              func={handleClick}
-            />
-            <RippleButton
-              text='Go back'
-              backgroundColor='var(--darker-banner-color)'
-              effectColor='var(--banner-color)'
-              textColor='var(--text-color)'
-              func={props.goBack}
-            />
+            <Button text='Next' func={handleClick} />
+            <Button text='Go back' func={props.goBack} />
           </div>
         </>
           )}

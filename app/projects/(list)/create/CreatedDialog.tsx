@@ -1,4 +1,4 @@
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 import { Dialog, DialogPanel } from '@tremor/react'
@@ -34,11 +34,7 @@ const CreatedDialog: React.FC<CreatedDialogProps> = (props) => {
           <>
             <h3 className='text-center font-bold'>Oops!</h3>
             <p className='text-center mb-4'>{response?.message}</p>
-            <RippleButton
-              text='Close'
-              backgroundColor='var(--darker-banner-color)'
-              func={closeDialog}
-            />
+            <Button text='Close' func={closeDialog} />
           </>
             )
           : (
@@ -48,17 +44,8 @@ const CreatedDialog: React.FC<CreatedDialogProps> = (props) => {
               Your project has been created successfully
             </p>
             <div className='space-y-4'>
-              <RippleButton
-                text='See project'
-                backgroundColor='var(--blue)'
-                textColor='white'
-                func={handleCloseAndGoToProject}
-              />
-              <RippleButton
-                text='Close'
-                backgroundColor='var(--darker-banner-color)'
-                func={handleCloseAndClear}
-              />
+              <Button text='See project' func={handleCloseAndGoToProject} />
+              <Button text='Close' func={handleCloseAndClear} />
             </div>
           </>
             )}

@@ -14,7 +14,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
       <section className='flex flex-col items-center p-8'>
         {props.user}
         {props.projects}
-        <section className='grid grid-cols-2 gap-4'>
+        <section className='grid grid-cols-2 gap-8'>
           {props.tasks}
           {props.issues}
         </section>

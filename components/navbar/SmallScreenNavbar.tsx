@@ -1,4 +1,4 @@
-import RippleButton from '../ripplebutton/RippleButton'
+import { Button } from '../Button/Button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { type Employee } from '@/interfaces/employee'
@@ -54,15 +54,7 @@ const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
                 Your profile
               </Link>
             </div>
-            <RippleButton
-              text='Logout'
-              icon='logout'
-              iconSize='20px'
-              backgroundColor='rgb(255, 80, 120)'
-              effectColor='rgb(255, 50, 120)'
-              textColor='white'
-              func={handleLogout}
-            />
+            <Button text='Logout' func={handleLogout} />
           </div>
         </div>
           )
@@ -70,13 +62,7 @@ const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
         <div className='flex flex-col items-center justify-center gap-4 px-0 py-4 bg-theming-white100 dark:bg-theming-dark100'>
           <div className='flex items-center gap-4'>
             <span>You are not logged in.</span>
-            <RippleButton
-              text='Login'
-              backgroundColor='var(--blue)'
-              effectColor='#CAF0F8'
-              textColor='white'
-              href='/login'
-            />
+            <Button text='Login' href='/login' />
           </div>
         </div>
           )}

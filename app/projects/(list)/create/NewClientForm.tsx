@@ -1,4 +1,4 @@
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { useRef } from 'react'
 import { type NewClientFormProps } from '@/interfaces/props/NewClientFormProps'
 
@@ -26,12 +26,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         maxLength={255}
         className='w-48 p-2 rounded-md text-black bg-theming-white200 dark:bg-theming-dark300 dark:text-white'
       />
-      <RippleButton
-        text={props.buttonText}
-        backgroundColor='var(--blue)'
-        textColor='white'
-        func={handleClick}
-      />
+      <Button text={props.buttonText} func={handleClick} />
       <svg
         onClick={handleCloseForm}
         xmlns='http://www.w3.org/2000/svg'

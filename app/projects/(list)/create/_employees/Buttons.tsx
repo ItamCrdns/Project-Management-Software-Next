@@ -1,4 +1,4 @@
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { type ButtonsProps } from '@/interfaces/props/EmployeeButtonsProps'
 
 const Buttons: React.FC<ButtonsProps> = (props) => {
@@ -7,37 +7,17 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
   return selectedEmployees !== null && selectedEmployees.length > 0
     ? (
     <div className='flex gap-4'>
-      <RippleButton
+      <Button
         text={`Add ${selectedEmployees.length} employees`}
-        backgroundColor='var(--blue)'
-        textColor='white'
         func={handleSubmit}
       />
-      <RippleButton
-        text='Go back'
-        backgroundColor='var(--darker-banner-color)'
-        effectColor='var(--banner-color)'
-        textColor='var(--text-color)'
-        func={handleGoBack}
-      />
+      <Button text='Go back' func={handleGoBack} />
     </div>
       )
     : (
     <div className='flex gap-4'>
-      <RippleButton
-        text='Continue without adding employees'
-        backgroundColor='var(--darker-banner-color)'
-        effectColor='var(--banner-color)'
-        textColor='var(--text-color)'
-        func={handleSubmit}
-      />
-      <RippleButton
-        text='Go back'
-        backgroundColor='var(--darker-banner-color)'
-        effectColor='var(--banner-color)'
-        textColor='var(--text-color)'
-        func={handleGoBack}
-      />
+      <Button text='Continue without adding employees' func={handleSubmit} />
+      <Button text='Go back' func={handleGoBack} />
     </div>
       )
 }

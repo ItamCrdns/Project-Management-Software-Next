@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import RippleButton from '../ripplebutton/RippleButton'
+import { Button } from '../Button/Button'
 import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
@@ -156,15 +156,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         </span>
       </section>
       <section className='flex items-center justify-center mx-0 my-4'>
-        <RippleButton
-          text='Logout'
-          icon='logout'
-          iconSize='20px'
-          backgroundColor='rgb(255, 80, 120)'
-          effectColor='rgb(255, 50, 120)'
-          textColor='white'
-          func={handleLogout}
-        />
+        <Button text='Logout' func={handleLogout} />
       </section>
     </aside>
   )

@@ -6,7 +6,7 @@ import { type TasksProps } from './TaskProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 
 const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
@@ -47,22 +47,18 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                 <h1 className='m-0 my-6 text-2xl'>{task.projectName}</h1>
                 <div className='flex gap-4'>
                   {task.isCurrentUserOwner && (
-                    <RippleButton
+                    <Button
                       text='Create a new task'
                       href={`projects/${task.projectId}/tasks/create`}
-                      textColor='white'
-                      backgroundColor='var(--blue)'
                     />
                   )}
                   {task.isCurrentUserInTeam && (
-                    <RippleButton
+                    <Button
                       text='Your assigned tasks'
                       href={`projects/${task.projectId}/tasks`}
-                      textColor='white'
-                      backgroundColor='var(--blue)'
                     />
                   )}
-                  <RippleButton
+                  <Button
                     text={`More tasks from ${task.projectName}`}
                     href={`projects/${task.projectId}/tasks`}
                   />

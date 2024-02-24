@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import SelectPaginationUI from './SelectPaginationUI'
 import { type SelectUIProps } from './SelectUI'
-import RippleButton from '../ripplebutton/RippleButton'
+import { Button } from '../Button/Button'
 import NoPicture from '../No profile picture/NoPicture'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 
@@ -72,12 +72,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
           isPaginated={props.isPaginated}
         />
         {props.showCloseButton === true && (
-          <RippleButton
-            text='Close'
-            backgroundColor='rgb(255, 80, 120)'
-            textColor='white'
-            func={() => props.closeDropdown?.()}
-          />
+          <Button text='Close' func={() => props.closeDropdown?.()} />
         )}
       </div>
     )

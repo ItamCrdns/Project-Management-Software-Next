@@ -30,15 +30,15 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
   }
 
   return (
-    <section>
+    <section className='space-y-8'>
       <div className='w-full'>
         <QueryParamsPagination paginationProps={paginationProps} />
       </div>
       {Array.isArray(tasks) && (
-        <ul>
+        <ul className='space-y-4 items-stretch'>
           {tasks.length > 0 &&
             tasks.map((task: Task, index: number) => (
-              <li key={index}>
+              <li className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300' key={index}>
                 <EachTask task={task} showProjectName={false} />
               </li>
             ))}

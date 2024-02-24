@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import NewClientForm from './NewClientForm'
 import { type CreateNewClientProps } from '@/interfaces/props/CreateNewClientProps'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
@@ -30,10 +30,8 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
     <>
       <Divider>Or</Divider>
       {!toggle && props.clientName === '' && (
-        <RippleButton
+        <Button
           text='Create new client instead'
-          backgroundColor='var(--blue)'
-          textColor='white'
           func={handleOpenForm}
           disabled={props.companySelected}
         />

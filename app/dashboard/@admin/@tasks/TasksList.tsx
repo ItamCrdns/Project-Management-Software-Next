@@ -21,7 +21,7 @@ const TasksList: React.FC<TasksProps> = (props) => {
   const { isLoading, isError, tasks } = props
 
   return (
-    <section className='space-y-4'>
+    <section className='space-y-4 mb-8'>
       <EntityHeader name='tasks' />
       <div>
         <DataHeader

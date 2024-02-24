@@ -1,4 +1,4 @@
-import RippleButton from '@/components/ripplebutton/RippleButton'
+import { Button } from '@/components/Button/Button'
 import { useRouter } from 'next/navigation'
 import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
 import { Dialog, DialogPanel } from '@tremor/react'
@@ -27,21 +27,13 @@ const UnsavedChanges: React.FC<UnsavedChangesProps> = (props) => {
         </p>
         <p className='text-center'>Changes you have made will not be saved.</p>
         <div className='flex mt-4'>
-          <RippleButton
+          <Button
             text='Go back'
-            backgroundColor='var(--blue)'
-            textColor='white'
             func={() => {
               setIsOpen(false)
             }}
           />
-          <RippleButton
-            text='Discard'
-            backgroundColor='rgb(255, 80, 120)'
-            effectColor='rgb(255, 50, 120)'
-            textColor='white'
-            func={handleExit}
-          />
+          <Button text='Discard' func={handleExit} />
         </div>
       </DialogPanel>
     </Dialog>

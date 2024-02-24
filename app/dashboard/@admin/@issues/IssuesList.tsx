@@ -21,7 +21,7 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
   const { isLoading, isError, issues } = props
 
   return (
-    <section className='space-y-4'>
+    <section className='space-y-4 mb-8'>
       <EntityHeader name='issues' />
       <div>
         <DataHeader

@@ -25,14 +25,14 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
   }
 
   return (
-    <main>
+    <main className='flex items-center flex-col'>
       <TitleWrapper
         title={props.title}
         showButton={false}
         isPage
         showPictures // ? Options with pictures for the employees
       />
-      <section>
+      <div>
         <DataHeader
           dashboard={false}
           pushSearchParams
@@ -40,13 +40,13 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
           width='300px'
           sortValues={projectSortValues}
         />
-        <div>
+        <div className='space-y-8'>
           <QueryParamsPagination paginationProps={paginationProps} />
           {Array.isArray(props.projects) && props.projects.length > 0
             ? (
-            <ul>
+            <ul className='space-y-4 items-stretch'>
               {props.projects.map((project: Project, index: number) => (
-                <li key={index}>
+                <li className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300' key={index}>
                   <EachProject project={project} showCompanyName={false} />
                 </li>
               ))}
@@ -59,7 +59,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
             </p>
               )}
         </div>
-      </section>
+      </div>
     </main>
   )
 }
