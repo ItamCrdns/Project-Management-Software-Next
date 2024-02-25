@@ -27,10 +27,7 @@ const Navbar: React.FC<{ currentTheme: string }> = (props) => {
     }
   }
 
-  const handleOpenMenu = (): boolean => {
-    setShowOptions(!showOptions)
-    return showOptions
-  }
+  const [theme, setTheme] = useState<string>(props.currentTheme)
 
   const pathname = usePathname()
 
@@ -58,7 +55,9 @@ const Navbar: React.FC<{ currentTheme: string }> = (props) => {
                 {user.profilePicture !== '' && user.profilePicture !== null
                   ? (
                   <Image
-                    onClick={handleOpenMenu}
+                    onClick={() => {
+                      setShowOptions(!showOptions)
+                    }}
                     src={user.profilePicture}
                     alt={user.username}
                     width={50}
@@ -67,7 +66,12 @@ const Navbar: React.FC<{ currentTheme: string }> = (props) => {
                   />
                     )
                   : (
-                  <div onClick={handleOpenMenu} className='cursor-pointer'>
+                  <div
+                    onClick={() => {
+                      setShowOptions(!showOptions)
+                    }}
+                    className='cursor-pointer'
+                  >
                     <NoPicture
                       width='50px'
                       height='50px'
@@ -79,7 +83,10 @@ const Navbar: React.FC<{ currentTheme: string }> = (props) => {
               {showOptions && (
                 <DropdownMenu
                   employee={user}
-                  currentTheme={props.currentTheme}
+                  theme={theme}
+                  switchTheme={() => {
+                    setTheme(theme === 'light' ? 'dark' : 'light')
+                  }}
                   closeDropdownMenu={() => {
                     setShowOptions(false)
                   }}

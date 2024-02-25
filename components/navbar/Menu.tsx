@@ -3,7 +3,7 @@ import { Button } from '../Button/Button'
 import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import NoPicture from '../No profile picture/NoPicture'
 import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 import { Project } from '../Data Header/svg/Project'
@@ -11,18 +11,18 @@ import { Task } from '../Data Header/svg/Task'
 interface DropdownMenuProps {
   employee: Employee
   closeDropdownMenu: () => void
-  currentTheme: string
+  theme: string
+  switchTheme: () => void
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
-  const { employee, closeDropdownMenu, currentTheme } = props
+  const { employee, closeDropdownMenu, theme, switchTheme } =
+    props
 
   const { handleLogout } = useLogout()
 
   const ref = useRef<HTMLElement>(null)
   closeOnOutsideClick({ ref, closeThis: closeDropdownMenu })
-
-  const [theme, setTheme] = useState<string>(currentTheme)
 
   useEffect(() => {
     const themes = ['dark', 'light']
@@ -136,7 +136,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         </Link>
         <span
           onClick={() => {
-            setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+            switchTheme()
           }}
           className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400 cursor-pointer select-none'
         >
