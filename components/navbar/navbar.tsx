@@ -9,7 +9,7 @@ import { navItems } from './SmallScreenNavLinks'
 import NoPicture from '../No profile picture/NoPicture'
 import { usePathname } from 'next/navigation'
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ currentTheme: string }> = (props) => {
   const { user } = useAuth()
   const [toggle, setToggle] = useState<boolean>(false)
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
@@ -79,6 +79,7 @@ const Navbar: React.FC = () => {
               {showOptions && (
                 <DropdownMenu
                   employee={user}
+                  currentTheme={props.currentTheme}
                   closeDropdownMenu={() => {
                     setShowOptions(false)
                   }}

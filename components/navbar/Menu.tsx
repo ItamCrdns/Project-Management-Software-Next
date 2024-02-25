@@ -3,26 +3,45 @@ import { Button } from '../Button/Button'
 import { type Employee } from '@/interfaces/employee'
 import useLogout from './logout'
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NoPicture from '../No profile picture/NoPicture'
 import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 import { Project } from '../Data Header/svg/Project'
 import { Task } from '../Data Header/svg/Task'
-import { useTheme } from '@/context/ThemeContext'
-
 interface DropdownMenuProps {
   employee: Employee
   closeDropdownMenu: () => void
+  currentTheme: string
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
-  const { employee, closeDropdownMenu } = props
+  const { employee, closeDropdownMenu, currentTheme } = props
 
   const { handleLogout } = useLogout()
-  const { theme, toggleTheme } = useTheme()
 
   const ref = useRef<HTMLElement>(null)
   closeOnOutsideClick({ ref, closeThis: closeDropdownMenu })
+
+  const [theme, setTheme] = useState<string>(currentTheme)
+
+  useEffect(() => {
+    const themes = ['dark', 'light']
+
+    themes.forEach((existingTheme) => {
+      if (document.documentElement.classList.contains(existingTheme)) {
+        document.documentElement.classList.remove(existingTheme)
+      }
+    })
+
+    document.documentElement.classList.add(theme)
+
+    const expirationDate = new Date()
+    expirationDate.setDate(expirationDate.getFullYear() + 10)
+
+    const cookie = `theme=${theme}; expires=${expirationDate.toUTCString()}; path=/`
+
+    document.cookie = cookie
+  }, [theme])
 
   return (
     <aside
@@ -116,7 +135,9 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
           <p>Settings</p>
         </Link>
         <span
-          onClick={toggleTheme}
+          onClick={() => {
+            setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+          }}
           className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400 cursor-pointer select-none'
         >
           {theme === 'dark'
