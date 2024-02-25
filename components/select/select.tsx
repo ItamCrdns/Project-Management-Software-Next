@@ -9,7 +9,7 @@ import SelectUI from './SelectUI'
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
 
-  const disabled = props.disabled !== null && props.disabled === true
+  const disabled = props.disabled === true
 
   useEffect(() => {
     setToggle(false)
@@ -35,6 +35,11 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   )
 
   const handleOptionClick = (option: Option, event: React.MouseEvent): void => {
+    if (disabled) {
+      props.closeDropdown?.()
+      return
+    }
+
     event.nativeEvent.stopImmediatePropagation() // * Avoids closing Filters when clicking on the dropdown
     setSelectedOption(option)
     setToggle(false)
@@ -45,7 +50,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const resetSelectedOption = (): void => {
     setSelectedOption(null)
     setSelectedOptions([])
-    props.onSelect([])
+    props.onSelect(null)
     props.clearOptions?.()
   }
 
@@ -53,6 +58,8 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [initialRender, setInitialRender] = useState<boolean>(true)
 
   const handleOptionClickMultiple = (option: Option): void => {
+    if (disabled) return
+
     if (
       Array.isArray(props.defaultEntities) &&
       props.defaultEntities.length > 0

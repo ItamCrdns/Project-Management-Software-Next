@@ -53,9 +53,11 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
 
   const handleClick = useSubmitRef(formRef)
 
-  const handlePrioritySelect = (priority: Option | Option[]): void => {
-    if (!Array.isArray(priority)) {
+  const handlePrioritySelect = (priority: Option | Option[] | null): void => {
+    if (!Array.isArray(priority) && priority !== null) {
       setPriority(priority)
+    } else if (priority === null) {
+      setPriority({ label: '', value: 0 })
     }
   }
 
@@ -102,9 +104,10 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
               defaultValue={
                 newProject.priorityLabel === ''
                   ? 'Pick a priority...'
-                  : (newProject.priorityLabel as string)
+                  : newProject.priorityLabel ?? ''
               }
               options={priorityOptions}
+              showReset={newProject.priorityLabel !== ''}
               onSelect={handlePrioritySelect}
               shouldShowDropdown={toggle}
               onShowDropdown={() => {

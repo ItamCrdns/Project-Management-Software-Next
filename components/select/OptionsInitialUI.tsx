@@ -5,9 +5,14 @@ import DefaultValue from './DefaultValue'
 const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   const selectedOptImg = props.selectedOption?.picture ?? ''
 
+  const handleClick = (): void => {
+    if (props.disabled === true) return
+    props.onShowDropdown?.()
+  }
+
   return (
     <div
-      onClick={() => props.onShowDropdown?.()}
+      onClick={handleClick}
       className='flex items-center justify-end gap-4 select-none cursor-pointer'
     >
       {selectedOptImg !== '' && (
@@ -19,7 +24,6 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
           className='rounded-full'
         />
       )}
-      {/* <div className={`text-${props.disabled === true ? 'gray' : 'red'}`}> */}
       {props.selectedOption !== null
         ? (
         <span className='capitalize font-semibold text-black dark:text-white'>
@@ -27,9 +31,11 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
         </span>
           )
         : (
-        <DefaultValue defaultValue={props.defaultValue} />
+        <DefaultValue
+          disabled={props.disabled}
+          defaultValue={props.defaultValue}
+        />
           )}
-      {/* </div> */}
       <svg
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 20 20'

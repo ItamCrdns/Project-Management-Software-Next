@@ -46,7 +46,7 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
       )}
       {props.clientName !== '' && !toggle && (
         <div className='flex items-center justify-center gap-4'>
-          <input type='text' value={props.clientName} disabled />
+          <input className='w-48 p-2 rounded-md text-black bg-theming-white200 dark:bg-theming-dark300 dark:text-white' type='text' value={props.clientName} disabled />
           <svg
             onClick={() => {
               setToggle(true)

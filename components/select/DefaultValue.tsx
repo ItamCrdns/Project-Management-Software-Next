@@ -2,7 +2,8 @@ import Image from 'next/image'
 import NoPicture from '../No profile picture/NoPicture'
 
 interface DefaultValueProps {
-  defaultValue: string | string[] | undefined // * We will check its type and render accordingly
+  disabled?: boolean
+  defaultValue?: string | string[] // * We will check its type and render accordingly
 }
 
 const DefaultValue: React.FC<DefaultValueProps> = (props) => {
@@ -33,7 +34,11 @@ const DefaultValue: React.FC<DefaultValueProps> = (props) => {
     )
   } else if (typeof defaultValue === 'string') {
     return (
-      <p className='text-black dark:text-white'>
+      <p
+        className={`text-black dark:text-white ${
+          props.disabled === true ? 'text-gray-400 cursor-not-allowed' : ''
+        }`}
+      >
         {defaultValue}
       </p>
     )

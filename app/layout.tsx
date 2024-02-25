@@ -16,8 +16,6 @@ export const metadata: Metadata = {
 const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const cookie = cookies().get('theme')?.value
 
-  console.log('cookie', cookie)
-
   return (
     <html lang='en' className={cookie ?? 'light'}>
       <body

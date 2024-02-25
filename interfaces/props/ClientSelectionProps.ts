@@ -2,6 +2,6 @@ import { type Option } from './CustomSelectProps'
 
 export interface ClientSelectionProps {
   clientName: string
-  handleClientSelection: (selectedValue: Option | Option[]) => void
+  handleClientSelection: (selectedValue: Option | Option[] | null) => void
   isFormOpen: boolean
 }

@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<string>('1')
+
   const { clients, isError } = useCompanyDropdown({
     page: currentPage
   })
@@ -33,7 +34,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       isPaginated
       pageSize={clients?.pages ?? 0}
       onPageChange={handlePageChange}
-      showReset
+      showReset={props.clientName !== ''}
       shouldShowDropdown={toggle}
       onShowDropdown={() => {
         setToggle(!toggle)

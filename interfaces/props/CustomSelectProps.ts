@@ -11,7 +11,7 @@ export interface CustomSelectProps {
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
 
   // Selection properties
-  onSelect: (value: Option | Option[]) => void // * Can handle multiple selections too (see multiple prop)
+  onSelect: (value: Option | Option[] | null) => void // * Can handle multiple selections too (see multiple prop)
   defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
   multiple?: boolean // ? If true, will allow multiple selections
 

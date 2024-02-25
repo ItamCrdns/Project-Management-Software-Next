@@ -47,11 +47,9 @@ const SelectUI: React.FC<SelectUIProps> = (props) => {
           showPictures={props.showPictures}
         />
       </div>
-      <ResetUI
-        defaultValue={props.defaultValue}
-        showReset={props.showReset}
-        resetSelectedOption={props.resetSelectedOption}
-      />
+      {props.showReset === true && (
+        <ResetUI reset={props.resetSelectedOption} />
+      )}
     </div>
   )
 }

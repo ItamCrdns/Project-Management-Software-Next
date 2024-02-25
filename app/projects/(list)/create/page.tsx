@@ -76,9 +76,11 @@ const NewProjectModal: React.FC = () => {
   const clientProvided =
     newProject.clientName !== '' || newProject.companyId !== 0
 
-  const handleCompanySelect = (company: Option | Option[]): void => {
-    if (!Array.isArray(company)) {
+  const handleCompanySelect = (company: Option | Option[] | null): void => {
+    if (!Array.isArray(company) && company !== null) {
       setCompany(company.value, company.label)
+    } else if (company === null) {
+      setCompany(0, '')
     }
   }
 

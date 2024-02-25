@@ -55,7 +55,9 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <span
       ref={buttonRef}
-      className={`relative cursor-pointer select-none overflow-hidden border-none outline-none flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${bgColor} ${txtColor}`}
+      className={`relative select-none overflow-hidden border-none outline-none flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
+        !disabled ? bgColor : 'bg-gray-500'
+      } ${txtColor} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
       onClick={
         asyncFunc !== undefined && !disabled
           ? handleButtonClickAsync
