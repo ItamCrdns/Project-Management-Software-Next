@@ -32,7 +32,7 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
   const nextJsParams = useSearchParams()
   const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
-  const handleEmployeeSelect = (selectedEmployees: Option | Option[]): void => {
+  const handleEmployeeSelect = (selectedEmployees: Option | Option[] | null): void => {
     if (Array.isArray(selectedEmployees)) {
       const ids = selectedEmployees.map((e) => e.value)
       if (ids.length > 0) {

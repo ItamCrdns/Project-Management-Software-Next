@@ -11,8 +11,8 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
   const nextJsParams = useSearchParams()
   const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
-  const handlePrioritySelect = (priority: Option | Option[]): void => {
-    if (!Array.isArray(priority)) {
+  const handlePrioritySelect = (priority: Option | Option[] | null): void => {
+    if (!Array.isArray(priority) && priority !== null) {
       if (priority.value === 0) return
       searchParams.set('priority', priority.value.toString())
       searchParams.set('pagesize', '10')
