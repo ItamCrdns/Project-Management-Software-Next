@@ -80,7 +80,7 @@ const Search: React.FunctionComponent<SearchProps> = ({
         defaultValue={searchValueFromParams ?? ''}
         maxLength={maxInputLength}
         onChange={handleInputChange}
-        className='w-72 h-10 pl-12 pr-4 rounded-md focus:outline-none focus:ring-2 focus:ring-theming-primary dark:focus:ring-theming-primary bg-theming-white200 dark:bg-theming-dark200'
+        className='w-full h-10 pl-12 pr-4 rounded-md focus:outline-none focus:ring-2 focus:ring-theming-primary dark:focus:ring-theming-primary bg-theming-white200 dark:bg-theming-dark200'
       />
       {showSpinner && (
         <span className='absolute right-4 h-4 w-4 animate-spin-fast rounded-full border-t-2 border-red-600'></span>

@@ -1,18 +1,8 @@
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { newProjectSlice } from '../features/new project/newProjectSlice'
-import { useAppDispatch } from './hooks'
+import { newProjectSlice } from '../../features/new project/newProjectSlice'
+import { useAppDispatch } from '../hooks'
 import { type Employee } from '@/interfaces/employee'
-
-interface UseNewProjectActionsReturn {
-  setCompany: (companyId: number, companyName: string) => void
-  setName: (projectName: string) => void
-  setClientName: (clientName: string) => void
-  setExpectedDeliveryDate: (expectedDeliveryDate: string) => void
-  setPriority: (priority: Option) => void
-  setDescription: (description: string) => void
-  setEmployee: (employee: Employee) => void
-  clear: () => void
-}
+import { type UseNewProjectActionsReturn } from './UseNewProjectActions.interface'
 
 export const useNewProjectActions = (): UseNewProjectActionsReturn => {
   const dispatch = useAppDispatch()

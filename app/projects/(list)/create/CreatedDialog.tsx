@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button/Button'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { Dialog, DialogPanel } from '@tremor/react'
 import { useRouter } from 'next/navigation'
 

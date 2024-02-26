@@ -3,15 +3,18 @@ import TasksUI from './TasksUI'
 import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import DataHeader from '@/components/Data Header/DataHeader'
+import getProjectLimited from '@/api-calls/getProjectLimited'
 
 interface ProjectTasksProps {
   params: { projectId: string }
   searchParams: SearchParamsPageSize
 }
 
-const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
+const ProjectTasks: React.FC<ProjectTasksProps> = async (props) => {
+  const { data } = await getProjectLimited(props.params.projectId)
+
   return (
-    <section className='flex justify-center gap-4 py-6 px-0'>
+    <section className='flex justify-center py-8 px-0'>
       <div>
         <div className='flex justify-end'>
           <DataHeader
@@ -21,8 +24,8 @@ const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
             pushSearchParams
           />
         </div>
-        <div className='flex items-start gap-4'>
-          <ProjectUI projectId={props.params.projectId} />
+        <div className='flex items-start gap-8'>
+          {data !== undefined && <ProjectUI project={data} showButtons />}
           <TasksUI
             projectId={props.params.projectId}
             searchParams={props.searchParams}

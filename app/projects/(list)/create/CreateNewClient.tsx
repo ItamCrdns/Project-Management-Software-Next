@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import NewClientForm from './NewClientForm'
 import { type CreateNewClientProps } from '@/interfaces/props/CreateNewClientProps'
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { Divider } from '@tremor/react'
 
 const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {

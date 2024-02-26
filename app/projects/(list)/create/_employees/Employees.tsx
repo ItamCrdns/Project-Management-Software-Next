@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import useGetEmployees from '@/utility/employees/useGetEmployees'
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import Resume from '../Resume'
 import Search from '@/components/search/search'
 import EmployeeList from './EmployeeList'
@@ -59,26 +59,28 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
           )
         : (
         <>
-          <h1 className='text-center line-clamp-2 text-2xl'>
+          <h1 className='text-center line-clamp-2 text-2xl mb-4'>
             Who will be working on {newProject.name}?
           </h1>
-          <Search
-            maxInputLength={16}
-            stateBasedSearch={true}
-            stateBasedGetInputValue={getInputValue}
-          />
-          <EmployeeList
-            employeeList={employeeList}
-            selectedEmployees={newProject.employees}
-            message={message}
-            handleEmployeeClick={handleEmployeeClick}
-          />
-          <div className='p-2'>
-            <Pagination
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-              reset={resetPage}
+          <div className='w-96'>
+            <Search
+              maxInputLength={16}
+              stateBasedSearch={true}
+              stateBasedGetInputValue={getInputValue}
             />
+            <EmployeeList
+              employeeList={employeeList}
+              selectedEmployees={newProject.employees}
+              message={message}
+              handleEmployeeClick={handleEmployeeClick}
+            />
+            <div className='p-2'>
+              <Pagination
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                reset={resetPage}
+              />
+            </div>
           </div>
           <Buttons
             selectedEmployees={newProject.employees}

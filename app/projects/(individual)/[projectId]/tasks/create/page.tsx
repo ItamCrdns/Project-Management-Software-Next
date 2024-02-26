@@ -1,6 +1,6 @@
-import getProject from '@/api-calls/getProject'
 import CannotCreate from './CannotCreate'
-import Create from './Create'
+import { Create } from './Name/Create'
+import getProjectLimited from '@/api-calls/getProjectLimited'
 
 interface NewTaskProps {
   params: { projectId: string }
@@ -8,14 +8,14 @@ interface NewTaskProps {
 
 const NewTask: React.FC<NewTaskProps> = async (props) => {
   const { projectId } = props.params
-  const { data } = await getProject(projectId)
-  const project = data?.entity
+  const { data } = await getProjectLimited(projectId)
+
   const notParticipantOrOwner = data?.isOwner === false && !data?.isParticipant
 
   if (notParticipantOrOwner) {
     return <CannotCreate />
   } else {
-    return <Create project={project} />
+    return <Create project={data} />
   }
 }
 

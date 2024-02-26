@@ -19,7 +19,7 @@ export interface SelectUIProps extends Partial<CustomSelectProps> {
 const SelectUI: React.FC<SelectUIProps> = (props) => {
   return (
     <div className='flex items-center'>
-      <div className='relative flex flex-col items-end justify-self-center justify-center rounded-md w-full min-h-10 m-0 py-0 px-6 bg-theming-white200 dark:bg-theming-dark300'>
+      <div className='relative flex flex-col items-end justify-self-center justify-center rounded-md w-full min-h-10 m-0 py-0 px-6 bg-theming-white200 dark:bg-theming-dark200'>
         <OptionsInitialUI
           handleToggleDropdown={props.handleToggleDropdown}
           disabled={props.disabled}

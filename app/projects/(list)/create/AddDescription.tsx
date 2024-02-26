@@ -7,7 +7,7 @@ import { priorityOptions } from './priorityOptions'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import DialogComponent from './Dialog'
 import { type ErrorMessages, errorMessageInitialState } from './errorMessages'
 
@@ -86,20 +86,22 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
           )
         : (
         <>
-          <h1 className='text-2xl'>Now, add a description</h1>
+          <h1 className='text-2xl mb-4'>Now, add a description</h1>
           <form ref={formRef} onSubmit={handleSubmit}>
             <p className='w-96 mb-4 text-center'>
               Add a project description with objectives, goals, or key details
               to help your team understand its purpose and importance.
             </p>
-            <InputAndCharacterCount
-              defaultValue={newProject.description ?? ''}
-              defaultCharacterCount={newProject.description.length}
-              name='description'
-              placeholder={`Add a description for ${newProject.name}`}
-              limit={255}
-              onSubmit={handleTextAreaSubmit}
-            />
+            <div className='mb-4'>
+              <InputAndCharacterCount
+                defaultValue={newProject.description ?? ''}
+                defaultCharacterCount={newProject.description.length}
+                name='description'
+                placeholder={`Add a description for ${newProject.name}`}
+                limit={255}
+                onSubmit={handleTextAreaSubmit}
+              />
+            </div>
             <CustomSelect
               defaultValue={
                 newProject.priorityLabel === ''

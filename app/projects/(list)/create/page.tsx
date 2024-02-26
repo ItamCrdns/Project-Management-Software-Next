@@ -10,7 +10,7 @@ import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
 import CreateNewClient from './CreateNewClient'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import ClientSelection from './_Client Select/ClientSelection'
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import DialogComponent from './Dialog'
 import { errorMessageInitialState, type ErrorMessages } from './errorMessages'
@@ -120,7 +120,7 @@ const NewProjectModal: React.FC = () => {
         isOpen={showUnsavedChanges}
         setIsOpen={openUnsavedChanges}
       />
-      <section className='absolute top-8 p-8 rounded-lg flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark200'>
+      <section className='absolute top-8 p-8 rounded-lg flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
         <svg
           onClick={handleExitNewProjectCreation}
           xmlns='http://www.w3.org/2000/svg'
@@ -146,20 +146,22 @@ const NewProjectModal: React.FC = () => {
             )
           : (
           <>
-            <h1 className='text-2xl'>Create a new project</h1>
+            <h1 className='text-2xl mb-4'>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
               <p className='w-96 mb-4 text-center'>
                 Enter a clear project name. It&apos;ll appear to your team
                 members and should indicate what the project is focused on.
               </p>
-              <InputAndCharacterCount
-                defaultValue={newProject.name}
-                defaultCharacterCount={newProject.name.length}
-                name='name'
-                placeholder='Project name'
-                limit={255}
-                onSubmit={handleInputSubmit}
-              />
+              <div className='mb-4'>
+                <InputAndCharacterCount
+                  defaultValue={newProject.name}
+                  defaultCharacterCount={newProject.name.length}
+                  name='name'
+                  placeholder='Project name'
+                  limit={255}
+                  onSubmit={handleInputSubmit}
+                />
+              </div>
               <ClientSelection
                 clientName={newProject.companyName as string}
                 handleClientSelection={handleCompanySelect}

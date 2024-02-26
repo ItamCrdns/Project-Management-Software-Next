@@ -1,7 +1,7 @@
 import { type Project } from '@/interfaces/project'
 import fetcher from '@/utility/fetcher'
 
-interface Data {
+export interface Data {
   entity: Project
   isParticipant: boolean
   isOwner: boolean

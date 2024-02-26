@@ -27,7 +27,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
 
   if (props.shouldShowDropdown === true && Array.isArray(props.options)) {
     return (
-      <div className='absolute top-14 right-0 z-50 rounded-md p-4 text-xs m-0 flex flex-col gap-4 shadow-md min-w-72 bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='absolute top-14 right-0 z-50 rounded-md p-4 text-xs m-0 flex flex-col gap-4 shadow-md min-w-72 bg-theming-white100 dark:bg-theming-dark200'>
         <ul className='flex flex-col gap-2'>
           {props.options.map((opt) => (
             <li
@@ -43,7 +43,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
               )} dark:bg-theming-${contrastSelectedOption(
                 opt,
                 true
-              )} flex items-start justify-between gap-2 p-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark400`}
+              )} flex items-start justify-between gap-2 p-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark300`}
             >
               {props.showPictures === true &&
                 (opt.picture !== undefined &&

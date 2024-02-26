@@ -1,4 +1,4 @@
-import { useNewProjectActions } from '@/lib/hooks/useNewProjectActions'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { DatePicker, type DatePickerValue } from '@tremor/react'
 
 const ExpectedDeliveryDateSelector: React.FC<{ defaultValue: Date }> = (
@@ -13,7 +13,7 @@ const ExpectedDeliveryDateSelector: React.FC<{ defaultValue: Date }> = (
   return (
     <DatePicker
       onValueChange={getDate}
-      placeholder='Set a delivery date for the project'
+      placeholder='Set a delivery date for this project'
       defaultValue={
         !isNaN(props.defaultValue?.getTime()) ? props.defaultValue : undefined
       }

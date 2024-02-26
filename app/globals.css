@@ -9,5 +9,6 @@
     -webkit-appearance: none;
     margin: 0;
     -moz-appearance: textfield !important;
+    appearance: textfield !important;
   }
 }
