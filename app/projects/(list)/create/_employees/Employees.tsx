@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
-import useGetEmployees from '@/utility/employees/useGetEmployees'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import Resume from '../Resume'
 import Search from '@/components/search/search'
@@ -9,6 +8,7 @@ import EmployeeList from './EmployeeList'
 import Pagination from '@/components/pagination/pagination'
 import Buttons from './Buttons'
 import { useAppSelector } from '@/lib/hooks/hooks'
+import { useGetEmployees } from '@/api-calls/getEmployees'
 
 const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -40,9 +40,7 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
         : `${process.env.NEXT_PUBLIC_API_URL}Employee/all/search/${searchValue}?page=${currentPage}&pageSize=5`
   }
 
-  const { employeeList, totalPages, message } = useGetEmployees(
-    employeesProps.endpoint
-  )
+  const { employees, isLoading } = useGetEmployees(employeesProps.endpoint)
 
   // * Reset the page to 1 when the user searches for something
   const resetPage = searchValue !== ''
@@ -69,14 +67,14 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
               stateBasedGetInputValue={getInputValue}
             />
             <EmployeeList
-              employeeList={employeeList}
+              employeeList={employees?.data ?? []}
               selectedEmployees={newProject.employees}
-              message={message}
               handleEmployeeClick={handleEmployeeClick}
+              isLoading={isLoading}
             />
             <div className='p-2'>
               <Pagination
-                totalPages={totalPages}
+                totalPages={employees?.pages ?? 0}
                 onPageChange={handlePageChange}
                 reset={resetPage}
               />

@@ -31,7 +31,7 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
         <h1 className='text-2xl m-0'>Employee</h1>
         <h3 className='m-0'>List</h3>
       </div>
-      <ul>
+      <ul className='flex flex-col gap-4'>
         {employees.map((employee: Employee, index: number) => (
           <div
             key={index}
@@ -39,7 +39,7 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
           >
             <EmployeeOfTheList
               employee={employee}
-              size={50}
+              size={40}
               redirectMe={true}
             />
             <Link

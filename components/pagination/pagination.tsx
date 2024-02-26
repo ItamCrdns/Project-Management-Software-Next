@@ -34,12 +34,33 @@ const Pagination: React.FC<PaginationProps> = (props) => {
   }
 
   return (
-    <div className='flex items-center justify-center gap-4 p-2' style={borderStyle}>
-      <span onClick={goToPreviousPage}>Previous</span>
+    <div
+      className='flex items-center justify-center gap-4 p-2'
+      style={borderStyle}
+    >
+      <span
+        className={`select-none ${
+          currentPage !== 1
+            ? 'text-azure-radiance-500 cursor-pointer '
+            : 'text-gray-400 cursor-not-allowed'
+        }`}
+        onClick={goToPreviousPage}
+      >
+        Previous
+      </span>
       <p>
         {currentPage} of {totalPages}
       </p>
-      <span onClick={goToNextPage}>Next</span>
+      <span
+        className={`select-none ${
+          totalPages !== currentPage
+            ? 'text-azure-radiance-500 cursor-pointer '
+            : 'text-gray-400 cursor-not-allowed'
+        }`}
+        onClick={goToNextPage}
+      >
+        Next
+      </span>
     </div>
   )
 }

@@ -40,7 +40,8 @@ const config = {
         }
       },
       height: {
-        '2px': '2px'
+        '2px': '2px',
+        500: '500px'
       },
       width: {
         500: '500px'

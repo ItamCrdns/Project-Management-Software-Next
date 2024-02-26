@@ -2,7 +2,7 @@
 import EmployeesRender from './EmployeesRender'
 import { usePathname } from 'next/navigation'
 import { type SearchParams } from '@/interfaces/searchParams'
-import useGetEmployees from '@/utility/employees/useGetEmployees'
+import { useGetEmployees } from '@/api-calls/getEmployees'
 
 interface EmployeeProps {
   params: { projectId: string }
@@ -26,18 +26,18 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
 
   const pathname = usePathname()
 
-  const { employeeList, totalPages, message } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
+  const { employees, isLoading } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
 
   return (
     <EmployeesRender
-      employeeList={employeeList}
-      message={message}
-      totalPages={totalPages}
+      employeeList={employees?.data ?? []}
+      totalPages={employees?.pages ?? 0}
       searchParams={searchParams}
       pathname={pathname}
       closeButtonHref={`/projects/${params.projectId}`}
       paginationUrl={`/projects/${params.projectId}/employees`}
       headerText='All employees'
+      isLoading={isLoading}
     />
   )
 }

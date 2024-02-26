@@ -8,26 +8,19 @@ import { useRouter } from 'next/navigation'
 
 interface EmployeesRenderProps {
   employeeList: Employee[]
-  message: string
   totalPages: number
   searchParams: SearchParams
   pathname: string
   closeButtonHref: string
   paginationUrl: string
   headerText: string
+  isLoading: boolean
 }
 
-const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
-  employeeList,
-  message,
-  totalPages,
-  searchParams,
-  pathname,
-  closeButtonHref,
-  paginationUrl,
-  headerText
-}) => {
+const EmployeesRender: React.FC<EmployeesRenderProps> = (props) => {
   // Get the key of the page from the searchParams object
+  const { employeeList, totalPages, searchParams, pathname, closeButtonHref, paginationUrl, headerText } = props
+
   const pageKey = Object.keys(searchParams).find((key) => key === 'page')
 
   const router = useRouter()
@@ -48,7 +41,7 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
 
   return (
     <section className='fixed bg-black bg-opacity-20 w-full h-screen flex flex-col items-center justify-center z-10 m-0 p-0'>
-      <section className='absolute top-8 flex items-center justify-center flex-col gap-4 min-h-96 bg-theming-white100 dark:bg-theming-dark300 p-8 rounded-lg'>
+      <section className='absolute top-8 flex items-center justify-center flex-col gap-4 min-h-96 bg-theming-white100 dark:bg-theming-dark300 p-8 rounded-lg shadow-md'>
         <Link className='text-black dark:text-white' href={closeButtonHref}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -70,7 +63,7 @@ const EmployeesRender: React.FunctionComponent<EmployeesRenderProps> = ({
           onInputChange={handleInputChange}
           urlWithParams={urlWithParams}
           employeeList={employeeList}
-          message={message}
+          isLoading={props.isLoading}
         />
         <ServerPagination
           reset={resetPage}

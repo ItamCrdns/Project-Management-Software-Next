@@ -9,7 +9,7 @@ interface GetClientEmployeesReturn {
   isError: unknown
 }
 
-const useEmployeesGetter = (endpoint: string): GetClientEmployeesReturn => {
+const useGetEmployees = (endpoint: string): GetClientEmployeesReturn => {
   const { data, error, isLoading } = useSWR<SWRGetterReturn<Employee>>(
     endpoint,
     fetcher
@@ -22,4 +22,4 @@ const useEmployeesGetter = (endpoint: string): GetClientEmployeesReturn => {
   }
 }
 
-export default useEmployeesGetter
+export { useGetEmployees }
