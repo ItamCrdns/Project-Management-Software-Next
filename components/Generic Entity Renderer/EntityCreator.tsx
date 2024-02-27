@@ -17,29 +17,35 @@ const EntityCreator: React.FunctionComponent<EntityCreatorProps> = (props) => {
   const { creator } = props
 
   return (
-    <div className='relative flex items-center justify-center gap-2' style={props.style}>
-      {creator.profilePicture !== null
-        ? (
-        <Image
-          onMouseOver={handleShowCard}
-          onMouseLeave={handleHideCard}
-          src={creator.profilePicture}
-          alt={creator.username}
-          width={35}
-          height={35}
-          className='rounded-full'
-        />
-          )
-        : (
-        <div onMouseOver={handleShowCard} onMouseLeave={handleHideCard}>
-          <NoPicture width='35px' height='35px' />
-        </div>
-          )}
+    <>
+      <div
+        className='flex items-center justify-center gap-2'
+        style={props.style}
+      >
+        {creator.profilePicture !== null
+          ? (
+          <Image
+            onMouseOver={handleShowCard}
+            onMouseLeave={handleHideCard}
+            src={creator.profilePicture}
+            alt={creator.username}
+            width={35}
+            height={35}
+            className='rounded-full'
+          />
+            )
+          : (
+          <div onMouseOver={handleShowCard} onMouseLeave={handleHideCard}>
+            <NoPicture width='35px' height='35px' />
+          </div>
+            )}
+      </div>
       {showCard && (
         <section
           onMouseOver={handleShowCard}
           onMouseLeave={handleHideCard}
-          className='absolute z-50 -top-2 left-40 p-4'
+          style={props.style}
+          className='absolute top-2 left-40 p-4 h-84 w-72 flex items-end justify-center'
         >
           <EmployeeCard
             employee={creator}
@@ -48,7 +54,7 @@ const EntityCreator: React.FunctionComponent<EntityCreatorProps> = (props) => {
           />
         </section>
       )}
-    </div>
+    </>
   )
 }
 

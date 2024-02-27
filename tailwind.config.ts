@@ -41,10 +41,16 @@ const config = {
       },
       height: {
         '2px': '2px',
-        500: '500px'
+        500: '500px',
+        84: '21rem'
       },
       width: {
-        500: '500px'
+        500: '500px',
+        84: '21rem'
+      },
+      zIndex: {
+        45: 45,
+        999: 999
       },
       colors: {
         // light mode

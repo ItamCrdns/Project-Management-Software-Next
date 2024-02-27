@@ -45,7 +45,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
 
   return (
     <aside
-      className='absolute z-50 top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark300'
+      className='absolute z-999 top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark300'
       ref={ref}
     >
       <section className='rounded-md m-4 px-4 py-0 flex flex-col justify-center bg-theming-white200 dark:bg-theming-dark400'>

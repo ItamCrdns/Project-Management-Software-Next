@@ -108,7 +108,7 @@ const NewProjectModal: React.FC = () => {
   }
 
   return (
-    <section className='fixed w-full h-screen flex flex-col items-center justify-center z-10 m-0 p-0 bg-black bg-opacity-50'>
+    <section className='fixed w-full h-screen flex flex-col items-center justify-center z-45 m-0 p-0 bg-black bg-opacity-50'>
       <DialogComponent
         isOpen={isDialogOpen}
         setIsOpen={(val) => {

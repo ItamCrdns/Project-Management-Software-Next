@@ -12,7 +12,7 @@ interface EmployeeBannerProps {
 const EmployeeBanner: React.FC<EmployeeBannerProps> = ({ employee }) => {
   return (
     <div className='flex items-center justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
-      <div className='flex items-center'>
+      <div className='flex items-center gap-4'>
         {employee.profilePicture !== null
           ? (
           <Image

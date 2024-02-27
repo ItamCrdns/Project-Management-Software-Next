@@ -4,23 +4,24 @@ import useCardVisibility from '@/components/Generic Entity Renderer/useCardVisib
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 import { type Position, type EmployeeListProps } from './IEmployeeListProps'
 import NoPicture from '../No profile picture/NoPicture'
+import Link from 'next/link'
 
-const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
+const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
   const { showCard, handleShowCard, handleHideCard } = useCardVisibility()
 
-  // ? Positions for the card (if necessary) will override the default top 1.75rem in the css file
-  const style: Position = {
+  // * Override default position
+  const cardPosition: Position = {
     top: props.position?.top,
     left: props.position?.left,
     right: props.position?.right,
     bottom: props.position?.bottom
   }
 
-  const { employee } = props
+  const { employee, showName } = props
 
   return (
     <>
-      <li className='relative' key={props.employee.employeeId}>
+      <div className='flex gap-4 items-center'>
         {employee.profilePicture !== null
           ? (
           <Image
@@ -30,7 +31,7 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
             alt={employee.username}
             width={props.size}
             height={props.size}
-            className='rounded-full'
+            className='rounded-full z-40'
           />
             )
           : (
@@ -38,23 +39,26 @@ const EmployeeOfTheList: React.FC<EmployeeListProps> = (props) => {
             <NoPicture width={props.size + 'px'} height={props.size + 'px'} />
           </div>
             )}
-        {showCard && (
-          <section
-            onMouseOver={handleShowCard}
-            onMouseLeave={handleHideCard}
-            className='absolute z-50 -top-2 left-8 p-4'
-            style={style}
-          >
-            <EmployeeCard
-              employee={employee}
-              isProfile={false}
-              redirectMe={props.redirectMe}
-            />
-          </section>
+        {showName && (
+          <Link href={`/employees/${employee.username}`} className='font-md font-semibold'>{employee.username}</Link>
         )}
-      </li>
+      </div>
+      {showCard && (
+        <section
+          onMouseOver={handleShowCard}
+          onMouseLeave={handleHideCard}
+          className='absolute -top-2 left-0 p-4 h-84 w-72 flex items-end justify-center'
+          style={cardPosition}
+        >
+          <EmployeeCard
+            employee={employee}
+            isProfile={false}
+            redirectMe={props.redirectMe}
+          />
+        </section>
+      )}
     </>
   )
 }
 
-export default EmployeeOfTheList
+export { IndividualEmployee }

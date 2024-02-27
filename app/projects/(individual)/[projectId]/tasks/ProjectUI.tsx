@@ -1,6 +1,6 @@
 import ProjectCreator from '../(projectId)/ProjectCreator'
 import { type Employee } from '@/interfaces/employee'
-import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
+import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 import { type Position } from '@/components/Generic Entity Renderer/IEmployeeListProps'
 import Link from 'next/link'
 import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPriority'
@@ -56,13 +56,15 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
             <h1 className='text-center font-semibold mb-1'>Team</h1>
             <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300'>
               {project?.entity.team.map((employee: Employee, index: number) => (
-                <div key={index} className='p-4'>
-                  <EmployeeOfTheList
+                <li key={index} className='p-4 relative'>
+                  <IndividualEmployee
                     employee={employee}
-                    size={35}
+                    size={40}
                     redirectMe={true}
+                    showName={true}
+                    position={{ left: '1rem' }}
                   />
-                </div>
+                </li>
               ))}
             </ul>
           </div>
@@ -77,7 +79,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
             />
           )}
           {isProjectParticipant === true && (
-            <div className='space-x-4'>
+            <div className='flex gap-4 flex-col'>
               <Button text='My tasks' />
               <Button text='Request new task' />
             </div>

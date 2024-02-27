@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { type Employee } from '@/interfaces/employee'
-import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
+import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 
 interface ProjectEmployeeProps {
   employees: Employee[]
@@ -33,22 +33,17 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
       </div>
       <ul className='flex flex-col gap-4'>
         {employees.map((employee: Employee, index: number) => (
-          <div
+          <li
             key={index}
             className='relative flex items-center justify-center flex-row gap-4'
           >
-            <EmployeeOfTheList
+            <IndividualEmployee
               employee={employee}
               size={40}
               redirectMe={true}
+              showName={true}
             />
-            <Link
-              className='capitalize font-semibold text-base text-theming-dark100 dark:text-theming-white100'
-              href={`/employees/${employee.username}`}
-            >
-              {employee.username}
-            </Link>
-          </div>
+          </li>
         ))}
       </ul>
       {employeeCount > 5 && (

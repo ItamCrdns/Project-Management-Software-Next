@@ -2,7 +2,7 @@
 import EmployeesRender from '@/app/projects/(individual)/[projectId]/(projectId)/employees/EmployeesRender'
 import { usePathname } from 'next/navigation'
 import { type EmployeeColleaguesProps } from '@/interfaces/props/EmployeeColleaguesProps'
-import useGetEmployees from '@/utility/employees/useGetEmployees'
+import { useGetEmployees } from '@/api-calls/getEmployees'
 
 const Colleagues: React.FunctionComponent<EmployeeColleaguesProps> = (
   props
@@ -22,17 +22,18 @@ const Colleagues: React.FunctionComponent<EmployeeColleaguesProps> = (
         : `${process.env.NEXT_PUBLIC_API_URL}Employee/${params.username}/colleagues/search/${searchParams.search}?page=${searchParams.page}&pageSize=5`
   }
 
-  const { employeeList, totalPages, message } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
+  const { employees, isLoading } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
+
   return (
     <EmployeesRender
-      employeeList={employeeList}
-      message={message}
-      totalPages={totalPages}
+      employeeList={employees?.data ?? []}
+      totalPages={employees?.pages ?? 0}
       searchParams={searchParams}
       pathname={pathname}
       closeButtonHref={`/employees/${username}`}
       paginationUrl={`/employees/${username}/colleagues`}
       headerText='Colleagues'
+      isLoading={isLoading}
     />
   )
 }

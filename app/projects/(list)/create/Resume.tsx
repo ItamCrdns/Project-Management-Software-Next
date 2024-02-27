@@ -1,6 +1,6 @@
 import handleSubmitProject from '@/api-calls/postProject'
 import { Button } from '@/components/Button/Button'
-import EmployeeOfTheList from '@/components/Generic Entity Renderer/EmployeeOfTheList'
+import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 import { handleCreateClient } from './handlePostClient'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { Divider } from '@tremor/react'
@@ -64,7 +64,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
         }}
       />
       <section className='w-500 flex items-center flex-col justify-center'>
-        <h1 className='text-2xl'>Your new project overview</h1>
+        <h1 className='text-2xl mb-4'>Your new project overview</h1>
         <p className='w-96 mb-4 text-center'>
           Please carefully review the information you are about to submit.
         </p>
@@ -102,15 +102,18 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
           <Divider>Employees</Divider>
           {Array.isArray(employees) && employees.length > 0
             ? (
-            <ul className='relative list-none flex items-center justify-center space-x-2 p-6 pt-0'>
-              {employees.map((employee) => (
-                <EmployeeOfTheList
-                  key={employee.username}
-                  employee={employee}
-                  size={50}
-                  redirectMe={false}
-                  position={{ left: '2rem' }}
-                />
+            <ul className='relative list-none flex items-center -space-x-4 justify-center p-6 pt-0'>
+              {employees.map((employee, index) => (
+                <li key={index} className='p-4 relative'>
+                  <IndividualEmployee
+                    key={employee.username}
+                    employee={employee}
+                    size={50}
+                    redirectMe={false}
+                    position={{ top: '2.5rem' }}
+                    showName={false}
+                  />
+                </li>
               ))}
             </ul>
               )

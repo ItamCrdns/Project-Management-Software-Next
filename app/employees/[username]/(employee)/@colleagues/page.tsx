@@ -1,9 +1,7 @@
 import getColleagues from '@/api-calls/getColleagues'
-import { type Employee } from '@/interfaces/employee'
-import Image from 'next/image'
 import Link from 'next/link'
 import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
-import NoPicture from '@/components/No profile picture/NoPicture'
+import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 
 const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
   const { username } = props.params
@@ -34,37 +32,25 @@ const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
       {Array.isArray(colleagues) && colleagues.length > 0
         ? (
         <>
-          <ul>
-            {colleagues.map((colleague: Employee) => (
+          <ul className='flex flex-col gap-4'>
+            {colleagues.map((colleague) => (
               <li
-                className='flex items-center gap-4'
+                className='flex items-center gap-4 relative'
                 key={colleague.employeeId}
               >
-                <Link href={`/employees/${colleague.username}`}>
-                  {colleague?.profilePicture !== null
-                    ? (
-                    <Image
-                      src={colleague.profilePicture}
-                      alt={colleague.username}
-                      width={50}
-                      height={50}
-                      className='rounded-full'
-                    />
-                      )
-                    : (
-                    <NoPicture width='50px' height='50px' />
-                      )}
-                </Link>
-                <Link
-                  className='font-semibold text-theming-dark100 dark:text-theming-white100'
-                  href={`/employees/${colleague.username}`}
-                >
-                  {colleague.username}
-                </Link>
+                <IndividualEmployee
+                  employee={colleague}
+                  size={40}
+                  redirectMe={true}
+                  showName={true}
+                />
               </li>
             ))}
           </ul>
-          <Link className='font-semibold text-theming-dark100 dark:text-theming-white100' href={`/employees/${username}/colleagues`}>
+          <Link
+            className='font-semibold text-theming-dark100 dark:text-theming-white100'
+            href={`/employees/${username}/colleagues`}
+          >
             See all {colleaguesCount} colleagues
           </Link>
         </>
