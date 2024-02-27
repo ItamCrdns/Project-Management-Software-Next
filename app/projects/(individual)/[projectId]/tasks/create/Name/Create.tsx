@@ -10,7 +10,7 @@ import { type CreateProps } from './Create.interface'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
-  const { setName, setExpectedDeliveryDate } = useNewTaskActions()
+  const { setName, setExpectedDeliveryDate, setProjectId } = useNewTaskActions()
 
   const [ready, setReady] = useState<boolean>(false)
 
@@ -62,6 +62,9 @@ const Create: React.FC<CreateProps> = (props) => {
                 disabled={newTask.name === ''}
                 func={() => {
                   setReady(true)
+                  if (props.project !== null) {
+                    setProjectId(props.project.entity.projectId)
+                  }
                 }}
               />
             </>

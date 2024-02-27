@@ -33,14 +33,14 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
     setCurrentPage(page.toString())
   }
 
-  const employeesProps = {
-    endpoint:
-      searchValue === ''
-        ? `${process.env.NEXT_PUBLIC_API_URL}Employee/all?page=${currentPage}&pageSize=5`
-        : `${process.env.NEXT_PUBLIC_API_URL}Employee/all/search/${searchValue}?page=${currentPage}&pageSize=5`
-  }
+  const endpoint =
+    searchValue === ''
+      ? `Employee/all?page=${currentPage}&pageSize=5`
+      : `Employee/all/search/${searchValue}?page=${currentPage}&pageSize=5`
 
-  const { employees, isLoading } = useGetEmployees(employeesProps.endpoint)
+  const { employees, isLoading } = useGetEmployees(
+    process.env.NEXT_PUBLIC_API_URL + endpoint
+  )
 
   // * Reset the page to 1 when the user searches for something
   const resetPage = searchValue !== ''

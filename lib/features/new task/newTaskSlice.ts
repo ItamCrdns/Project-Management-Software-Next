@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { type NewTaskData } from './NewTask.interface'
+import { type Employee } from '@/interfaces/employee'
 
 const initialState: NewTaskData = {
   name: '',
@@ -8,7 +9,8 @@ const initialState: NewTaskData = {
   startedWorking: '',
   finished: '',
   taskCreatorId: 0,
-  projectId: 0
+  projectId: 0,
+  employees: []
 }
 
 export const newTaskSlice = createSlice({
@@ -36,10 +38,19 @@ export const newTaskSlice = createSlice({
     setProjectId: (state, action) => {
       state.projectId = action.payload
     },
+    setEmployee: (state, action: PayloadAction<Employee>) => {
+      const employees = state.employees
+
+      if (employees !== null && employees.some((x) => x.employeeId === action.payload.employeeId)) {
+        state.employees = employees.filter((x) => x.employeeId !== action.payload.employeeId)
+      } else {
+        state.employees = [...(employees ?? []), action.payload]
+      }
+    },
     clear: () => initialState
   }
 })
 
 export default newTaskSlice.reducer
 
-export const { setName, setDescription, setCreated, setExpectedDeliveryDate, setFinished, setTaskCreatorId, setProjectId, clear } = newTaskSlice.actions
+export const { setName, setDescription, setCreated, setExpectedDeliveryDate, setFinished, setTaskCreatorId, setProjectId, setEmployee, clear } = newTaskSlice.actions

@@ -1,3 +1,4 @@
+import { type Employee } from '@/interfaces/employee'
 import { newTaskSlice } from '../../features/new task/newTaskSlice'
 import { useAppDispatch } from '../hooks'
 import { type useNewTaskActionsReturn } from './UseNewTaskActions.interface'
@@ -33,11 +34,15 @@ export const useNewTaskActions = (): useNewTaskActionsReturn => {
     dispatch(newTaskSlice.actions.setProjectId(projectId))
   }
 
+  const setEmployee = (employee: Employee): void => {
+    dispatch(newTaskSlice.actions.setEmployee(employee))
+  }
+
   const clear = (): void => {
     dispatch(newTaskSlice.actions.clear())
   }
 
   return {
-    setName, setDescription, setCreated, setExpectedDeliveryDate, setFinished, setTaskCreatorId, setProjectId, clear
+    setName, setDescription, setCreated, setExpectedDeliveryDate, setFinished, setTaskCreatorId, setProjectId, setEmployee, clear
   }
 }

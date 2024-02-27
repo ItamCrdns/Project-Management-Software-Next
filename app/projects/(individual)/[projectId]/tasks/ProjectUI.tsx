@@ -70,7 +70,12 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
       </div>
       {showButtons && (
         <div className='space-x-4'>
-          {isProjectOwner === true && <Button text='Create new task' />}
+          {isProjectOwner === true && (
+            <Button
+              text='Create new task'
+              href={`/projects/${project.entity.projectId}/tasks/create`}
+            />
+          )}
           {isProjectParticipant === true && (
             <div className='space-x-4'>
               <Button text='My tasks' />

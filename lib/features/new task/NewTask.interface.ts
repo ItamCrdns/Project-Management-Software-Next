@@ -1,3 +1,5 @@
+import { type Employee } from '@/interfaces/employee'
+
 export interface NewTaskData {
   name: string
   description: string
@@ -6,4 +8,5 @@ export interface NewTaskData {
   finished: string
   taskCreatorId: number
   projectId: number
+  employees: Employee[] | null
 }
