@@ -25,7 +25,7 @@ const ClientProjectsUI: React.FC<ClientProjectsUIProps> = (props) => {
   }
 
   return (
-    <main className='flex items-center flex-col'>
+    <main className='flex items-center flex-col p-8'>
       <TitleWrapper
         title={props.title}
         showButton={false}

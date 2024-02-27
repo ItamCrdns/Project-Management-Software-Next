@@ -39,7 +39,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           defaultValue={pageSize}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
-          className='w-8 text-center border-0 outline-0 p-2 rounded-md text-black focus:outline-none focus:ring-2 bg-theming-white200'
+          className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
         />
         <p>
           of {totalEntitesCount} {entityName.toLowerCase()}
@@ -54,7 +54,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
               defaultValue={secondPageSize}
               onClick={handleInputClick}
               onChange={handleSecondPageSizeInputChange}
-              className='w-8 text-center border-0 outline-0 p-2 rounded-md text-black focus:outline-none focus:ring-2 bg-theming-white200'
+              className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
             />
             <p>{props.secondEntityProps?.secondEntity.toLowerCase()}</p>
           </div>
@@ -107,7 +107,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           onClick={handleInputClick}
           onChange={handleCurrentPageInputChange}
           disabled={totalPages === 1}
-          className='w-8 text-center border-0 outline-0 p-2 rounded-md text-black focus:outline-none focus:ring-2 bg-theming-white200'
+          className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
         />
         <p>of {totalPages}</p>
         <div className='flex items-center'>
