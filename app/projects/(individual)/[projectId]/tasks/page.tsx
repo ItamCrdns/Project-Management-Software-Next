@@ -6,6 +6,7 @@ import DataHeader from '@/components/Data Header/DataHeader'
 import getProjectLimited from '@/api-calls/getProjectLimited'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import generateQueryParams from '@/app/projects/client/queryParams'
+import { NoTasks } from './NoTasks'
 
 interface ProjectTasksProps {
   params: { projectId: string }
@@ -19,12 +20,14 @@ const ProjectTasks: React.FC<ProjectTasksProps> = async (props) => {
 
   const queryParams = generateQueryParams(props.searchParams)
 
-  const { data: tasks, status } = await getProjectTasks(projectId, queryParams)
+  const { data: tasks } = await getProjectTasks(projectId, queryParams)
+
+  const noTasks = tasks?.entity.count === 0
 
   return (
     <section className='flex justify-center py-8 px-0'>
       <div>
-        {status === 200 && (
+        {!noTasks && (
           <div className='flex justify-end'>
             <DataHeader
               dashboard={false}
@@ -36,7 +39,16 @@ const ProjectTasks: React.FC<ProjectTasksProps> = async (props) => {
         )}
         <div className='flex items-start gap-8'>
           {data !== undefined && <ProjectUI project={data} showButtons />}
-          {status === 200 && <TasksUI data={tasks} />}
+          {!noTasks
+            ? (
+            <TasksUI data={tasks} />
+              )
+            : (
+            <NoTasks
+              isOwner={tasks.isProjectOwner}
+              projectId={Number(projectId)}
+            />
+              )}
         </div>
       </div>
     </section>
