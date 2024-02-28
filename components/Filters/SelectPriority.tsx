@@ -41,7 +41,7 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
     defaultEntities: priorityOptions.find((x) => x.label === priority.priorityText),
     showCloseButton: true,
     shouldShowDropdown,
-    showReset: true,
+    showReset: false,
     closeDropdown,
     onShowDropdown
   }

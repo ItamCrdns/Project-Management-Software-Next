@@ -13,13 +13,13 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
     if (Array.isArray(props.defaultEntities)) {
       return props.defaultEntities.some((e) => e.value === opt.value)
         ? isDark
-          ? 'dark400'
+          ? 'dark300'
           : 'white200'
         : ''
     } else {
       return props.defaultEntities?.value === opt.value
         ? isDark
-          ? 'dark400'
+          ? 'dark300'
           : 'white200'
         : ''
     }
@@ -43,7 +43,7 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
               )} dark:bg-theming-${contrastSelectedOption(
                 opt,
                 true
-              )} flex items-start justify-between gap-2 p-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark300`}
+              )} flex items-center justify-center gap-4 p-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark300`}
             >
               {props.showPictures === true &&
                 (opt.picture !== undefined &&

@@ -1,40 +1,54 @@
 import getCompanyProjects from '@/api-calls/getCompanyProjects'
-import { type Project } from '@/interfaces/project'
 import { type ClientNameProps } from '@/interfaces/props/ClientNameProps'
 import generateQueryParams from '../queryParams'
-import ClientProjectsUI from './ClientProjectsUI'
+import DataHeader from '@/components/Data Header/DataHeader'
+import { projectSortValues } from '@/components/Data Header/sortValues'
+import { ProjectsUI } from './ProjectsUI'
+import { getCompany } from '@/api-calls/getCompanyById'
+import { CompanyUI } from './CompanyUI'
 
 const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   const clientId = props.params.client[0]
 
+  const { data } = await getCompany(clientId)
+
   const queryParams = generateQueryParams(props.searchParams)
 
-  const { data } = await getCompanyProjects(clientId, queryParams)
+  const { data: projects } = await getCompanyProjects(clientId, queryParams)
 
-  const projects = (data?.data as Project[]) ?? []
-  const totalPages = data?.pages ?? 0
-  const totalProjects = data?.count ?? 0
+  const totalPages = projects?.pages ?? 0
+  const totalProjects = projects?.count ?? 0
 
-  if (parseInt(props.searchParams.page) > totalPages) {
+  if (Number(props.searchParams.page) > totalPages) {
     props.searchParams.page = totalPages.toString()
   }
 
-  if (parseInt(props.searchParams.pagesize) > totalProjects) {
+  if (Number(props.searchParams.pagesize) > totalProjects) {
     props.searchParams.pagesize = totalProjects.toString()
   }
 
-  // * Access the company name from one of the projects (its fine they all have the same company name)
-  const companyName = projects[0]?.company.name.split('.').join('') ?? '' // ? Remove dots from company name ("Inc.")
-  const clientName = projects.length > 0 && companyName
+  const noProjects = projects?.count === 0
 
   return (
-    <ClientProjectsUI
-      title={`${clientName} projects`}
-      searchParams={props.searchParams}
-      totalPages={totalPages}
-      totalProjects={totalProjects}
-      projects={projects}
-    />
+    <main className='flex items-center flex-col p-8'>
+      <div>
+        {!noProjects && (
+          <div className='flex justify-end'>
+            <DataHeader
+              dashboard={false}
+              pushSearchParams
+              entity='projectsfromcompany'
+              width='300px'
+              sortValues={projectSortValues}
+            />
+          </div>
+        )}
+        <div className='flex items-start gap-8'>
+          {data !== undefined && <CompanyUI data={data} />}
+          {!noProjects ? <ProjectsUI data={projects} /> : <>No projects</>}
+        </div>
+      </div>
+    </main>
   )
 }
 

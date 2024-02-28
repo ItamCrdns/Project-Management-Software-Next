@@ -62,7 +62,7 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
     searchParams.get('author') !== null
   )
 
-  const { shouldShowDropdown, onShowDropdown, closeDropdown, clearValues } =
+  const { shouldShowDropdown, onShowDropdown, closeDropdown } =
     props
 
   const selectProps = {
@@ -79,8 +79,7 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
     shouldShowDropdown,
     onShowDropdown,
     closeDropdown,
-    showReset: true,
-    clearSelectedOptions: clearValues,
+    showReset: false,
     showPictures: true
   }
 

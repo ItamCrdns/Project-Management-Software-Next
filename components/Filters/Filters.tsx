@@ -1,7 +1,7 @@
 import EntityDashboardOptions from '../Header title/_dashboard/EntityDashboardOptions'
-import PageFilters from './PageFilters'
 import { useRef } from 'react'
 import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
+import { PageFilters } from './PageFilters'
 
 interface FiltersProps {
   entityName?: string
@@ -11,6 +11,7 @@ interface FiltersProps {
   close: () => void
 }
 
+// ! Might remove this component
 const Filters: React.FC<FiltersProps> = (props) => {
   const { entityName, isDashboard, isPage } = props
 
@@ -26,7 +27,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
       {isDashboard === true && entityName !== undefined && (
         <EntityDashboardOptions entityName={entityName} />
       )}
-      {isPage === true && <PageFilters showPictures={props.showPictures} />}
+      {isPage === true && <PageFilters />}
     </div>
   )
 }

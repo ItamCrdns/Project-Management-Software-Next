@@ -1,19 +1,16 @@
+'use client'
 import { useState } from 'react'
 import { Button } from '../Button/Button'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import SelectAuthor from './SelectAuthor'
 import SelectPriority from './SelectPriority'
 
-interface IPageFiltersProps {
-  showPictures?: boolean
-}
-
 export interface IFilter {
   authorIds?: number[]
   priority?: number
 }
 
-const PageFilters: React.FC<IPageFiltersProps> = (props) => {
+const PageFilters: React.FC = () => {
   const pathname = usePathname()
   const router = useRouter()
   const nextJsParams = useSearchParams()
@@ -60,7 +57,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
   const selectAuthorProps = {
-    clearValues: !authorIdFilterSet, // * If not set, clear. Same for priority
     shouldShowDropdown: activeDropdown === 'author',
     onShowDropdown: () => {
       onShowDropdown('author')
@@ -72,7 +68,6 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
 
   const selectPriorityProps = {
     getPriorityValue,
-    clearValues: !priorityFilterSet,
     defaultValue: searchParams.get('priority') ?? '',
     shouldShowDropdown: activeDropdown === 'priority',
     onShowDropdown: () => {
@@ -88,7 +83,7 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
       <SelectAuthor {...selectAuthorProps} />
       <SelectPriority {...selectPriorityProps} />
       {filtersHaveBeenSet && (
-        <div className='mt-3'>
+        <div className='w-full'>
           <Button text='Clear all filters' func={handleClearFilters} />
         </div>
       )}
@@ -96,4 +91,4 @@ const PageFilters: React.FC<IPageFiltersProps> = (props) => {
   )
 }
 
-export default PageFilters
+export { PageFilters }
