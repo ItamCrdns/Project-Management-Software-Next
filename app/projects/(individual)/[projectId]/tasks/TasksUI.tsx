@@ -1,22 +1,11 @@
-import getProjectTasks from '@/api-calls/getProjectTasks'
 import { type Task } from '@/interfaces/task'
 import EachTask from '../(projectId)/@tasks/EachTask'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
-import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
-import generateQueryParams from '@/app/projects/client/queryParams'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
+import { type Data } from '@/api-calls/getProjectTasks'
 
-interface TasksUIProps {
-  projectId: string
-  searchParams: SearchParamsPageSize
-}
-
-const TasksUI: React.FC<TasksUIProps> = async (props) => {
-  const projectId = props.projectId
-
-  const queryParams = generateQueryParams(props.searchParams)
-
-  const { data } = await getProjectTasks(projectId, queryParams)
+const TasksUI: React.FC<{ data: Data | null }> = async (props) => {
+  const { data } = props
 
   const tasks = data?.entity.data
 
@@ -30,11 +19,12 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
   }
 
   return (
-    <section className='space-y-8'>
-      <div className='w-full'>
-        <QueryParamsPagination paginationProps={paginationProps} />
-      </div>
-      {Array.isArray(tasks) && (
+    Array.isArray(tasks) &&
+    tasks.length > 0 && (
+      <section className='space-y-8'>
+        <div className='w-full'>
+          <QueryParamsPagination paginationProps={paginationProps} />
+        </div>
         <ul className='space-y-4 items-stretch'>
           {tasks.length > 0 &&
             tasks.map((task: Task, index: number) => (
@@ -46,8 +36,8 @@ const TasksUI: React.FC<TasksUIProps> = async (props) => {
               </li>
             ))}
         </ul>
-      )}
-    </section>
+      </section>
+    )
   )
 }
 

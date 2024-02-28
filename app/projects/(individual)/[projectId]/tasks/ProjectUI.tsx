@@ -54,7 +54,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           </div>
           <div className='rounded-md w-full'>
             <h1 className='text-center font-semibold mb-1'>Team</h1>
-            <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+            <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-4'>
               {project?.entity.team.map((employee: Employee, index: number) => (
                 <li key={index} className='p-4 relative'>
                   <IndividualEmployee
@@ -66,6 +66,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
                   />
                 </li>
               ))}
+              <p className='text-center font-semibold'>{project?.entity.employeeCount} employees in this team</p>
             </ul>
           </div>
         </div>

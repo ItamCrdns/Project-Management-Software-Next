@@ -29,7 +29,7 @@ const Create: React.FC<CreateProps> = (props) => {
               )
             : (
             <>
-              <h1 className='text-2xl'>
+              <h1 className='text-2xl text-center'>
                 Create new task for {props.project?.entity.name}
               </h1>
               <p className='w-96 text-center'>

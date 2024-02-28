@@ -3,7 +3,7 @@ import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import fetcher from '@/utility/fetcher'
 
-interface Data {
+export interface Data {
   entity: DictionaryResponse<Task>
   isProjectParticipant: boolean
   isProjectOwner: boolean
