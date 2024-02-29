@@ -21,14 +21,6 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
     }
   }
 
-  const handleClearPriority = (): void => {
-    searchParams.delete('priority')
-    searchParams.set('pagesize', '10')
-
-    router.replace(`${pathname}?${searchParams.toString()}`)
-    props.closeDropdown()
-  }
-
   const { onShowDropdown, closeDropdown, shouldShowDropdown } = props
 
   const priority = setEntityPriority(Number(props.defaultValue))
@@ -36,7 +28,7 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
   const priorityProps = {
     options: priorityOptions,
     onSelect: handlePrioritySelect,
-    clearOptions: handleClearPriority,
+    clearOptions: props.clearFilters,
     defaultValue: priority.priorityText,
     defaultEntities: priorityOptions.find((x) => x.label === priority.priorityText),
     showCloseButton: true,
@@ -49,4 +41,4 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
   return <CustomSelect {...priorityProps} />
 }
 
-export default SelectPriority
+export { SelectPriority }

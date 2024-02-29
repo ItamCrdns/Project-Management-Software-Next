@@ -1,12 +1,19 @@
 import Image from 'next/image'
-import { type SelectUIProps } from './SelectUI'
 import DefaultValue from './DefaultValue'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 
-const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
+interface CurrentOptionsProps {
+  selectedOption?: Option | null
+  disabled: boolean
+  defaultValue: string | string[]
+  onShowDropdown?: () => void
+}
+
+const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
   const selectedOptImg = props.selectedOption?.picture ?? ''
 
   const handleClick = (): void => {
-    if (props.disabled === true) return
+    if (props.disabled) return
     props.onShowDropdown?.()
   }
 
@@ -52,4 +59,4 @@ const OptionsInitialUI: React.FC<Partial<SelectUIProps>> = (props) => {
   )
 }
 
-export default OptionsInitialUI
+export { CurrentOption }

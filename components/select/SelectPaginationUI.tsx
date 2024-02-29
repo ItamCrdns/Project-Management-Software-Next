@@ -1,8 +1,13 @@
 import Pagination from '../pagination/pagination'
-import { type SelectUIProps } from './SelectUI'
 
-const SelectPaginationUI: React.FC<Partial<SelectUIProps>> = (props) => {
-  if (props.isPaginated !== null && props.isPaginated === true) {
+interface SelectPaginationUIProps {
+  isPaginated?: boolean
+  pageSize?: number
+  onPageChange?: (page: number) => void
+}
+
+const SelectPaginationUI: React.FC<SelectPaginationUIProps> = (props) => {
+  if (props.isPaginated === true) {
     return (
       <Pagination
         totalPages={props.pageSize ?? 1}
@@ -16,4 +21,4 @@ const SelectPaginationUI: React.FC<Partial<SelectUIProps>> = (props) => {
   }
 }
 
-export default SelectPaginationUI
+export { SelectPaginationUI }

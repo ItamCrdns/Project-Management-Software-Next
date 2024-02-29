@@ -1,14 +1,27 @@
 import Image from 'next/image'
-import SelectPaginationUI from './SelectPaginationUI'
-import { type SelectUIProps } from './SelectUI'
+import { SelectPaginationUI } from './SelectPaginationUI'
 import { Button } from '../Button/Button'
 import NoPicture from '../No profile picture/NoPicture'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 
-const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
+interface OptionsListProps {
+  shouldShowDropdown?: boolean
+  closeDropdown: () => void
+  options?: Option[]
+  handleOptionClick?: (option: Option, event: React.MouseEvent) => void
+  handleMultipleOptionClick?: (option: Option) => void
+  pageSize?: number
+  onPageChange?: (page: number) => void
+  isPaginated?: boolean
+  multiple?: boolean
+  showCloseButton?: boolean
+  defaultEntities?: Option | Option[]
+  showPictures?: boolean
+}
+
+const OptionsList: React.FC<OptionsListProps> = (props) => {
   const { handleMultipleOptionClick, handleOptionClick } = props
 
-  // TODO: Fix this to work with tw
   const contrastSelectedOption = (opt: Option, isDark: boolean): string => {
     if (Array.isArray(props.defaultEntities)) {
       return props.defaultEntities.some((e) => e.value === opt.value)
@@ -72,11 +85,16 @@ const OptionsListUI: React.FC<Partial<SelectUIProps>> = (props) => {
           isPaginated={props.isPaginated}
         />
         {props.showCloseButton === true && (
-          <Button text='Close' func={() => props.closeDropdown?.()} />
+          <Button
+            text='Close'
+            func={() => {
+              props.closeDropdown?.()
+            }}
+          />
         )}
       </div>
     )
   }
 }
 
-export default OptionsListUI
+export { OptionsList }

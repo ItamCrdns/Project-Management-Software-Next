@@ -7,6 +7,7 @@ export interface ISharedProps {
   shouldShowDropdown: boolean
   onShowDropdown: () => void
   closeDropdown: () => void
+  clearFilters: () => void
 }
 
 export interface IParams {

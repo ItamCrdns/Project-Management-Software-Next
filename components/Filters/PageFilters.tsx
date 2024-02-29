@@ -2,8 +2,8 @@
 import { useState } from 'react'
 import { Button } from '../Button/Button'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import SelectAuthor from './SelectAuthor'
-import SelectPriority from './SelectPriority'
+import { SelectAuthor } from './SelectAuthor'
+import { SelectPriority } from './SelectPriority'
 
 export interface IFilter {
   authorIds?: number[]
@@ -26,7 +26,7 @@ const PageFilters: React.FC = () => {
     }
   }
 
-  const handleClearFilters = (): void => {
+  const clearFilters = (): void => {
     searchParams.delete('author')
     searchParams.delete('priority')
     searchParams.set('pagesize', '10')
@@ -63,7 +63,8 @@ const PageFilters: React.FC = () => {
     },
     closeDropdown: () => {
       setActiveDropdown('')
-    }
+    },
+    clearFilters
   }
 
   const selectPriorityProps = {
@@ -75,7 +76,8 @@ const PageFilters: React.FC = () => {
     },
     closeDropdown: () => {
       setActiveDropdown('')
-    }
+    },
+    clearFilters
   }
 
   return (
@@ -84,7 +86,7 @@ const PageFilters: React.FC = () => {
       <SelectPriority {...selectPriorityProps} />
       {filtersHaveBeenSet && (
         <div className='w-full'>
-          <Button text='Clear all filters' func={handleClearFilters} />
+          <Button text='Clear all filters' func={clearFilters} />
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-const ResetUI: React.FC<{ reset: () => void }> = (props) => {
+const Reset: React.FC<{ reset?: () => void }> = (props) => {
   return (
     <span
       className='ml-4 cursor-pointer hover:text-azure-radiance-600'
@@ -9,4 +9,4 @@ const ResetUI: React.FC<{ reset: () => void }> = (props) => {
   )
 }
 
-export default ResetUI
+export { Reset }

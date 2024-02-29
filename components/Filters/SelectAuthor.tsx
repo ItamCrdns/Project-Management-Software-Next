@@ -10,7 +10,6 @@ import { employeesAsOptions } from './employeesAsOptions'
 import { useState } from 'react'
 import { type ISharedProps, type IParams } from './SelectAuthorInterfaces'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { getEmployeesByIdsArray } from '@/api-calls/getEmployeesByIdsArray'
 
 const SelectAuthor: React.FC<ISharedProps> = (props) => {
   const params: IParams = useParams()
@@ -32,7 +31,9 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
   const nextJsParams = useSearchParams()
   const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
-  const handleEmployeeSelect = (selectedEmployees: Option | Option[] | null): void => {
+  const handleEmployeeSelect = (
+    selectedEmployees: Option | Option[] | null
+  ): void => {
     if (Array.isArray(selectedEmployees)) {
       const ids = selectedEmployees.map((e) => e.value)
       if (ids.length > 0) {
@@ -46,33 +47,25 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
     }
   }
 
-  const handleEmployeeFilterClear = (): void => {
-    searchParams.delete('author')
-    searchParams.set('pagesize', '10')
-
-    router.replace(`${pathname}?${searchParams.toString()}`)
-    props.closeDropdown()
-  }
-
-  const { employeesFromIds, pictures } = getEmployeesByIdsArray(
-    searchParams
-      .get('author')
-      ?.split('-')
-      .map((i) => Number(i)) ?? [],
-    searchParams.get('author') !== null
+  const employeesFromIds = employees?.data.filter((x) =>
+    searchParams.get('author')?.split('-').includes(x.employeeId.toString())
   )
 
-  const { shouldShowDropdown, onShowDropdown, closeDropdown } =
-    props
+  const pictures = employeesFromIds?.map((e) => e.profilePicture) ?? []
+
+  const { shouldShowDropdown, onShowDropdown, closeDropdown } = props
 
   const selectProps = {
     options: employeesAsOptions(employees?.data),
     onSelect: handleEmployeeSelect,
-    clearOptions: handleEmployeeFilterClear,
+    clearOptions: props.clearFilters,
     isPaginated: true,
     pageSize: employees?.pages,
     onPageChange: handlePageChange,
-    defaultValue: pictures.length > 0 ? pictures : 'Select author',
+    defaultValue:
+      pictures !== undefined && pictures.length > 0
+        ? pictures
+        : 'Select author',
     defaultEntities: employeesAsOptions(employeesFromIds),
     multiple: true,
     showCloseButton: true,
@@ -86,4 +79,4 @@ const SelectAuthor: React.FC<ISharedProps> = (props) => {
   return <CustomSelect {...selectProps} />
 }
 
-export default SelectAuthor
+export { SelectAuthor }

@@ -1,38 +1,19 @@
 'use client'
-import { useEffect, useState } from 'react'
 import {
   type Option,
   type CustomSelectProps
 } from '@/interfaces/props/CustomSelectProps'
-import SelectUI from './SelectUI'
+import { CurrentOption } from './CurrentOption'
+import { OptionsList } from './OptionsList'
+import { Reset } from './Reset'
+import { useEffect, useState } from 'react'
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
-  const [toggle, setToggle] = useState<boolean>(false)
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const [initialRender, setInitialRender] = useState<boolean>(true)
 
   const disabled = props.disabled === true
-
-  useEffect(() => {
-    setToggle(false)
-  }, [disabled])
-
-  const handleToggleDropdown = (toggleValue: boolean): void => {
-    if (props.disabled !== null && props.disabled === true) return
-    setToggle(toggleValue)
-  }
-
-  const selectedOptionInitialState = (): Option | null => {
-    if (
-      props.defaultEntities !== undefined &&
-      !Array.isArray(props.defaultEntities)
-    ) {
-      return props.defaultEntities
-    } else {
-      return null
-    }
-  }
-  const [selectedOption, setSelectedOption] = useState<Option | null>(
-    selectedOptionInitialState
-  )
 
   const handleOptionClick = (option: Option, event: React.MouseEvent): void => {
     if (disabled) {
@@ -42,22 +23,18 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
 
     event.nativeEvent.stopImmediatePropagation() // * Avoids closing Filters when clicking on the dropdown
     setSelectedOption(option)
-    setToggle(false)
     props.onSelect(option)
     props.closeDropdown?.()
   }
 
-  const resetSelectedOption = (): void => {
+  const handleClearAll = (): void => {
     setSelectedOption(null)
     setSelectedOptions([])
     props.onSelect(null)
     props.clearOptions?.()
   }
 
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
-  const [initialRender, setInitialRender] = useState<boolean>(true)
-
-  const handleOptionClickMultiple = (option: Option): void => {
+  const handleMultipleOptionClick = (option: Option): void => {
     if (disabled) return
 
     if (
@@ -85,28 +62,31 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   }, [selectedOptions])
 
   return (
-    <SelectUI
-      defaultValue={props.defaultValue}
-      defaultEntities={props.defaultEntities}
-      options={props.options}
-      isPaginated={props.isPaginated}
-      pageSize={props.pageSize}
-      showReset={props.showReset}
-      onPageChange={props.onPageChange}
-      handleToggleDropdown={handleToggleDropdown}
-      handleOptionClick={handleOptionClick}
-      handleMultipleOptionClick={handleOptionClickMultiple}
-      resetSelectedOption={resetSelectedOption}
-      disabled={disabled}
-      selectedOption={selectedOption}
-      toggle={toggle}
-      multiple={props.multiple}
-      showCloseButton={props.showCloseButton}
-      shouldShowDropdown={props.shouldShowDropdown}
-      onShowDropdown={props.onShowDropdown}
-      closeDropdown={props.closeDropdown}
-      showPictures={props.showPictures}
-    />
+    <div className='flex items-center justify-center min-w-64'>
+      <div className='relative flex flex-col items-end justify-self-center w-full justify-center rounded-md min-h-10 m-0 py-0 px-6 bg-theming-white200 dark:bg-theming-dark200'>
+        <CurrentOption
+          disabled={disabled}
+          selectedOption={selectedOption}
+          defaultValue={props.defaultValue}
+          onShowDropdown={props.onShowDropdown}
+        />
+        <OptionsList
+          shouldShowDropdown={props.shouldShowDropdown}
+          closeDropdown={props.closeDropdown}
+          options={props.options}
+          handleOptionClick={handleOptionClick}
+          handleMultipleOptionClick={handleMultipleOptionClick}
+          pageSize={props.pageSize}
+          onPageChange={props.onPageChange}
+          isPaginated={props.isPaginated}
+          multiple={props.multiple}
+          showCloseButton={props.showCloseButton}
+          defaultEntities={selectedOptions}
+          showPictures={props.showPictures}
+        />
+      </div>
+      {props.showReset === true && <Reset reset={handleClearAll} />}
+    </div>
   )
 }
 
