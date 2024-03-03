@@ -11,11 +11,7 @@ const SelectPaginationUI: React.FC<SelectPaginationUIProps> = (props) => {
     return (
       <Pagination
         totalPages={props.pageSize ?? 1}
-        onPageChange={
-          props.onPageChange ??
-          (() => {}) /* ? Empty function to avoid TS error */
-        }
-        borderRadiusValue='15px'
+        onPageChange={props.onPageChange ?? (() => {})}
       />
     )
   }

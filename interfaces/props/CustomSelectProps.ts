@@ -12,7 +12,8 @@ export interface CustomSelectProps {
 
   // Selection properties
   onSelect: (value: Option | Option[] | null) => void // * Can handle multiple selections too (see multiple prop)
-  defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
+  // defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
+  defaultValue?: string
   multiple?: boolean // ? If true, will allow multiple selections
 
   // Clear selection properties
@@ -34,5 +35,5 @@ export interface CustomSelectProps {
   closeDropdown: () => void
 
   // Entity properties
-  defaultEntities?: Option[] | Option
+  defaultEntities?: Option[]
 }

@@ -5,7 +5,7 @@ import { type PaginationProps } from '@/interfaces/props/PaginationProps'
 const Pagination: React.FC<PaginationProps> = (props) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const { onPageChange, totalPages, reset, borderRadiusValue } = props
+  const { onPageChange, totalPages, reset } = props
 
   useEffect(() => {
     onPageChange(currentPage)
@@ -29,15 +29,8 @@ const Pagination: React.FC<PaginationProps> = (props) => {
     }
   }
 
-  const borderStyle = {
-    borderRadius: borderRadiusValue ?? '5px'
-  }
-
   return (
-    <div
-      className='flex items-center justify-center gap-4 p-2'
-      style={borderStyle}
-    >
+    <div className='flex items-center justify-center gap-4 p-2'>
       <span
         className={`select-none ${
           currentPage !== 1

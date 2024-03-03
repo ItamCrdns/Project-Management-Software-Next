@@ -42,11 +42,13 @@ const config = {
       height: {
         '2px': '2px',
         500: '500px',
-        84: '21rem'
+        84: '21rem',
+        25: '25px'
       },
       width: {
         500: '500px',
-        84: '21rem'
+        84: '21rem',
+        25: '25px'
       },
       zIndex: {
         45: 45,

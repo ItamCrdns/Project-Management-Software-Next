@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+
   const [initialRender, setInitialRender] = useState<boolean>(true)
 
   const disabled = props.disabled === true
@@ -68,6 +69,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
           disabled={disabled}
           selectedOption={selectedOption}
           defaultValue={props.defaultValue}
+          defaultEntities={props.defaultEntities}
           onShowDropdown={props.onShowDropdown}
         />
         <OptionsList
@@ -81,7 +83,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
           isPaginated={props.isPaginated}
           multiple={props.multiple}
           showCloseButton={props.showCloseButton}
-          defaultEntities={selectedOptions}
+          defaultEntities={props.defaultEntities}
           showPictures={props.showPictures}
         />
       </div>
