@@ -1,4 +1,4 @@
-// import { type Employee } from '@/interfaces/employee'
+// * Props shared by both SelectPriority and SelectAuthor components
 
 export interface ISharedProps {
   // * Can we both. To handle selected authors (array of numbers) and selected priority (number)

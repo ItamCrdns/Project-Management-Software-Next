@@ -110,7 +110,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
               }
               options={priorityOptions}
               showReset={newProject.priorityLabel !== ''}
-              onSelect={handlePrioritySelect}
+              sendStateToParent={handlePrioritySelect}
               shouldShowDropdown={toggle}
               onShowDropdown={() => {
                 setToggle(!toggle)

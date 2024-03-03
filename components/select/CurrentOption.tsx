@@ -40,7 +40,7 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
       onClick={handleOpenDropdown}
       className='flex items-center justify-end gap-4 select-none cursor-pointer'
     >
-      {selectedOption !== null
+      {selectedOption !== null && selectedOption !== undefined
         ? (
         <span className='capitalize font-semibold text-black dark:text-white'>
           {selectedOption?.label}
@@ -101,13 +101,24 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
               <li className='flex items-center justify-center px-1' key={i}>
                 {v.picture !== undefined
                   ? (
-                  <Image
-                    src={v.picture}
-                    alt={v.label}
-                    width={25}
-                    height={25}
-                    className='rounded-full'
-                  />
+                  <div
+                    onMouseEnter={() => {
+                      setShowPopUp(v)
+                    }}
+                    onMouseLeave={() => {
+                      setShowPopUp(null)
+                    }}
+                    className='relative'
+                  >
+                    <Image
+                      src={v.picture}
+                      alt={v.label}
+                      width={25}
+                      height={25}
+                      className='rounded-full'
+                    />
+                    {showPopUp === v && <OptionPopUp option={v} />}
+                  </div>
                     )
                   : (
                   <NoPicture width='25px' height='25px' />

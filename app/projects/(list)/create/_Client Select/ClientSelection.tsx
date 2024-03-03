@@ -29,7 +29,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
         props.clientName === '' ? 'Select a client...' : props.clientName
       }
       options={companyOptions ?? []}
-      onSelect={props.handleClientSelection}
+      sendStateToParent={props.handleClientSelection}
       disabled={props.isFormOpen}
       isPaginated
       pageSize={clients?.pages ?? 0}

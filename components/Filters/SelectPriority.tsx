@@ -5,7 +5,12 @@ import { type ISharedProps } from './SelectAuthorInterfaces'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { priorityOptions } from '@/app/projects/(list)/create/priorityOptions'
 
-const SelectPriority: React.FC<ISharedProps> = (props) => {
+interface SelectPriorityProps {
+  selectedPriority: Option | null
+  onPrioritySelect: (priority: Option | Option[] | null) => void
+}
+
+const SelectPriority: React.FC<SelectPriorityProps & ISharedProps> = (props) => {
   const pathname = usePathname()
   const router = useRouter()
   const nextJsParams = useSearchParams()
@@ -17,7 +22,15 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
       searchParams.set('priority', priority.value.toString())
       searchParams.set('pagesize', '10')
 
+      props.onPrioritySelect(priority)
+
       router.replace(`${pathname}?${searchParams.toString()}`)
+    }
+  }
+
+  const receivePriorityFromChild = (priority: Option | Option[] | null): void => {
+    if (!Array.isArray(priority) && priority !== null) {
+      handlePrioritySelect(priority)
     }
   }
 
@@ -27,14 +40,14 @@ const SelectPriority: React.FC<ISharedProps> = (props) => {
 
   const priorityProps = {
     options: priorityOptions,
-    onSelect: handlePrioritySelect,
-    clearOptions: props.clearFilters,
+    sendStateToParent: receivePriorityFromChild,
     defaultValue: priority.priorityText,
     showCloseButton: true,
     shouldShowDropdown,
     showReset: false,
     closeDropdown,
-    onShowDropdown
+    onShowDropdown,
+    selectedOption: props.selectedPriority
   }
 
   return <CustomSelect {...priorityProps} />

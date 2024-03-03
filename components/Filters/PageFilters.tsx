@@ -4,6 +4,7 @@ import { Button } from '../Button/Button'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { SelectAuthor } from './SelectAuthor'
 import { SelectPriority } from './SelectPriority'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 export interface IFilter {
   authorIds?: number[]
@@ -32,6 +33,9 @@ const PageFilters: React.FC = () => {
     searchParams.set('pagesize', '10')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
+
+    setSelectedPriority(null)
+    setSelectedAuthors([])
   }
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
@@ -56,6 +60,13 @@ const PageFilters: React.FC = () => {
   // * Track if the clear filters button should be shown or not
   const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
+  const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
+  const [selectedAuthors, setSelectedAuthors] = useState<Option[]>([]) // ? Authors to avoid name collision with employees
+
+  const onDefaultSelectedAuthors = (authors: Option[]): void => {
+    setSelectedAuthors(authors)
+  }
+
   const selectAuthorProps = {
     shouldShowDropdown: activeDropdown === 'author',
     onShowDropdown: () => {
@@ -64,7 +75,19 @@ const PageFilters: React.FC = () => {
     closeDropdown: () => {
       setActiveDropdown('')
     },
-    clearFilters
+    clearFilters,
+    selectedAuthors,
+    onEmployeeSelect: (employee: Option | Option[] | null): void => {
+      if (!Array.isArray(employee) && employee !== null) {
+        setSelectedAuthors((prev) => {
+          if (prev.some((e) => e.value === employee.value)) {
+            return prev?.filter((e) => e.value !== employee.value)
+          }
+          return [...prev, employee]
+        })
+      }
+    },
+    onDefaultSelectedAuthors
   }
 
   const selectPriorityProps = {
@@ -77,7 +100,13 @@ const PageFilters: React.FC = () => {
     closeDropdown: () => {
       setActiveDropdown('')
     },
-    clearFilters
+    clearFilters,
+    selectedPriority,
+    onPrioritySelect: (priority: Option | Option[] | null): void => {
+      if (!Array.isArray(priority) && priority !== null) {
+        setSelectedPriority(priority)
+      }
+    }
   }
 
   return (

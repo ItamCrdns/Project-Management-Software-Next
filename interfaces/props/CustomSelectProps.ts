@@ -5,19 +5,21 @@ export interface Option {
   picture?: string // * Optional: display pictures in the CustomSelect component
 }
 
+export const optionInitialState: Option = {
+  value: 0,
+  label: ''
+}
+
 export interface CustomSelectProps {
   // Basic properties
   options: Option[] // Options for the select
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
 
-  // Selection properties
-  onSelect: (value: Option | Option[] | null) => void // * Can handle multiple selections too (see multiple prop)
-  // defaultValue: string | string[] // * Will also hold a string of images. Please use together with showPictures
+  // Send the data to the parent state
+  sendStateToParent: (value: Option | Option[] | null) => void
+
   defaultValue?: string
   multiple?: boolean // ? If true, will allow multiple selections
-
-  // Clear selection properties
-  clearOptions?: () => void
 
   // Pagination properties
   isPaginated?: boolean // ? Sometimes, the options might be a lot, so we need to paginate it
@@ -36,4 +38,8 @@ export interface CustomSelectProps {
 
   // Entity properties
   defaultEntities?: Option[]
+
+  // Options
+  selectedOption?: Option | null
+  selectedOptionsList?: Option[] | null
 }

@@ -76,7 +76,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           {isProjectOwner === true && (
             <Button
               text='Create new task'
-              href={`/projects/${project.entity.projectId}/tasks/create`}
+              href={`/projects/${project?.entity.projectId}/tasks/create`}
             />
           )}
           {isProjectParticipant === true && (
