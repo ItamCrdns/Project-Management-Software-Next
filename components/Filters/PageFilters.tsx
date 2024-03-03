@@ -1,10 +1,21 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../Button/Button'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams
+} from 'next/navigation'
 import { SelectAuthor } from './SelectAuthor'
 import { SelectPriority } from './SelectPriority'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
+import {
+  getEmployeesForFilters,
+  type EmployeeFetcherProps
+} from './getEmployeesForFilters'
+import { type IParams } from './SelectAuthorInterfaces'
+import { employeesAsOptions } from './employeesAsOptions'
 
 export interface IFilter {
   authorIds?: number[]
@@ -60,12 +71,34 @@ const PageFilters: React.FC = () => {
   // * Track if the clear filters button should be shown or not
   const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
+  const employeesFromUrl = searchParams.get('author')?.split('-')
+
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page)
+  }
+
+  const params: IParams = useParams()
+  const employeeFetcherProps: EmployeeFetcherProps = {
+    ids: employeesFromUrl,
+    shouldFetch: true,
+    clientId: Number(params.client?.[0]),
+    page: currentPage.toString(),
+    limit: '3'
+  }
+
+  const { selectedEmployees, allEmployees } =
+    getEmployeesForFilters(employeeFetcherProps)
+
   const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
   const [selectedAuthors, setSelectedAuthors] = useState<Option[]>([]) // ? Authors to avoid name collision with employees
 
-  const onDefaultSelectedAuthors = (authors: Option[]): void => {
-    setSelectedAuthors(authors)
-  }
+  useEffect(() => {
+    if (Array.isArray(selectedEmployees) && selectedEmployees.length > 0) {
+      setSelectedAuthors(employeesAsOptions(selectedEmployees))
+    }
+  }, [selectedEmployees])
 
   const selectAuthorProps = {
     shouldShowDropdown: activeDropdown === 'author',
@@ -87,7 +120,9 @@ const PageFilters: React.FC = () => {
         })
       }
     },
-    onDefaultSelectedAuthors
+    allEmployees,
+    selectedEmployees,
+    handlePageChange
   }
 
   const selectPriorityProps = {
