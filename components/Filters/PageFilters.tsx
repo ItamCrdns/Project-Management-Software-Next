@@ -16,6 +16,8 @@ import {
 } from './getEmployeesForFilters'
 import { type IParams } from './SelectAuthorInterfaces'
 import { employeesAsOptions } from './employeesAsOptions'
+// import { type Employee } from '@/interfaces/employee'
+// import { type DataCountPages } from '@/interfaces/DataCountPages.interface'
 
 export interface IFilter {
   authorIds?: number[]
@@ -90,6 +92,14 @@ const PageFilters: React.FC = () => {
 
   const { selectedEmployees, allEmployees } =
     getEmployeesForFilters(employeeFetcherProps)
+
+  // const [allEmployeesState, setAllEmployeesState] = useState<DataCountPages<Employee>>(allEmployees)
+
+  // useEffect(() => {
+  //   if (allEmployees !== undefined) {
+  //     setAllEmployeesState(allEmployees)
+  //   }
+  // }, [allEmployees])
 
   const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
   const [selectedAuthors, setSelectedAuthors] = useState<Option[]>([]) // ? Authors to avoid name collision with employees

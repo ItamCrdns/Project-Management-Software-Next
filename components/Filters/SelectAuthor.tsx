@@ -7,8 +7,6 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { type DataCountPages } from '@/interfaces/DataCountPages.interface'
 import { type Employee } from '@/interfaces/employee'
 
-// TODO: CLICKING EMPLOYEES TRIGGERS RERENDER AND REFETCH
-
 interface SelectAuthorProps {
   selectedAuthors: Option[] | null
   onEmployeeSelect: (author: Option | Option[] | null) => void
