@@ -1,23 +1,17 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '../Button/Button'
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams
-} from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { SelectAuthor } from './SelectAuthor'
 import { SelectPriority } from './SelectPriority'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import {
-  getEmployeesForFilters,
+  useEmployeeFilterUtility,
   type EmployeeFetcherProps
-} from './getEmployeesForFilters'
+} from './useEmployeeFilterUtility '
 import { type IParams } from './SelectAuthorInterfaces'
 import { employeesAsOptions } from './employeesAsOptions'
-// import { type Employee } from '@/interfaces/employee'
-// import { type DataCountPages } from '@/interfaces/DataCountPages.interface'
+import { useGetSearchParams } from './useGetSearchParams'
 
 export interface IFilter {
   authorIds?: number[]
@@ -25,30 +19,16 @@ export interface IFilter {
 }
 
 const PageFilters: React.FC = () => {
-  const pathname = usePathname()
-  const router = useRouter()
-  const nextJsParams = useSearchParams()
-  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
-
-  const getPriorityValue = (priority: number): void => {
-    if (priority === 0) return
-    searchParams.set('priority', priority.toString())
-    searchParams.set('pagesize', '10')
-
-    if (searchParams.toString() !== undefined && priority !== 0) {
-      router.replace(`${pathname}?${searchParams.toString()}`)
-    }
-  }
+  const { router, pathname, searchParams } = useGetSearchParams()
 
   const clearFilters = (): void => {
     searchParams.delete('author')
     searchParams.delete('priority')
-    searchParams.set('pagesize', '10')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
 
     setSelectedPriority(null)
-    setSelectedAuthors([])
+    clearSelectedEmployees()
   }
 
   const [activeDropdown, setActiveDropdown] = useState<string>('')
@@ -90,25 +70,14 @@ const PageFilters: React.FC = () => {
     limit: '3'
   }
 
-  const { selectedEmployees, allEmployees } =
-    getEmployeesForFilters(employeeFetcherProps)
-
-  // const [allEmployeesState, setAllEmployeesState] = useState<DataCountPages<Employee>>(allEmployees)
-
-  // useEffect(() => {
-  //   if (allEmployees !== undefined) {
-  //     setAllEmployeesState(allEmployees)
-  //   }
-  // }, [allEmployees])
+  const {
+    selectedEmployees,
+    allEmployees,
+    onEmployeeSelect,
+    clearSelectedEmployees
+  } = useEmployeeFilterUtility(employeeFetcherProps)
 
   const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
-  const [selectedAuthors, setSelectedAuthors] = useState<Option[]>([]) // ? Authors to avoid name collision with employees
-
-  useEffect(() => {
-    if (Array.isArray(selectedEmployees) && selectedEmployees.length > 0) {
-      setSelectedAuthors(employeesAsOptions(selectedEmployees))
-    }
-  }, [selectedEmployees])
 
   const selectAuthorProps = {
     shouldShowDropdown: activeDropdown === 'author',
@@ -119,24 +88,14 @@ const PageFilters: React.FC = () => {
       setActiveDropdown('')
     },
     clearFilters,
-    selectedAuthors,
-    onEmployeeSelect: (employee: Option | Option[] | null): void => {
-      if (!Array.isArray(employee) && employee !== null) {
-        setSelectedAuthors((prev) => {
-          if (prev.some((e) => e.value === employee.value)) {
-            return prev?.filter((e) => e.value !== employee.value)
-          }
-          return [...prev, employee]
-        })
-      }
-    },
+    selectedAuthors: employeesAsOptions(selectedEmployees),
+    onEmployeeSelect,
     allEmployees,
     selectedEmployees,
     handlePageChange
   }
 
   const selectPriorityProps = {
-    getPriorityValue,
     defaultValue: searchParams.get('priority') ?? '',
     shouldShowDropdown: activeDropdown === 'priority',
     onShowDropdown: () => {

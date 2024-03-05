@@ -2,33 +2,33 @@ import CustomSelect from '../select/select'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import setEntityPriority from '../Generic Entity Renderer/EntityPriority'
 import { type ISharedProps } from './SelectAuthorInterfaces'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { priorityOptions } from '@/app/projects/(list)/create/priorityOptions'
+import { useGetSearchParams } from './useGetSearchParams'
 
 interface SelectPriorityProps {
   selectedPriority: Option | null
   onPrioritySelect: (priority: Option | Option[] | null) => void
 }
 
-const SelectPriority: React.FC<SelectPriorityProps & ISharedProps> = (props) => {
-  const pathname = usePathname()
-  const router = useRouter()
-  const nextJsParams = useSearchParams()
-  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
+const SelectPriority: React.FC<SelectPriorityProps & ISharedProps> = (
+  props
+) => {
+  const { router, pathname, searchParams } = useGetSearchParams()
 
   const handlePrioritySelect = (priority: Option | Option[] | null): void => {
     if (!Array.isArray(priority) && priority !== null) {
       if (priority.value === 0) return
-      searchParams.set('priority', priority.value.toString())
-      searchParams.set('pagesize', '10')
 
       props.onPrioritySelect(priority)
+      searchParams.set('priority', priority.value.toString())
 
       router.replace(`${pathname}?${searchParams.toString()}`)
     }
   }
 
-  const receivePriorityFromChild = (priority: Option | Option[] | null): void => {
+  const receivePriorityFromChild = (
+    priority: Option | Option[] | null
+  ): void => {
     if (!Array.isArray(priority) && priority !== null) {
       handlePrioritySelect(priority)
     }
