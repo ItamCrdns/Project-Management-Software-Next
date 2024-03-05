@@ -17,14 +17,14 @@ const Tasks: React.FC<TasksProps> = async (props) => {
     tasksPageSize: cleanParams.secondPageSize ?? '5'
   }
 
-  const { data } = await getTasks(params)
+  const { data, pages, count } = await getTasks(params)
 
-  const tasks = data?.data ?? []
+  const tasks = data ?? []
 
   const paginationProps: PaginationProps = {
-    totalPages: data?.pages ?? 1,
+    totalPages: pages,
     entityName: 'Projects',
-    totalEntitesCount: data?.count ?? 1
+    totalEntitesCount: count
   }
 
   const secondEntityProps: SecondEntityProps = {

@@ -22,3 +22,11 @@ const fetcher = async <T>(apiUrl: string): Promise<ApiResponse<T>> => {
 }
 
 export default fetcher
+
+export const fetcherWithParams = async <T>(url: URL): Promise<T> => {
+  const requestOptions = cookieOptions()
+
+  const res = await fetch(url.toString(), requestOptions)
+
+  return await res.json()
+}

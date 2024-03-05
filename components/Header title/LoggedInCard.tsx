@@ -13,7 +13,6 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
     buttonHref,
     entityName,
     isDashboard,
-    isPage,
     showPictures
   } = props
 
@@ -30,7 +29,6 @@ const LoggedInCard: React.FC<LoggedInCardProps> = (props) => {
   const filtersProps = {
     entityName,
     isDashboard,
-    isPage,
     showPictures,
     close
   }
