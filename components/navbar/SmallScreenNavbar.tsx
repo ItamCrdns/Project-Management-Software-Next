@@ -3,8 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { type Employee } from '@/interfaces/employee'
 import { navItems } from './SmallScreenNavLinks'
-import useLogout from './logout'
 import NoPicture from '../No profile picture/NoPicture'
+import { logout } from './actions/logout'
 
 interface SmallScreenNavbarProps {
   showOverlay: boolean
@@ -13,8 +13,6 @@ interface SmallScreenNavbarProps {
 
 const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
   const { showOverlay, employee } = props
-
-  const { handleLogout } = useLogout()
 
   return (
     <section
@@ -54,7 +52,11 @@ const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
                 Your profile
               </Link>
             </div>
-            <Button text='Logout' func={handleLogout} />
+            <Button text='Logout' func={() => {
+              void (async () => {
+                await logout()
+              })()
+            }} />
           </div>
         </div>
           )

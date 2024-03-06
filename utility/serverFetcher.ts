@@ -8,10 +8,6 @@ const serverFetcher = async <T>(endpoint: string): Promise<ApiResponse<T>> => {
 
   const res = await fetch(url, requestOptions)
 
-  if (!res.ok) {
-    throw new Error(`An error has occured: ${res.status}`)
-  }
-
   if (res.ok) {
     return {
       data: await res.json(),

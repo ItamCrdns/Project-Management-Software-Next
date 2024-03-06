@@ -1,15 +1,14 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { AuthProvider } from '@/context/AuthContext'
-import Navbar from '@/components/navbar/navbar'
 import StoreProvider from './StoreProvider'
 import { cookies } from 'next/headers'
+import { NavbarWrapper } from '@/components/navbar/NavbarWrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ProjectXHub',
+  title: 'Project Management Software',
   description: 'Created by Martin Cardenas'
 }
 
@@ -22,10 +21,8 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         className={`bg-theming-white200 dark:bg-theming-dark200 ${inter.className}`}
       >
         <div className='dark:text-white'>
-          <AuthProvider>
-            <Navbar currentTheme={cookie ?? 'light'} />
-            <StoreProvider>{children}</StoreProvider>
-          </AuthProvider>
+          <NavbarWrapper currentTheme={cookie ?? 'light'} />
+          <StoreProvider>{children}</StoreProvider>
         </div>
       </body>
     </html>

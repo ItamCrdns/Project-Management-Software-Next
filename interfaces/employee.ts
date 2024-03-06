@@ -22,7 +22,7 @@ export interface Employee {
 
 export const employeeInitialState: Employee = {
   employeeId: 0,
-  username: '',
+  username: 'Dummy name',
   role: '',
   profilePicture: '',
   supervisor: null,

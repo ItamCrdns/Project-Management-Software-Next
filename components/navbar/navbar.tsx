@@ -1,16 +1,16 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useAuth } from '@/context/AuthContext'
 import Image from 'next/image'
 import DropdownMenu from './Menu'
 import SmallScreenNavbar from './SmallScreenNavbar'
 import { navItems } from './SmallScreenNavLinks'
 import NoPicture from '../No profile picture/NoPicture'
 import { usePathname } from 'next/navigation'
+import { type Employee } from '@/interfaces/employee'
 
-const Navbar: React.FC<{ currentTheme: string }> = (props) => {
-  const { user } = useAuth()
+const Navbar: React.FC<{ currentTheme: string, user: Employee | null }> = (props) => {
+  const { user } = props
   const [toggle, setToggle] = useState<boolean>(false)
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
   const [showOptions, setShowOptions] = useState<boolean>(false)

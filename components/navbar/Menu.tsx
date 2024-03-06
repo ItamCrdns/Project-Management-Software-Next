@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { Button } from '../Button/Button'
 import { type Employee } from '@/interfaces/employee'
-import useLogout from './logout'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import NoPicture from '../No profile picture/NoPicture'
 import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 import { Project } from '../Data Header/svg/Project'
 import { Task } from '../Data Header/svg/Task'
+import { logout } from './actions/logout'
 interface DropdownMenuProps {
   employee: Employee
   closeDropdownMenu: () => void
@@ -16,10 +16,7 @@ interface DropdownMenuProps {
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
-  const { employee, closeDropdownMenu, theme, switchTheme } =
-    props
-
-  const { handleLogout } = useLogout()
+  const { employee, closeDropdownMenu, theme, switchTheme } = props
 
   const ref = useRef<HTMLElement>(null)
   closeOnOutsideClick({ ref, closeThis: closeDropdownMenu })
@@ -177,7 +174,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         </span>
       </section>
       <section className='flex items-center justify-center mx-0 my-4'>
-        <Button text='Logout' func={handleLogout} />
+        <Button text='Logout' func={() => {
+          void (async () => {
+            await logout()
+          })()
+        }} />
       </section>
     </aside>
   )
