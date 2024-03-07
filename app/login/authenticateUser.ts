@@ -12,7 +12,8 @@ export const authenticateUser = async (username: string, password: string): Prom
       username,
       password
     }),
-    credentials: 'include' // Cookies
+    credentials: 'include', // Cookies
+    cache: 'no-store'
   }
 
   const res = await fetch(url, requestOptions)

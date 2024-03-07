@@ -78,7 +78,7 @@ const Button: React.FC<ButtonProps> = (props) => {
           {loading === true && (
             <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
           )}
-          {text}
+          {loading === false && text}
         </div>
           )}
       <div>

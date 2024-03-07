@@ -4,13 +4,19 @@ import { useSubmitRef } from '@/utility/formSubmitRef'
 import { Button } from '@/components/Button/Button'
 import { TextInput } from '@tremor/react'
 import { login } from './actions/login'
+import { debounce } from '@/utility/debouce'
 
 const LoginPage: React.FC = () => {
   const formRef = useRef(null)
 
-  const [message, setMessage] = useState<string>('')
+  const [message, setMessage] = useState<{ type: string, message: string }>({
+    type: '',
+    message: ''
+  })
 
-  const handleClick = useSubmitRef(formRef)
+  const [btnClicked, setBtnClicked] = useState<boolean>(false)
+
+  const handleClick = !btnClicked ? useSubmitRef(formRef) : () => {}
 
   return (
     <main className='flex items-center justify-center mt-8'>
@@ -41,14 +47,15 @@ const LoginPage: React.FC = () => {
         </div>
         <form
           ref={formRef}
-          action={(formData: FormData) => {
+          action={debounce((formData: FormData) => {
             void (async (formData: FormData) => {
               const response = await login(formData)
-              if (response !== undefined && response !== '') {
+              if (response !== undefined) {
                 setMessage(response)
+                setBtnClicked(false)
               }
             })(formData)
-          }}
+          }, 500)}
           className='flex flex-col gap-4'
         >
           <div>
@@ -59,6 +66,12 @@ const LoginPage: React.FC = () => {
               placeholder='Username'
               autoFocus
               required
+              error={
+                message.type === 'client' &&
+                (message.message === 'UsernameError' ||
+                  message.message === 'BothError')
+              }
+              errorMessage='Please enter a username'
             />
           </div>
           <div>
@@ -68,16 +81,29 @@ const LoginPage: React.FC = () => {
               type='password'
               placeholder='Password'
               required
+              error={
+                message.type === 'client' &&
+                (message.message === 'PasswordError' ||
+                  message.message === 'BothError')
+              }
+              errorMessage='Please enter a password'
             />
           </div>
           <input type='submit' className='hidden' />
         </form>
-        <div className='w-full'>
-          <Button text='Login' func={handleClick} />
+        <div
+          className='w-full'
+          onClick={() => {
+            setBtnClicked(true)
+          }}
+        >
+          <Button text='Login' func={handleClick} loading={btnClicked} />
         </div>
-        {message !== '' && (
-          <p className='text-red-500 text-center'>{message}</p>
-        )}
+        <div className='-my-4'>
+          {message.type === 'server' && (
+            <p className='text-red-500 text-center'>{message.message}</p>
+          )}
+        </div>
         <p className='text-sm flex gap-2'>
           Forgot your password?{' '}
           <span className='text-azure-radiance-600'>Reset password</span>
