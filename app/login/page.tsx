@@ -6,9 +6,14 @@ import { debounce } from '@/utility/debouce'
 import { CompanyLogo } from './CompanyLogo'
 import Link from 'next/link'
 import { useFormState } from '@/hooks/useFormState'
+import { onSuccessfulLogin } from './actions/onSuccessfulLogin'
+import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 
 const LoginPage: React.FC<{ searchParams: { username?: string } }> = (props) => {
+  const { setAlert } = useAlertActions()
+
   const { username } = props.searchParams
+
   const {
     formRef,
     message,
@@ -33,9 +38,18 @@ const LoginPage: React.FC<{ searchParams: { username?: string } }> = (props) => 
           ref={formRef}
           action={debounce((formData: FormData) => {
             void (async (formData: FormData) => {
-              const response = await login(formData)
-              if (response !== undefined) {
-                handleSetMessage(response)
+              const res = await login(formData)
+
+              if (res.type === 'authenticated') {
+                // * Handle successful login
+                setAlert({ message: `Welcome ${formData.get('username')?.toString()}`, type: 'success' })
+                await onSuccessfulLogin(res.message)
+                return
+              }
+
+              if (res.type === 'notAuthenticated') {
+                // * Handle error message
+                handleSetMessage(res)
                 handleSetBtnClicked(false)
               }
             })(formData)
@@ -85,7 +99,7 @@ const LoginPage: React.FC<{ searchParams: { username?: string } }> = (props) => 
           <Button text='Login' func={handleClick} loading={btnClicked} />
         </div>
         <div className='-my-4'>
-          {message.type === 'server' && (
+          {message.type === 'notAuthenticated' && (
             <p className='text-red-500 text-center'>{message.message}</p>
           )}
         </div>

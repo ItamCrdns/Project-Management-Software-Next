@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { newProjectSlice } from './features/new project/newProjectSlice'
 import { newTaskSlice } from './features/new task/newTaskSlice'
+import { alertSlice } from './features/alert/alertSlice'
 
 export const store = configureStore({
   reducer: {
     newProjectData: newProjectSlice.reducer,
-    newTaskData: newTaskSlice.reducer
+    newTaskData: newTaskSlice.reducer,
+    alert: alertSlice.reducer
   }
 })
 

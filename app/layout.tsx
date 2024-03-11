@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import StoreProvider from './StoreProvider'
 import { cookies } from 'next/headers'
 import { NavbarWrapper } from '@/components/navbar/NavbarWrapper'
+import Alert from '@/components/Alert/Alert'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +23,10 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       >
         <div className='dark:text-white'>
           <NavbarWrapper currentTheme={cookie ?? 'light'} />
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <Alert />
+            {children}
+          </StoreProvider>
         </div>
       </body>
     </html>

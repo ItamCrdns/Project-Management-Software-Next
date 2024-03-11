@@ -3,8 +3,12 @@ import { useFormState } from '@/hooks/useFormState'
 import { debounce } from '@/utility/debouce'
 import { TextInput } from '@tremor/react'
 import { handleChangePassword } from './actions/handleChangePassword'
+import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { onSuccessfulChange } from './actions/onSuccessfulChange'
 
 const ResetPassword: React.FC<{ token: string, email?: string }> = (props) => {
+  const { setAlert } = useAlertActions()
+
   const { token, email } = props
 
   const {
@@ -36,12 +40,18 @@ const ResetPassword: React.FC<{ token: string, email?: string }> = (props) => {
               return
             }
 
-            const response = await handleChangePassword(token, email, newPassword, newPasswordConfirm)
+            const res = await handleChangePassword(token, email, newPassword, newPasswordConfirm)
 
-            if (response !== undefined) {
+            if (res.type === 'success') {
+              setAlert({ message: 'Your password has been changed', type: 'success' })
+              await onSuccessfulChange(res.message) // * Pass the username to redirect to /login?username=${username}
+              return
+            }
+
+            if (res.type === 'error') {
               handleSetMessage({
-                type: response.type,
-                message: response.message
+                type: res.type,
+                message: res.message
               })
               handleSetBtnClicked(false)
             }

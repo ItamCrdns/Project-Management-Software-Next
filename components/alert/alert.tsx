@@ -1,71 +1,42 @@
-/**
- * Alert component to display messages with optional loading and ready states.
- * @param message - The message to display in the alert.
- * @param width - The width of the alert. Default is '125px'.
- * @param color - The color of the text in the alert. Default is 'black'.
- * @param backgroundColor - The background color of the alert. Default is 'white'.
- * @param boxShadow - The box shadow of the alert. Default is `0px 0px 15px 0px ${backgroundColor}`.
- * @param ready - The ready state of the alert. Set to `true` to show the alert with slide in animation, `false` to show the alert with slide out animation, and `null` to hide the alert. Default is `null`.
- * @param loading - The loading state of the alert. Set to `true` to show the alert with slide in animation and loading spinner, `false` to show the alert with slide out animation, and `null` to hide the alert. Default is `null`.
- * @returns The Alert component or null if `loading` and `ready` are both `null`.
- */
-import styles from './alert.module.css'
+'use client'
+import { useAppSelector } from '@/lib/hooks/hooks'
+import { Check } from './Check'
+import { useEffect } from 'react'
+import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { Error } from './Error'
 
-interface AlertProps {
-  message?: string
-  width?: string
-  color?: string
-  backgroundColor?: string
-  boxShadow?: string
-  ready?: boolean | null
-  loading?: boolean | null
-}
+// * Show: tracks if the alert should be shown
+// * Message: the message to be displayed
+// * Type: color, success = white, error = red
 
-const Alert = ({
-  message,
-  width = '125px',
-  color = 'white',
-  backgroundColor = 'white',
-  boxShadow = `0px 0px 15px 0px ${backgroundColor}`,
-  ready, // * bool. set tiemout back to false to define the duration of the alert. state initial value should be null to avoid slideOut animation on initial render
-  loading = null // * for promises
-}: AlertProps): JSX.Element | null => {
-  if (loading !== null) {
-    return (
-      <section
-        style={{ width, backgroundColor, boxShadow, color }}
-        className={`${styles.customalert} ${
-          loading ? styles.slideIn : styles.slideOut
-        }`}
-      >
-        <div className={styles.ldsring}>
-          <div />
-          <div />
-          <div />
-          <div />
-        </div>
-      </section>
-    )
-  }
+const Alert: React.FC = () => {
+  const alert = useAppSelector((state) => state.alert)
+  const { hideAlert } = useAlertActions()
 
-  if (ready !== null) {
-    return (
-      <section
-        style={{ width, backgroundColor, boxShadow, color }}
-        className={`${styles.customalert} ${
-          ready === true
-            ? styles.slideIn
-            : ready === false
-            ? styles.slideOut
-            : ''
-        }`}
-      >
-        <span>{message}</span>
-      </section>
-    )
-  }
+  // Clear alter after 5 seconds
+  useEffect(() => {
+    if (alert.show === true) {
+      setTimeout(() => {
+        hideAlert()
+      }, 5000)
+    }
+  }, [alert])
 
-  return null
+  return (
+    <div
+      className={`${
+        alert.show === true
+          ? 'animate-slide-in-from-bottom'
+          : 'animate-slide-out-to-bottom'
+      } text-sm fixed bottom-0 right-0 min-w-80 m-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md py-4 px-6`}
+    >
+      <div className='flex gap-2 items-center'>
+        {alert.type === 'success' && <Check />}
+        {alert.type === 'error' && <Error />}
+        <p>{alert.message}</p>
+      </div>
+    </div>
+  )
 }
 
 export default Alert

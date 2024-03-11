@@ -17,6 +17,8 @@ const config = {
       animation: {
         'slide-in': 'slideIn 0.25s forwards',
         'slide-out': 'slideOut 0.25s forwards',
+        'slide-in-from-bottom': 'slideInFromBottom 0.25s forwards',
+        'slide-out-to-bottom': 'slideOutToBottom 0.25s forwards',
         'spin-slow': 'rotation 3s linear infinite',
         'spin-fast': 'rotation 1s linear infinite',
         ripple: 'ripple 0.6s linear forwards'
@@ -29,6 +31,14 @@ const config = {
         slideOut: {
           '0%': { transform: 'translateY(0)', opacity: '1' },
           '100%': { transform: 'translateY(-100%)', opacity: '0' }
+        },
+        slideInFromBottom: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' }
+        },
+        slideOutToBottom: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(100%)', opacity: '0' }
         },
         rotation: {
           '0%': { transform: 'rotate(0deg)' },

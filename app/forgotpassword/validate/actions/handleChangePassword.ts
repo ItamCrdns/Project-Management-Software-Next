@@ -1,7 +1,6 @@
 'use server'
 import { type Message } from '@/hooks/useFormState'
 import { changePassword } from '../changePassword'
-import { redirect } from 'next/navigation'
 
 export const handleChangePassword = async (token: string, email: string, newPassword?: string, newPasswordConfirm?: string): Promise<Message> => {
   if (newPassword === undefined || newPassword === '') {
@@ -19,12 +18,8 @@ export const handleChangePassword = async (token: string, email: string, newPass
   const { message, success, data } = await changePassword(email, token, newPassword)
 
   if (success && data !== undefined) {
-    const params = new URLSearchParams({
-      username: data
-    })
-
-    redirect(`/login?${params.toString()}`)
+    return { type: 'success', message: data } // Where the data we send its the username
   } else {
-    return { type: 'server', message: message ?? '' }
+    return { type: 'error', message: message ?? '' }
   }
 }
