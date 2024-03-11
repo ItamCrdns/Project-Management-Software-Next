@@ -1,4 +1,4 @@
-# ProjectXHub
+# Project Management Software
 *Designed to help organizations effectively plan, execute, and manage client projects.*
 
 # Introduction
