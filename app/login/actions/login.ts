@@ -2,8 +2,9 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { authenticateUser } from '../authenticateUser'
+import { type Message } from '@/hooks/useFormState'
 
-export const login = async (formData: FormData): Promise<{ type: string, message: string }> => {
+export const login = async (formData: FormData): Promise<Message> => {
   const username = formData.get('username')?.toString() ?? ''
   const password = formData.get('password')?.toString() ?? ''
 

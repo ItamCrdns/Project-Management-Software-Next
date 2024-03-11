@@ -5,13 +5,10 @@ import { useParams } from 'next/navigation'
 import { SelectAuthor } from './SelectAuthor'
 import { SelectPriority } from './SelectPriority'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import {
-  useEmployeeFilterUtility,
-  type EmployeeFetcherProps
-} from './useEmployeeFilterUtility '
 import { type IParams } from './SelectAuthorInterfaces'
 import { employeesAsOptions } from './employeesAsOptions'
 import { useGetSearchParams } from './useGetSearchParams'
+import { useEmployeeFilterUtility, type EmployeeFetcherProps } from '@/hooks/useEmployeeFilterUtility '
 
 export interface IFilter {
   authorIds?: number[]

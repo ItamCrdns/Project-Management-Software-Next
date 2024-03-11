@@ -2,7 +2,7 @@ import { type DataCountPages } from '@/interfaces/DataCountPages.interface'
 import { type Employee } from '@/interfaces/employee'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
-import { useGetSearchParams } from './useGetSearchParams'
+import { useGetSearchParams } from '../components/Filters/useGetSearchParams'
 
 interface SelectedAndAll {
   selectedEmployees: Employee[]
