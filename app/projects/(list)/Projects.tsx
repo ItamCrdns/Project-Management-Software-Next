@@ -60,7 +60,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
                   )}
                   <Button
                     text={`More projects from ${project.companyName}`}
-                    href=''
+                    href={`/projects/client/${project.companyId}/${project.companyName}`}
                   />
                 </div>
               </div>

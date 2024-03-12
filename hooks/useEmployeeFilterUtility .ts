@@ -47,7 +47,7 @@ export const useEmployeeFilterUtility = (props: EmployeeFetcherProps): Return =>
   const { router, pathname, searchParams } = useGetSearchParams()
 
   // New state to handle the selected employees for the URL. This avoids collision when clearing all filters in the PageFilters component.
-  const [employeesForUrl, setEmployeesForUrl] = useState<number[]>([])
+  const [employeesForUrl, setEmployeesForUrl] = useState<number[]>(searchParams.get('author')?.split('-').map(Number) ?? [])
 
   useEffect(() => {
     if (employeesForUrl.length === 0) {

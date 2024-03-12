@@ -38,20 +38,22 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
           defaultEntities={props.defaultEntities}
           onShowDropdown={props.onShowDropdown}
         />
-        <OptionsList
-          shouldShowDropdown={props.shouldShowDropdown}
-          closeDropdown={props.closeDropdown}
-          options={props.options}
-          handleOptionClick={handleOptionClick}
-          handleMultipleOptionClick={handleMultipleOptionClick}
-          pageSize={props.pageSize}
-          onPageChange={props.onPageChange}
-          isPaginated={props.isPaginated}
-          multiple={props.multiple}
-          showCloseButton={props.showCloseButton}
-          defaultEntities={props.defaultEntities}
-          showPictures={props.showPictures}
-        />
+        {props.shouldShowDropdown === true && (
+          <OptionsList
+            // shouldShowDropdown={props.shouldShowDropdown}
+            closeDropdown={props.closeDropdown}
+            options={props.options}
+            handleOptionClick={handleOptionClick}
+            handleMultipleOptionClick={handleMultipleOptionClick}
+            pageSize={props.pageSize}
+            onPageChange={props.onPageChange}
+            isPaginated={props.isPaginated}
+            multiple={props.multiple}
+            showCloseButton={props.showCloseButton}
+            defaultEntities={props.defaultEntities}
+            showPictures={props.showPictures}
+          />
+        )}
       </div>
       {props.showReset === true && <Reset reset={handleClearAll} />}
     </div>
