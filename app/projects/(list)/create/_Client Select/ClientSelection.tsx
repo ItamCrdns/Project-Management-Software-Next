@@ -1,21 +1,17 @@
+import { getClients } from '@/api-calls/getClients'
 import CustomSelect from '@/components/select/select'
 import { type ClientSelectionProps } from '@/interfaces/props/ClientSelectionProps'
-import useCompanyDropdown from '@/utility/CompanyDropdown'
-import useCompanyOptions from '@/utility/companyOptions'
+import { clientsAsOptions } from '@/utility/clientsAsOptions'
 import { useState } from 'react'
+import { useGetAndSetClient } from './useGetAndSetClient'
 
 const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
-  const [currentPage, setCurrentPage] = useState<string>('1')
+  const { clientId } = props.searchParams
+  useGetAndSetClient(clientId)
 
-  const { clients, isError } = useCompanyDropdown({
-    page: currentPage
-  })
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const companyOptions = useCompanyOptions({ clients })
-
-  const handlePageChange = (page: number): void => {
-    setCurrentPage(page.toString())
-  }
+  const { clients, isError } = getClients(currentPage, 2, true)
 
   if (isError !== undefined) {
     return <p className='text-xs text-center'>{isError?.toString()}</p>
@@ -28,12 +24,14 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
       defaultValue={
         props.clientName === '' ? 'Select a client...' : props.clientName
       }
-      options={companyOptions ?? []}
+      options={clientsAsOptions(clients) ?? []}
       sendStateToParent={props.handleClientSelection}
       disabled={props.isFormOpen}
       isPaginated
       pageSize={clients?.pages ?? 0}
-      onPageChange={handlePageChange}
+      onPageChange={(page) => {
+        setCurrentPage(page)
+      }}
       showReset={props.clientName !== ''}
       shouldShowDropdown={toggle}
       onShowDropdown={() => {
@@ -46,4 +44,4 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
   )
 }
 
-export default ClientSelection
+export { ClientSelection }

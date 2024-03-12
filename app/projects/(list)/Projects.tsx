@@ -50,7 +50,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
                   {/* Might be cool to check if the user can atually create a project. Either if its a supervisor, or emplyoee of the company, or both. */}
                     <Button
                       text='Create a new project'
-                      href={'projects/create'}
+                      href={`/projects/create?clientId=${project.companyId}`}
                     />
                   {project.isCurrentUserInTeam && ( // TODO: Adding an employee to work in a project should add them inmediately to the team.
                     <Button

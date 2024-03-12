@@ -9,13 +9,15 @@ import UnsavedChanges from './UnsavedChanges'
 import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
 import CreateNewClient from './CreateNewClient'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import ClientSelection from './_Client Select/ClientSelection'
+import { ClientSelection } from './_Client Select/ClientSelection'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import DialogComponent from './Dialog'
 import { errorMessageInitialState, type ErrorMessages } from './errorMessages'
 
-const NewProjectModal: React.FC = () => {
+const NewProjectModal: React.FC<{
+  searchParams: { clientId: string }
+}> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
   const { setCompany, setName } = useNewProjectActions()
 
@@ -166,6 +168,7 @@ const NewProjectModal: React.FC = () => {
                 clientName={newProject.companyName as string}
                 handleClientSelection={handleCompanySelect}
                 isFormOpen={isFormOpen}
+                searchParams={props.searchParams}
               />
               <CreateNewClient
                 newClientOpen={checkIfNewClientFormIsOpen}

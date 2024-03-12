@@ -1,7 +1,7 @@
-import useSWR from 'swr'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { type Company } from '@/interfaces/company'
 import { fetcher } from '@/utility/fetcherSWR'
+import useSWRImmutable from 'swr/immutable'
 
 interface GetClientsReturn {
   clients: SWRGetterReturn<Company> | undefined
@@ -9,8 +9,8 @@ interface GetClientsReturn {
   isError: unknown
 }
 
-const getClients = (page: string, pageSize: string, shouldFetch: boolean): GetClientsReturn => {
-  const { data, error, isLoading } = useSWR<SWRGetterReturn<Company>>(
+export const getClients = (page: number, pageSize: number, shouldFetch: boolean): GetClientsReturn => {
+  const { data, error, isLoading } = useSWRImmutable<SWRGetterReturn<Company>>(
     shouldFetch ? `${process.env.NEXT_PUBLIC_API_URL}Company/all?page=${page}&pageSize=${pageSize}` : null,
     fetcher
   )
@@ -21,5 +21,3 @@ const getClients = (page: string, pageSize: string, shouldFetch: boolean): GetCl
     isError: error
   }
 }
-
-export default getClients
