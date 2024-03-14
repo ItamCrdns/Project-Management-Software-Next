@@ -21,7 +21,7 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
 
   return (
     <>
-      <div className='flex gap-4 items-center'>
+      <div className='flex gap-2 items-center'>
         {employee.profilePicture !== null
           ? (
           <Image
@@ -40,7 +40,10 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
           </div>
             )}
         {showName && (
-          <Link href={`/employees/${employee.username}`} className='font-md font-semibold'>{employee.username}</Link>
+          <div className='flex flex-col'>
+            <Link href={`/employees/${employee.username}`} className='font-md font-semibold text-sm'>{employee.username}</Link>
+            <p className='text-xs opacity-50'>Some extra info</p>
+          </div>
         )}
       </div>
       {showCard && (

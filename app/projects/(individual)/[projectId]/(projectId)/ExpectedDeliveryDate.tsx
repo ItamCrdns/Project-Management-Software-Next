@@ -1,13 +1,8 @@
 'use client'
-import { type Project } from '@/interfaces/project'
 import { dateFormatter } from '@/utility/dateFormatter'
 import { useState } from 'react'
 
-interface Props {
-  project: Project | null
-}
-
-const ExpectedDeliveryDate: React.FC<Props> = (props) => {
+const ExpectedDeliveryDate: React.FC<{ date: string }> = (props) => {
   const [toggle, setToggle] = useState<boolean>(false)
 
   // TODO: Fix to work properly with UTC time
@@ -19,9 +14,7 @@ const ExpectedDeliveryDate: React.FC<Props> = (props) => {
     return differenceInDays
   }
 
-  const { date, color } = dateFormatter(
-    props.project?.expectedDeliveryDate ?? ''
-  )
+  const { date, color } = dateFormatter(props.date)
 
   let message = ''
   let backgroundColor = ''
@@ -52,9 +45,9 @@ const ExpectedDeliveryDate: React.FC<Props> = (props) => {
 
   return (
     <>
-      <p className='text-gray-500'>Expected delivery date</p>
+      <p className='text-gray-500 text-xs'>Expected delivery date</p>
       <div className='relative flex items-center m-0 p-0 gap-1'>
-        <p className='m-0 p-0' style={{ color }}>
+        <p className='m-0 p-0 text-xs' style={{ color }}>
           {date}
         </p>
         <svg
@@ -66,16 +59,14 @@ const ExpectedDeliveryDate: React.FC<Props> = (props) => {
             setToggle(false)
           }}
           xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='w-6 h-6'
+          viewBox='0 0 16 16'
+          fill='currentColor'
+          className='w-4 h-4'
         >
           <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z'
+            fillRule='evenodd'
+            d='M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0ZM9 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6.75 8a.75.75 0 0 0 0 1.5h.75v1.75a.75.75 0 0 0 1.5 0v-2.5A.75.75 0 0 0 8.25 8h-1.5Z'
+            clipRule='evenodd'
           />
         </svg>
         {toggle && (

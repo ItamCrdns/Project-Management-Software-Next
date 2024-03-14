@@ -1,8 +1,8 @@
 import getProject from '@/api-calls/getProject'
-import { type Images } from '@/interfaces/images'
-import { type Employee } from '@/interfaces/employee'
-import { type Company } from '@/interfaces/company'
-import ProjectUI from './ProjectUI'
+import ProjectUI from '../tasks/ProjectUI'
+import { DatesBanner } from './DatesBanner'
+import { ClientBanner } from './ClientBanner'
+import { DescriptionBanner } from './DescriptionBanner'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -15,38 +15,33 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
 
   const { data } = await getProject(params.projectId)
 
-  const project = data?.entity
-  const images = project?.images as Images
-  const employees = project?.team as Employee[]
-  const company = project?.company as Company
-  const projectCreator = project?.creator as Employee
-
-  const employeeCount = project?.employeeCount ?? 0
-  const projectId = project?.projectId ?? 0
-
-  const tasksCount = project?.tasksCount ?? 0
-
-  // * Checker if current logged in user its participant or creator of the project.
-  // ? Will both we boolean values
-  const isParticipant = data?.isParticipant ?? false
-  const isOwner = data?.isOwner ?? false
+  const hasTasks = data?.entity.tasksCount ?? 0
 
   return (
-    <ProjectUI
-      project={project}
-      company={company}
-      images={images}
-      projectCreator={projectCreator}
-      employees={employees}
-      projectId={projectId}
-      employeeCount={employeeCount}
-      tasksCount={tasksCount}
-      tasks={tasks}
-      isParticipant={isParticipant}
-      isOwner={isOwner}
-    >
+    <section className='flex items-center flex-col p-8'>
       {children}
-    </ProjectUI>
+      <div className='flex flex-col items-start justify-center gap-8'>
+        <div className='flex gap-8 items-start w-full justify-center'>
+          {data !== undefined && (
+            <ProjectUI
+              project={data}
+              showButtons={false}
+              employeeCountHref={`/projects/${data?.entity.projectId}/employees`}
+            />
+          )}
+          <div className='space-y-8'>
+            <ClientBanner name={data?.entity.company.name} />
+            <DatesBanner
+              created={data?.entity.created}
+              expectedDelivery={data?.entity.expectedDeliveryDate}
+              finalized={data?.entity.finalized}
+            />
+          </div>
+          <DescriptionBanner description={data?.entity.description} />
+        </div>
+        {hasTasks > 0 && tasks}
+      </div>
+    </section>
   )
 }
 
