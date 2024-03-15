@@ -9,4 +9,5 @@ export interface NewTaskData {
   taskCreatorId: number
   projectId: number
   employees: Employee[] | null
+  expectedDeliveryDate: string
 }

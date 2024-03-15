@@ -11,7 +11,7 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
 
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const { clients, isError } = getClients(currentPage, 2, true)
+  const { clients, isError } = getClients(currentPage, 5, true)
 
   if (isError !== undefined) {
     return <p className='text-xs text-center'>{isError?.toString()}</p>

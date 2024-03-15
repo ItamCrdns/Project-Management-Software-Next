@@ -1,4 +1,4 @@
-import { Calendar } from '@/components/Data Header/svg/Calendar'
+import { Calendar } from '@/svg/Calendar'
 import { getRelativeTimeString } from '@/utility/relativeTime'
 import ExpectedDeliveryDate from './ExpectedDeliveryDate'
 

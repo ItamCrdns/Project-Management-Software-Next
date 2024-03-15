@@ -1,18 +1,10 @@
 import { type PostReturn } from '@/interfaces/return/PosterReturn'
+import { postCookieOptions } from '../cookieOptions'
 
-const handlePost = async <T>(
-  endpoint: string,
-  formData: FormData
-): Promise<PostReturn<T>> => {
+export const handlePost = async <T>(endpoint: string, fd: FormData): Promise<PostReturn<T>> => {
   const url = new URL(process.env.NEXT_PUBLIC_API_URL + endpoint)
 
-  const requestOptions: RequestInit = {
-    method: 'POST',
-    credentials: 'include',
-    body: formData
-  }
-
-  const res = await fetch(url, requestOptions)
+  const res = await fetch(url, postCookieOptions(fd))
 
   if (!res.ok) {
     throw new Error(`An error has occured: ${res.status}`)
@@ -30,5 +22,3 @@ const handlePost = async <T>(
     status: res.status
   }
 }
-
-export default handlePost

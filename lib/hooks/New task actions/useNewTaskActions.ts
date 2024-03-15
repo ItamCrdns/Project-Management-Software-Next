@@ -14,12 +14,12 @@ export const useNewTaskActions = (): useNewTaskActionsReturn => {
     dispatch(newTaskSlice.actions.setDescription(description))
   }
 
-  const setCreated = (created: string): void => {
-    dispatch(newTaskSlice.actions.setCreated(created))
+  const setExpectedDeliveryDate = (expectedDeliveryDate: string): void => {
+    dispatch(newTaskSlice.actions.setExpectedDeliveryDate(expectedDeliveryDate))
   }
 
-  const setExpectedDeliveryDate = (startedWorking: string): void => {
-    dispatch(newTaskSlice.actions.setExpectedDeliveryDate(startedWorking))
+  const setStartedWorking = (): void => {
+    dispatch(newTaskSlice.actions.setStartedWorking())
   }
 
   const setFinished = (finished: string): void => {
@@ -43,6 +43,6 @@ export const useNewTaskActions = (): useNewTaskActionsReturn => {
   }
 
   return {
-    setName, setDescription, setCreated, setExpectedDeliveryDate, setFinished, setTaskCreatorId, setProjectId, setEmployee, clear
+    setName, setDescription, setExpectedDeliveryDate, setStartedWorking, setFinished, setTaskCreatorId, setProjectId, setEmployee, clear
   }
 }

@@ -1,4 +1,4 @@
-import { Client } from '@/components/Data Header/svg/Client'
+import { Client } from '@/svg/Client'
 
 const ClientBanner: React.FC<{ name?: string }> = (props) => {
   const { name } = props

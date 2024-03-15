@@ -7,8 +7,9 @@ export interface Task {
   name: string
   description: string
   created: string // its a date!
-  startedWorking: string // its a date too!
   finished: string // its a date too!
+  expectedDeliveryDate: string // its a date too!
+  startedWorking: string
   taskCreatorId: number
   taskCreator: Employee
   projectId: number

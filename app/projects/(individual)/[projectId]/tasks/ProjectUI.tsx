@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPriority'
 import { Button } from '@/components/Button/Button'
 import { type ProjectUIProps } from './ProjectUI.interface'
-import { Creator } from '@/components/Data Header/svg/Creator'
-import { Users } from '@/components/Data Header/svg/Users'
+import { Creator } from '@/svg/Creator'
+import { Users } from '@/svg/Users'
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const { project, showButtons, employeeCountHref } = props

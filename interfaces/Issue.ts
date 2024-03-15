@@ -5,9 +5,10 @@ export interface Issue {
   issueId: number
   name: string
   description: string
-  created: string // Date
-  startedWorking: string // Date
-  fixed: string // Date
+  created: string // its a date!
+  finished: string // its a date too!
+  expectedDeliveryDate: string // its a date too!
+  startedWorking: string
   issueCreatorId: string
   issueCreator: Employee
   taskId: number

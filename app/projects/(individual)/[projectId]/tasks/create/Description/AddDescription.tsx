@@ -16,7 +16,11 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
     <>
       {ready
         ? (
-        <Employees />
+        <Employees
+          return={() => {
+            setReady(false)
+          }}
+        />
           )
         : (
         <>

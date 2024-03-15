@@ -34,7 +34,7 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
             <DatesBanner
               created={data?.entity.created}
               expectedDelivery={data?.entity.expectedDeliveryDate}
-              finalized={data?.entity.finalized}
+              finalized={data?.entity.finished}
             />
           </div>
           <DescriptionBanner description={data?.entity.description} />

@@ -6,6 +6,7 @@ export interface UseNewProjectActionsReturn {
   setName: (projectName: string) => void
   setClientName: (clientName: string) => void
   setExpectedDeliveryDate: (expectedDeliveryDate: string) => void
+  setStartedWorking: (value: boolean) => void
   setPriority: (priority: Option) => void
   setDescription: (description: string) => void
   setEmployee: (employee: Employee) => void

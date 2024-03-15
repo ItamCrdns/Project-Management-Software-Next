@@ -73,7 +73,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                     <EachTask task={task} showProjectName={false} />
                   </li>
                 ))}
-                <p className='self-end'>
+                <p className='self-end text-xs'>
                   Total <span className='font-bold'>{task.projectName}</span>{' '}
                   tasks: {task.count}
                 </p>

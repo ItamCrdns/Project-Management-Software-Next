@@ -9,6 +9,7 @@ export interface NewProjectData {
   priorityLabel: string | null // Only for displaying purposes
   employees: Employee[] | null
   expectedDeliveryDate: string
+  startedWorking: boolean
   clientName?: string
 
 }

@@ -23,6 +23,10 @@ export const useNewProjectActions = (): UseNewProjectActionsReturn => {
     dispatch(newProjectSlice.actions.setExpectedDeliveryDate(expectedDeliveryDate))
   }
 
+  const setStartedWorking = (value: boolean): void => {
+    dispatch(newProjectSlice.actions.setStartedWorking(value))
+  }
+
   const setPriority = (priority: Option): void => {
     dispatch(newProjectSlice.actions.setPriority(priority))
   }
@@ -40,6 +44,6 @@ export const useNewProjectActions = (): UseNewProjectActionsReturn => {
   }
 
   return {
-    setCompany, setName, setClientName, setExpectedDeliveryDate, setPriority, setDescription, setEmployee, clear
+    setCompany, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear
   }
 }

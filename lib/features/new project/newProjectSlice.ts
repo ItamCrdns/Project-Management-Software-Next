@@ -12,6 +12,7 @@ const initialState: NewProjectData = {
   priorityLabel: '',
   employees: [],
   expectedDeliveryDate: '',
+  startedWorking: true, // Default state value expects every project to start immediately
   clientName: ''
 }
 
@@ -31,6 +32,9 @@ export const newProjectSlice = createSlice({
     },
     setExpectedDeliveryDate: (state, action: PayloadAction<string>) => {
       state.expectedDeliveryDate = action.payload
+    },
+    setStartedWorking: (state, action: PayloadAction<boolean>) => {
+      state.startedWorking = action.payload
     },
     setPriority: (state, action: PayloadAction<Option>) => {
       state.priority = action.payload.value
@@ -54,4 +58,4 @@ export const newProjectSlice = createSlice({
 
 export default newProjectSlice.reducer
 
-export const { setCompany, setName, setClientName, setExpectedDeliveryDate, setPriority, setDescription, setEmployee, clear } = newProjectSlice.actions
+export const { setCompany, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear } = newProjectSlice.actions

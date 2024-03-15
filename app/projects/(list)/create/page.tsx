@@ -14,6 +14,7 @@ import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProj
 import { useAppSelector } from '@/lib/hooks/hooks'
 import DialogComponent from './Dialog'
 import { errorMessageInitialState, type ErrorMessages } from './errorMessages'
+import { StartedWorkingSwitch } from './StartedWorkingSwitch'
 
 const NewProjectModal: React.FC<{
   searchParams: { clientId: string }
@@ -178,6 +179,7 @@ const NewProjectModal: React.FC<{
               <ExpectedDeliveryDateSelector
                 defaultValue={new Date(newProject.expectedDeliveryDate)}
               />
+              <StartedWorkingSwitch />
             </form>
             <Button text='Next' func={handleClick} />
           </>

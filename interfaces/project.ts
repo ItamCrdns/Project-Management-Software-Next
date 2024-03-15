@@ -7,8 +7,9 @@ export interface Project {
   name: string
   description: string
   created: string // its a date!
-  finalized: string // its a date too!
+  finished: string // its a date too!
   expectedDeliveryDate: string // its a date too!
+  startedWorking: string
   projectCreatorId: number
   lifecycle: string
   images: Images

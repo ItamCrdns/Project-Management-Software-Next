@@ -1,13 +1,13 @@
 import { type ComponentType } from 'react'
 import { type SortValues } from './sortValues'
-import { Icon } from './svg/Icon'
-import { Creator } from './svg/Creator'
-import { Users } from './svg/Users'
-import { Priority } from './svg/Priority'
-import { Calendar } from './svg/Calendar'
-import { Client } from './svg/Client'
-import { Project } from './svg/Project'
-import { Task } from './svg/Task'
+import { Icon } from '@/svg/Icon'
+import { Creator } from '@/svg/Creator'
+import { Users } from '@/svg/Users'
+import { Priority } from '@/svg/Priority'
+import { Calendar } from '@/svg/Calendar'
+import { Client } from '@/svg/Client'
+import { Project } from '@/svg/Project'
+import { Task } from '@/svg/Task'
 
 interface Props {
   entity?: string

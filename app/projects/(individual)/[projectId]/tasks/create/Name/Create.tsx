@@ -3,7 +3,12 @@ import ProjectUI from '../../ProjectUI'
 import { Button } from '@/components/Button/Button'
 import { useNewTaskActions } from '@/lib/hooks/New task actions/useNewTaskActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import { DatePicker, type DatePickerValue, TextInput } from '@tremor/react'
+import {
+  DatePicker,
+  type DatePickerValue,
+  TextInput,
+  Switch
+} from '@tremor/react'
 import { useState } from 'react'
 import { AddDescription } from '../Description/AddDescription'
 import { type CreateProps } from './Create.interface'
@@ -57,6 +62,10 @@ const Create: React.FC<CreateProps> = (props) => {
                 }
                 minDate={new Date()}
               />
+              <div className='flex gap-2 items-center'>
+                <Switch />
+                <p className='text-sm'>Task will start immediately</p>
+              </div>
               <Button
                 text='Next'
                 disabled={newTask.name === ''}
