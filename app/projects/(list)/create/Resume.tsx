@@ -1,13 +1,12 @@
 import { Button } from '@/components/Button/Button'
 import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import { Divider } from '@tremor/react'
+import { Badge, Divider } from '@tremor/react'
 import { useState } from 'react'
 import CreatedDialog from './CreatedDialog'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { debounce } from '@/utility/debouce'
-import { createProject } from './actions/createProject'
-import { createClient } from './actions/createClient'
+import { callCreateProjectServerActions } from './callCreateProjectServerActions'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -59,7 +58,11 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
             </div>
             <div className='flex flex-col items-center w-full'>
               <Divider>Client</Divider>
-              <h2 className='text-center'>{client}</h2>
+              <div className='flex gap-2 items-center'>
+                <h2 className='text-center'>{client}</h2>
+                {newProject.clientName !== '' &&
+                  newProject.companyName === '' && <Badge size='xs'>New</Badge>}
+              </div>
             </div>
           </div>
         </div>
@@ -107,50 +110,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
             text='Create project'
             func={debounce(() => {
               void (async () => {
-                const formData = new FormData()
-
-                const selectedDeliveryDate = new Date(
-                  newProject.expectedDeliveryDate
-                ).toUTCString()
-
-                formData.append('name', newProject.name)
-                formData.append('description', newProject.description)
-                formData.append(
-                  'priority',
-                  newProject.priority?.toString() ?? ''
-                )
-                formData.append('expectedDeliveryDate', selectedDeliveryDate)
-
-                if (newProject.startedWorking) {
-                  formData.append('shouldStartNow', 'true')
-                }
-
-                const companyClientName = newProject.clientName
-                const companyId = newProject.companyId
-
-                // * Check if the clientName has been provided. If it is, it means that the user its creating a new client instead of selecting an existing one
-                // * And we will call the create client method, get the returned value after the client is created and append it to the form data
-                if (companyClientName !== undefined && companyId === 0) {
-                  const res = await createClient(companyClientName)
-
-                  if (res === null) {
-                    return
-                  }
-
-                  formData.append('companyId', res.toString())
-                } else if (companyId !== null && companyId !== 0) {
-                  formData.append('companyId', companyId.toString())
-                }
-
-                const employees = newProject.employees
-
-                if (employees !== null && employees.length > 0) {
-                  employees.forEach((employee) => {
-                    formData.append('employees', employee.employeeId.toString())
-                  })
-                }
-
-                const res = await createProject(formData)
+                const res = await callCreateProjectServerActions(newProject)
                 setResponse(res)
               })()
             }, 500)}

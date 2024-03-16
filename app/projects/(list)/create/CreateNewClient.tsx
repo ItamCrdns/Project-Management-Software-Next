@@ -3,7 +3,7 @@ import { Button } from '@/components/Button/Button'
 import NewClientForm from './NewClientForm'
 import { type CreateNewClientProps } from '@/interfaces/props/CreateNewClientProps'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
-import { Divider } from '@tremor/react'
+import { Divider, TextInput } from '@tremor/react'
 
 const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
   const { setClientName } = useNewProjectActions()
@@ -24,7 +24,7 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
     setToggle(false)
   }
 
-  const buttonText = props.clientName === '' ? 'Add client' : 'Update'
+  const buttonText = props.clientName === '' ? 'Add' : 'Update'
 
   return (
     <>
@@ -46,7 +46,11 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
       )}
       {props.clientName !== '' && !toggle && (
         <div className='flex items-center justify-center gap-4'>
-          <input className='w-48 p-2 rounded-md text-black bg-theming-white200 dark:bg-theming-dark300 dark:text-white' type='text' value={props.clientName} disabled />
+          <TextInput
+            type='text'
+            value={props.clientName}
+            disabled
+          />
           <svg
             onClick={() => {
               setToggle(true)
