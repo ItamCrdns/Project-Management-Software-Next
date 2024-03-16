@@ -6,7 +6,7 @@ const initialState: NewTaskData = {
   name: '',
   description: '',
   created: '',
-  startedWorking: '',
+  startedWorking: true,
   expectedDeliveryDate: '',
   finished: '',
   taskCreatorId: 0,
@@ -30,8 +30,8 @@ export const newTaskSlice = createSlice({
     setExpectedDeliveryDate: (state, action: PayloadAction<string>) => {
       state.expectedDeliveryDate = action.payload
     },
-    setStartedWorking: (state) => {
-      state.startedWorking = new Date().toUTCString()
+    setStartedWorking: (state, action: PayloadAction<boolean>) => {
+      state.startedWorking = action.payload
     },
     setFinished: (state, action) => {
       state.finished = action.payload

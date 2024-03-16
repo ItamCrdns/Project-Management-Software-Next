@@ -30,7 +30,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
       />
       <section className='w-500 flex items-center flex-col justify-center'>
         <h1 className='text-2xl mb-4'>Your new project overview</h1>
-        <p className='w-96 mb-4 text-center'>
+        <p className='w-96 text-center'>
           Please carefully review the information you are about to submit.
         </p>
         <div className='w-500 flex items-center flex-col'>
@@ -67,26 +67,39 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
           <Divider>Employees</Divider>
           {Array.isArray(employees) && employees.length > 0
             ? (
-            <ul className='relative list-none flex items-center -space-x-4 justify-center p-6 pt-0'>
-              {employees.map((employee, index) => (
-                <li key={index} className='p-4 relative'>
-                  <IndividualEmployee
-                    key={employee.username}
-                    employee={employee}
-                    size={50}
-                    redirectMe={false}
-                    position={{ top: '2.5rem' }}
-                    showName={false}
-                  />
-                </li>
-              ))}
-            </ul>
+            <>
+              <p className='text-xs mb-4'>Hover them to see more information</p>
+              <ul className='relative list-none flex items-center -space-x-4 justify-center pt-0'>
+                {employees.map((employee, index) => (
+                  <li key={index}>
+                    <IndividualEmployee
+                      employee={employee}
+                      size={50}
+                      redirectMe={false}
+                      position={{ top: '2.5rem' }}
+                      showName={false}
+                      showImageBorder={true}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </>
               )
             : (
             <p className='mb-4 text-center'>
               You didn&apos;t add any employees, but don&apos;t worry, you can
-              add them later.
+              add them later
             </p>
+              )}
+        </div>
+        <div className='flex items-center flex-col w-full p-4 py-0 mt-0 mb-4'>
+          <Divider>Project start date</Divider>
+          {newProject.startedWorking
+            ? (
+            <p>Immediately</p>
+              )
+            : (
+            <p>Not specified</p>
               )}
         </div>
         <div className='flex gap-4'>
@@ -94,7 +107,6 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
             text='Create project'
             func={debounce(() => {
               void (async () => {
-                console.log('calling...')
                 const formData = new FormData()
 
                 const selectedDeliveryDate = new Date(

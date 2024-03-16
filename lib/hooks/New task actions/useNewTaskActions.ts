@@ -18,8 +18,8 @@ export const useNewTaskActions = (): useNewTaskActionsReturn => {
     dispatch(newTaskSlice.actions.setExpectedDeliveryDate(expectedDeliveryDate))
   }
 
-  const setStartedWorking = (): void => {
-    dispatch(newTaskSlice.actions.setStartedWorking())
+  const setStartedWorking = (value: boolean): void => {
+    dispatch(newTaskSlice.actions.setStartedWorking(value))
   }
 
   const setFinished = (finished: string): void => {

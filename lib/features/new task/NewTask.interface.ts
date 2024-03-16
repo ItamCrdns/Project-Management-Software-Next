@@ -4,7 +4,7 @@ export interface NewTaskData {
   name: string
   description: string
   created: string
-  startedWorking: string
+  startedWorking: boolean
   finished: string
   taskCreatorId: number
   projectId: number

@@ -17,7 +17,7 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
     bottom: props.position?.bottom
   }
 
-  const { employee, showName } = props
+  const { employee, showName, showImageBorder } = props
 
   return (
     <>
@@ -31,7 +31,11 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
             alt={employee.username}
             width={props.size}
             height={props.size}
-            className='rounded-full z-40'
+            className={`rounded-full z-40 ${
+              showImageBorder === true
+                ? 'border-4 border-theming-white400 dark:border-theming-dark400'
+                : ''
+            }`}
           />
             )
           : (
@@ -41,7 +45,12 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
             )}
         {showName && (
           <div className='flex flex-col'>
-            <Link href={`/employees/${employee.username}`} className='font-md font-semibold text-sm'>{employee.username}</Link>
+            <Link
+              href={`/employees/${employee.username}`}
+              className='font-md font-semibold text-sm'
+            >
+              {employee.username}
+            </Link>
             <p className='text-xs opacity-50'>Some extra info</p>
           </div>
         )}

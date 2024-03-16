@@ -3,21 +3,19 @@ import ProjectUI from '../../ProjectUI'
 import { Button } from '@/components/Button/Button'
 import { useNewTaskActions } from '@/lib/hooks/New task actions/useNewTaskActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import {
-  DatePicker,
-  type DatePickerValue,
-  TextInput,
-  Switch
-} from '@tremor/react'
+import { DatePicker, type DatePickerValue, TextInput } from '@tremor/react'
 import { useState } from 'react'
 import { AddDescription } from '../Description/AddDescription'
 import { type CreateProps } from './Create.interface'
+import { StartedWorkingSwitch } from './StartedWorkingSwitch'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
   const { setName, setExpectedDeliveryDate, setProjectId } = useNewTaskActions()
 
   const [ready, setReady] = useState<boolean>(false)
+
+  const taskExpectedDeliveryDate = new Date(newTask.expectedDeliveryDate)
 
   return (
     <section className='flex items-start justify-center py-8 px-0 space-x-8'>
@@ -56,16 +54,13 @@ const Create: React.FC<CreateProps> = (props) => {
                 }}
                 placeholder='Set a delivery date for this task'
                 defaultValue={
-                  !isNaN(new Date(newTask.startedWorking)?.getTime())
-                    ? new Date(newTask.startedWorking)
+                  !isNaN(taskExpectedDeliveryDate.getTime())
+                    ? taskExpectedDeliveryDate
                     : undefined
                 }
                 minDate={new Date()}
               />
-              <div className='flex gap-2 items-center'>
-                <Switch />
-                <p className='text-sm'>Task will start immediately</p>
-              </div>
+              <StartedWorkingSwitch />
               <Button
                 text='Next'
                 disabled={newTask.name === ''}

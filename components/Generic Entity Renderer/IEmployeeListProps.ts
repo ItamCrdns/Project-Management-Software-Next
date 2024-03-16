@@ -14,4 +14,5 @@ export interface EmployeeListProps {
   redirectMe: boolean // * Should we redirect to the employee profile or not? prop drilling
   position?: Position
   showName: boolean
+  showImageBorder?: boolean
 }

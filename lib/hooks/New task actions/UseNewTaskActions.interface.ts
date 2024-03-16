@@ -4,7 +4,7 @@ export interface useNewTaskActionsReturn {
   setName: (name: string) => void
   setDescription: (description: string) => void
   setExpectedDeliveryDate: (expectedDeliveryDate: string) => void
-  setStartedWorking: () => void
+  setStartedWorking: (value: boolean) => void
   setFinished: (finished: string) => void
   setTaskCreatorId: (taskCreatorId: number) => void
   setProjectId: (projectId: number) => void
