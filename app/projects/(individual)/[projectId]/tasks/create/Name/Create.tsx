@@ -1,5 +1,4 @@
 'use client'
-import ProjectUI from '../../ProjectUI'
 import { Button } from '@/components/Button/Button'
 import { useNewTaskActions } from '@/lib/hooks/New task actions/useNewTaskActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
@@ -8,6 +7,7 @@ import { useState } from 'react'
 import { AddDescription } from '../Description/AddDescription'
 import { type CreateProps } from './Create.interface'
 import { StartedWorkingSwitch } from './StartedWorkingSwitch'
+import ProjectUI from '@/components/ProjectUI/ProjectUI'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)

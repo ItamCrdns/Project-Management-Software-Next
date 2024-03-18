@@ -1,3 +1,4 @@
+import { Button } from '@/components/Button/Button'
 import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { Divider } from '@tremor/react'
@@ -56,9 +57,13 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
           </p>
             )}
       </div>
-      <div className='flex items-center flex-col w-full px-4'>
+      <div className='flex items-center flex-col w-full px-4 mb-8'>
         <Divider>Task start date</Divider>
         {newTask.startedWorking ? <p>Immediately</p> : <p>Not specified</p>}
+      </div>
+      <div className='flex gap-4'>
+        <Button text='Create task' />
+        <Button text='Go back' />
       </div>
     </section>
   )

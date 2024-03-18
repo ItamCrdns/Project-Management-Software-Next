@@ -2,8 +2,9 @@ import { type NewProjectData } from '@/interfaces/NewProjectData'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { createClient } from './actions/createClient'
 import { createProject } from './actions/createProject'
+import { type ApiResponse } from '@/interfaces/apiResponse'
 
-export const callCreateProjectServerActions = async (newProject: NewProjectData): Promise<OperationResult<number> | null> => {
+export const callCreateProjectServerActions = async (newProject: NewProjectData): Promise<ApiResponse<OperationResult<number>> | null> => {
   const formData = new FormData()
 
   const selectedDeliveryDate = new Date(

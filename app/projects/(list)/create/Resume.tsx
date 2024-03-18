@@ -3,16 +3,17 @@ import { IndividualEmployee } from '@/components/Generic Entity Renderer/Individ
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { Badge, Divider } from '@tremor/react'
 import { useState } from 'react'
-import CreatedDialog from './CreatedDialog'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { debounce } from '@/utility/debouce'
 import { callCreateProjectServerActions } from './callCreateProjectServerActions'
+import { type ApiResponse } from '@/interfaces/apiResponse'
+import ResponseDialog from './ResponseDialog'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
   const employees = newProject.employees
 
-  const [response, setResponse] = useState<OperationResult<number> | null>(null)
+  const [response, setResponse] = useState<ApiResponse<OperationResult<number>> | null>(null)
 
   const client =
     newProject.companyName === ''
@@ -21,7 +22,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
 
   return (
     <>
-      <CreatedDialog
+      <ResponseDialog
         response={response}
         closeDialog={() => {
           setResponse(null)
@@ -95,7 +96,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
             </p>
               )}
         </div>
-        <div className='flex items-center flex-col w-full p-4 py-0 mt-0 mb-4'>
+        <div className='flex items-center flex-col w-full p-4 py-0 mt-0 mb-8'>
           <Divider>Project start date</Divider>
           {newProject.startedWorking
             ? (
