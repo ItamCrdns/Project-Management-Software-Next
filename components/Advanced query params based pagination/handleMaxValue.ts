@@ -1,6 +1,4 @@
-// ? Defines the max allowed pagesize for the input field, only 100 entries are allowed
-
-export const handleMaxAllowedPageSize = (
+export const handleMaxValue = (
   e: React.ChangeEvent<HTMLInputElement>,
   maxPageSize: number
 ): number => {

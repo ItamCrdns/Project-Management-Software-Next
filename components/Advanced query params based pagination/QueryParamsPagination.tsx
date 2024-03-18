@@ -1,10 +1,9 @@
 'use client'
-import { handleMaxAllowedCurrentPage } from './maxAllowedCurrentPage'
-import { handleMaxAllowedPageSize } from './maxAllowedPagesize'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type QueryParamsPaginationProps } from './IQueryParamsPaginationProps'
 import PaginationUI from './PaginationUI'
 import { type PaginationUIProps } from './IPaginationUIProps'
+import { handleMaxValue } from './handleMaxValue'
 
 // TODO: Add a search component to search entities basd on their name
 
@@ -20,11 +19,10 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const handleCurrentPageInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    handleMaxAllowedCurrentPage(e, totalPages)
-    const newValue = Number(e.target.value)
+    const checkedValue = handleMaxValue(e, totalEntitesCount)
 
-    if (!isNaN(newValue)) {
-      searchParams.set('page', newValue.toString())
+    if (!isNaN(checkedValue)) {
+      searchParams.set('page', checkedValue.toString())
 
       if (searchParams.toString() !== undefined) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -35,7 +33,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const handlePageSizeInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const checkedValue = handleMaxAllowedPageSize(e, totalEntitesCount)
+    const checkedValue = handleMaxValue(e, totalEntitesCount)
 
     if (!isNaN(checkedValue)) {
       searchParams.set('page', '1')
@@ -47,8 +45,13 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     }
   }
 
-  const handleSecondPageSizeInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const checkedValue = handleMaxAllowedPageSize(e, props.secondEntityProps?.secondEntityTotalCount ?? 0)
+  const handleSecondPageSizeInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const checkedValue = handleMaxValue(
+      e,
+      props.secondEntityProps?.secondEntityTotalCount ?? 0
+    )
 
     if (!isNaN(checkedValue)) {
       searchParams.set('secondpagesize', checkedValue.toString())
@@ -76,7 +79,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   }
 
   const goToNextPage = (): void => {
-    const currentPage = Number(searchParams.get('page'))
+    const currentPage = Number(searchParams.get('page') ?? 1)
 
     if (currentPage < totalPages) {
       searchParams.set('page', (currentPage + 1).toString())
@@ -103,7 +106,9 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     paginationProps: {
       currentPageSize: Number(searchParams.get('pagesize') ?? 10),
       currentPage: Number(searchParams.get('page') ?? 1),
-      currentSecondEntityPageSize: Number(searchParams.get('secondpagesize') ?? 10),
+      currentSecondEntityPageSize: Number(
+        searchParams.get('secondpagesize') ?? 10
+      ),
       totalEntitesCount,
       totalPages,
       goToFirstPage,

@@ -92,7 +92,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
               />
             </svg>
             <p
-              className='text-azure-radiance-600 font-semibold cursor-pointer'
+              className='text-azure-radiance-600 font-semibold cursor-pointer select-none'
               style={{
                 color: totalPages <= 1 || currentPage === 1 ? 'gray' : ''
               }}
@@ -113,7 +113,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         <div className='flex items-center'>
           <div className='flex items-center' onClick={totalPages > 1 ? goToNextPage : () => {}}>
             <p
-              className='text-azure-radiance-600 font-semibold cursor-pointer'
+              className='text-azure-radiance-600 font-semibold cursor-pointer select-none'
               style={{
                 color:
                   totalPages <= 1 || totalPages === currentPage ? 'gray' : ''
