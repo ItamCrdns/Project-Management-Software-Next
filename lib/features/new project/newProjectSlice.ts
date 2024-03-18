@@ -24,6 +24,10 @@ export const newProjectSlice = createSlice({
       state.companyId = action.payload.value
       state.companyName = action.payload.label
     },
+    clearCompanyValues: (state) => {
+      state.companyId = initialState.companyId
+      state.companyName = initialState.companyName
+    },
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
@@ -58,4 +62,4 @@ export const newProjectSlice = createSlice({
 
 export default newProjectSlice.reducer
 
-export const { setCompany, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear } = newProjectSlice.actions
+export const { setCompany, clearCompanyValues, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear } = newProjectSlice.actions

@@ -16,7 +16,7 @@ export interface CustomSelectProps {
   disabled?: boolean // ? Will use it to disable the custom select based on a condition
 
   // Send the data to the parent state
-  sendStateToParent: (value: Option | Option[] | null) => void
+  sendStateToParent: (value: Option) => void
 
   defaultValue?: string
   multiple?: boolean // ? If true, will allow multiple selections
@@ -28,7 +28,6 @@ export interface CustomSelectProps {
 
   // Display properties
   showPictures?: boolean // ? If true, will show pictures of the options
-  showReset?: boolean // ? Will use it to show the reset button based on a condition
   showCloseButton?: boolean // ? If true, will show a close button at the bottom of the dropdown
 
   // Dropdown properties

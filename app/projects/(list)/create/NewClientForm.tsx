@@ -1,49 +1,85 @@
-import { Button } from '@/components/Button/Button'
 import { useRef } from 'react'
 import { type NewClientFormProps } from '@/interfaces/props/NewClientFormProps'
 import { TextInput } from '@tremor/react'
+import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { Trash } from '@/svg/Trash'
+import { Close } from '@/svg/Close'
+import { CheckMark } from '@/svg/CheckMark'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 
 const NewClientForm: React.FC<NewClientFormProps> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleCloseForm = (): void => {
+  const { clientName } = props
+
+  const { setAlert } = useAlertActions()
+  const { setClientName, clearCompanyValues } = useNewProjectActions()
+
+  const handleTrash = (): void => {
+    if (inputRef.current !== null) {
+      inputRef.current.value = ''
+    }
+
+    setClientName('')
     props.closeForm()
+
+    setAlert({
+      message: 'A new client will not be created',
+      type: 'success'
+    })
   }
 
   const handleClick = (): void => {
-    const inputValue = inputRef.current?.value ?? ''
-    props.sendClientName(inputValue)
+    if (inputRef.current !== null) {
+      const inputValue = inputRef.current?.value
+
+      if (inputValue !== '') {
+        clearCompanyValues() // Clear selected company when a new one its created
+        setClientName(inputValue)
+        props.closeForm()
+        setAlert({
+          message: `The client will be created upon project submission ${inputValue}`,
+          type: 'success'
+        })
+      }
+    }
   }
 
   return (
-    <section className='flex items-center gap-4 mb-4'>
+    <section className='flex items-center gap-4'>
       <TextInput
         ref={inputRef}
         type='text'
         placeholder='Client name'
         autoComplete='off'
-        defaultValue={props.defaultInputValue}
+        defaultValue={clientName}
         name='clientName'
         maxLength={255}
       />
-      <Button text={props.buttonText} func={handleClick} />
-      <svg
-        onClick={handleCloseForm}
-        xmlns='http://www.w3.org/2000/svg'
-        fill='none'
-        viewBox='0 0 24 24'
-        strokeWidth={1.5}
-        stroke='currentColor'
-        className='w-6 h-6 hover:text-azure-radiance-700 cursor-pointer'
+      <div
+        onClick={handleClick}
+        className='cursor-pointer hover:text-green-400'
       >
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          d='M6 18 18 6M6 6l12 12'
-        />
-      </svg>
+        <CheckMark />
+      </div>
+      <div
+        onClick={() => {
+          props.closeForm()
+        }}
+        className='cursor-pointer hover:text-red-700'
+      >
+        <Close />
+      </div>
+      {clientName !== '' && (
+        <div
+          onClick={handleTrash}
+          className='cursor-pointer hover:text-red-700'
+        >
+          <Trash />
+        </div>
+      )}
     </section>
   )
 }
 
-export default NewClientForm
+export { NewClientForm }

@@ -1,56 +1,35 @@
 import { useState } from 'react'
 import { Button } from '@/components/Button/Button'
-import NewClientForm from './NewClientForm'
+import { NewClientForm } from './NewClientForm'
 import { type CreateNewClientProps } from '@/interfaces/props/CreateNewClientProps'
-import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { Divider, TextInput } from '@tremor/react'
 
 const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
-  const { setClientName } = useNewProjectActions()
   const [toggle, setToggle] = useState<boolean>(false)
 
-  const handleCloseForm = (): void => {
-    props.newClientOpen(false)
-    setToggle(false)
-  }
-
-  const handleOpenForm = (): void => {
-    props.newClientOpen(true)
-    setToggle(true)
-  }
-
-  const getClientName = (newName: string): void => {
-    setClientName(newName)
-    setToggle(false)
-  }
-
-  const buttonText = props.clientName === '' ? 'Add' : 'Update'
-
   return (
-    <>
+    <div className='h-20'>
       <Divider>Or</Divider>
       {!toggle && props.clientName === '' && (
         <Button
           text='Create new client instead'
-          func={handleOpenForm}
+          func={() => {
+            setToggle(true)
+          }}
           disabled={props.companySelected}
         />
       )}
       {toggle && (
         <NewClientForm
-          closeForm={handleCloseForm}
-          sendClientName={getClientName}
-          defaultInputValue={props.clientName}
-          buttonText={buttonText}
+          closeForm={() => {
+            setToggle(false)
+          }}
+          clientName={props.clientName}
         />
       )}
       {props.clientName !== '' && !toggle && (
         <div className='flex items-center justify-center gap-4'>
-          <TextInput
-            type='text'
-            value={props.clientName}
-            disabled
-          />
+          <TextInput type='text' value={props.clientName} disabled />
           <svg
             onClick={() => {
               setToggle(true)
@@ -70,7 +49,7 @@ const CreateNewClient: React.FC<CreateNewClientProps> = (props) => {
           </svg>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

@@ -2,19 +2,17 @@ import AddEmployeesToProject from './_employees/Employees'
 import { useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import CustomSelect from '@/components/select/select'
-import { priorityOptions } from './priorityOptions'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
-import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import DialogComponent from './Dialog'
 import { type ErrorMessages, errorMessageInitialState } from './errorMessages'
+import { PrioritySelect } from './PrioritySelect'
 
 const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
   const formRef = useRef<HTMLFormElement>(null)
   const newProject = useAppSelector((state) => state.newProjectData)
-  const { setPriority, setDescription } = useNewProjectActions()
+  const { setDescription } = useNewProjectActions()
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
@@ -53,19 +51,9 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
 
   const handleClick = useSubmitRef(formRef)
 
-  const handlePrioritySelect = (priority: Option | Option[] | null): void => {
-    if (!Array.isArray(priority) && priority !== null) {
-      setPriority(priority)
-    } else if (priority === null) {
-      setPriority({ label: '', value: 0 })
-    }
-  }
-
   const handleTextAreaSubmit = (description: string): void => {
     setDescription(description)
   }
-
-  const [toggle, setToggle] = useState<boolean>(false)
 
   return (
     <>
@@ -102,23 +90,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
                 onSubmit={handleTextAreaSubmit}
               />
             </div>
-            <CustomSelect
-              defaultValue={
-                newProject.priorityLabel === ''
-                  ? 'Pick a priority...'
-                  : newProject.priorityLabel ?? ''
-              }
-              options={priorityOptions}
-              showReset={newProject.priorityLabel !== ''}
-              sendStateToParent={handlePrioritySelect}
-              shouldShowDropdown={toggle}
-              onShowDropdown={() => {
-                setToggle(!toggle)
-              }}
-              closeDropdown={() => {
-                setToggle(false)
-              }}
-            />
+            <PrioritySelect priority={newProject.priorityLabel} />
           </form>
           <div className='flex gap-4 mt-4'>
             <Button text='Next' func={handleClick} />

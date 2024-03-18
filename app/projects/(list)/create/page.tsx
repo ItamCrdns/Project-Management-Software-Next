@@ -8,19 +8,20 @@ import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
 import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
 import CreateNewClient from './CreateNewClient'
-import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { ClientSelection } from './_Client Select/ClientSelection'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import DialogComponent from './Dialog'
 import { errorMessageInitialState, type ErrorMessages } from './errorMessages'
 import { StartedWorkingSwitch } from './StartedWorkingSwitch'
+import { Badge } from '@tremor/react'
+import { Return } from '@/svg/Return'
 
 const NewProjectModal: React.FC<{
   searchParams: { clientId: string }
 }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
-  const { setCompany, setName } = useNewProjectActions()
+  const { setName } = useNewProjectActions()
 
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
@@ -30,10 +31,6 @@ const NewProjectModal: React.FC<{
   const [messages, setMessages] = useState<ErrorMessages>(
     errorMessageInitialState
   )
-
-  const openUnsavedChanges = (val: boolean): void => {
-    setShowUnsavedChanges(val)
-  }
 
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
@@ -79,35 +76,17 @@ const NewProjectModal: React.FC<{
   const clientProvided =
     newProject.clientName !== '' || newProject.companyId !== 0
 
-  const handleCompanySelect = (company: Option | Option[] | null): void => {
-    if (!Array.isArray(company) && company !== null) {
-      setCompany(company.value, company.label)
-    } else if (company === null) {
-      setCompany(0, '')
-    }
-  }
-
-  const handleInputSubmit = (name: string): void => {
-    setName(name)
-  }
-
   const [showUnsavedChanges, setShowUnsavedChanges] = useState<boolean>(false)
 
   const router = useRouter()
 
-  const handleExitNewProjectCreation = (): void => {
+  const handleReturn = (): void => {
     if (newProject.name !== '' || newProject.companyId !== 0) {
       setShowUnsavedChanges(true)
     } else {
       router.push('/projects/')
       setShowUnsavedChanges(false)
     }
-  }
-
-  const [isFormOpen, setIsFormOpen] = useState<boolean>(false)
-
-  const checkIfNewClientFormIsOpen = (isOpen: boolean): void => {
-    setIsFormOpen(isOpen)
   }
 
   return (
@@ -121,24 +100,18 @@ const NewProjectModal: React.FC<{
       />
       <UnsavedChanges
         isOpen={showUnsavedChanges}
-        setIsOpen={openUnsavedChanges}
+        setIsOpen={(value) => {
+          setShowUnsavedChanges(value)
+        }}
       />
       <section className='absolute top-8 p-8 rounded-lg flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
-        <svg
-          onClick={handleExitNewProjectCreation}
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='w-6 h-6 absolute top-0 right-0 m-2 hover:text-azure-radiance-400 cursor-pointer'
+        <Badge
+          icon={Return}
+          className='flex self-end gap-2 items-cente -m-2 mb-4 cursor-pointer'
+          onClick={handleReturn}
         >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='M6 18 18 6M6 6l12 12'
-          />
-        </svg>
+          <p>Return</p>
+        </Badge>
         {readyForNextPage
           ? (
           <AddDescription
@@ -162,17 +135,17 @@ const NewProjectModal: React.FC<{
                   name='name'
                   placeholder='Project name'
                   limit={255}
-                  onSubmit={handleInputSubmit}
+                  onSubmit={(name) => {
+                    setName(name)
+                  }}
                 />
               </div>
               <ClientSelection
                 clientName={newProject.companyName as string}
-                handleClientSelection={handleCompanySelect}
-                isFormOpen={isFormOpen}
+                disabled={newProject.clientName !== ''}
                 searchParams={props.searchParams}
               />
               <CreateNewClient
-                newClientOpen={checkIfNewClientFormIsOpen}
                 companySelected={newProject.companyId !== 0}
                 clientName={newProject.clientName as string}
               />

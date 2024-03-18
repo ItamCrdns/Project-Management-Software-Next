@@ -3,6 +3,7 @@ import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 export interface UseNewProjectActionsReturn {
   setCompany: (companyId: number, companyName: string) => void
+  clearCompanyValues: () => void
   setName: (projectName: string) => void
   setClientName: (clientName: string) => void
   setExpectedDeliveryDate: (expectedDeliveryDate: string) => void

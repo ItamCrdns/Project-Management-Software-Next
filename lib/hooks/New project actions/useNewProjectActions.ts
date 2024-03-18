@@ -11,6 +11,10 @@ export const useNewProjectActions = (): UseNewProjectActionsReturn => {
     dispatch(newProjectSlice.actions.setCompany({ value: companyId, label: companyName }))
   }
 
+  const clearCompanyValues = (): void => {
+    dispatch(newProjectSlice.actions.clearCompanyValues())
+  }
+
   const setName = (projectName: string): void => {
     dispatch(newProjectSlice.actions.setName(projectName))
   }
@@ -44,6 +48,6 @@ export const useNewProjectActions = (): UseNewProjectActionsReturn => {
   }
 
   return {
-    setCompany, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear
+    setCompany, clearCompanyValues, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear
   }
 }

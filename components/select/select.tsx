@@ -5,7 +5,6 @@ import {
 } from '@/interfaces/props/CustomSelectProps'
 import { CurrentOption } from './CurrentOption'
 import { OptionsList } from './OptionsList'
-import { Reset } from './Reset'
 
 const CustomSelect: React.FC<CustomSelectProps> = (props) => {
   const disabled = props.disabled === true
@@ -20,9 +19,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     props.sendStateToParent(option)
     props.closeDropdown?.()
   }
-
-  // * Currently not working
-  const handleClearAll = (): void => {}
 
   const handleMultipleOptionClick = (option: Option): void => {
     props.sendStateToParent(option)
@@ -40,7 +36,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
         />
         {props.shouldShowDropdown === true && (
           <OptionsList
-            // shouldShowDropdown={props.shouldShowDropdown}
             closeDropdown={props.closeDropdown}
             options={props.options}
             handleOptionClick={handleOptionClick}
@@ -55,7 +50,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
           />
         )}
       </div>
-      {props.showReset === true && <Reset reset={handleClearAll} />}
     </div>
   )
 }
