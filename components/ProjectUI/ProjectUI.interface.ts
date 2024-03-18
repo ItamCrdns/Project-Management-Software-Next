@@ -4,4 +4,5 @@ export interface ProjectUIProps {
   project: Data | null
   showButtons: boolean
   employeeCountHref?: string
+  showGeneralInfo?: boolean
 }

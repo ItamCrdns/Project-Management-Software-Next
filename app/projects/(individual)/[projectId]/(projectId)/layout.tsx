@@ -1,8 +1,8 @@
 import getProject from '@/api-calls/getProject'
-import ProjectUI from '../tasks/ProjectUI'
 import { DatesBanner } from './DatesBanner'
 import { ClientBanner } from './ClientBanner'
 import { DescriptionBanner } from './DescriptionBanner'
+import ProjectUI from '@/components/ProjectUI/ProjectUI'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -27,6 +27,7 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
               project={data}
               showButtons={false}
               employeeCountHref={`/projects/${data?.entity.projectId}/employees`}
+              showGeneralInfo={true}
             />
           )}
           <div className='space-y-8'>
