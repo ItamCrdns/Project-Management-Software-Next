@@ -3,18 +3,18 @@ import { useRef, useState } from 'react'
 import { Button } from '@/components/Button/Button'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import AddDescription from './AddDescription'
-import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import { useRouter } from 'next/navigation'
 import UnsavedChanges from './UnsavedChanges'
-import ExpectedDeliveryDateSelector from './ExpectedDeliveryDateSelector'
+import { ExpectedDeliveryDateSelector } from './ExpectedDeliveryDateSelector'
 import CreateNewClient from './CreateNewClient'
 import { ClientSelection } from './_Client Select/ClientSelection'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { StartedWorkingSwitch } from './StartedWorkingSwitch'
 import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
-import { errorMessageInitialState, type ErrorMessages } from '@/components/UI/Dialog/errorMessages.interface'
-import { DialogBanner } from '@/components/UI/Dialog/DialogBanner'
+import { useWarnings } from '@/hooks/useWarnings'
+import { TextInput } from '@tremor/react'
+import { debounce } from '@/utility/debouce'
 
 const NewProjectModal: React.FC<{
   searchParams: { clientId: string }
@@ -26,46 +26,39 @@ const NewProjectModal: React.FC<{
 
   const formRef = useRef<HTMLFormElement>(null)
 
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
-  const [messages, setMessages] = useState<ErrorMessages>(
-    errorMessageInitialState
-  )
+  const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
 
-  const handleSubmit = (e: React.SyntheticEvent): void => {
-    e.preventDefault()
-
-    const newMessages = { ...messages }
-
+  const handleDisabledClick = (): void => {
     if (newProject.name === '') {
-      newMessages.name = 'Project name'
+      handleSetWarning('Project name is required', 'name')
     } else {
-      newMessages.name = ''
+      handleFilterWarning('name')
     }
 
-    if (!clientProvided) {
-      newMessages.parentName = 'Client'
+    if (newProject.clientName === '' && newProject.companyId === 0) {
+      handleSetWarning('Client is required', 'parentName')
     } else {
-      newMessages.parentName = ''
+      handleFilterWarning('parentName')
     }
 
     if (newProject.expectedDeliveryDate === '') {
-      newMessages.expectedDeliveryDate = 'Expected delivery date'
+      handleSetWarning(
+        'Expected delivery date is required',
+        'expectedDeliveryDate'
+      )
     } else {
-      newMessages.expectedDeliveryDate = ''
+      handleFilterWarning('expectedDeliveryDate')
     }
+  }
 
-    setMessages(newMessages)
-
-    if (Object.values(newMessages).some((message) => message !== '')) {
-      setIsDialogOpen(true)
-    }
+  const handleSubmit = (e: React.SyntheticEvent): void => {
+    e.preventDefault()
 
     if (
       newProject.name !== '' &&
       newProject.expectedDeliveryDate !== '' &&
       clientProvided
     ) {
-      setMessages(errorMessageInitialState)
       setReadyForNextPage(true)
     }
   }
@@ -88,15 +81,17 @@ const NewProjectModal: React.FC<{
     }
   }
 
+  const nameWarning: boolean =
+    newProject.name === '' && warnings.some((w) => w.field === 'name')
+
+  const expectedDeliveryDateWarning: boolean =
+    newProject.expectedDeliveryDate === '' &&
+    warnings.some((w) => w.field === 'expectedDeliveryDate')
+
+  const clientWarning: boolean = newProject.clientName === '' && newProject.companyId === 0 && warnings.some((w) => w.field === 'parentName')
+
   return (
     <section className='fixed w-full h-screen flex flex-col items-center justify-center z-45 m-0 p-0'>
-      <DialogBanner
-        isOpen={isDialogOpen}
-        setIsOpen={(val) => {
-          setIsDialogOpen(val)
-        }}
-        messages={messages}
-      />
       <UnsavedChanges
         isOpen={showUnsavedChanges}
         setIsOpen={(value) => {
@@ -122,21 +117,24 @@ const NewProjectModal: React.FC<{
                 members and should indicate what the project is focused on.
               </p>
               <div className='mb-4'>
-                <InputAndCharacterCount
-                  defaultValue={newProject.name}
-                  defaultCharacterCount={newProject.name.length}
-                  name='name'
+                <TextInput
+                  type='text'
                   placeholder='Project name'
-                  limit={255}
-                  onSubmit={(name) => {
+                  defaultValue={newProject.name}
+                  onValueChange={debounce((name) => {
                     setName(name)
-                  }}
+                  }, 500)}
+                  error={nameWarning}
+                  errorMessage='Project name is required'
+                  maxLength={255}
                 />
               </div>
               <ClientSelection
                 clientName={newProject.companyName as string}
                 disabled={newProject.clientName !== ''}
                 searchParams={props.searchParams}
+                error={clientWarning}
+                errorMessage='Client is required. Select one or create a new one'
               />
               <CreateNewClient
                 companySelected={newProject.companyId !== 0}
@@ -144,10 +142,21 @@ const NewProjectModal: React.FC<{
               />
               <ExpectedDeliveryDateSelector
                 defaultValue={new Date(newProject.expectedDeliveryDate)}
+                error={expectedDeliveryDateWarning}
+                errorMessage='Expected delivery date is required'
               />
               <StartedWorkingSwitch />
             </form>
-            <Button text='Next' func={handleClick} />
+            <Button
+              text='Next'
+              disabled={
+                newProject.name === '' ||
+                newProject.expectedDeliveryDate === '' ||
+                !clientProvided
+              }
+              func={handleClick}
+              disabledFunc={handleDisabledClick}
+            />
           </>
             )}
       </section>

@@ -45,6 +45,8 @@ const ClientSelection: React.FC<ClientSelectionProps> = (props) => {
           closeDropdown={() => {
             setToggle(false)
           }}
+          error={props.error}
+          errorMessage={props.errorMessage}
         />
       </div>
       {props.clientName !== '' && (

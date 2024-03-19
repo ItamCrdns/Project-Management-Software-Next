@@ -130,7 +130,7 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
             )
           : (
         <p
-          className={`text-black dark:text-white ${
+          className={`text-black dark:text-white text-sm ${
             props.disabled ? 'text-gray-400 cursor-not-allowed' : ''
           }`}
         >

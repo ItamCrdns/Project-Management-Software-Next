@@ -41,4 +41,8 @@ export interface CustomSelectProps {
   // Options
   selectedOption?: Option | null
   selectedOptionsList?: Option[] | null
+
+  // Warnings
+  error?: boolean
+  errorMessage?: string
 }

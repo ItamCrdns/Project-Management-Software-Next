@@ -78,6 +78,7 @@ const Create: React.FC<CreateProps> = (props) => {
                   }, 500)}
                   error={nameWarning}
                   errorMessage='Task name is required'
+                  maxLength={255}
                 />
               </div>
               <DatePicker

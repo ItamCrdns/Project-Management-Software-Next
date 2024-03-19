@@ -6,8 +6,7 @@ import { InputAndCharacterCount } from '@/components/charactercount/CharacterCou
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { PrioritySelect } from './PrioritySelect'
-import { type ErrorMessages, errorMessageInitialState } from '@/components/UI/Dialog/errorMessages.interface'
-import { DialogBanner } from '@/components/UI/Dialog/DialogBanner'
+import { useWarnings } from '@/hooks/useWarnings'
 
 const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -15,55 +14,41 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
   const { setDescription } = useNewProjectActions()
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
-  const [messages, setMessages] = useState<ErrorMessages>(
-    errorMessageInitialState
-  )
+  const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
+
+  const handleDisabledClick = (): void => {
+    if (newProject.description === '') {
+      handleSetWarning('Description is required', 'description')
+    } else {
+      handleFilterWarning('description')
+    }
+
+    if (newProject.priority === 0) {
+      handleSetWarning('Priority is required', 'priority')
+    } else {
+      handleFilterWarning('priority')
+    }
+  }
 
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
 
-    const newMessages = { ...messages }
-
-    if (newProject.description === '') {
-      newMessages.description = 'Description'
-    } else {
-      newMessages.description = ''
-    }
-
-    if (newProject.priority === 0) {
-      newMessages.priority = 'Priority'
-    } else {
-      newMessages.priority = ''
-    }
-
-    setMessages(newMessages)
-
-    if (Object.values(newMessages).some((message) => message !== '')) {
-      setIsDialogOpen(true)
-    }
-
     if (newProject.description !== '' && newProject.priority !== 0) {
-      setMessages(errorMessageInitialState)
       setReadyForNextPage(true)
     }
   }
 
   const handleClick = useSubmitRef(formRef)
 
-  const handleTextAreaSubmit = (description: string): void => {
-    setDescription(description)
-  }
+  const descriptionWarning: boolean =
+    newProject.description === '' &&
+    warnings.some((w) => w.field === 'description')
+
+  const priorityWarning: boolean =
+    newProject.priority === 0 && warnings.some((w) => w.field === 'priority')
 
   return (
     <>
-      <DialogBanner
-        isOpen={isDialogOpen}
-        setIsOpen={(val) => {
-          setIsDialogOpen(val)
-        }}
-        messages={messages}
-      />
       {readyForNextPage
         ? (
         <AddEmployeesToProject
@@ -87,13 +72,29 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
                 name='description'
                 placeholder={`Add a description for ${newProject.name}`}
                 limit={255}
-                onSubmit={handleTextAreaSubmit}
+                onSubmit={(description) => {
+                  setDescription(description)
+                }}
+                error={descriptionWarning}
+                errorMessage='Description is required'
               />
             </div>
-            <PrioritySelect priority={newProject.priorityLabel} />
+            <PrioritySelect
+              priority={newProject.priorityLabel}
+              error={priorityWarning}
+              errorMessage='Priority is required'
+            />
           </form>
           <div className='flex gap-4 mt-4'>
-            <Button text='Next' func={handleClick} />
+            <Button
+              text='Next'
+              func={handleClick}
+              disabled={
+                newProject.description === '' ||
+                (newProject.priority === 0 && newProject.priorityLabel === '')
+              }
+              disabledFunc={handleDisabledClick}
+            />
             <Button text='Go back' func={props.goBack} />
           </div>
         </>

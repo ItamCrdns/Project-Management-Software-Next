@@ -46,7 +46,7 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
   return (
     <div
       ref={ref}
-      className='absolute top-14 right-0 z-50 rounded-md p-4 text-xs m-0 flex flex-col gap-4 shadow-md min-w-72 bg-theming-white100 dark:bg-theming-dark200'
+      className='absolute top-14 right-0 z-50 p-4 text-xs m-0 flex flex-col gap-4 min-w-72 outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis dark:border-dark-tremor-border'
     >
       <div className='flex flex-col items-center w-full justify-center min-h-32'>
         {Array.isArray(props.options) && props.options.length > 0
@@ -66,7 +66,7 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
                 )} dark:bg-theming-${contrastSelectedOption(
                   opt,
                   true
-                )} flex items-center justify-center gap-4 px-4 py-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark300`}
+                )} flex items-center justify-center gap-4 px-4 py-2 rounded-md cursor-pointer hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted`}
               >
                 {props.showPictures === true &&
                   (opt.picture !== undefined &&

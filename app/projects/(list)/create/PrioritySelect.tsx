@@ -5,7 +5,11 @@ import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProj
 import { ClearSelect } from '@/components/select/Clear'
 import { optionInitialState } from '@/interfaces/props/CustomSelectProps'
 
-const PrioritySelect: React.FC<{ priority: string | null }> = (props) => {
+const PrioritySelect: React.FC<{
+  priority: string | null
+  error?: boolean
+  errorMessage?: string
+}> = (props) => {
   const { priority } = props
   const { setPriority } = useNewProjectActions()
 
@@ -27,6 +31,8 @@ const PrioritySelect: React.FC<{ priority: string | null }> = (props) => {
           closeDropdown={() => {
             setToggle(false)
           }}
+          error={props.error}
+          errorMessage={props.errorMessage}
         />
       </div>
       {priority !== '' && priority !== null && (

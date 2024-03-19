@@ -44,8 +44,8 @@ export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
       />
       <div className='flex justify-between'>
         <p
-          className={`text-xs self-start ${
-            props.error === true ? 'text-red-600' : 'text-transparent'
+          className={`text-sm self-start ${
+            props.error === true ? 'text-red-500' : 'text-transparent'
           }`}
         >
           {props.errorMessage}
