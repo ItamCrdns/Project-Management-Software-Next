@@ -5,12 +5,27 @@ import { useAppSelector } from '@/lib/hooks/hooks'
 import { type AddDescriptionProps } from './AddDescription.interface'
 import { useState } from 'react'
 import { Employees } from '../Employees/Employees'
+import { useWarnings } from '@/hooks/useWarnings'
 
 const AddDescription: React.FC<AddDescriptionProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
   const { setDescription } = useNewTaskActions()
 
   const [ready, setReady] = useState<boolean>(false)
+
+  const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
+
+  const handleDisabledClick = (): void => {
+    if (newTask.description === '') {
+      handleSetWarning('Task description is required', 'description')
+    } else {
+      handleFilterWarning('description')
+    }
+  }
+
+  const descriptionWarning: boolean =
+    newTask.description === '' &&
+    warnings.some((w) => w.field === 'description')
 
   return (
     <>
@@ -37,6 +52,8 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
               placeholder='Task description'
               limit={255}
               onSubmit={setDescription}
+              error={descriptionWarning}
+              errorMessage='Task description is required'
             />
           </div>
           <div className='flex gap-4'>
@@ -46,6 +63,7 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
               func={() => {
                 setReady(true)
               }}
+              disabledFunc={handleDisabledClick}
             />
             <Button text='Return' func={props.return} />
           </div>

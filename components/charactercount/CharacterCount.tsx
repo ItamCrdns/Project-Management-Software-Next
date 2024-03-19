@@ -28,7 +28,13 @@ export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
   return (
     <div className='flex flex-col gap-2'>
       <textarea
-        className='box-border resize-none text-lg overflow-hidden min-w-full p-4 flex items-center outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis border-tremor-border dark:border-dark-tremor-border'
+        className={`box-border resize-none text-lg overflow-hidden min-w-full p-4 flex items-center outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis ${
+          props.error === true ? 'border-red-500' : 'border-tremor-border'
+        } ${
+          props.error === true
+            ? 'border-red-500'
+            : 'dark:border-dark-tremor-border'
+        }`}
         ref={textAreaRef}
         name={props.name}
         placeholder={props.placeholder}
@@ -36,9 +42,18 @@ export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
         defaultValue={props.defaultValue}
         maxLength={255}
       />
-      <p className='flex justify-end text-xs'>
-        {characters}/{props.limit}
-      </p>
+      <div className='flex justify-between'>
+        <p
+          className={`text-xs self-start ${
+            props.error === true ? 'text-red-600' : 'text-transparent'
+          }`}
+        >
+          {props.errorMessage}
+        </p>
+        <p className='text-xs self-end'>
+          {characters}/{props.limit}
+        </p>
+      </div>
     </div>
   )
 }

@@ -5,4 +5,6 @@ export interface CharacterCountProps {
   onSubmit: (value: string) => void
   defaultValue: string
   defaultCharacterCount: number
+  error?: boolean
+  errorMessage?: string
 }

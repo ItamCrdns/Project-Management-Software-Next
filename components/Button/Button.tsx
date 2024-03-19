@@ -18,24 +18,9 @@ const Button: React.FC<ButtonProps> = (props) => {
     href,
     loading = null,
     func,
-    asyncFunc
+    asyncFunc,
+    disabledFunc
   } = props
-
-  const handleButtonClick = (e: React.MouseEvent<HTMLSpanElement>): void => {
-    handleEffect(e)
-
-    if (func !== undefined && func !== null && !disabled) {
-      func(e)
-    }
-  }
-
-  const handleButtonClickAsync = async (
-    e: React.MouseEvent<HTMLSpanElement>
-  ): Promise<void> => {
-    if (asyncFunc !== undefined && asyncFunc !== null && !disabled) {
-      await asyncFunc(e)
-    }
-  }
 
   const handleEffect = (e: React.MouseEvent<HTMLSpanElement>): void => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -52,17 +37,32 @@ const Button: React.FC<ButtonProps> = (props) => {
     })
   }
 
+  const handleClick = (e: React.MouseEvent<HTMLSpanElement>): void => {
+    handleEffect(e)
+
+    if (func !== undefined && func !== null && !disabled) {
+      func(e)
+    }
+
+    if (asyncFunc !== undefined && asyncFunc !== null && !disabled) {
+      void (async () => {
+        // * Havent tested this yet
+        await asyncFunc(e)
+      })
+    }
+
+    if (disabledFunc !== undefined && disabledFunc !== null && disabled) {
+      disabledFunc(e)
+    }
+  }
+
   return (
     <span
       ref={buttonRef}
       className={`relative select-none overflow-hidden border-none outline-none flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
         !disabled ? bgColor : 'bg-gray-500'
       } ${txtColor} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-      onClick={
-        asyncFunc !== undefined && !disabled
-          ? handleButtonClickAsync
-          : handleButtonClick
-      }
+      onClick={handleClick}
     >
       {href !== undefined
         ? (

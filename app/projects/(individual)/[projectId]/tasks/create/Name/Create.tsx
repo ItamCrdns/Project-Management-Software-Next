@@ -10,6 +10,7 @@ import { StartedWorkingSwitch } from './StartedWorkingSwitch'
 import ProjectUI from '@/components/ProjectUI/ProjectUI'
 import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
 import { debounce } from '@/utility/debouce'
+import { useWarnings } from '@/hooks/useWarnings'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
@@ -18,6 +19,32 @@ const Create: React.FC<CreateProps> = (props) => {
   const [ready, setReady] = useState<boolean>(false)
 
   const taskExpectedDeliveryDate = new Date(newTask.expectedDeliveryDate)
+
+  const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
+
+  const handleDisabledClick = (): void => {
+    if (newTask.name === '') {
+      handleSetWarning('Task name is required', 'name')
+    } else {
+      handleFilterWarning('name')
+    }
+
+    if (newTask.expectedDeliveryDate === '') {
+      handleSetWarning(
+        'Expected delivery date is required',
+        'expectedDeliveryDate'
+      )
+    } else {
+      handleFilterWarning('expectedDeliveryDate')
+    }
+  }
+
+  const nameWarning: boolean =
+    newTask.name === '' && warnings.some((w) => w.field === 'name')
+
+  const expectedDeliveryDateWarning: boolean =
+    newTask.expectedDeliveryDate === '' &&
+    warnings.some((w) => w.field === 'expectedDeliveryDate')
 
   return (
     <section className='flex items-start justify-center py-8 px-0 space-x-8'>
@@ -49,6 +76,8 @@ const Create: React.FC<CreateProps> = (props) => {
                   onValueChange={debounce((name) => {
                     setName(name)
                   }, 500)}
+                  error={nameWarning}
+                  errorMessage='Task name is required'
                 />
               </div>
               <DatePicker
@@ -62,7 +91,20 @@ const Create: React.FC<CreateProps> = (props) => {
                     : undefined
                 }
                 minDate={new Date()}
+                className={`${
+                  expectedDeliveryDateWarning
+                    ? 'border border-red-500 rounded-md'
+                    : ''
+                }`}
               />
+              {expectedDeliveryDateWarning && (
+                <p className='text-sm text-red-500 -mt-2 flex self-start'>
+                  {
+                    warnings.find((w) => w.field === 'expectedDeliveryDate')
+                      ?.message
+                  }
+                </p>
+              )}
               <StartedWorkingSwitch />
               <Button
                 text='Next'
@@ -75,6 +117,7 @@ const Create: React.FC<CreateProps> = (props) => {
                     setProjectId(props.project.entity.projectId)
                   }
                 }}
+                disabledFunc={handleDisabledClick}
               />
             </>
               )}
