@@ -11,11 +11,10 @@ import CreateNewClient from './CreateNewClient'
 import { ClientSelection } from './_Client Select/ClientSelection'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import DialogComponent from './Dialog'
-import { errorMessageInitialState, type ErrorMessages } from './errorMessages'
 import { StartedWorkingSwitch } from './StartedWorkingSwitch'
-import { Badge } from '@tremor/react'
-import { Return } from '@/svg/Return'
+import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
+import { errorMessageInitialState, type ErrorMessages } from '@/components/UI/Dialog/errorMessages.interface'
+import { DialogBanner } from '@/components/UI/Dialog/DialogBanner'
 
 const NewProjectModal: React.FC<{
   searchParams: { clientId: string }
@@ -38,15 +37,15 @@ const NewProjectModal: React.FC<{
     const newMessages = { ...messages }
 
     if (newProject.name === '') {
-      newMessages.projectName = 'Project name'
+      newMessages.name = 'Project name'
     } else {
-      newMessages.projectName = ''
+      newMessages.name = ''
     }
 
     if (!clientProvided) {
-      newMessages.clientName = 'Client'
+      newMessages.parentName = 'Client'
     } else {
-      newMessages.clientName = ''
+      newMessages.parentName = ''
     }
 
     if (newProject.expectedDeliveryDate === '') {
@@ -91,7 +90,7 @@ const NewProjectModal: React.FC<{
 
   return (
     <section className='fixed w-full h-screen flex flex-col items-center justify-center z-45 m-0 p-0'>
-      <DialogComponent
+      <DialogBanner
         isOpen={isDialogOpen}
         setIsOpen={(val) => {
           setIsDialogOpen(val)
@@ -105,13 +104,7 @@ const NewProjectModal: React.FC<{
         }}
       />
       <section className='absolute top-8 p-8 rounded-lg flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
-        <Badge
-          icon={Return}
-          className='flex self-end gap-2 items-cente -m-2 mb-4 cursor-pointer'
-          onClick={handleReturn}
-        >
-          <p>Return</p>
-        </Badge>
+        <ReturnBadge callback={handleReturn} />
         {readyForNextPage
           ? (
           <AddDescription

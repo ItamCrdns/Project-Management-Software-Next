@@ -8,6 +8,8 @@ import { AddDescription } from '../Description/AddDescription'
 import { type CreateProps } from './Create.interface'
 import { StartedWorkingSwitch } from './StartedWorkingSwitch'
 import ProjectUI from '@/components/ProjectUI/ProjectUI'
+import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
+import { debounce } from '@/utility/debouce'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
@@ -22,6 +24,7 @@ const Create: React.FC<CreateProps> = (props) => {
       <ProjectUI project={props.project} showButtons={false} />
       <div className='flex w-500 justify-center gap-4 p-8 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
         <div className='flex flex-col items-center gap-4 w-96'>
+          <ReturnBadge callback={() => {}} />
           {ready
             ? (
             <AddDescription
@@ -43,9 +46,9 @@ const Create: React.FC<CreateProps> = (props) => {
                   type='text'
                   placeholder='Task name'
                   defaultValue={newTask.name}
-                  onValueChange={(name) => {
+                  onValueChange={debounce((name) => {
                     setName(name)
-                  }}
+                  }, 500)}
                 />
               </div>
               <DatePicker
@@ -63,7 +66,9 @@ const Create: React.FC<CreateProps> = (props) => {
               <StartedWorkingSwitch />
               <Button
                 text='Next'
-                disabled={newTask.name === ''}
+                disabled={
+                  newTask.name === '' || newTask.expectedDeliveryDate === ''
+                }
                 func={() => {
                   setReady(true)
                   if (props.project !== null) {

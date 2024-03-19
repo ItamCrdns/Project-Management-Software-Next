@@ -1,14 +1,14 @@
 export interface ErrorMessages {
-  projectName?: string
-  clientName?: string
+  name?: string
+  parentName?: string
   expectedDeliveryDate?: string
   description?: string
   priority?: string
 }
 
 export const errorMessageInitialState = {
-  projectName: '',
-  clientName: '',
+  name: '',
+  parentName: '',
   expectedDeliveryDate: '',
   description: '',
   priority: ''

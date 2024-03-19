@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { type CharacterCountProps } from './CharacterCountProps'
+import { debounce } from '@/utility/debouce'
 
 export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
   props
@@ -27,11 +28,11 @@ export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
   return (
     <div className='flex flex-col gap-2'>
       <textarea
-        className='box-border resize-none text-lg overflow-hidden min-w-full rounded-md p-4 text-black bg-theming-white200 dark:bg-theming-dark200 dark:text-white'
+        className='box-border resize-none text-lg overflow-hidden min-w-full p-4 flex items-center outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis border-tremor-border dark:border-dark-tremor-border'
         ref={textAreaRef}
         name={props.name}
         placeholder={props.placeholder}
-        onChange={handleTextareaChange}
+        onChange={debounce(handleTextareaChange, 500)}
         defaultValue={props.defaultValue}
         maxLength={255}
       />

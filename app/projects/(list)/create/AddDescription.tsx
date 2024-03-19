@@ -5,9 +5,9 @@ import { useSubmitRef } from '@/utility/formSubmitRef'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
-import DialogComponent from './Dialog'
-import { type ErrorMessages, errorMessageInitialState } from './errorMessages'
 import { PrioritySelect } from './PrioritySelect'
+import { type ErrorMessages, errorMessageInitialState } from '@/components/UI/Dialog/errorMessages.interface'
+import { DialogBanner } from '@/components/UI/Dialog/DialogBanner'
 
 const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -57,7 +57,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
 
   return (
     <>
-      <DialogComponent
+      <DialogBanner
         isOpen={isDialogOpen}
         setIsOpen={(val) => {
           setIsDialogOpen(val)

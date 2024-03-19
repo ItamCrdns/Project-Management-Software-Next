@@ -1,6 +1,6 @@
-import { Button } from '@/components/Button/Button'
 import { Dialog, DialogPanel, List, ListItem } from '@tremor/react'
-import { type ErrorMessages } from './errorMessages'
+import { type ErrorMessages } from './errorMessages.interface'
+import { Button } from '@/components/Button/Button'
 
 interface DialogProps {
   isOpen: boolean
@@ -8,7 +8,7 @@ interface DialogProps {
   messages: ErrorMessages
 }
 
-const DialogComponent: React.FC<DialogProps> = (props) => {
+const DialogBanner: React.FC<DialogProps> = (props) => {
   const { isOpen, setIsOpen, messages } = props
 
   return (
@@ -41,4 +41,4 @@ const DialogComponent: React.FC<DialogProps> = (props) => {
   )
 }
 
-export default DialogComponent
+export { DialogBanner }
