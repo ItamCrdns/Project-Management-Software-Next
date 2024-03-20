@@ -31,14 +31,14 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
     if (Array.isArray(props.defaultEntities)) {
       return props.defaultEntities.some((e) => e.value === opt.value)
         ? isDark
-          ? 'dark300'
-          : 'white200'
+          ? 'dark-tremor-background-muted font-semibold'
+          : 'tremor-background-muted font-semibold'
         : ''
     } else {
       return props.defaultEntities?.value === opt.value
         ? isDark
-          ? 'dark300'
-          : 'white200'
+          ? 'dark-tremor-background-muted font-semibold'
+          : 'tremor-background-muted font-semibold'
         : ''
     }
   }
@@ -60,13 +60,13 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
                     : handleOptionClick?.(opt, event)
                 }}
                 key={opt.value}
-                className={`bg-theming-${contrastSelectedOption(
+                className={`bg-${contrastSelectedOption(
                   opt,
                   false
-                )} dark:bg-theming-${contrastSelectedOption(
+                )} dark:bg-${contrastSelectedOption(
                   opt,
                   true
-                )} flex items-center justify-center gap-4 px-4 py-2 rounded-md cursor-pointer hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted`}
+                )} flex items-center justify-center gap-4 px-4 py-2 rounded-md cursor-pointer hover:bg-tremor-background-muted hover:opacity-50 dark:hover:bg-dark-tremor-background-muted dark:hover:opacity-50`}
               >
                 {props.showPictures === true &&
                   (opt.picture !== undefined &&

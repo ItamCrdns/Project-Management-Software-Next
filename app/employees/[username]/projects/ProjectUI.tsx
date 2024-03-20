@@ -37,7 +37,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
         </div>
         <div className='flex justify-end'>
           <DataHeader
-            dashboard
+            dashboard={false}
             pushSearchParams
             entity='projects'
             width='300px'

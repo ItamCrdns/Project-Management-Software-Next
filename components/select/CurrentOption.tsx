@@ -42,7 +42,7 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
     >
       {selectedOption !== null && selectedOption !== undefined
         ? (
-        <span className='capitalize font-semibold text-black dark:text-white'>
+        <span className='text-black dark:text-white text-sm'>
           {selectedOption?.label}
         </span>
           )

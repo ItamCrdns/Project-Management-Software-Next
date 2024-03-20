@@ -4,7 +4,7 @@ import {
   type Style
 } from '@/interfaces/props/DataHeaderProps'
 import HeaderItem from './HeaderItem'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import {
   type OrderBy,
   type IFilterProperties,
@@ -19,32 +19,22 @@ import { getHeaderItems } from './headerItems'
 
 const DataHeader: React.FC<DataHeaderProps> = (props) => {
   const pathname = usePathname()
-  const router = useRouter()
 
   const nextJsParams = useSearchParams()
   const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
 
   const [order, setOrder] = useState<Order>(orderInitialState)
 
-  const handleSortChange = (sortValue: string, sort: string): void => {
-    // TODO: Fix dashboard state pagination
-    if (props.pushSearchParams) {
-      searchParams.set('orderby', sortValue.toLowerCase())
-      searchParams.set('sort', sort.toLowerCase())
-
-      if (searchParams !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
-    } else {
-      setOrder((prevState) => ({
-        ...prevState,
-        orderBy: sortValue as OrderBy,
-        sort:
-          prevState.sort === 'ascending' && prevState.orderBy === sortValue
-            ? 'descending'
-            : 'ascending'
-      }))
-    }
+  const handleSortChange = (sortValue: string): void => {
+    // * This will only handle state based sorting and filtering
+    setOrder((prevState) => ({
+      ...prevState,
+      orderBy: sortValue as OrderBy,
+      sort:
+        prevState.sort === 'ascending' && prevState.orderBy === sortValue
+          ? 'descending'
+          : 'ascending'
+    }))
   }
 
   useEffect(() => {
@@ -73,11 +63,10 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
     order,
     searchParams,
     dashboard,
-    pushSearchParams
+    pushSearchParams,
+    currentPath: pathname
   }
 
-  // TODO: Fix initial render problem that will render that we are always at the "Created" column.
-  // TODO: Fix slow state when clicking a different column and you can see two columns being highlighted at the same time.
   return (
     <header className='flex items-center justify-center py-0 mb-8'>
       {headerItems.map((item, index) => (
