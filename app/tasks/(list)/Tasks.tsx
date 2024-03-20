@@ -7,6 +7,8 @@ import generateQueryParams from '@/app/projects/client/queryParams'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
 import { Button } from '@/components/Button/Button'
+import DataHeader from '@/components/Data Header/DataHeader'
+import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
 
 const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
@@ -35,6 +37,12 @@ const Tasks: React.FC<TasksProps> = async (props) => {
 
   return (
     <div className='flex flex-col'>
+      <DataHeader
+        dashboard={false}
+        width='300px'
+        pushSearchParams={false}
+        sortValues={taskSortValues}
+      />
       <QueryParamsPagination
         paginationProps={paginationProps}
         secondEntityProps={secondEntityProps}
@@ -44,7 +52,9 @@ const Tasks: React.FC<TasksProps> = async (props) => {
           {tasks.map((task, index) => (
             <li key={index}>
               <div className='flex items-center justify-between'>
-                <h1 className='m-0 my-6 text-2xl'>{task.projectName}</h1>
+                <h1 className='m-0 my-6 text-xl font-semibold'>
+                  {task.projectName}
+                </h1>
                 <div className='flex gap-4'>
                   {task.isCurrentUserOwner && (
                     <Button

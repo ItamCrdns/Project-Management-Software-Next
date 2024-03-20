@@ -7,6 +7,8 @@ import EachProject from './EachProject'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
+import DataHeader from '@/components/Data Header/DataHeader'
+import { projectSortValues } from '@/components/Data Header/sortValues'
 
 const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
@@ -36,6 +38,13 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
   return (
     <section className='flex flex-col items-center justify-center'>
       <div className='flex flex-col'>
+      <DataHeader
+        dashboard={false}
+        width='300px'
+        entity='projectsfromcompany'
+        pushSearchParams={false}
+        sortValues={projectSortValues}
+      />
       <QueryParamsPagination
         paginationProps={paginationProps}
         secondEntityProps={secondEntityProps}
@@ -45,7 +54,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
           {projects.map((project, index) => (
             <li key={index}>
               <div className='flex items-center justify-between'>
-                <h1 className='m-0 my-6 text-2xl'>{project.companyName}</h1>
+                <h1 className='m-0 my-6 text-xl font-semibold'>{project.companyName}</h1>
                 <div className='flex gap-4'>
                   {/* Might be cool to check if the user can atually create a project. Either if its a supervisor, or emplyoee of the company, or both. */}
                     <Button
