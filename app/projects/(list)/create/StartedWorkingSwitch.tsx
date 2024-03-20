@@ -11,7 +11,7 @@ const StartedWorkingSwitch: React.FC = () => {
         onChange={(value) => {
           setStartedWorking(value)
         }}
-        tooltip='Toggle to start working on this project'
+        tooltip='Start project after creation'
       />
       <p className='text-sm'>Project will start immediately</p>
     </div>

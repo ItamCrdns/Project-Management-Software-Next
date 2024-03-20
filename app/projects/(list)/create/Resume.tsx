@@ -7,13 +7,15 @@ import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { debounce } from '@/utility/debouce'
 import { callCreateProjectServerActions } from './callCreateProjectServerActions'
 import { type ApiResponse } from '@/interfaces/apiResponse'
-import ResponseDialog from './ResponseDialog'
+import { CreatedSuccessfullyDialog } from '@/components/UI/Dialog/CreatedSuccessfullyDialog'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
   const employees = newProject.employees
 
-  const [response, setResponse] = useState<ApiResponse<OperationResult<number>> | null>(null)
+  const [response, setResponse] = useState<ApiResponse<
+  OperationResult<number>
+  > | null>(null)
 
   const client =
     newProject.companyName === ''
@@ -22,11 +24,13 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
 
   return (
     <>
-      <ResponseDialog
+      <CreatedSuccessfullyDialog
         response={response}
         closeDialog={() => {
           setResponse(null)
         }}
+        entity='project'
+        href='projects'
       />
       <section className='w-500 flex items-center flex-col justify-center'>
         <h1 className='text-2xl mb-4'>Your new project overview</h1>
