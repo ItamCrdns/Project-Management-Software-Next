@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { MagnifyingGlass } from '@/svg/MagnifyingGlass'
+import { TextInput } from '@tremor/react'
 
 interface SearchProps {
   maxInputLength: number
@@ -60,30 +62,19 @@ const Search: React.FunctionComponent<SearchProps> = ({
 
   return (
     <section className='relative flex justify-center items-center'>
-      <svg
-        xmlns='http://www.w3.org/2000/svg'
-        fill='none'
-        viewBox='0 0 24 24'
-        strokeWidth={1.5}
-        stroke='currentColor'
-        className='w-6 h-6 absolute left-4 select-none text-3xl'
-      >
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
-        />
-      </svg>
-      <input
+      <div className='absolute left-4 select-none z-999'>
+        <MagnifyingGlass />
+      </div>
+      <TextInput
         type='text'
         placeholder='Press enter to search'
         defaultValue={searchValueFromParams ?? ''}
         maxLength={maxInputLength}
         onChange={handleInputChange}
-        className='w-full h-10 pl-12 pr-4 rounded-md focus:outline-none focus:ring-2 focus:ring-theming-primary dark:focus:ring-theming-primary bg-theming-white200 dark:bg-theming-dark200'
+        className='w-full h-10 pl-12 pr-4'
       />
       {showSpinner && (
-        <span className='absolute right-4 h-4 w-4 animate-spin-fast rounded-full border-t-2 border-red-600'></span>
+        <span className='absolute right-4 h-4 w-4 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
       )}
     </section>
   )

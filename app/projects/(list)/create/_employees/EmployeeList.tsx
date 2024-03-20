@@ -13,8 +13,8 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
     if (Array.isArray(selectedEmployees)) {
       return selectedEmployees.some((e) => e.username === employee.username)
         ? isDark
-          ? 'dark300'
-          : 'white100'
+          ? 'dark-tremor-background-muted font-semibold'
+          : 'tremor-background-muted font-semibold'
         : ''
     } else {
       return ''
@@ -22,24 +22,24 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
   }
 
   return (
-    <ul className='mt-4 p-8 rounded-md flex flex-col gap-4 justify-center items-center bg-theming-white200 dark:bg-theming-dark200 h-500'>
+    <ul className='flex-col h-80 justify-center mt-4 gap-2 box-border resize-none text-lg overflow-hidden min-w-full p-4 flex items-center outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis border-tremor-border dark:border-dark-tremor-border'>
       {props.isLoading && (
-        <>
-          <span className='h-6 w-6 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
-          <p>Loading...</p>
-        </>
+        <div className='flex gap-4 items-center'>
+          <span className='h-4 w-4 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
+          <p className='text-xs'>Loading...</p>
+        </div>
       )}
       {Array.isArray(employeeList) &&
         (employeeList.length > 0
           ? employeeList.map((employee: Employee) => (
               <li
-                className={`bg-theming-${contrastSelectedEmployee(
+                className={`bg-${contrastSelectedEmployee(
                   employee,
                   false
-                )} dark:bg-theming-${contrastSelectedEmployee(
+                )} dark:bg-${contrastSelectedEmployee(
                   employee,
                   true
-                )} w-full flex items-center justify-between cursor-pointer hover:bg-theming-white100 dark:hover:bg-theming-dark300 px-4 py-2 rounded-md select-none`}
+                )} w-full py-2 flex items-center justify-center gap-8 cursor-pointer hover:bg-tremor-background-muted hover:opacity-50 dark:hover:bg-dark-tremor-background-muted dark:hover:opacity-50`}
                 key={employee.username}
                 onClick={() => {
                   handleEmployeeClick(employee)
@@ -51,15 +51,15 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                     <Image
                       src={employee.profilePicture}
                       alt={employee.username}
-                      width={50}
-                      height={50}
+                      width={40}
+                      height={40}
                       className='rounded-full'
                     />
                       )
                     : (
                     <NoPicture width='50px' height='50px' />
                       )}
-                  <p className='font-semibold'>{employee.username}</p>
+                  <p className='text-sm w-28'>{employee.username}</p>
                 </div>
                 {selectedEmployees !== null &&
                 selectedEmployees.includes(
@@ -102,11 +102,9 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
               </li>
           ))
           : !props.isLoading && ( // * Avoids showing the message when loading
-              <div className='p-4 rounded-md flex items-center justify-center'>
-                <p className='text-center'>
-                  No employees match your search criteria.
-                </p>
-              </div>
+              <p className='w-44 text-sm text-center p-4'>
+                No employees match your search criteria.
+              </p>
             ))}
     </ul>
   )

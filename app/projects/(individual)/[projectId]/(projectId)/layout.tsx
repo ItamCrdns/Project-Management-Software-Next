@@ -18,9 +18,9 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
   const hasTasks = data?.entity.tasksCount ?? 0
 
   return (
-    <section className='flex items-center flex-col p-8'>
+    <section className='flex items-center flex-col'>
       {children}
-      <div className='flex flex-col items-start justify-center gap-8'>
+      <div className='flex flex-col items-start justify-center gap-8 p-8'>
         <div className='flex gap-8 items-start w-full justify-center'>
           {data !== undefined && (
             <ProjectUI

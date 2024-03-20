@@ -42,15 +42,13 @@ export const InputAndCharacterCount: React.FC<CharacterCountProps> = (
         defaultValue={props.defaultValue}
         maxLength={255}
       />
-      <div className='flex justify-between'>
-        <p
-          className={`text-sm self-start ${
-            props.error === true ? 'text-red-500' : 'text-transparent'
-          }`}
-        >
-          {props.errorMessage}
-        </p>
-        <p className='text-xs self-end'>
+      <div className='flex'>
+        {props.error === true && (
+          <p className='text-sm self-start text-red-500'>
+            {props.errorMessage}
+          </p>
+        )}
+        <p className='text-xs flex self-end ml-auto'>
           {characters}/{props.limit}
         </p>
       </div>

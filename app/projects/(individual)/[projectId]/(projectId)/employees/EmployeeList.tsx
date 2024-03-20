@@ -18,24 +18,24 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
   return (
     Array.isArray(employeeList) && (
       <>
-        <h1 className='text-2xl m-0'>{headerText}</h1>
+        <h1 className='text-xl font-semibold mb-4'>{headerText}</h1>
         <Search
           stateBasedSearch={false}
           onInputChange={onInputChange}
           maxInputLength={16}
           url={urlWithParams}
         />
-        <ul className='w-full mt-4 p-8 rounded-md flex flex-col gap-4 justify-center items-center bg-theming-white200 dark:bg-theming-dark200 h-500'>
+        <ul className='flex-col h-80 justify-center mt-4 gap-4 box-border resize-none text-lg overflow-hidden min-w-full p-4 flex items-center outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis border-tremor-border dark:border-dark-tremor-border'>
           {props.isLoading && (
-            <>
-              <span className='h-6 w-6 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
-              <p>Loading...</p>
-            </>
+            <div className='flex gap-4 items-center'>
+              <span className='h-4 w-4 animate-spin-fast rounded-full border-t-2 border-theming-dark100 dark:border-theming-white100'></span>
+              <p className='text-xs'>Loading...</p>
+            </div>
           )}
           {employeeList.length > 0
             ? employeeList.map((employee: Employee) => (
                 <li
-                  className='w-full flex gap-4 items-center justify-between cursor-pointer hover:bg-theming-white100 dark:hover:bg-theming-dark300 px-4 py-2 rounded-md select-none'
+                  className='flex items-center gap-4'
                   key={employee.employeeId}
                 >
                   <Link href={`/employees/${employee.username}`}>
@@ -44,8 +44,8 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                       <Image
                         src={employee.profilePicture}
                         alt={employee.username}
-                        width={50}
-                        height={50}
+                        width={40}
+                        height={40}
                         className='rounded-full'
                       />
                         )
@@ -54,7 +54,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                         )}
                   </Link>
                   <Link
-                    className='font-medium text-black dark:text-white'
+                    className='font-medium text-black dark:text-white text-base'
                     href={`/employees/${employee.username}`}
                   >
                     {employee.username}
@@ -62,11 +62,9 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                 </li>
             ))
             : !props.isLoading && (
-                <div className='flex items-center justify-center text-center bg-theming-white200 dark:bg-theming-dark200 w-full h-72 rounded-md'>
-                  <p className='w-40'>
-                    No employees match your search criteria.
-                  </p>
-                </div>
+                <p className='w-44 text-sm text-center p-4'>
+                  No employees match your search criteria.
+                </p>
               )}
         </ul>
       </>

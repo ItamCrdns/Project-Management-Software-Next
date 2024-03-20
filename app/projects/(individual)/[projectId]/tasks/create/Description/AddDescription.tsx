@@ -17,7 +17,7 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
 
   const handleDisabledClick = (): void => {
     if (newTask.description === '') {
-      handleSetWarning('Task description is required', 'description')
+      handleSetWarning('Description is required', 'description')
     } else {
       handleFilterWarning('description')
     }
@@ -53,7 +53,7 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
               limit={255}
               onSubmit={setDescription}
               error={descriptionWarning}
-              errorMessage='Task description is required'
+              errorMessage='Description is required'
             />
           </div>
           <div className='flex gap-4'>
