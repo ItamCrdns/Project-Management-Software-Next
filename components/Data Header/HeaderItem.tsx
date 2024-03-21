@@ -33,7 +33,7 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
           (props.order.sort === 'ascending' ? <ArrowUp /> : <ArrowDown />)}
       </div>
     )
-  } else {
+  } else if (props.pushSearchParams) {
     return (
       <Link
         className='flex gap-2 items-center justify-center'
@@ -65,6 +65,13 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
             <ArrowDown />
               ))}
       </Link>
+    )
+  } else {
+    return (
+      <div className='flex gap-2 items-center justify-center' style={props.style}>
+        <Icon />
+        <p className='select-none'>{props.label}</p>
+      </div>
     )
   }
 }

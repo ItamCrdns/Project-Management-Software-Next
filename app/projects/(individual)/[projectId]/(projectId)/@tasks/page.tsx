@@ -2,10 +2,10 @@ import { type Task } from '@/interfaces/task'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
-import { projectSortValues } from '@/components/Data Header/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { Button } from '@/components/Button/Button'
 import { Task as TaskIcon } from '@/svg/Task'
+import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
 
 const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
   props
@@ -14,7 +14,7 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
 
   const queryParams: IFilterProperties = {
     page: '1',
-    pageSize: '2',
+    pageSize: '5',
     orderBy: 'Name', // ! Placeholder orderBy and sort. Might not change them idk
     sort: 'ascending'
   }
@@ -35,7 +35,7 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
         dashboard={false}
         width='300px'
         pushSearchParams={false}
-        sortValues={projectSortValues} // TODO: FIX WRONG
+        sortValues={taskSortValues}
       />
       {Array.isArray(tasks) && tasks.length > 0 && (
         <div className='space-y-4'>
