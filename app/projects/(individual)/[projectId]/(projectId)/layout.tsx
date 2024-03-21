@@ -1,8 +1,9 @@
 import getProject from '@/api-calls/getProject'
-import { DatesBanner } from './DatesBanner'
-import { ClientBanner } from './ClientBanner'
-import { DescriptionBanner } from './DescriptionBanner'
-import ProjectUI from '@/components/ProjectUI/ProjectUI'
+import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
+import { Client } from './Banners/Client'
+import { Dates } from './Banners/Dates'
+import { Description } from './Banners/Description'
+import { Attachments } from './Banners/Attachments'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -31,14 +32,17 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
             />
           )}
           <div className='space-y-8'>
-            <ClientBanner name={data?.entity.company.name} />
-            <DatesBanner
+            <Client name={data?.entity.company.name} />
+            <Dates
               created={data?.entity.created}
               expectedDelivery={data?.entity.expectedDeliveryDate}
               finalized={data?.entity.finished}
             />
           </div>
-          <DescriptionBanner description={data?.entity.description} />
+          <div className='space-y-8'>
+            <Description description={data?.entity.description} />
+            <Attachments />
+          </div>
         </div>
         {hasTasks > 0 && tasks}
       </div>

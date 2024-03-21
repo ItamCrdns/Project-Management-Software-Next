@@ -15,5 +15,6 @@ export interface Task {
   projectId: number
   project: Project
   images: Images
-  employees: Employee[] | null
+  employees: Employee[]
+  employeeCount: number
 }

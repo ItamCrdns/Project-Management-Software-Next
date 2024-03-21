@@ -1,4 +1,4 @@
-const DescriptionBanner: React.FC<{ description?: string }> = (props) => {
+const Description: React.FC<{ description?: string }> = (props) => {
   const { description } = props
 
   return (
@@ -27,4 +27,4 @@ const DescriptionBanner: React.FC<{ description?: string }> = (props) => {
   )
 }
 
-export { DescriptionBanner }
+export { Description }

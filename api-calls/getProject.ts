@@ -1,15 +1,11 @@
 import idFetcher from '@/utility/idFetcher'
 import { type Project } from '@/interfaces/project'
-
-interface Data {
-  entity: Project
-  isParticipant: boolean
-  isOwner: boolean
-}
+import { type ApiResponse } from '@/interfaces/apiResponse'
+import { type Data } from '@/utility/api/DataParticipantOwner.interface'
 
 const getProject = async (
   id: string
-): Promise<{ data: Data | null, status: number }> =>
+): Promise<ApiResponse<Data<Project>>> =>
   await idFetcher('Project', id)
 
 export default getProject

@@ -6,7 +6,7 @@ import getProjectLimited from '@/api-calls/getProjectLimited'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import generateQueryParams from '@/app/projects/client/queryParams'
 import { NoTasks } from './NoTasks'
-import ProjectUI from '@/components/ProjectUI/ProjectUI'
+import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
 
 interface ProjectTasksProps {
   params: { projectId: string }

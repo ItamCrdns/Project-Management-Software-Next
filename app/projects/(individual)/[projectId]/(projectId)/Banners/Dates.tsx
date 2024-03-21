@@ -1,8 +1,8 @@
 import { Calendar } from '@/svg/Calendar'
 import { getRelativeTimeString } from '@/utility/relativeTime'
-import ExpectedDeliveryDate from './ExpectedDeliveryDate'
+import ExpectedDeliveryDate from '../ExpectedDeliveryDate'
 
-const DatesBanner: React.FC<{
+const Dates: React.FC<{
   created?: string
   expectedDelivery?: string
   finalized?: string
@@ -38,4 +38,4 @@ const DatesBanner: React.FC<{
   )
 }
 
-export { DatesBanner }
+export { Dates }
