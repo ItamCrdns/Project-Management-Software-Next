@@ -3,7 +3,7 @@ import Link from 'next/link'
 import EntityCreator from './EntityCreator'
 import EntityEmployees from './EntityEmployees'
 import { setEntityPriority } from './EntityPriority'
-import { getRelativeTimeString } from '@/utility/relativeTime'
+import { dateUtil } from '@/utility/dateUtil'
 
 // * We would have to map the items to fit as the Entity interface
 export interface Entity {
@@ -68,7 +68,7 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
           </div>
       )}
       <div className='flex items-center justify-center gap-2' style={style}>
-        <p>{getRelativeTimeString(props.entity.created)}</p>
+        <p>{dateUtil(props.entity.created, 'past')}</p>
       </div>
       {props.showParentEntity && (
         <div className='flex items-center justify-center gap-2' style={style}>

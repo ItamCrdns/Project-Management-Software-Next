@@ -3,16 +3,16 @@ import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPr
 import { Button } from '@/components/Button/Button'
 import { type ProjectUIProps } from './ProjectUI.interface'
 import { BadgeComponent } from './BadgeComponent'
-import { getRelativeTimeString } from '@/utility/relativeTime'
 import { TeamAndCreator } from '../TeamAndCreator'
 import { Info } from '@/svg/Info'
+import { dateUtil } from '@/utility/dateUtil'
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const { project, showButtons, employeeCountHref, showGeneralInfo } = props
 
   const priority = setEntityPriority(project?.entity.priority ?? 0)
 
-  const wasStarted = getRelativeTimeString(project?.entity.startedWorking ?? '')
+  const wasStarted = dateUtil(project?.entity.startedWorking ?? '', 'past')
 
   const team = project?.entity.team
 

@@ -1,6 +1,5 @@
 import { Calendar } from '@/svg/Calendar'
-import { getRelativeTimeString } from '@/utility/relativeTime'
-import ExpectedDeliveryDate from '../ExpectedDeliveryDate'
+import { Date } from './Badges/Date'
 
 const Dates: React.FC<{
   created?: string
@@ -15,24 +14,20 @@ const Dates: React.FC<{
         <p className='font-semibold'>Important dates</p>
         <Calendar />
       </div>
-      <div className='p-8 space-y-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='p-8 space-y-4 flex flex-col items-center rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
         {created !== undefined && (
-          <p className='text-xs'>
-            This project was created {getRelativeTimeString(created)}
-          </p>
+          <Date date={created} timePoint='past' text='Created' />
         )}
         {expectedDelivery !== undefined && (
-          <div>
-            <ExpectedDeliveryDate date={expectedDelivery} />
-          </div>
+          <Date
+            date={expectedDelivery}
+            timePoint='future'
+            text='To be delivered'
+          />
         )}
-        <div>
-          {finalized !== null && finalized !== undefined && (
-            <p className='text-xs'>
-              This project was finalized {getRelativeTimeString(finalized)}
-            </p>
-          )}
-        </div>
+        {finalized !== null && finalized !== undefined && (
+          <Date date={finalized} timePoint='past' text='Finished' />
+        )}
       </div>
     </div>
   )

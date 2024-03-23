@@ -1,5 +1,6 @@
-import { type Data } from '@/api-calls/getProjectLimited'
+import { type Project } from '@/interfaces/project'
+import { type Data } from '@/utility/api/DataParticipantOwner.interface'
 
 export interface CreateProps {
-  project: Data | null
+  project: Data<Project> | null
 }
