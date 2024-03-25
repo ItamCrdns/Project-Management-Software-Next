@@ -4,8 +4,9 @@ import EachTask from './EachTask'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { Button } from '@/components/Button/Button'
-import { Task as TaskIcon } from '@/svg/Task'
 import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
+import { TasksDivider } from './TasksDivider'
+import { ArrowRightCircle } from '@/svg/ArrowRightCircle'
 
 const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
   props
@@ -25,12 +26,7 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
 
   return (
     <section className='flex flex-col items-center justify-center'>
-      <div className='flex items-center justify-center mb-8 w-full'>
-        <div className='flex gap-2'>
-          <h1 className='font-semibold'>Tasks</h1>
-          <TaskIcon />
-        </div>
-      </div>
+      <TasksDivider />
       <DataHeader
         dashboard={false}
         width='300px'
@@ -38,7 +34,7 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
         sortValues={taskSortValues}
       />
       {Array.isArray(tasks) && tasks.length > 0 && (
-        <div className='space-y-4'>
+        <div className='space-y-4 flex flex-col'>
           <ul className='space-y-4 items-stretch'>
             {tasks.map((task: Task, index: number) => (
               <li
@@ -53,7 +49,13 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
             Total {data?.entity.data?.[0]?.project?.name} tasks:{' '}
             {data?.entity.count}
           </p>
-          <Button text='Show all tasks' href={`/projects/${projectId}/tasks`} />
+          <div className='flex self-end'>
+            <Button
+              text='All tasks'
+              href={`/projects/${projectId}/tasks`}
+              icon={<ArrowRightCircle />}
+            />
+          </div>
         </div>
       )}
     </section>

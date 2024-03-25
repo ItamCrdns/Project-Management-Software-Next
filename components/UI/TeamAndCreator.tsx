@@ -36,34 +36,44 @@ const TeamAndCreator: React.FC<{
           </>
         )}
       </div>
-      {Array.isArray(team) && team.length > 0 && (
+      {Array.isArray(team) && (
         <div className='w-full space-y-2'>
           <div className='flex items-center justify-center gap-2'>
             <h1 className='text-center font-semibold'>Team</h1>
             <Users />
           </div>
           <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-4 flex flex-col gap-4 items-center justify-center'>
-            {team.map((employee: Employee, index: number) => (
-              <li key={index} className='relative'>
-                <IndividualEmployee
-                  employee={employee}
-                  size={35}
-                  redirectMe={true}
-                  showName={true}
-                  position={{ left: '1rem' }}
-                />
-              </li>
-            ))}
-          </ul>
-          <p className='text-center font-semibold text-sm'>
-            {teamHref !== '' && teamHref !== undefined
+            {team.length > 0
               ? (
-              <Link href={teamHref}>{teamCount} employees in this team</Link>
+                  team.map((employee: Employee, index: number) => (
+                <li key={index} className='relative'>
+                  <IndividualEmployee
+                    employee={employee}
+                    size={35}
+                    redirectMe={true}
+                    showName={true}
+                    position={{ left: '1rem' }}
+                  />
+                </li>
+                  ))
                 )
               : (
-              `${teamCount} employees in this team`
+              <p className='text-center font-semibold text-sm'>
+                No employees in this team
+              </p>
                 )}
-          </p>
+          </ul>
+          {team.length > 0 && (
+            <p className='text-center font-semibold text-sm'>
+              {teamHref !== '' && teamHref !== undefined
+                ? (
+                <Link href={teamHref}>{teamCount} employees in this team</Link>
+                  )
+                : (
+                `${teamCount} employees in this team`
+                  )}
+            </p>
+          )}
         </div>
       )}
     </div>

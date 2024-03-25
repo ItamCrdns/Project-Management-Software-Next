@@ -19,7 +19,8 @@ const Button: React.FC<ButtonProps> = (props) => {
     loading = null,
     func,
     asyncFunc,
-    disabledFunc
+    disabledFunc,
+    icon
   } = props
 
   const handleEffect = (e: React.MouseEvent<HTMLSpanElement>): void => {
@@ -70,6 +71,7 @@ const Button: React.FC<ButtonProps> = (props) => {
           {loading === true && (
             <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
           )}
+          {icon !== undefined && icon !== null && icon}
           {text}
         </Link>
           )
@@ -78,6 +80,7 @@ const Button: React.FC<ButtonProps> = (props) => {
           {loading === true && (
             <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
           )}
+          {icon !== undefined && icon !== null && icon}
           {(loading === null || !loading) && text}
         </div>
           )}

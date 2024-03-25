@@ -6,6 +6,7 @@ import { BadgeComponent } from './BadgeComponent'
 import { TeamAndCreator } from '../TeamAndCreator'
 import { Info } from '@/svg/Info'
 import { dateUtil } from '@/utility/dateUtil'
+import { Dates } from './Badges/Dates'
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const { project, showButtons, employeeCountHref, showGeneralInfo } = props
@@ -22,7 +23,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
         <div className='w-full space-y-2'>
           {showGeneralInfo === true && (
             <div className='flex items-center justify-center gap-2'>
-              <h1 className='text-center font-semibold'>General information</h1>
+              <h1 className='text-center font-semibold'>About this project</h1>
               <Info />
             </div>
           )}
@@ -57,6 +58,13 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
                 color={priority.color}
                 tooltip={`Project has a ${priority.priorityText} priority`}
               />
+            </div>
+            <div className='p-0 -mt-2'>
+            <Dates
+              created={project?.entity.created}
+              expectedDelivery={project?.entity.expectedDeliveryDate}
+              finalized={project?.entity.finished}
+            />
             </div>
           </div>
         </div>
