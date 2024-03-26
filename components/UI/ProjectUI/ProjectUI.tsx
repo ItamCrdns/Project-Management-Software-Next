@@ -13,7 +13,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
 
   const priority = setEntityPriority(project?.entity.priority ?? 0)
 
-  const wasStarted = dateUtil(project?.entity.startedWorking ?? '', 'past')
+  const wasStarted = dateUtil(project?.entity.startedWorking ?? '').text
 
   const team = project?.entity.team
 
@@ -60,11 +60,11 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
               />
             </div>
             <div className='p-0 -mt-2'>
-            <Dates
-              created={project?.entity.created}
-              expectedDelivery={project?.entity.expectedDeliveryDate}
-              finalized={project?.entity.finished}
-            />
+              <Dates
+                created={project?.entity.created}
+                expectedDelivery={project?.entity.expectedDeliveryDate}
+                finalized={project?.entity.finished}
+              />
             </div>
           </div>
         </div>

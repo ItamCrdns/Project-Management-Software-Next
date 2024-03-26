@@ -1,4 +1,4 @@
-import { Date } from './Date'
+import { DateBadge } from './DateBadge'
 import { DateDivider } from './DateDivider'
 
 const Dates: React.FC<{
@@ -12,25 +12,33 @@ const Dates: React.FC<{
     <>
       <DateDivider />
       <div className='flex items-center justify-center gap-4'>
-        {created !== undefined && (
+        {created !== undefined && created !== null && (
           <>
-            <Date date={created} timePoint='past' text='Created' />
-          </>
-        )}
-        {expectedDelivery !== undefined && (
-          <>
-            <p className='select-none'>&middot;</p>
-            <Date
-              date={expectedDelivery}
-              timePoint='future'
-              text='To be delivered'
+            <DateBadge
+              date={created}
+              text='Created'
+              showCustomColor={false}
             />
           </>
         )}
-        {finalized !== null && finalized !== undefined && (
+        {expectedDelivery !== undefined && expectedDelivery !== null && (
           <>
             <p className='select-none'>&middot;</p>
-            <Date date={finalized} timePoint='past' text='Finished' />
+            <DateBadge
+              date={expectedDelivery}
+              text='To be delivered'
+              showCustomColor={true}
+            />
+          </>
+        )}
+        {finalized !== undefined && finalized !== null && (
+          <>
+            <p className='select-none'>&middot;</p>
+            <DateBadge
+              date={finalized}
+              text='Finished'
+              showCustomColor={true}
+            />
           </>
         )}
       </div>

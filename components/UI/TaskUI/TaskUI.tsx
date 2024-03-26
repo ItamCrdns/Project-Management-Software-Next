@@ -1,4 +1,3 @@
-import React from 'react'
 import { TeamAndCreator } from '../TeamAndCreator'
 import { type TaskUIProps } from './TaskUI.interface'
 import { Info } from '@/svg/Info'
@@ -27,7 +26,7 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
                 {task?.entity.name}
               </Link>
               <BadgeComponent
-                content={dateUtil(task?.entity.startedWorking ?? '', 'past')}
+                content={dateUtil(task?.entity.startedWorking ?? '').text}
               />
             </div>
             <Dates

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import EntityCreator from './EntityCreator'
 import EntityEmployees from './EntityEmployees'
 import { setEntityPriority } from './EntityPriority'
-import { dateUtil } from '@/utility/dateUtil'
+import { DateBadge } from '../UI/ProjectUI/Badges/DateBadge'
 
 // * We would have to map the items to fit as the Entity interface
 export interface Entity {
@@ -68,7 +68,7 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
           </div>
       )}
       <div className='flex items-center justify-center gap-2' style={style}>
-        <p>{dateUtil(props.entity.created, 'past')}</p>
+        <DateBadge date={props.entity.created} showCustomColor={true} text='' textSize='text-sm' />
       </div>
       {props.showParentEntity && (
         <div className='flex items-center justify-center gap-2' style={style}>
