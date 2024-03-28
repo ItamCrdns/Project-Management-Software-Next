@@ -40,11 +40,19 @@ const DateBadge: React.FC<{
     customColor = 'blue'
   }
 
-  const newDate = new Date(date)
-  const time = newDate.toUTCString()
-
   return (
-    <Badge color={showCustomColor && customColor} tooltip={time}>
+    <Badge
+      color={showCustomColor && customColor}
+      tooltip={new Date(date).toLocaleDateString('en-us', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'UTC'
+      })}
+    >
       <p className={textSize ?? 'text-xs'}>
         {text + ' ' + timeAgo.text.toLowerCase()}
       </p>

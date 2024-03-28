@@ -1,6 +1,6 @@
+import { useOutsideClick } from '@/utility/closeOnOutsideClick'
 import EntityDashboardOptions from '../Header title/_dashboard/EntityDashboardOptions'
 import { useRef } from 'react'
-import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 
 interface FiltersProps {
   entityName?: string
@@ -14,7 +14,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
   const { entityName, isDashboard } = props
 
   const ref = useRef<HTMLDivElement>(null)
-  closeOnOutsideClick({ ref, closeThis: props.close })
+  useOutsideClick({ ref, closeThis: props.close })
 
   return (
     <div

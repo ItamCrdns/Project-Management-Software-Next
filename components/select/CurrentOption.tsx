@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import { ArrowDown } from './ArrowDown'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import NoPicture from '../No profile picture/NoPicture'
 import { useState } from 'react'
 import { OverflowOptionsPopUp } from './PopUp/OverflowOptionsPopUp'
 import { OptionPopUp } from './PopUp/OptionPopUp'
+import { ArrowDown } from '@/svg/ArrowDown'
 
 interface CurrentOptionsProps {
   selectedOption?: Option | null

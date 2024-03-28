@@ -4,7 +4,6 @@ import { type Employee } from '@/interfaces/employee'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import NoPicture from '../No profile picture/NoPicture'
-import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
 import { Project } from '../../svg/Project'
 import { Task } from '../../svg/Task'
 import { logout } from './actions/logout'
@@ -12,6 +11,7 @@ import { Issue } from '@/svg/Issue'
 import { Settings } from '@/svg/Settings'
 import { DarkTheme } from '@/svg/DarkTheme'
 import { LightTheme } from '@/svg/LightTheme'
+import { useOutsideClick } from '@/utility/closeOnOutsideClick'
 interface DropdownMenuProps {
   employee: Employee
   closeDropdownMenu: () => void
@@ -23,7 +23,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const { employee, closeDropdownMenu, theme, switchTheme } = props
 
   const ref = useRef<HTMLElement>(null)
-  closeOnOutsideClick({ ref, closeThis: closeDropdownMenu })
+  useOutsideClick({ ref, closeThis: closeDropdownMenu })
 
   useEffect(() => {
     const themes = ['dark', 'light']

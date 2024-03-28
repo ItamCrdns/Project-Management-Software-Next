@@ -47,7 +47,18 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
           <div className='flex items-center flex-col w-full'>
             <Divider>Expected delivery date</Divider>
             <h2>
-              {new Date(newTask.expectedDeliveryDate).toLocaleDateString()}
+              {new Date(newTask.expectedDeliveryDate).toLocaleDateString(
+                'en-us',
+                {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'UTC'
+                }
+              )}
             </h2>
           </div>
         </div>

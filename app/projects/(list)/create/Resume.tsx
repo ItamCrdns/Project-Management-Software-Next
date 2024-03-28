@@ -53,7 +53,18 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
           <div className='flex items-center flex-col w-full p-4 py-0'>
             <Divider>Expected delivery date</Divider>
             <h2>
-              {new Date(newProject.expectedDeliveryDate).toLocaleDateString()}
+              {new Date(newProject.expectedDeliveryDate).toLocaleDateString(
+                'en-us',
+                {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'UTC'
+                }
+              )}
             </h2>
           </div>
           <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 py-0'>

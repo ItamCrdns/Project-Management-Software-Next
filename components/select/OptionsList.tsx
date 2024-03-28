@@ -5,7 +5,7 @@ import NoPicture from '../No profile picture/NoPicture'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { Loading } from './Loading'
 import { useRef } from 'react'
-import closeOnOutsideClick from '@/utility/closeOnOutsideClick'
+import { useOutsideClick } from '@/utility/closeOnOutsideClick'
 
 interface OptionsListProps {
   closeDropdown: () => void
@@ -25,7 +25,7 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
   const { handleMultipleOptionClick, handleOptionClick } = props
 
   const ref = useRef<HTMLDivElement>(null)
-  closeOnOutsideClick({ ref, closeThis: props.closeDropdown })
+  useOutsideClick({ ref, closeThis: props.closeDropdown })
 
   const contrastSelectedOption = (opt: Option, isDark: boolean): string => {
     if (Array.isArray(props.defaultEntities)) {

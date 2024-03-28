@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-interface ClickOutsideCloseProps {
+export const useOutsideClick = (props: {
   ref: React.RefObject<HTMLElement | null>
   closeThis: () => void
-}
-const closeOnOutsideClick = (props: ClickOutsideCloseProps): void => {
+}): void => {
   const { ref, closeThis } = props
+
   useEffect(() => {
     const handleClickOutside = (event: Event): void => {
       if (ref.current !== null && !ref.current.contains(event.target as Node)) {
@@ -20,5 +20,3 @@ const closeOnOutsideClick = (props: ClickOutsideCloseProps): void => {
     }
   }, [ref])
 }
-
-export default closeOnOutsideClick

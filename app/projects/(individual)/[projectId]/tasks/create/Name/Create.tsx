@@ -11,6 +11,8 @@ import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
 import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
 import { debounce } from '@/utility/debouce'
 import { useWarnings } from '@/hooks/useWarnings'
+import { TimePicker } from '@/components/Time Picker/TimePicker'
+import { type Time } from '@/components/Time Picker/TimePicker.interface'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
@@ -83,7 +85,19 @@ const Create: React.FC<CreateProps> = (props) => {
               </div>
               <DatePicker
                 onValueChange={(date: DatePickerValue) => {
-                  setExpectedDeliveryDate(date?.toString() ?? '')
+                  if (date === undefined) {
+                    return
+                  }
+
+                  const utcDate = new Date(
+                    Date.UTC(
+                      date.getFullYear(),
+                      date.getMonth(),
+                      date.getDate()
+                    )
+                  )
+
+                  setExpectedDeliveryDate(utcDate.toISOString())
                 }}
                 placeholder='Set a delivery date for this task'
                 defaultValue={
@@ -97,6 +111,22 @@ const Create: React.FC<CreateProps> = (props) => {
                     ? 'border border-red-500 rounded-md'
                     : ''
                 }`}
+              />
+              <TimePicker
+                error={expectedDeliveryDateWarning}
+                handleTimeClick={(time: Time) => {
+                  if (isNaN(taskExpectedDeliveryDate.getTime())) {
+                    return
+                  }
+
+                  const newDateWithTime = new Date(
+                    taskExpectedDeliveryDate.getTime()
+                  )
+                  newDateWithTime.setUTCHours(Number(time.hour.split(':')[0]))
+                  newDateWithTime.setUTCMinutes(Number(time.hour.split(':')[1]))
+                  setExpectedDeliveryDate(newDateWithTime.toISOString())
+                }}
+                disabled={isNaN(taskExpectedDeliveryDate.getTime())}
               />
               {expectedDeliveryDateWarning && (
                 <p className='text-sm text-red-500 -mt-2 flex self-start'>
