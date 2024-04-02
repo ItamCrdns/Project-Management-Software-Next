@@ -56,6 +56,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
               showCloseButton={props.showCloseButton}
               defaultEntities={props.defaultEntities}
               showPictures={props.showPictures}
+              scrollable={props.scrollable}
             />
           )}
         </div>

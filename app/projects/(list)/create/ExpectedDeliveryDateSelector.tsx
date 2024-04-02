@@ -1,7 +1,9 @@
 import { TimePicker } from '@/components/Time Picker/TimePicker'
-import { type Time } from '@/components/Time Picker/TimePicker.interface'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
+import { timeAmPmTo24h } from '@/utility/timeAmPmTo24h'
 import { DatePicker, type DatePickerValue } from '@tremor/react'
+import { useState } from 'react'
 
 const ExpectedDeliveryDateSelector: React.FC<{
   defaultValue: Date
@@ -11,6 +13,11 @@ const ExpectedDeliveryDateSelector: React.FC<{
   const { defaultValue, error, errorMessage } = props
 
   const { setExpectedDeliveryDate } = useNewProjectActions()
+
+  const [selectedTime, setSelectedTime] = useState<Option>({
+    value: 1,
+    label: '12:00 AM'
+  })
 
   return (
     <>
@@ -37,16 +44,20 @@ const ExpectedDeliveryDateSelector: React.FC<{
       />
       <div className='my-4'>
         <TimePicker
-          error={error}
-          handleTimeClick={(time: Time) => {
-            if (isNaN(defaultValue?.getTime())) {
+          selectedTime={selectedTime}
+          onChange={(newTime) => {
+            if (isNaN(defaultValue.getTime())) {
               return
             }
 
+            const timeAs24Hour = timeAmPmTo24h(newTime.label)
+
             const newDateWithTime = new Date(defaultValue.getTime())
-            newDateWithTime.setUTCHours(Number(time.hour.split(':')[0]))
-            newDateWithTime.setUTCMinutes(Number(time.hour.split(':')[1]))
+            newDateWithTime.setUTCHours(Number(timeAs24Hour.split(':')[0]))
+            newDateWithTime.setUTCMinutes(Number(timeAs24Hour.split(':')[1]))
+
             setExpectedDeliveryDate(newDateWithTime.toISOString())
+            setSelectedTime(newTime)
           }}
           disabled={isNaN(defaultValue?.getTime())}
         />

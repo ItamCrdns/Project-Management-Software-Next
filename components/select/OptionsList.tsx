@@ -19,10 +19,11 @@ interface OptionsListProps {
   showCloseButton?: boolean
   defaultEntities?: Option | Option[]
   showPictures?: boolean
+  scrollable?: boolean
 }
 
 const OptionsList: React.FC<OptionsListProps> = (props) => {
-  const { handleMultipleOptionClick, handleOptionClick } = props
+  const { handleMultipleOptionClick, handleOptionClick, scrollable } = props
 
   const ref = useRef<HTMLDivElement>(null)
   useOutsideClick({ ref, closeThis: props.closeDropdown })
@@ -48,7 +49,13 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
       ref={ref}
       className='absolute top-14 right-0 z-50 p-4 text-xs m-0 flex flex-col gap-4 min-w-72 outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis dark:border-dark-tremor-border'
     >
-      <div className='flex flex-col items-center w-full justify-center min-h-32'>
+      <div
+        className={`flex flex-col ${
+          scrollable === true
+            ? 'h-40 overflow-y-auto'
+            : 'items-center justify-center'
+        }`}
+      >
         {Array.isArray(props.options) && props.options.length > 0
           ? (
           <ul className='flex flex-col gap-2 w-full'>

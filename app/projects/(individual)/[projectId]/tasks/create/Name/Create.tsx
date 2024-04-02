@@ -12,7 +12,8 @@ import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
 import { debounce } from '@/utility/debouce'
 import { useWarnings } from '@/hooks/useWarnings'
 import { TimePicker } from '@/components/Time Picker/TimePicker'
-import { type Time } from '@/components/Time Picker/TimePicker.interface'
+import { type Option } from '@/interfaces/props/CustomSelectProps'
+import { timeAmPmTo24h } from '@/utility/timeAmPmTo24h'
 
 const Create: React.FC<CreateProps> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
@@ -47,6 +48,11 @@ const Create: React.FC<CreateProps> = (props) => {
   const expectedDeliveryDateWarning: boolean =
     newTask.expectedDeliveryDate === '' &&
     warnings.some((w) => w.field === 'expectedDeliveryDate')
+
+  const [selectedTime, setSelectedTime] = useState<Option>({
+    value: 1,
+    label: '12:00 AM'
+  })
 
   return (
     <section className='flex items-start justify-center py-8 px-0 space-x-8'>
@@ -112,22 +118,32 @@ const Create: React.FC<CreateProps> = (props) => {
                     : ''
                 }`}
               />
-              <TimePicker
-                error={expectedDeliveryDateWarning}
-                handleTimeClick={(time: Time) => {
-                  if (isNaN(taskExpectedDeliveryDate.getTime())) {
-                    return
-                  }
+              <div className='w-full'>
+                <TimePicker
+                  selectedTime={selectedTime}
+                  onChange={(newTime) => {
+                    if (isNaN(taskExpectedDeliveryDate.getTime())) {
+                      return
+                    }
 
-                  const newDateWithTime = new Date(
-                    taskExpectedDeliveryDate.getTime()
-                  )
-                  newDateWithTime.setUTCHours(Number(time.hour.split(':')[0]))
-                  newDateWithTime.setUTCMinutes(Number(time.hour.split(':')[1]))
-                  setExpectedDeliveryDate(newDateWithTime.toISOString())
-                }}
-                disabled={isNaN(taskExpectedDeliveryDate.getTime())}
-              />
+                    const timeAs24Hour = timeAmPmTo24h(newTime.label)
+
+                    const newDateWithTime = new Date(
+                      taskExpectedDeliveryDate.getTime()
+                    )
+                    newDateWithTime.setUTCHours(
+                      Number(timeAs24Hour.split(':')[0])
+                    )
+                    newDateWithTime.setUTCMinutes(
+                      Number(timeAs24Hour.split(':')[1])
+                    )
+
+                    setExpectedDeliveryDate(newDateWithTime.toISOString())
+                    setSelectedTime(newTime)
+                  }}
+                  disabled={isNaN(taskExpectedDeliveryDate.getTime())}
+                />
+              </div>
               {expectedDeliveryDateWarning && (
                 <p className='text-sm text-red-500 -mt-2 flex self-start'>
                   {

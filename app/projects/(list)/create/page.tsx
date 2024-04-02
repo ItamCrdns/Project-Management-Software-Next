@@ -88,17 +88,20 @@ const NewProjectModal: React.FC<{
     newProject.expectedDeliveryDate === '' &&
     warnings.some((w) => w.field === 'expectedDeliveryDate')
 
-  const clientWarning: boolean = newProject.clientName === '' && newProject.companyId === 0 && warnings.some((w) => w.field === 'parentName')
+  const clientWarning: boolean =
+    newProject.clientName === '' &&
+    newProject.companyId === 0 &&
+    warnings.some((w) => w.field === 'parentName')
 
   return (
-    <section className='fixed w-full h-screen flex flex-col items-center justify-center z-45 m-0 p-0'>
+    <section className='flex flex-col items-center justify-center p-8'>
       <UnsavedChanges
         isOpen={showUnsavedChanges}
         setIsOpen={(value) => {
           setShowUnsavedChanges(value)
         }}
       />
-      <section className='absolute top-8 p-8 rounded-lg flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
+      <section className='p-8 rounded-md shadow-md flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
         <ReturnBadge callback={handleReturn} />
         {readyForNextPage
           ? (

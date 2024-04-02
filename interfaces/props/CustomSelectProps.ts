@@ -29,6 +29,7 @@ export interface CustomSelectProps {
   // Display properties
   showPictures?: boolean // ? If true, will show pictures of the options
   showCloseButton?: boolean // ? If true, will show a close button at the bottom of the dropdown
+  scrollable?: boolean // ? If true, will make the dropdown scrollable
 
   // Dropdown properties
   shouldShowDropdown?: boolean // * Only one options dropdown can be expanded at a given time
