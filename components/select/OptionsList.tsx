@@ -91,8 +91,8 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
                     : (
                     <NoPicture width='25px' height='25px' />
                       ))}
-                <h4>{opt.label}</h4>
-                <p className='text-right'>{opt.info}</p>
+                <h4 className='select-none'>{opt.label}</h4>
+                <p className='text-right select-none'>{opt.info}</p>
               </li>
             ))}
           </ul>

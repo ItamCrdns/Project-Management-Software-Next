@@ -2,6 +2,7 @@ import { useState } from 'react'
 import CustomSelect from '../select/select'
 import { timeOptions } from './timeOptions'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
+import { Clock } from '@/svg/Clock'
 
 const TimePicker: React.FC<{
   onChange: (value: Option) => void
@@ -30,6 +31,7 @@ const TimePicker: React.FC<{
       }}
       scrollable={true}
       disabled={disabled}
+      icon={<Clock />}
     />
   )
 }

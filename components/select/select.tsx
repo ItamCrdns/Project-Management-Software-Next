@@ -28,7 +28,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
     <>
       <div className='flex items-center justify-center min-w-64 relative'>
         <div
-          className={`flex flex-col items-end justify-self-center w-full box-border resize-none text-lg overflow-hidden min-w-full p-2 outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis ${
+          className={`flex items-center justify-between justify-self-center w-full box-border resize-none text-lg overflow-hidden min-w-full p-2 outline-none rounded-tremor-default transition duration-100 border shadow-tremor-input dark:shadow-dark-tremor-input bg-tremor-background dark:bg-dark-tremor-background hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis ${
             props.error === true ? 'border-red-500' : 'border-tremor-border'
           } ${
             props.error === true
@@ -36,6 +36,7 @@ const CustomSelect: React.FC<CustomSelectProps> = (props) => {
               : 'dark:border-dark-tremor-border'
           }`}
         >
+          {props.icon ?? <div></div>}
           <CurrentOption
             disabled={disabled}
             selectedOption={props.selectedOption}
