@@ -6,6 +6,7 @@ import { projectSortValues } from '@/components/Data Header/sortValues'
 import { ProjectsUI } from './ProjectsUI'
 import { getCompany } from '@/api-calls/getCompanyById'
 import { CompanyUI } from './CompanyUI'
+import { NoProjects } from './NoProjects'
 
 const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   const clientId = props.params.client[0]
@@ -32,7 +33,6 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   return (
     <main className='flex items-center flex-col p-8'>
       <div>
-        {/* {!noProjects && ( */}
         <div className='flex justify-end'>
           <DataHeader
             dashboard={false}
@@ -42,20 +42,17 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
             sortValues={projectSortValues}
           />
         </div>
-        {/* )} */}
         <div className='flex items-start gap-8'>
           {data !== undefined && <CompanyUI data={data} />}
-          {/* <div className='bg-red-400 w-full'> */}
           {!noProjects
             ? (
             <ProjectsUI data={projects} />
               )
             : (
-            <div className='w-full text-center'>
-              No projects match your search criteria
+            <div style={{ width: '1500px' }} className='text-center'>
+              <NoProjects />
             </div>
               )}
-          {/* </div> */}
         </div>
       </div>
     </main>
