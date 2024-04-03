@@ -4,7 +4,9 @@ import QueryParamsPagination from '@/components/Advanced query params based pagi
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 
-const ProjectsUI: React.FC<{ data: DictionaryResponse<Project> | null }> = (props) => {
+const ProjectsUI: React.FC<{ data: DictionaryResponse<Project> | null }> = (
+  props
+) => {
   const { data } = props
 
   const projects = data?.data ?? []
@@ -21,10 +23,8 @@ const ProjectsUI: React.FC<{ data: DictionaryResponse<Project> | null }> = (prop
     Array.isArray(projects) &&
     projects.length > 0 && (
       <section className='space-y-8'>
-        <div className='w-full'>
-          <QueryParamsPagination paginationProps={paginationProps} />
-        </div>
-        <ul className='space-y-4 items-stretch'>
+        <QueryParamsPagination paginationProps={paginationProps} />
+        <ul className='space-y-4 '>
           {projects.length > 0 &&
             projects.map((project: Project, index: number) => (
               <li

@@ -32,20 +32,30 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
   return (
     <main className='flex items-center flex-col p-8'>
       <div>
-        {!noProjects && (
-          <div className='flex justify-end'>
-            <DataHeader
-              dashboard={false}
-              pushSearchParams
-              entity='projectsfromcompany'
-              width='300px'
-              sortValues={projectSortValues}
-            />
-          </div>
-        )}
+        {/* {!noProjects && ( */}
+        <div className='flex justify-end'>
+          <DataHeader
+            dashboard={false}
+            pushSearchParams
+            entity='projectsfromcompany'
+            width='300px'
+            sortValues={projectSortValues}
+          />
+        </div>
+        {/* )} */}
         <div className='flex items-start gap-8'>
           {data !== undefined && <CompanyUI data={data} />}
-          {!noProjects ? <ProjectsUI data={projects} /> : <>No projects</>}
+          {/* <div className='bg-red-400 w-full'> */}
+          {!noProjects
+            ? (
+            <ProjectsUI data={projects} />
+              )
+            : (
+            <div className='w-full text-center'>
+              No projects match your search criteria
+            </div>
+              )}
+          {/* </div> */}
         </div>
       </div>
     </main>

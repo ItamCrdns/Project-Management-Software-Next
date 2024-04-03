@@ -1,20 +1,16 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type QueryParamsPaginationProps } from './IQueryParamsPaginationProps'
 import PaginationUI from './PaginationUI'
 import { type PaginationUIProps } from './IPaginationUIProps'
 import { handleMaxValue } from './handleMaxValue'
+import { useGetSearchParams } from '../Filters/useGetSearchParams'
 
 // TODO: Add a search component to search entities basd on their name
 
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const { totalPages, entityName, totalEntitesCount } = props.paginationProps
 
-  const pathname = usePathname()
-  const router = useRouter()
-
-  const nextJsParams = useSearchParams()
-  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
+  const { router, pathname, searchParams } = useGetSearchParams()
 
   const handleCurrentPageInputChange = (
     e: React.ChangeEvent<HTMLInputElement>

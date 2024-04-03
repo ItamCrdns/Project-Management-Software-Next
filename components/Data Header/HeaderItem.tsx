@@ -12,6 +12,10 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   const isStateSelected =
     props.order.orderBy.toLowerCase() === props.sortValue?.toLowerCase()
 
+  const filterHeaderParams = new URLSearchParams(props.searchParams.toString())
+  filterHeaderParams.delete('sort')
+  filterHeaderParams.delete('orderby')
+
   if (props.dashboard) {
     return (
       <div
@@ -46,6 +50,8 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
               ? 'descending'
               : 'ascending'
             : 'ascending'
+        }${
+          filterHeaderParams.size > 0 ? `&${filterHeaderParams.toString()}` : ''
         }`}
       >
         <Icon />
@@ -68,7 +74,10 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
     )
   } else {
     return (
-      <div className='flex gap-2 items-center justify-center' style={props.style}>
+      <div
+        className='flex gap-2 items-center justify-center'
+        style={props.style}
+      >
         <Icon />
         <p className='select-none'>{props.label}</p>
       </div>

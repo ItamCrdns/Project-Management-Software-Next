@@ -4,7 +4,6 @@ import {
   type Style
 } from '@/interfaces/props/DataHeaderProps'
 import HeaderItem from './HeaderItem'
-import { usePathname, useSearchParams } from 'next/navigation'
 import {
   type OrderBy,
   type IFilterProperties,
@@ -16,12 +15,10 @@ import {
   type Order
 } from '@/context/Filter/filterInitialState'
 import { getHeaderItems } from './headerItems'
+import { useGetSearchParams } from '../Filters/useGetSearchParams'
 
 const DataHeader: React.FC<DataHeaderProps> = (props) => {
-  const pathname = usePathname()
-
-  const nextJsParams = useSearchParams()
-  const searchParams = new URLSearchParams(Array.from(nextJsParams.entries()))
+  const { pathname, searchParams } = useGetSearchParams()
 
   const [order, setOrder] = useState<Order>(orderInitialState)
 
