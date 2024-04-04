@@ -3,6 +3,7 @@ import { getTask } from './getTask'
 import { Description } from '../../(projectId)/Banners/Description'
 import { Attachments } from '../../(projectId)/Banners/Attachments'
 import { Project } from './Banners/Project'
+import { NotFound } from '@/components/404 Not Found/NotFound'
 
 const TaskId: React.FC<{
   params: { projectId: string, taskId: string }
@@ -28,7 +29,11 @@ const TaskId: React.FC<{
           </>
             )
           : (
-          <h1>Task not found</h1>
+          <NotFound
+            text='Task not found'
+            buttonText='Return to homepage'
+            href='/'
+          />
             )}
       </div>
     </section>

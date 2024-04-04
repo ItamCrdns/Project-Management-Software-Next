@@ -19,18 +19,14 @@ interface Return {
 }
 
 export interface EmployeeFetcherProps {
-  ids?: string[]
   shouldFetch: boolean
-  clientId: number
-  page: string
-  limit: string
+  url: string
 }
 
 const fetcher = async (url: string): Promise<SelectedAndAll> => await fetch(url, { credentials: 'include' }).then(async res => await res.json())
 
 export const useEmployeeFilterUtility = (props: EmployeeFetcherProps): Return => {
-  const queryParams = new URLSearchParams({ employeeIds: props.ids?.join('-') ?? '', page: props.page, pageSize: props.limit }).toString()
-  const key = props.shouldFetch ? `${process.env.NEXT_PUBLIC_API_URL}Employee/${props.clientId}/projects/created?${queryParams}` : null
+  const key = props.shouldFetch ? `${props.url}` : null
 
   const { data, error, isLoading } = useSWR<SelectedAndAll>(key, fetcher)
 

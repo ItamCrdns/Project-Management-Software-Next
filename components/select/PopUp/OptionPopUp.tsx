@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 const OptionPopUp: React.FC<{ option: Option }> = (props) => {
   return (
-    <div className='absolute top-2 left-0 m-6 bg-theming-white100 dark:bg-theming-dark100 py-2 px-6 z-999 rounded-md shadow-md'>
+    <div className='absolute top-6 left-0 m-6 bg-tremor-background dark:bg-dark-tremor-background hover:bg-tremor-background-muted dark:hover:bg-dark-tremor-background-muted text-tremor-content-emphasis dark:text-dark-tremor-content-emphasis py-2 px-6 z-999 rounded-md shadow-md'>
       <div className='flex items-center justify-center gap-2 p-2 rounded-md cursor-pointer hover:bg-theming-white200 dark:hover:bg-theming-dark300'>
         {props.option.picture !== undefined
           ? (

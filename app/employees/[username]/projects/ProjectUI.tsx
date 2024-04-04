@@ -6,6 +6,7 @@ import EmployeeCardProfile from '../(employee)/@employeeCard/page'
 import { projectSortValues } from '@/components/Data Header/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
+import { ArrowLeftCircle } from '@/svg/ArrowLeftCircle'
 
 interface ProjectUIProps {
   username: string
@@ -23,17 +24,19 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
     entityName: 'Projects',
     totalEntitesCount: totalProjects
   }
+
   return (
     <section className='flex justify-center gap-4'>
       <div>
         <div className='flex items-center justify-between gap-8 my-8 mx-0'>
           <Link
-            className='font-bold text-theming-dark100 dark:text-theming-white100 cursor-pointer'
+            className='flex gap-2 font-semibold text-theming-dark100 dark:text-theming-white100 cursor-pointer'
             href={`/employees/${props.username}`}
           >
+            <ArrowLeftCircle />
             Return to {props.username}&apos;s profile
           </Link>
-          <h1>All {username}&apos;s projects</h1>
+          <h1 className='font-semibold'>All {username}&apos;s projects</h1>
         </div>
         <div className='flex justify-end'>
           <DataHeader
@@ -45,7 +48,9 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           />
         </div>
         <section className='flex items-start justify-center gap-8'>
-          <EmployeeCardProfile params={{ username }} />
+          <div className='flex flex-col gap-8 items-stretch justify-center'>
+            <EmployeeCardProfile params={{ username }} />
+          </div>
           <div className='flex flex-col gap-8'>
             <QueryParamsPagination paginationProps={paginationProps} />
             <div>

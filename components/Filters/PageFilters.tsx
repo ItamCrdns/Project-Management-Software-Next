@@ -1,22 +1,38 @@
 'use client'
 import { useState } from 'react'
 import { Button } from '../Button/Button'
-import { useParams } from 'next/navigation'
 import { SelectAuthor } from './SelectAuthor'
 import { SelectPriority } from './SelectPriority'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { type IParams } from './SelectAuthorInterfaces'
 import { employeesAsOptions } from './employeesAsOptions'
 import { useGetSearchParams } from './useGetSearchParams'
-import { useEmployeeFilterUtility, type EmployeeFetcherProps } from '@/hooks/useEmployeeFilterUtility '
+import { useEmployeeFilterUtility } from '@/hooks/useEmployeeFilterUtility'
+import { type PageFiltersProps } from './PageFilters.interface'
 
 export interface IFilter {
   authorIds?: number[]
   priority?: number
 }
 
-const PageFilters: React.FC = () => {
+const PageFilters: React.FC<PageFiltersProps> = (props) => {
   const { router, pathname, searchParams } = useGetSearchParams()
+
+  const [activeDropdown, setActiveDropdown] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
+
+  const queryParamsWithPage = new URLSearchParams(props.queryParams.toString())
+  queryParamsWithPage.set('page', currentPage.toString())
+
+  const {
+    selectedEmployees,
+    allEmployees,
+    onEmployeeSelect,
+    clearSelectedEmployees
+  } = useEmployeeFilterUtility({
+    shouldFetch: true,
+    url: `${props.url}?${queryParamsWithPage.toString()}`
+  })
 
   const clearFilters = (): void => {
     searchParams.delete('author')
@@ -28,8 +44,6 @@ const PageFilters: React.FC = () => {
     clearSelectedEmployees()
   }
 
-  const [activeDropdown, setActiveDropdown] = useState<string>('')
-
   const onShowDropdown = (dropdown: string): void => {
     // * If the dropdown is already active, reset it
     if (dropdown === activeDropdown) {
@@ -40,41 +54,9 @@ const PageFilters: React.FC = () => {
     setActiveDropdown(dropdown)
   }
 
-  const authorIdFilterSet =
-    searchParams.get('author') !== null &&
-    searchParams.get('author')?.length !== 0
-  const priorityFilterSet =
-    searchParams.get('priority') !== null &&
-    searchParams.get('priority') !== '0'
-
-  // * Track if the clear filters button should be shown or not
-  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
-
-  const employeesFromUrl = searchParams.get('author')?.split('-')
-
-  const [currentPage, setCurrentPage] = useState<number>(1)
-
   const handlePageChange = (page: number): void => {
     setCurrentPage(page)
   }
-
-  const params: IParams = useParams()
-  const employeeFetcherProps: EmployeeFetcherProps = {
-    ids: employeesFromUrl,
-    shouldFetch: true,
-    clientId: Number(params.client?.[0]),
-    page: currentPage.toString(),
-    limit: '3'
-  }
-
-  const {
-    selectedEmployees,
-    allEmployees,
-    onEmployeeSelect,
-    clearSelectedEmployees
-  } = useEmployeeFilterUtility(employeeFetcherProps)
-
-  const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
 
   const selectAuthorProps = {
     shouldShowDropdown: activeDropdown === 'author',
@@ -109,6 +91,16 @@ const PageFilters: React.FC = () => {
       }
     }
   }
+
+  const authorIdFilterSet =
+    searchParams.get('author') !== null &&
+    searchParams.get('author')?.length !== 0
+  const priorityFilterSet =
+    searchParams.get('priority') !== null &&
+    searchParams.get('priority') !== '0'
+
+  // * Track if the clear filters button should be shown or not
+  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
 
   return (
     <div className='flex flex-col gap-4'>

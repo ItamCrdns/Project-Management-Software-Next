@@ -3,6 +3,7 @@ import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
 import { Client } from './Banners/Client'
 import { Description } from './Banners/Description'
 import { Attachments } from './Banners/Attachments'
+import { NotFound } from '@/components/404 Not Found/NotFound'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -41,7 +42,11 @@ const ProjectId: React.FC<ProjectIdProps> = async (props) => {
             </>
               )
             : (
-            <h1>Project not found</h1>
+            <NotFound
+              text='Project not found'
+              buttonText='Return to homepage'
+              href='/'
+            />
               )}
         </div>
         {hasTasks > 0 && tasks}

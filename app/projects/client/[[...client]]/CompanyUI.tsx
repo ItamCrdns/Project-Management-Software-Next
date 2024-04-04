@@ -1,6 +1,6 @@
-import { PageFilters } from '@/components/Filters/PageFilters'
 import { type Company } from '@/interfaces/company'
 import Link from 'next/link'
+import { Filters } from './Filters'
 
 const CompanyUI: React.FC<{ data: Company | null }> = (props) => {
   const { data } = props
@@ -21,9 +21,7 @@ const CompanyUI: React.FC<{ data: Company | null }> = (props) => {
             <p className='text-xs'>{data?.contactPhoneNumber}</p>
           </div>
         </div>
-        <div className='flex flex-col items-center p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
-          <PageFilters />
-        </div>
+        <Filters />
       </div>
     </aside>
   )

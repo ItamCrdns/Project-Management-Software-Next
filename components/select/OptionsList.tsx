@@ -3,9 +3,9 @@ import { SelectPaginationUI } from './SelectPaginationUI'
 import { Button } from '../Button/Button'
 import NoPicture from '../No profile picture/NoPicture'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { Loading } from './Loading'
 import { useRef } from 'react'
 import { useOutsideClick } from '@/utility/closeOnOutsideClick'
+import { Loading } from './Loading'
 
 interface OptionsListProps {
   closeDropdown: () => void
@@ -101,11 +101,14 @@ const OptionsList: React.FC<OptionsListProps> = (props) => {
           <Loading />
             )}
       </div>
-      <SelectPaginationUI
-        pageSize={props.pageSize}
-        onPageChange={props.onPageChange}
-        isPaginated={props.isPaginated}
-      />
+      {Array.isArray(props.options) && props.options.length > 0 && (
+        <SelectPaginationUI
+          pageSize={props.pageSize}
+          onPageChange={props.onPageChange}
+          isPaginated={props.isPaginated}
+        />
+      )}
+
       {props.showCloseButton === true && (
         <Button
           text='Close'

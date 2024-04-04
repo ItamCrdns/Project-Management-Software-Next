@@ -1,6 +1,6 @@
 import CustomSelect from '../select/select'
 import { employeesAsOptions, optionAsEmployee } from './employeesAsOptions'
-import { type ISharedProps } from './SelectAuthorInterfaces'
+import { type ISharedProps } from './SelectAuthor.interface'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import { type DataCountPages } from '@/interfaces/DataCountPages.interface'
 import { type Employee } from '@/interfaces/employee'

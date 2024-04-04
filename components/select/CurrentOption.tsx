@@ -56,24 +56,22 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
                 <li className='flex items-center justify-center px-1' key={i}>
                   {v.picture !== undefined
                     ? (
-                    <div
-                      onMouseEnter={() => {
-                        setShowPopUp(v)
-                      }}
-                      onMouseLeave={() => {
-                        setShowPopUp(null)
-                      }}
-                      className='relative'
-                    >
+                    <>
                       <Image
                         src={v.picture}
                         alt={v.label}
                         width={25}
                         height={25}
                         className='rounded-full'
+                        onMouseEnter={() => {
+                          setShowPopUp(v)
+                        }}
+                        onMouseLeave={() => {
+                          setShowPopUp(null)
+                        }}
                       />
                       {showPopUp === v && <OptionPopUp option={v} />}
-                    </div>
+                    </>
                       )
                     : (
                     <NoPicture width='25px' height='25px' />
@@ -87,7 +85,7 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
                 onMouseLeave={() => {
                   setShowOverflowPopUp(false)
                 }}
-                className='relative rounded-full w-25 h-25 flex items-center justify-center bg-theming-white100 dark:bg-theming-dark300'
+                className='rounded-full w-25 h-25 flex items-center justify-center bg-theming-white100 dark:bg-theming-dark300'
               >
                 <span className='text-xs'>+{defaultEntities.length - 4}</span>
                 {showOverflowPopUp && (
@@ -101,24 +99,22 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
               <li className='flex items-center justify-center px-1' key={i}>
                 {v.picture !== undefined
                   ? (
-                  <div
-                    onMouseEnter={() => {
-                      setShowPopUp(v)
-                    }}
-                    onMouseLeave={() => {
-                      setShowPopUp(null)
-                    }}
-                    className='relative'
-                  >
+                  <>
                     <Image
                       src={v.picture}
                       alt={v.label}
                       width={25}
                       height={25}
                       className='rounded-full'
+                      onMouseEnter={() => {
+                        setShowPopUp(v)
+                      }}
+                      onMouseLeave={() => {
+                        setShowPopUp(null)
+                      }}
                     />
                     {showPopUp === v && <OptionPopUp option={v} />}
-                  </div>
+                  </>
                     )
                   : (
                   <NoPicture width='25px' height='25px' />
