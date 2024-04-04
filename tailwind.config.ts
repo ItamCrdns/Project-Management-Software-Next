@@ -63,6 +63,8 @@ const config = {
       },
       zIndex: {
         45: 45,
+        60: 60,
+        65: 65,
         999: 999
       },
       colors: {

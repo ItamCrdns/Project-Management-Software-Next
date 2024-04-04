@@ -8,6 +8,8 @@ import { employeesAsOptions } from './employeesAsOptions'
 import { useGetSearchParams } from './useGetSearchParams'
 import { useEmployeeFilterUtility } from '@/hooks/useEmployeeFilterUtility'
 import { type PageFiltersProps } from './PageFilters.interface'
+import { TeamFilters } from './TeamFilters'
+import { SearchByName } from './SearchByName'
 
 export interface IFilter {
   authorIds?: number[]
@@ -104,8 +106,10 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
 
   return (
     <div className='flex flex-col gap-4'>
+      <SearchByName />
       <SelectAuthor {...selectAuthorProps} />
       <SelectPriority {...selectPriorityProps} />
+      <TeamFilters />
       {filtersHaveBeenSet && (
         <div className='w-full'>
           <Button text='Clear all filters' func={clearFilters} />

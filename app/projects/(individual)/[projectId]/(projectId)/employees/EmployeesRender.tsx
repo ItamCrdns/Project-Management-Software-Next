@@ -32,6 +32,7 @@ const EmployeesRender: React.FC<EmployeesRenderProps> = (props) => {
   const pageKey = Object.keys(searchParams).find((key) => key === 'page')
 
   const router = useRouter()
+  // ! This doesnt really work the way it should. Fix this
   useEffect(() => {
     if (totalPages !== 0 && parseInt(searchParams.page) > totalPages) {
       router.push(`${pathname}?${pageKey}=${1}`)
@@ -43,12 +44,13 @@ const EmployeesRender: React.FC<EmployeesRenderProps> = (props) => {
   const [resetPage, setResetPage] = useState<boolean>(false)
 
   const handleInputChange = (value: boolean): void => {
+    console.log('this triggers')
     setResetPage(value)
     searchParams.page = '1'
   }
 
   return (
-    <section className='fixed bg-black bg-opacity-20 w-full h-full flex flex-col items-center justify-center z-999 m-0 p-0'>
+    <section className='fixed bg-black bg-opacity-20 w-full h-full flex flex-col items-center justify-center m-0 p-0'>
       <section className='absolute top-8 flex items-center justify-center flex-col min-h-96 bg-theming-white100 dark:bg-theming-dark300 p-8 rounded-lg shadow-md'>
         <div className='-mb-2 flex self-end'>
           <ReturnBadgeLink path={closeButtonHref} />
