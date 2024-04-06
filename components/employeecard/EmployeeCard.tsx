@@ -17,7 +17,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
   const { employee, supervisor, isProfile, redirectMe } = props
 
   return (
-    <section className='space-y-8'>
+    <section className='space-y-8 z-999'>
       <section className='flex flex-col gap-4 items-center rounded-lg shadow-md p-4 bg-theming-white100 dark:bg-theming-dark300'>
         {employee?.profilePicture !== null &&
         employee?.profilePicture !== undefined

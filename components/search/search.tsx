@@ -11,19 +11,25 @@ interface SearchProps {
   stateBasedSearch: boolean // ? Disable the router.push for components that will not use searchParams based search and will instead rely on state based search
   stateBasedGetInputValue?: (input: string) => void // ? Used to get the input value from the search component and pass it to the parent component
   searchPlaceholder?: string
+  paramName?: string
 }
 
-const Search: React.FC<SearchProps> = ({
-  maxInputLength,
-  onInputChange,
-  url,
-  stateBasedSearch,
-  stateBasedGetInputValue,
-  searchPlaceholder
-}) => {
+const Search: React.FC<SearchProps> = (props) => {
+  const {
+    maxInputLength,
+    // onInputChange,
+    url,
+    stateBasedSearch,
+    stateBasedGetInputValue,
+    searchPlaceholder,
+    paramName
+  } = props
+
   const { router, searchParams } = useGetSearchParams()
 
-  const searchValueFromParams = searchParams.get('search')
+  const searchParam = paramName ?? 'search'
+
+  const searchValueFromParams = searchParams.get(paramName as string)
 
   // const [showSpinner, setShowSpinner] = useState<boolean>(false)
 
@@ -36,7 +42,7 @@ const Search: React.FC<SearchProps> = ({
       }
 
       if (inputValue !== '' && !stateBasedSearch) {
-        router.push(`${url}&search=${inputValue}`)
+        router.push(`${url}&${searchParam}=${inputValue}`)
       } else if (inputValue === '' && !stateBasedSearch) {
         router.push(url)
       } else if (stateBasedSearch) {

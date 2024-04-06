@@ -6,7 +6,7 @@ const SearchByName: React.FC = () => {
 
   // * Avoid search param duplication
   const paramsWithoutSearch = new URLSearchParams(searchParams.toString())
-  paramsWithoutSearch.delete('search')
+  paramsWithoutSearch.delete('searchValue')
 
   return (
     <Search
@@ -14,6 +14,7 @@ const SearchByName: React.FC = () => {
       url={`${pathname}?${paramsWithoutSearch.toString()}`}
       stateBasedSearch={false}
       searchPlaceholder='Search by project name'
+      paramName='searchValue'
     />
   )
 }

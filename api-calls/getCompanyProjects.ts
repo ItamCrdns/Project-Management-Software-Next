@@ -7,7 +7,7 @@ const getCompanyProjects = async (
   clientId: string,
   params: IFilterProperties
 ): Promise<{ data: DictionaryResponse<Project> | null, status: number }> => {
-  const queryParams = new URLSearchParams(params as string).toString()
+  const queryParams = new URLSearchParams(Object.entries(params)).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Project/company/${clientId}?${queryParams}`
 
   const { data, status } = await fetcher<DictionaryResponse<Project>>(apiUrl)

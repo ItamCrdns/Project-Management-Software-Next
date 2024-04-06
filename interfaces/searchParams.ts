@@ -1,4 +1,4 @@
 export interface SearchParams {
-  search: string
+  searchValue: string
   page: string
 }

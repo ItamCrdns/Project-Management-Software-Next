@@ -56,7 +56,9 @@ const generateQueryParams = (
     sort: checkAndSetSort(searchParams.sort) ?? 'ascending',
     orderBy: checkAndSetOrderBy(searchParams.orderby) ?? 'Name',
     filterBy,
-    filterValue
+    filterValue,
+    searchBy: 'Name',
+    searchValue: searchParams.searchValue ?? ''
   }
 
   if (searchParams.page !== sanitizedPage) {

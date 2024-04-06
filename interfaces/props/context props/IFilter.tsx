@@ -23,6 +23,8 @@ export interface IFilterProperties {
   // * Query params will be constructed like this: ?filterBy=priority&filterValue=1
   filterBy?: string
   filterValue?: string
+  searchValue?: string
+  searchBy?: string
 }
 
 export interface IFilter {
