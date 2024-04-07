@@ -1,34 +1,24 @@
-import getCompanyProjects from '@/api-calls/getCompanyProjects'
 import { type ClientNameProps } from '@/interfaces/props/ClientNameProps'
-import generateQueryParams from '../queryParams'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { projectSortValues } from '@/components/Data Header/sortValues'
-import { ProjectsUI } from './ProjectsUI'
-import { getCompany } from '@/api-calls/getCompanyById'
+import { Projects } from './Projects'
 import { CompanyUI } from './CompanyUI'
-import { NoProjects } from './NoProjects'
+import { Suspense } from 'react'
+import { Loading } from './Loading'
 
-const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
+const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
   const clientId = props.params.client[0]
 
-  const { data } = await getCompany(clientId)
-
-  const queryParams = generateQueryParams(props.searchParams)
-
-  const { data: projects } = await getCompanyProjects(clientId, queryParams)
-
-  const totalPages = projects?.pages ?? 0
-  const totalProjects = projects?.count ?? 0
-
-  if (Number(props.searchParams.page) > totalPages) {
-    props.searchParams.page = totalPages.toString()
-  }
-
-  if (Number(props.searchParams.pagesize) > totalProjects) {
-    props.searchParams.pagesize = totalProjects.toString()
-  }
-
-  const noProjects = projects?.count === 0
+  // My react suspense needs a key to work for some reason
+  const key =
+    props.searchParams.pagesize +
+    props.searchParams.page +
+    props.searchParams.orderby +
+    props.searchParams.sort +
+    props.searchParams.author +
+    props.searchParams.priority +
+    props.searchParams.secondpagesize +
+    props.searchParams.searchValue
 
   return (
     <main className='flex items-center flex-col p-8'>
@@ -43,16 +33,15 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = async (props) => {
           />
         </div>
         <div className='flex items-start gap-8'>
-          {data !== undefined && <CompanyUI data={data} />}
-          {!noProjects
-            ? (
-            <ProjectsUI data={projects} />
-              )
-            : (
-            <div style={{ width: '1500px' }} className='text-center'>
-              <NoProjects />
-            </div>
-              )}
+          <CompanyUI clientId={clientId} />
+          <Suspense
+            key={key}
+            fallback={
+              <Loading skeletonCount={Number(props.searchParams.pagesize)} />
+            }
+          >
+            <Projects clientId={clientId} searchParams={props.searchParams} />
+          </Suspense>
         </div>
       </div>
     </main>

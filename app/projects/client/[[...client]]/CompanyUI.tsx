@@ -1,9 +1,9 @@
-import { type Company } from '@/interfaces/company'
 import Link from 'next/link'
 import { Filters } from './Filters'
+import { getCompany } from '@/api-calls/getCompanyById'
 
-const CompanyUI: React.FC<{ data: Company | null }> = (props) => {
-  const { data } = props
+const CompanyUI: React.FC<{ clientId: string }> = async (props) => {
+  const { data } = await getCompany(props.clientId)
 
   return (
     <aside className='flex flex-col items-center gap-8 max-w-sm'>

@@ -15,7 +15,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   const handleCurrentPageInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const checkedValue = handleMaxValue(e, totalEntitesCount)
+    const checkedValue = handleMaxValue(e, totalPages)
 
     if (!isNaN(checkedValue)) {
       searchParams.set('page', checkedValue.toString())

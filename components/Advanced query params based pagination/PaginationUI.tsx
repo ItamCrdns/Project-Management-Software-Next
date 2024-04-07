@@ -36,7 +36,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         <p>Showing</p>
         <input
           type='number'
-          defaultValue={pageSize}
+          value={pageSize}
           onClick={handleInputClick}
           onChange={handlePageSizeInputChange}
           className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
@@ -51,7 +51,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
             <p>Showing</p>
             <input
               type='number'
-              defaultValue={secondPageSize}
+              value={secondPageSize}
               onClick={handleInputClick}
               onChange={handleSecondPageSizeInputChange}
               className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'

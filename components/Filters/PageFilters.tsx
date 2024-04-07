@@ -39,6 +39,7 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
   const clearFilters = (): void => {
     searchParams.delete('author')
     searchParams.delete('priority')
+    searchParams.delete('searchValue')
 
     router.replace(`${pathname}?${searchParams.toString()}`)
 
@@ -97,12 +98,16 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
   const authorIdFilterSet =
     searchParams.get('author') !== null &&
     searchParams.get('author')?.length !== 0
+
   const priorityFilterSet =
     searchParams.get('priority') !== null &&
     searchParams.get('priority') !== '0'
 
+  const searchFilterSet =
+    searchParams.get('searchValue') !== null &&
+    searchParams.get('searchValue') !== ''
   // * Track if the clear filters button should be shown or not
-  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet
+  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet || searchFilterSet
 
   return (
     <div className='flex flex-col gap-4'>

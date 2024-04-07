@@ -3,6 +3,7 @@ import { MagnifyingGlass } from '@/svg/MagnifyingGlass'
 import { TextInput } from '@tremor/react'
 import { useGetSearchParams } from '../Filters/useGetSearchParams'
 import { debounce } from '@/utility/debouce'
+import { useEffect, useRef } from 'react'
 
 interface SearchProps {
   maxInputLength: number
@@ -29,7 +30,7 @@ const Search: React.FC<SearchProps> = (props) => {
 
   const searchParam = paramName ?? 'search'
 
-  const searchValueFromParams = searchParams.get(paramName as string)
+  // const searchValueFromParams = searchParams.get(paramName)
 
   // const [showSpinner, setShowSpinner] = useState<boolean>(false)
 
@@ -52,6 +53,15 @@ const Search: React.FC<SearchProps> = (props) => {
     1000
   )
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    // Need to use this alternative because defaultValue doesnt get updated after the first render
+    if (inputRef.current !== null) {
+      inputRef.current.value = searchParams.get(searchParam) ?? ''
+    }
+  }, [searchParams.get(paramName as string)])
+
   return (
     <section className='relative flex justify-center items-center'>
       <div className='absolute left-4 select-none z-999'>
@@ -59,8 +69,8 @@ const Search: React.FC<SearchProps> = (props) => {
       </div>
       <TextInput
         type='text'
+        ref={inputRef}
         placeholder={searchPlaceholder ?? 'Press enter to search'}
-        defaultValue={searchValueFromParams ?? ''}
         maxLength={maxInputLength}
         onChange={handleSearch}
         className='w-full h-10 pl-12 pr-4'
