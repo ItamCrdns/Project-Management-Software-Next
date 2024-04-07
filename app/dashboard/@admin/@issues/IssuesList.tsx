@@ -2,19 +2,20 @@ import { type Issue } from '@/interfaces/Issue'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import EntityHeader from '../EntityHeader'
 import EachIssue from '@/app/issues/EachIssue'
-import LoadingFetch from '../_fetch loader/LoadingFetch'
 import {
   type IFilterProperties,
   type IFilter
 } from '@/interfaces/props/context props/IFilter'
 import { issueSortValues } from './sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
+import LoadingSkeleton from '../@projects/LoadingSkeleton'
 
 interface IssuesProps {
   isLoading: boolean
   isError: unknown
   issues: SWRGetterReturn<Issue> | undefined
   updateFilter: (key: keyof IFilter, props: IFilterProperties) => void
+  skeletonCount: number
 }
 
 const IssuesList: React.FC<IssuesProps> = (props) => {
@@ -32,7 +33,7 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
           updateFilter={props.updateFilter}
           sortValues={issueSortValues}
         />
-        {isLoading && <LoadingFetch entityName='issues' />}
+        {isLoading && <LoadingSkeleton skeletonCount={props.skeletonCount} />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(issues?.data) && (
           <ul className='space-y-4 items-stretch'>

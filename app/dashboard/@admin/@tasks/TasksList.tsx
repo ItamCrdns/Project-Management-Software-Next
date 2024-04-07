@@ -1,5 +1,4 @@
 import EntityHeader from '../EntityHeader'
-import LoadingFetch from '../_fetch loader/LoadingFetch'
 import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
@@ -9,12 +8,14 @@ import {
 } from '@/interfaces/props/context props/IFilter'
 import { taskSortValues } from './sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
+import LoadingSkeleton from '../@projects/LoadingSkeleton'
 
 interface TasksProps {
   isLoading: boolean
   isError: unknown
   tasks: SWRGetterReturn<Task> | undefined
   updateFilter: (key: keyof IFilter, props: IFilterProperties) => void
+  skeletonCount: number
 }
 
 const TasksList: React.FC<TasksProps> = (props) => {
@@ -32,7 +33,7 @@ const TasksList: React.FC<TasksProps> = (props) => {
           updateFilter={props.updateFilter}
           sortValues={taskSortValues}
         />
-        {isLoading && <LoadingFetch entityName='tasks' />}
+        {isLoading && <LoadingSkeleton skeletonCount={props.skeletonCount} />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(tasks?.data) && (
           <ul className='space-y-4 items-stretch'>

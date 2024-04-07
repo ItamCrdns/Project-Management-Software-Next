@@ -6,9 +6,13 @@ import { Task } from '@/svg/Task'
 const AdminBanners: React.FC = async () => {
   const { data } = await getEntitiesCreatedLastWeek()
 
-  const projectsLastWeek = data?.projectsLastWeek
-  const tasksLastWeek = data?.tasksLastWeek
-  const issuesLastWeek = data?.issuesLastWeek
+  if (data === null) {
+    return
+  }
+
+  const projectsLastWeek = data.projectsLastWeek
+  const tasksLastWeek = data.tasksLastWeek
+  const issuesLastWeek = data.issuesLastWeek
 
   return (
     <>

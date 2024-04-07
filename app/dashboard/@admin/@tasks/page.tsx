@@ -29,6 +29,7 @@ const Tasks: React.FC = () => {
       isError={isError}
       tasks={tasks}
       updateFilter={updateFilter}
+      skeletonCount={Number(filter.tasks.pageSize)}
     />
   )
 }

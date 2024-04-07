@@ -1,24 +1,15 @@
+import React, { Suspense } from 'react'
 import EmployeeBanner from '../../EmployeeBanner'
 import AdminBanners from './AdminBanners'
-import Loading from '../../Loading'
-import { getMyEmployee } from '@/api-calls/getMyEmployee'
+import { LoadingBannersSkeleton } from './LoadingBannersSkeleton'
 
-const UserPage = async (): Promise<JSX.Element> => {
-  const { data } = await getMyEmployee()
-
+const UserPage: React.FC = () => {
   return (
-    <section className='flex justify-center gap-4 h-24
-    '>
-      {data !== null
-        ? (
-        <>
-          <EmployeeBanner employee={data} />
-          <AdminBanners />
-        </>
-          )
-        : (
-        <Loading />
-          )}
+    <section className='flex justify-center gap-4 h-24'>
+      <Suspense fallback={<LoadingBannersSkeleton />}>
+        <EmployeeBanner />
+        <AdminBanners />
+      </Suspense>
     </section>
   )
 }

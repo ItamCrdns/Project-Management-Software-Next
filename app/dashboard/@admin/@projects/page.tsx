@@ -29,6 +29,7 @@ const Projects: React.FC = () => {
       isError={isError}
       projects={projects}
       updateFilter={updateFilter}
+      skeletonCount={Number(filter.projects.pageSize)}
     />
   )
 }

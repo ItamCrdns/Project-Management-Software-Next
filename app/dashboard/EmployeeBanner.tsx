@@ -1,15 +1,18 @@
-import { type Employee } from '@/interfaces/employee'
 import Image from 'next/image'
 import NoPicture from '@/components/No profile picture/NoPicture'
+import { getMyEmployee } from '@/api-calls/getMyEmployee'
 
 /**
  * Displays a simple little banner with user profile picture, username and tier name. For both employee and admin.
  */
-interface EmployeeBannerProps {
-  employee: Employee
-}
 
-const EmployeeBanner: React.FC<EmployeeBannerProps> = ({ employee }) => {
+const EmployeeBanner: React.FC = async () => {
+  const { data: employee } = await getMyEmployee()
+
+  if (employee === null) {
+    return
+  }
+
   return (
     <div className='flex items-center justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
       <div className='flex items-center gap-4'>
