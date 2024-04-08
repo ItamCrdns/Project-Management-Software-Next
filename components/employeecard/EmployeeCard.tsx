@@ -58,16 +58,16 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
       </section>
       {supervisor !== null && isProfile && (
         <section className='flex flex-col items-center rounded-lg shadow-md p-4 max-w-52 bg-theming-white100 dark:bg-theming-dark300'>
-          <h2>Supervisor</h2>
-          <div className='flex gap-4 p-2 items-center '>
+          <h2 className='font-semibold'>Under suppervision of</h2>
+          <div className='flex gap-2 p-2 items-center '>
             {supervisor?.profilePicture !== null &&
             supervisor?.profilePicture !== undefined
               ? (
               <Image
                 src={supervisor?.profilePicture}
                 alt={supervisor?.username}
-                width={50}
-                height={50}
+                width={35}
+                height={35}
                 className='rounded-full'
               />
                 )

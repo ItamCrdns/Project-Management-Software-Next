@@ -1,5 +1,3 @@
-'use client'
-import { Badge } from '@tremor/react'
 import { Button } from '../Button/Button'
 
 const NotFound: React.FC<{
@@ -11,10 +9,8 @@ const NotFound: React.FC<{
   const { text, buttonText, func, href } = props
 
   return (
-    <div className='flex flex-col items-center gap-8'>
-      <Badge>
-        <h1 className='px-4 py-2'>{text}</h1>
-      </Badge>
+    <div className='flex flex-col items-center gap-4 p-8 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h1 className='text-xl font-semibold text-center'>{text}</h1>
       {func !== undefined
         ? (
         <Button text={buttonText} func={func} />
