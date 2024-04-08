@@ -19,9 +19,9 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
 
   const employeesProps = {
     endpoint:
-      searchParams.search === undefined
+      searchParams.searchValue === undefined
         ? `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees?page=${searchParams.page}&pageSize=5`
-        : `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees/search/${searchParams.search}?page=${searchParams.page}&pageSize=5`
+        : `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees/search/${searchParams.searchValue}?page=${searchParams.page}&pageSize=5`
   }
 
   const pathname = usePathname()

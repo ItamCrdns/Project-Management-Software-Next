@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { type EmployeeColleaguesProps } from '@/interfaces/props/EmployeeColleaguesProps'
 import { useGetEmployees } from '@/api-calls/getEmployees'
 
-const Colleagues: React.FunctionComponent<EmployeeColleaguesProps> = (
+const Colleagues: React.FC<EmployeeColleaguesProps> = (
   props
 ) => {
   const { params, searchParams } = props
@@ -17,9 +17,9 @@ const Colleagues: React.FunctionComponent<EmployeeColleaguesProps> = (
 
   const employeesProps = {
     endpoint:
-      searchParams.search === undefined
+      searchParams.searchValue === undefined
         ? `${process.env.NEXT_PUBLIC_API_URL}Employee/${params.username}/colleagues?page=${searchParams.page}&pageSize=5`
-        : `${process.env.NEXT_PUBLIC_API_URL}Employee/${params.username}/colleagues/search/${searchParams.search}?page=${searchParams.page}&pageSize=5`
+        : `${process.env.NEXT_PUBLIC_API_URL}Employee/${params.username}/colleagues/search/${searchParams.searchValue}?page=${searchParams.page}&pageSize=5`
   }
 
   const { employees, isLoading } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook

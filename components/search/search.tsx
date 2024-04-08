@@ -28,7 +28,7 @@ const Search: React.FC<SearchProps> = (props) => {
 
   const { router, searchParams } = useGetSearchParams()
 
-  const searchParam = paramName ?? 'search'
+  const searchParam = 'searchValue'
 
   // const searchValueFromParams = searchParams.get(paramName)
 

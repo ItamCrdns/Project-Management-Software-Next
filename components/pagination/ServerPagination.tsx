@@ -16,7 +16,7 @@ interface PaginationProps {
  * Used to perform a server-side pagination with Link
  */
 
-const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
+const ServerPagination: React.FC<PaginationProps> = (props) => {
   const { totalPages, url, searchParams, reset } = props
   const pageNumberFromUrl =
     searchParams.page !== undefined
@@ -38,7 +38,7 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
     }
   }, [reset])
 
-  const searchValue = searchParams.search
+  const searchValue = searchParams.searchValue
   const router = useRouter()
 
   const handleChangePage = (action: string): void => {
@@ -51,7 +51,7 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
         searchValue !== undefined ? `&search=${searchValue}` : ''
       const newUrl = `${url}${pageParam}${searchParam}`
       router.push(newUrl)
-      searchParams.search = searchValue
+      searchParams.searchValue = searchValue
     } else if (action === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1)
       const pageParam = url.includes('?')
@@ -61,7 +61,7 @@ const ServerPagination: React.FunctionComponent<PaginationProps> = (props) => {
         searchValue !== undefined ? `&search=${searchValue}` : ''
       const newUrl = `${url}${pageParam}${searchParam}`
       router.push(newUrl)
-      searchParams.search = searchValue
+      searchParams.searchValue = searchValue
     }
   }
 
