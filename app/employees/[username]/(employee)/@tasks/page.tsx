@@ -1,9 +1,8 @@
 import { type Task } from '@/interfaces/task'
 import getUserTasksShowcase from '@/api-calls/getUserTasksShowcase'
 import Link from 'next/link'
-import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-const Tasks: React.FunctionComponent<UsernameParamsProps> = async ({
+const Tasks: React.FC<{ params: { username: string } }> = async ({
   params
 }) => {
   const { username } = params

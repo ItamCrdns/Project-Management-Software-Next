@@ -1,6 +1,6 @@
 export interface EmployeeIdProps {
   children: React.ReactNode
-  colleagues: React.ReactNode
+  colleaguesCard: React.ReactNode
   employeeCard: React.ReactNode
   projects: React.ReactNode
   tasks: React.ReactNode

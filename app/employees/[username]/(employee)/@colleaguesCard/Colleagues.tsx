@@ -1,13 +1,18 @@
 import getColleagues from '@/api-calls/getColleagues'
-import Link from 'next/link'
-import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
+import Link from 'next/link'
 
-const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
-  const { username } = props.params
+const Colleagues: React.FC<{ username: string }> = async (props) => {
+  const { username } = props
+
   const { data } = await getColleagues(username, '1', '5')
-  const colleagues = data?.data
-  const colleaguesCount = data?.count
+
+  if (data === null) {
+    return
+  }
+
+  const colleagues = data.data
+  const colleaguesCount = data.count
 
   return (
     <section className='flex items-center flex-col text-sm gap-4 shadow-md px-8 py-4 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
@@ -62,4 +67,4 @@ const Colleagues: React.FC<UsernameParamsProps> = async (props) => {
   )
 }
 
-export default Colleagues
+export { Colleagues }

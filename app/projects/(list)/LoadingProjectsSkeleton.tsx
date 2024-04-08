@@ -1,3 +1,5 @@
+import React from 'react'
+
 const LoadingProjectsSkeleton: React.FC<{
   clientsSkeletonsCount: number
   projectsSkeletonsCount: number
@@ -21,7 +23,7 @@ const LoadingProjectsSkeleton: React.FC<{
       <div className='h-[72px] bg-gray-200 rounded-md dark:bg-gray-700'></div>
       {Array.from({ length: clientSkeletons }).map((_, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <div
               key={index}
               className='flex items-center justify-between h-[76px]'
@@ -40,7 +42,7 @@ const LoadingProjectsSkeleton: React.FC<{
                 ></div>
               )
             })}
-          </>
+          </React.Fragment>
         )
       })}
     </div>

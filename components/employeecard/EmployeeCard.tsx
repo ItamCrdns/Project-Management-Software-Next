@@ -23,8 +23,8 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
         employee?.profilePicture !== undefined
           ? (
           <Image
-            src={employee?.profilePicture}
-            alt={employee?.username}
+            src={employee.profilePicture}
+            alt={employee.username}
             width={175}
             height={175}
             className='rounded-full'

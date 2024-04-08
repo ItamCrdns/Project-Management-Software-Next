@@ -1,9 +1,8 @@
 import getUserIssuesShowcase from '@/api-calls/getUserIssuesShowcase'
 import Link from 'next/link'
 import { type Issue } from '@/interfaces/Issue'
-import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-const CurrentIssues: React.FunctionComponent<UsernameParamsProps> = async ({
+const CurrentIssues: React.FC<{ params: { username: string } }> = async ({
   params
 }) => {
   const { username } = params

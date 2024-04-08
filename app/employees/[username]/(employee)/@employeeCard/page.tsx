@@ -1,21 +1,11 @@
-import EmployeeCard from '@/components/employeecard/EmployeeCard'
-import getEmployee from '@/api-calls/getEmployee'
-import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
+import { Employee } from './Employee'
 
-const EmployeeCardProfile: React.FC<UsernameParamsProps> = async (props) => {
+const EmployeeCardProfile: React.FC<{ params: { username: string } }> = (
+  props
+) => {
   const { username } = props.params
-  const data = await getEmployee(username)
-  const employee = data?.data
-  const supervisor = employee?.supervisor
 
-  return (
-    <EmployeeCard
-      employee={employee}
-      supervisor={supervisor}
-      isProfile={true}
-      redirectMe={false}
-    />
-  )
+  return <Employee username={username} />
 }
 
 export default EmployeeCardProfile

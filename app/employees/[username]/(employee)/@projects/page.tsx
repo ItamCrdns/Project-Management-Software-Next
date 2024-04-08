@@ -1,9 +1,8 @@
 import { type Project } from '@/interfaces/project'
 import getUserProjectsShowcase from '@/api-calls/getUserProjectsShowcase'
 import Link from 'next/link'
-import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
 
-const CurrentProjects: React.FC<UsernameParamsProps> = async (props) => {
+const CurrentProjects: React.FC<{ params: { username: string } }> = async (props) => {
   const { username } = props.params
   const { data } = await getUserProjectsShowcase(username, '1', '5')
   const projects = data?.data

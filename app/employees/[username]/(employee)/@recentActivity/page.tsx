@@ -1,6 +1,6 @@
-import { type UsernameParamsProps } from '@/interfaces/props/UsernameParamsProps'
-
-const RecentActivity: React.FC<UsernameParamsProps> = ({ params }) => {
+const RecentActivity: React.FC<{ params: { username: string } }> = ({
+  params
+}) => {
   return (
     <section className='flex items-center flex-col text-sm shadow-md p-8 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
       <h1>
