@@ -1,16 +1,19 @@
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import generateQueryParams from '../client/queryParams'
-import { getProjectsGroupedByCompany, type GetProjectsProps } from '@/api-calls/getProjects'
+import {
+  getProjectsGroupedByCompany,
+  type GetProjectsProps
+} from '@/api-calls/getProjects'
 import { Button } from '@/components/Button/Button'
 import { type Project } from '@/interfaces/project'
 import EachProject from './EachProject'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
-import DataHeader from '@/components/Data Header/DataHeader'
-import { projectSortValues } from '@/components/Data Header/sortValues'
 
-const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props) => {
+const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (
+  props
+) => {
   const cleanParams = generateQueryParams(props.searchParams)
 
   const params: GetProjectsProps = {
@@ -36,15 +39,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
   }
 
   return (
-    <section className='flex flex-col items-center justify-center'>
-      <div className='flex flex-col'>
-      <DataHeader
-        dashboard={false}
-        width='300px'
-        entity='projectsfromcompany'
-        pushSearchParams={false}
-        sortValues={projectSortValues}
-      />
+    <>
       <QueryParamsPagination
         paginationProps={paginationProps}
         secondEntityProps={secondEntityProps}
@@ -54,18 +49,17 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
           {projects.map((project, index) => (
             <li key={index}>
               <div className='flex items-center justify-between'>
-                <h1 className='m-0 my-6 text-xl font-semibold'>{project.companyName}</h1>
+                <h1 className='m-0 my-6 text-xl font-semibold'>
+                  {project.companyName}
+                </h1>
                 <div className='flex gap-4'>
                   {/* Might be cool to check if the user can atually create a project. Either if its a supervisor, or emplyoee of the company, or both. */}
-                    <Button
-                      text='Create a new project'
-                      href={`/projects/create?clientId=${project.companyId}`}
-                    />
+                  <Button
+                    text='Create a new project'
+                    href={`/projects/create?clientId=${project.companyId}`}
+                  />
                   {project.isCurrentUserInTeam && ( // TODO: Adding an employee to work in a project should add them inmediately to the team.
-                    <Button
-                      text='Your assigned projects'
-                      href=''
-                    />
+                    <Button text='Your assigned projects' href='' />
                   )}
                   <Button
                     text={`More projects from ${project.companyName}`}
@@ -79,7 +73,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
                     className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
                     key={index}
                   >
-                    <EachProject project={project} showCompanyName={false}/>
+                    <EachProject project={project} showCompanyName={false} />
                   </li>
                 ))}
                 <p className='self-end'>
@@ -91,8 +85,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (props)
           ))}
         </ul>
       )}
-      </div>
-    </section>
+    </>
   )
 }
 
