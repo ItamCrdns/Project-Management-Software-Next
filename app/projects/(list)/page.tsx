@@ -8,6 +8,11 @@ import { LoadingProjectsSkeleton } from './LoadingProjectsSkeleton'
 const ProjectsPage: React.FC<{ searchParams: SearchParamsPageSize }> = async (
   props
 ) => {
+  const key =
+    props.searchParams.page +
+    props.searchParams.pagesize +
+    props.searchParams.secondpagesize
+
   return (
     <main className='flex flex-col justify-center gap-8 rounded-md p-8'>
       <h1 className='text-xl font-semibold text-center'>Projects overview</h1>
@@ -21,7 +26,7 @@ const ProjectsPage: React.FC<{ searchParams: SearchParamsPageSize }> = async (
             sortValues={projectSortValues}
           />
           <Suspense
-            key={Math.random()}
+            key={key}
             fallback={
               <LoadingProjectsSkeleton
                 clientsSkeletonsCount={Number(props.searchParams.pagesize)}

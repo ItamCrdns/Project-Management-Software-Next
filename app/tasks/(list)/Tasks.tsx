@@ -7,8 +7,6 @@ import generateQueryParams from '@/app/projects/client/queryParams'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
 import { Button } from '@/components/Button/Button'
-import DataHeader from '@/components/Data Header/DataHeader'
-import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
 
 const Tasks: React.FC<TasksProps> = async (props) => {
   const cleanParams = generateQueryParams(props.searchParams)
@@ -36,13 +34,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
   }
 
   return (
-    <div className='flex flex-col'>
-      <DataHeader
-        dashboard={false}
-        width='300px'
-        pushSearchParams={false}
-        sortValues={taskSortValues}
-      />
+    <>
       <QueryParamsPagination
         paginationProps={paginationProps}
         secondEntityProps={secondEntityProps}
@@ -92,7 +84,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
           ))}
         </ul>
       )}
-    </div>
+    </>
   )
 }
 
