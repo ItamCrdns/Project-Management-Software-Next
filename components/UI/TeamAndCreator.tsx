@@ -16,7 +16,7 @@ const TeamAndCreator: React.FC<{
   const { creator, team, teamCount, teamHref } = props
 
   return (
-    <div className='flex items-center gap-4 flex-col'>
+    <div className='flex items-center gap-8 flex-col'>
       <div className='w-full space-y-2'>
         {creator !== undefined && (
           <>
@@ -42,7 +42,7 @@ const TeamAndCreator: React.FC<{
             <h1 className='text-center font-semibold'>Team</h1>
             <Users />
           </div>
-          <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-4 flex flex-col gap-4 items-center justify-center'>
+          <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-4 grid grid-cols-2 gap-4 place-items-center justify-items-center justify-center place-content-center'>
             {team.length > 0
               ? (
                   team.map((employee: Employee, index: number) => (
