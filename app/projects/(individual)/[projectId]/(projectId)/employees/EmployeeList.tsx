@@ -38,7 +38,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                   className='flex items-center gap-4'
                   key={employee.employeeId}
                 >
-                  <Link href={`/employees/${employee.username}`}>
+                  <Link href={`/employee/${employee.username}`}>
                     {employee.profilePicture !== null
                       ? (
                       <Image
@@ -55,7 +55,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                   </Link>
                   <Link
                     className='font-medium text-black dark:text-white text-base'
-                    href={`/employees/${employee.username}`}
+                    href={`/employee/${employee.username}`}
                   >
                     {employee.username}
                   </Link>

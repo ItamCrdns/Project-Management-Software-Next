@@ -47,7 +47,7 @@ const ProjectCreator: React.FC<ProjectCreatorProps> = (props) => {
       {props.showUsername && (
         <Link
           className='font-semibold capitalize text-sm text-theming-dark100 dark:text-theming-white100'
-          href={`/employees/${username}`}
+          href={`/employee/${username}`}
         >
           {username}
         </Link>

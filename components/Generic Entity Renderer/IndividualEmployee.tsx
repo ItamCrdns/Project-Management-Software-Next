@@ -46,7 +46,7 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
         {showName && (
           <div className='flex flex-col'>
             <Link
-              href={`/employees/${employee.username}`}
+              href={`/employee/${employee.username}`}
               className='font-md font-semibold text-sm'
             >
               {employee.username}

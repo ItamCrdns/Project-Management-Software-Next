@@ -18,7 +18,7 @@ const EmployeeLayout: React.FC<{ params: { username: string } }> = (props) => {
       <Suspense fallback={<LoadingEmployeeCard />}>
         <EmployeeIdCard username={username} />
       </Suspense>
-      <div className='space-y-8'>
+      <div className='space-y-8 w-[475px]'>
         <Suspense fallback={<LoadingProjects />}>
           <ProjectsCard username={username} />
         </Suspense>
@@ -29,7 +29,7 @@ const EmployeeLayout: React.FC<{ params: { username: string } }> = (props) => {
           <IssuesCard username={username} />
         </Suspense>
       </div>
-      <div className='space-y-8'>
+      <div className='space-y-8 w-[475px]'>
         <Suspense fallback={<LoadingCoworkers />}>
           <CoworkersCard username={username} />
         </Suspense>

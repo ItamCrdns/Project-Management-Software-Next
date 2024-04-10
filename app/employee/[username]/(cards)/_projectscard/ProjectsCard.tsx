@@ -8,29 +8,28 @@ const ProjectsCard: React.FC<{
 }> = async (props) => {
   const { username } = props
 
-  const { data } = await getUserProjectsShowcase(username, '1', '5')
+  const { data } = await getUserProjectsShowcase(username, '1', '6')
 
   const projects = data?.data
   const projectsCount = data?.count
 
   return (
-    <section className='flex items-center flex-col text-sm gap-4 shadow-md px-8 py-4 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
-      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-4'>
+    <section className='flex items-center flex-col text-sm gap-4 shadow-md p-4 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center gap-4 justify-center'>
         <ProjectIcon />
-        <h1 className='text-2xl m-0'>Current projects</h1>
-        <h3 className='m-0'>List</h3>
+        <h1 className='text-2xl m-0'>Projects</h1>
       </div>
       {Array.isArray(projects) && projects.length > 0
         ? (
         <>
-          <ul>
+          <ul className='px-4 grid grid-cols-2 gap-4'>
             {projects?.map((project: Project) => (
-              <li key={project.projectId}>
+              <li key={project.projectId} className='p-2 bg-theming-white200 dark:bg-theming-dark200 rounded-md text-center'>
                 <Link
-                  className='font-bold text-theming-dark100 dark:text-theming-white100'
+                  className='font-bold text-theming-dark100 dark:text-theming-white100 px-4'
                   href={`/projects/${project.projectId}`}
                 >
-                  {project.name}
+                  {project.name.slice(0, 24)}...
                 </Link>
               </li>
             ))}
@@ -44,7 +43,7 @@ const ProjectsCard: React.FC<{
         </>
           )
         : (
-        <p>Here we will show their current projects.</p>
+        <p>This employee has no assigned projects</p>
           )}
     </section>
   )

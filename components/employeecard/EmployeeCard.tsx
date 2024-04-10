@@ -41,7 +41,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
             ? (
           <Link
             className='text-xl font-bold text-theming-dark100 dark:text-theming-white100'
-            href={`/employees/${employee?.username}`}
+            href={`/employee/${employee?.username}`}
           >
             {employee?.username}
           </Link>
@@ -76,7 +76,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
                 )}
             <Link
               className='font-bold text-sm text-theming-dark100 dark:text-theming-white100'
-              href={`/employees/${supervisor?.username}`}
+              href={`/employee/${supervisor?.username}`}
             >
               {supervisor?.username}
             </Link>

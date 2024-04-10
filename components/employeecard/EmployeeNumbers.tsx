@@ -15,21 +15,21 @@ const EmployeeNumbers: React.FunctionComponent<EmployeeNumbersProps> = ({
   const employeeNumbersList = [
     {
       name: 'Projects',
-      link: `/employees/${employee?.username}/projects`,
+      link: `/employee/${employee?.username}/projects`,
       totalCount: employee?.projectTotalCount,
       createdCount: employee?.projectsCreated,
       participantCount: employee?.projectsParticipant
     },
     {
       name: 'Tasks',
-      link: `/employees/${employee?.username}/tasks`,
+      link: `/employee/${employee?.username}/tasks`,
       totalCount: employee?.taskTotalCount,
       createdCount: employee?.tasksCreated,
       participantCount: employee?.tasksParticipant
     },
     {
       name: 'Issues',
-      link: `/employees/${employee?.username}/issues`,
+      link: `/employee/${employee?.username}/issues`,
       totalCount: employee?.issueTotalCount,
       createdCount: employee?.issuesCreated,
       participantCount: employee?.issuesParticipant

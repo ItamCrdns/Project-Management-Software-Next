@@ -11,8 +11,8 @@ const CoworkersCard: React.FC<{ username: string }> = async (props) => {
   const colleaguesCount = data?.count ?? 0
 
   return (
-    <section className='flex items-center flex-col text-sm gap-4 shadow-md px-8 py-4 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
-      <div className='flex items-center gap-4 justify-between border-b-2 border-azure-radiance-200 pb-4'>
+    <section className='flex items-center flex-col text-sm gap-4 shadow-md p-4 rounded-lg bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center gap-4 justify-center w-full'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -28,12 +28,11 @@ const CoworkersCard: React.FC<{ username: string }> = async (props) => {
           />
         </svg>
         <h1 className='text-2xl m-0'>Coworkers</h1>
-        <h3 className='m-0'>List</h3>
       </div>
       {Array.isArray(colleagues) && colleagues.length > 0
         ? (
         <>
-          <ul className='flex flex-col gap-4'>
+          <ul className='px-4 grid grid-cols-2 gap-4 place-items-center justify-items-center justify-center place-content-center'>
             {colleagues.map((colleague) => (
               <li
                 className='flex items-center gap-4 relative'
