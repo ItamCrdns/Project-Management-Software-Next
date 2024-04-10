@@ -11,7 +11,7 @@ const getUserProjects = async (
   data: DictionaryResponse<Project> | null
   status: number
 }> => {
-  const queryParams = new URLSearchParams(params as string).toString()
+  const queryParams = new URLSearchParams(Object.entries(params)).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Employee/${username}/projects/all?${queryParams}`
 
   const { data, status } = await fetcher<DictionaryResponse<Project>>(apiUrl)

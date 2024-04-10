@@ -68,7 +68,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         </section>
         <Link
           className='m-2 mx-0 text-theming-dark100 dark:text-theming-white100'
-          href={`/employees/${employee.username}`}
+          href={`/employee/${employee.username}`}
         >
           Your profile
         </Link>

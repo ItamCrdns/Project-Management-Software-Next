@@ -9,16 +9,9 @@ import { Loading } from './Loading'
 const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
   const clientId = props.params.client[0]
 
-  // My react suspense needs a key to work for some reason
-  const key =
-    props.searchParams.pagesize +
-    props.searchParams.page +
-    props.searchParams.orderby +
-    props.searchParams.sort +
-    props.searchParams.author +
-    props.searchParams.priority +
-    props.searchParams.secondpagesize +
-    props.searchParams.searchValue
+  const key = new URLSearchParams(Object.entries(props.searchParams))
+
+  console.log('CompanyProjectsPage', key.toString())
 
   return (
     <main className='flex items-center flex-col p-8'>
@@ -35,7 +28,7 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
         <div className='flex items-start gap-8'>
           <CompanyUI clientId={clientId} />
           <Suspense
-            key={key}
+            key={key.toString()}
             fallback={
               <Loading skeletonCount={Number(props.searchParams.pagesize)} />
             }

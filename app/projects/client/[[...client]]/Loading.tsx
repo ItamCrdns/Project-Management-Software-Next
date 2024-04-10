@@ -17,7 +17,6 @@ const Loading: React.FC<{ skeletonCount: number, width?: number }> = (props) => 
           ></div>
         )
       })}
-      <span className='sr-only'>Loading...</span>
     </div>
   )
 }
