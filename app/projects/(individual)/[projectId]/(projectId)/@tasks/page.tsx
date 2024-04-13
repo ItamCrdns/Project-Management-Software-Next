@@ -14,8 +14,8 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
   const queryParams: IFilterProperties = {
     page: '1',
     pageSize: '5',
-    orderBy: 'Name', // ! Placeholder orderBy and sort. Might not change them idk
-    sort: 'ascending'
+    orderBy: 'Created', // ! Placeholder orderBy and sort. Might not change them idk
+    sort: 'descending'
   }
 
   const { data } = await getProjectTasks(projectId, queryParams)

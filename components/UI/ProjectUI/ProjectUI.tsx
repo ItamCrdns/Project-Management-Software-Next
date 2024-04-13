@@ -18,8 +18,8 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const team = project?.entity.team
 
   return (
-    <aside className='flex flex-col items-center gap-8'>
-      <div className='flex flex-col gap-8 w-[500px]'>
+    <aside className='flex flex-col items-center gap-4'>
+      <div className='flex flex-col gap-8 w-[400px]'>
         <div className='w-full space-y-2'>
           {showGeneralInfo === true && (
             <div className='flex items-center justify-center gap-2'>

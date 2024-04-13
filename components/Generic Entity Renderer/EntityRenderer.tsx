@@ -31,7 +31,7 @@ interface EntityRendererProps {
   maxWidth: string
 }
 
-const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
+const EntityRenderer: React.FC<EntityRendererProps> = (
   props
 ) => {
   const style: Style = {
@@ -45,7 +45,7 @@ const EntityRenderer: React.FunctionComponent<EntityRendererProps> = (
     <>
       <div className='flex items-center justify-center gap-2 p-4' style={style}>
         <Link
-          className='font-bold text-theming-dark100 dark:text-theming-white100'
+          className='font-bold text-theming-dark100 dark:text-theming-white100 text-center'
           href={`/${props.entityBasePath}/${props.entity.id}`}
         >
           {props.entity.name}

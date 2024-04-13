@@ -22,7 +22,7 @@ const Project: React.FC<{ projectId: string }> = async (props) => {
     <>
       <ProjectUI
         project={project}
-        showButtons={false}
+        showButtons={true}
         employeeCountHref={`/projects/${project?.entity.projectId}/employees`}
         showGeneralInfo={true}
       />

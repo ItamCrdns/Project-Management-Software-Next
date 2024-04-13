@@ -39,7 +39,7 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
           <ul className='space-y-4 items-stretch'>
             {issues?.data.map((issue: Issue, index: number) => (
               <li className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300' key={index}>
-                <EachIssue issue={issue} showTaskName />
+                <EachIssue issue={issue} showTaskName width='200px' />
               </li>
             ))}
           </ul>

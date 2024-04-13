@@ -1,10 +1,11 @@
 import { Suspense } from 'react'
 import LoadingTasks from './@tasks/loading'
-import { TasksDivider } from './@tasks/TasksDivider'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
 import { Project } from './Project'
 import { LoadingProjectsSkeleton } from './LoadingProjectsSkeleton'
+import { EntityDivider } from '@/components/UI/EntityDivider'
+import { Task } from '@/svg/Task'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -25,7 +26,9 @@ const ProjectId: React.FC<ProjectIdProps> = (props) => {
           </Suspense>
         </div>
         <section className='flex flex-col items-center justify-center'>
-          <TasksDivider />
+          <EntityDivider text='Tasks'>
+            <Task />
+          </EntityDivider>
           <DataHeader
             dashboard={false}
             width='300px'

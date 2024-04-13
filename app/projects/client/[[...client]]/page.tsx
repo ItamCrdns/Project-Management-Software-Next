@@ -11,8 +11,6 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
 
   const key = new URLSearchParams(Object.entries(props.searchParams))
 
-  console.log('CompanyProjectsPage', key.toString())
-
   return (
     <main className='flex items-center flex-col p-8'>
       <div>

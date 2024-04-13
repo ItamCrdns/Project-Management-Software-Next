@@ -11,7 +11,7 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
 
   return (
     <aside className='flex flex-col items-center gap-8'>
-      <div className='flex flex-col gap-4 min-w-56'>
+      <div className='flex flex-col gap-8 w-[400px]'>
         <div className='w-full space-y-2'>
           <div className='flex items-center justify-center gap-2'>
             <h1 className='text-center font-semibold'>About this task</h1>
@@ -35,13 +35,13 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
               finalized={task?.entity.finished}
             />
           </div>
-          <TeamAndCreator
+        </div>
+        <TeamAndCreator
             creator={task?.entity.taskCreator}
             team={task?.entity.employees}
             teamCount={task?.entity.employeeCount}
             teamHref={employeeCountHref}
           />
-        </div>
       </div>
     </aside>
   )

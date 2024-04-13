@@ -13,7 +13,7 @@ const getProjectTasks = async (
   projectId: string,
   params: IFilterProperties
 ): Promise<{ data: Data | null, status: number }> => {
-  const queryParams = new URLSearchParams(params as string).toString()
+  const queryParams = new URLSearchParams(Object.entries(params)).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Project/${projectId}/tasks/all?${queryParams}`
 
   const { data, status } = await fetcher<Data>(apiUrl)

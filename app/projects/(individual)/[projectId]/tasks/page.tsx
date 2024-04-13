@@ -5,6 +5,7 @@ import DataHeader from '@/components/Data Header/DataHeader'
 import { Tasks } from './Tasks'
 import { Suspense } from 'react'
 import { Loading } from '@/app/projects/client/[[...client]]/Loading' //* Theyre pretty similar
+import LoadingProjectUISkeleton from '@/components/UI/ProjectUI/LoadingProjectUISkeleton'
 
 interface ProjectTasksProps {
   params: { projectId: string }
@@ -14,15 +15,7 @@ interface ProjectTasksProps {
 const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
   const projectId = props.params.projectId
 
-  const key =
-    props.searchParams.pagesize +
-    props.searchParams.page +
-    props.searchParams.orderby +
-    props.searchParams.sort +
-    props.searchParams.author +
-    props.searchParams.priority +
-    props.searchParams.secondpagesize +
-    props.searchParams.searchValue
+  const key = new URLSearchParams(Object.entries(props.searchParams)).toString()
 
   return (
     <section className='flex justify-center py-8 px-0'>
@@ -36,7 +29,9 @@ const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
           />
         </div>
         <div className='flex items-start gap-8'>
-          <Project projectId={projectId} />
+          <Suspense fallback={<LoadingProjectUISkeleton />}>
+            <Project projectId={projectId} />
+          </Suspense>
           <Suspense
             key={key}
             fallback={
