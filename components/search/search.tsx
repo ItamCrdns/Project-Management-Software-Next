@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+'use client'
 import { MagnifyingGlass } from '@/svg/MagnifyingGlass'
 import { TextInput } from '@tremor/react'
 import { useGetSearchParams } from '../Filters/useGetSearchParams'

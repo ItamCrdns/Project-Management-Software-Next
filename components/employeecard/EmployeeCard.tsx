@@ -51,7 +51,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
               )}
         <p className='capitalize text-xs -mt-4'>{employee?.role}</p>
         {isProfile && <EmployeeNumbers employee={employee} />}
-        <div className='flex gap-2'>
+        <div className='flex gap-4'>
           <Button text='Message' />
           <Button text='More' />
         </div>

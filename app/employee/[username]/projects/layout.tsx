@@ -2,9 +2,7 @@ import DataHeader from '@/components/Data Header/DataHeader'
 import { projectSortValues } from '@/components/Data Header/sortValues'
 import { ArrowLeftCircle } from '@/svg/ArrowLeftCircle'
 import Link from 'next/link'
-import { Suspense } from 'react'
-import LoadingEmployeeCard from '../(cards)/_employeecard/loading'
-import EmployeeIdCard from '../(cards)/_employeecard/EmployeeCard'
+import { EmployeeCardAndFilters } from './_employeecard-and-filters/EmployeeCardAndFilters'
 
 const EmployeeCardAndProjects: React.FC<{
   params: { username: string }
@@ -35,11 +33,7 @@ const EmployeeCardAndProjects: React.FC<{
           />
         </div>
         <section className='flex items-start justify-center gap-8'>
-          <div className='flex flex-col gap-8 items-stretch justify-center'>
-            <Suspense fallback={<LoadingEmployeeCard />}>
-              <EmployeeIdCard username={username} />
-            </Suspense>
-          </div>
+          <EmployeeCardAndFilters username={username} />
           <div className='flex flex-col gap-8'>{props.projects}</div>
         </section>
       </div>

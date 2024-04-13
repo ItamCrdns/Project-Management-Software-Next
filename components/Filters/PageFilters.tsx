@@ -10,6 +10,7 @@ import { useEmployeeFilterUtility } from '@/hooks/useEmployeeFilterUtility'
 import { type PageFiltersProps } from './PageFilters.interface'
 import { TeamFilters } from './TeamFilters'
 import { SearchByName } from './SearchByName'
+import { useFilters } from './hooks/useFilters'
 
 export interface IFilter {
   authorIds?: number[]
@@ -19,9 +20,16 @@ export interface IFilter {
 const PageFilters: React.FC<PageFiltersProps> = (props) => {
   const { router, pathname, searchParams } = useGetSearchParams()
 
-  const [activeDropdown, setActiveDropdown] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [selectedPriority, setSelectedPriority] = useState<Option | null>(null)
+
+  const {
+    selectedPriority,
+    activeDropdown,
+    handleClearSelectedPriority,
+    handleSetActiveDropdown,
+    handleClearActiveDropdown,
+    handleSetSelectedPriority
+  } = useFilters()
 
   const queryParamsWithPage = new URLSearchParams(props.queryParams.toString())
   queryParamsWithPage.set('page', currentPage.toString())
@@ -43,18 +51,8 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
 
     router.replace(`${pathname}?${searchParams.toString()}`)
 
-    setSelectedPriority(null)
+    handleClearSelectedPriority()
     clearSelectedEmployees()
-  }
-
-  const onShowDropdown = (dropdown: string): void => {
-    // * If the dropdown is already active, reset it
-    if (dropdown === activeDropdown) {
-      setActiveDropdown('')
-      return
-    }
-
-    setActiveDropdown(dropdown)
   }
 
   const handlePageChange = (page: number): void => {
@@ -64,10 +62,10 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
   const selectAuthorProps = {
     shouldShowDropdown: activeDropdown === 'author',
     onShowDropdown: () => {
-      onShowDropdown('author')
+      handleSetActiveDropdown('author')
     },
     closeDropdown: () => {
-      setActiveDropdown('')
+      handleClearActiveDropdown()
     },
     clearFilters,
     selectedAuthors: employeesAsOptions(selectedEmployees),
@@ -81,17 +79,15 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
     defaultValue: searchParams.get('priority') ?? '',
     shouldShowDropdown: activeDropdown === 'priority',
     onShowDropdown: () => {
-      onShowDropdown('priority')
+      handleSetActiveDropdown('priority')
     },
     closeDropdown: () => {
-      setActiveDropdown('')
+      handleClearActiveDropdown()
     },
     clearFilters,
     selectedPriority,
     onPrioritySelect: (priority: Option | Option[] | null): void => {
-      if (!Array.isArray(priority) && priority !== null) {
-        setSelectedPriority(priority)
-      }
+      handleSetSelectedPriority(priority)
     }
   }
 
@@ -107,7 +103,8 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
     searchParams.get('searchValue') !== null &&
     searchParams.get('searchValue') !== ''
   // * Track if the clear filters button should be shown or not
-  const filtersHaveBeenSet = authorIdFilterSet || priorityFilterSet || searchFilterSet
+  const filtersHaveBeenSet =
+    authorIdFilterSet || priorityFilterSet || searchFilterSet
 
   return (
     <div className='flex flex-col gap-4'>

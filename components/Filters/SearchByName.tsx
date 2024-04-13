@@ -1,3 +1,4 @@
+'use client'
 import Search from '../search/search'
 import { useGetSearchParams } from './useGetSearchParams'
 
