@@ -7,13 +7,7 @@ import { useGetSearchParams } from '@/components/Filters/useGetSearchParams'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 
 const Filters: React.FC = () => {
-  const { searchParams } = useGetSearchParams()
-
-  const searchFilterSet =
-    searchParams.get('searchValue') !== null &&
-    searchParams.get('searchValue') !== ''
-
-  const filtersHaveBeenSet = searchFilterSet
+  const { router, pathname, searchParams } = useGetSearchParams()
 
   const {
     selectedPriority,
@@ -42,17 +36,36 @@ const Filters: React.FC = () => {
     }
   }
 
+  const clearFilters = (): void => {
+    searchParams.delete('searchValue')
+    searchParams.delete('priority')
+
+    router.replace(`${pathname}?${searchParams.toString()}`)
+
+    handleClearSelectedPriority()
+  }
+
+  const searchFilterSet =
+    searchParams.get('searchValue') !== null &&
+    searchParams.get('searchValue') !== ''
+
+  const priorityFilterSet =
+    searchParams.get('priority') !== null &&
+    searchParams.get('priority') !== '0'
+
+  const filtersHaveBeenSet = searchFilterSet || priorityFilterSet
+
   return (
     <div className='flex flex-col items-center p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300 w-[300px]'>
       <div className='flex flex-col gap-4 p-4'>
         <SearchByName />
         <SelectPriority {...selectPriorityProps} />
+        {filtersHaveBeenSet && (
+          <div className='w-full'>
+            <Button text='Clear all filters' func={clearFilters} />
+          </div>
+        )}
       </div>
-      {filtersHaveBeenSet && (
-        <div className='w-full'>
-          <Button text='Clear all filters' />
-        </div>
-      )}
     </div>
   )
 }

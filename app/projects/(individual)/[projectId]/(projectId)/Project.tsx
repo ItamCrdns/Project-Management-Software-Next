@@ -25,6 +25,7 @@ const Project: React.FC<{ projectId: string }> = async (props) => {
         showButtons={true}
         employeeCountHref={`/projects/${project?.entity.projectId}/employees`}
         showGeneralInfo={true}
+        noProject={status !== 200}
       />
       <div className='space-y-8 w-[300px]'>
         <Client name={project?.entity.company.name} />

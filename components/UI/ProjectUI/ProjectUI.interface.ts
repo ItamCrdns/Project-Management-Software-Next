@@ -6,4 +6,5 @@ export interface ProjectUIProps {
   showButtons: boolean
   employeeCountHref?: string
   showGeneralInfo?: boolean
+  noProject: boolean
 }

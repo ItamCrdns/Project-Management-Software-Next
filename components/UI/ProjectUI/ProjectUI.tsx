@@ -7,9 +7,20 @@ import { TeamAndCreator } from '../TeamAndCreator'
 import { Info } from '@/svg/Info'
 import { dateUtil } from '@/utility/dateUtil'
 import { Dates } from './Badges/Dates'
+import { EntityNotFound } from '../EntityNotFound'
 
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
-  const { project, showButtons, employeeCountHref, showGeneralInfo } = props
+  const {
+    project,
+    showButtons,
+    employeeCountHref,
+    showGeneralInfo,
+    noProject
+  } = props
+
+  if (noProject) {
+    return <EntityNotFound entity='Project' />
+  }
 
   const priority = setEntityPriority(project?.entity.priority ?? 0)
 
