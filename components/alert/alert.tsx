@@ -28,7 +28,7 @@ const Alert: React.FC = () => {
         alert.show === true
           ? 'animate-slide-in-from-bottom'
           : 'animate-slide-out-to-bottom'
-      } text-sm fixed bottom-0 right-0 min-w-80 m-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md py-4 px-6`}
+      } text-sm fixed bottom-0 right-0 min-w-80 m-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md py-4 px-6 z-[999999]`}
     >
       <div className='flex gap-2 items-center'>
         {alert.type === 'success' && <Check />}

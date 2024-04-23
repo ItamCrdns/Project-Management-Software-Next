@@ -5,7 +5,20 @@ export interface Employee {
   employeeId: number
   username: string
   role: string
+  email: string
+  phoneNumber: string
+  firstName: string
+  lastName: string
+  gender: string
+  created: string
   profilePicture: string
+  lastLogin: string
+  companyId: number
+  tierId: number
+  lockedEnabled: boolean
+  loginAttempts: number
+  lockedUntil: string
+  supervisorId: number
   supervisor: Employee | null
   company: Company | null
   projectTotalCount: number
@@ -24,7 +37,20 @@ export const employeeInitialState: Employee = {
   employeeId: 0,
   username: 'Dummy name',
   role: '',
+  email: '',
+  phoneNumber: '',
+  firstName: '',
+  lastName: '',
+  gender: '',
+  created: '',
   profilePicture: '',
+  lastLogin: '',
+  companyId: 0,
+  tierId: 0,
+  lockedEnabled: false,
+  loginAttempts: 0,
+  lockedUntil: '',
+  supervisorId: 0,
   supervisor: null,
   company: null,
   projectTotalCount: 0,

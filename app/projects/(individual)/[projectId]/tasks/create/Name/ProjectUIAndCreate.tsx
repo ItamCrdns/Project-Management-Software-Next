@@ -4,13 +4,17 @@ import { Create } from './Create'
 import CannotCreate from '../CannotCreate'
 
 const ProjectUIAndCreate: React.FC<{ projectId: string }> = async (props) => {
-  const { data } = await getProjectLimited(props.projectId)
+  const { data, status } = await getProjectLimited(props.projectId)
 
   const isOwner = data?.isOwner ?? false
 
   return (
     <>
-      <ProjectUI project={data} showButtons={false} />
+      <ProjectUI
+        project={data}
+        showButtons={false}
+        noProject={status !== 200}
+      />
       {isOwner ? <Create projectId={props.projectId} /> : <CannotCreate />}
     </>
   )

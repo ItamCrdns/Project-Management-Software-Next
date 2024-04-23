@@ -9,4 +9,5 @@ export interface ButtonProps {
   disabledFunc?: (...args: any[]) => void // * The function that will be executed if button clicked while disabled
   disabled?: boolean
   icon?: React.JSX.Element
+  borderOnly?: boolean
 }

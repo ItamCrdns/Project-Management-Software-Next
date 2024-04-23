@@ -209,7 +209,7 @@ const config = {
     }
   ],
   // require('@headlessui/tailwindcss'), require('@tailwindcss/forms'),
-  plugins: [({ addUtilities }: any) => {
+  plugins: [require('@headlessui/tailwindcss'), ({ addUtilities }: any) => {
     const newUtilities = {
       '.no-scrollbar::-webkit-scrollbar': {
         display: 'none'

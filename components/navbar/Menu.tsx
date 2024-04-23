@@ -99,7 +99,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
       <section>
         <Link
           className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400'
-          href=''
+          href='/settings'
         >
           <Settings />
           <p>Settings</p>

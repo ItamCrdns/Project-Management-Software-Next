@@ -28,7 +28,7 @@ const TasksParallel: React.FC<{ params: { projectId: string } }> = async (
       return (
         <NotFound
           text='No tasks found'
-          buttonText='Create a task'
+          buttonText='Create new task'
           href={`/projects/${projectId}/tasks/create`}
         />
       )

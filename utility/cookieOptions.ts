@@ -26,7 +26,7 @@ export default cookieOptions
 
 type ContentType = 'application/json' | 'multipart/form-data'
 
-export const postCookieOptions = (body: BodyInit, contentType?: ContentType): RequestInit => {
+export const postPatchCookieOptions = (body: BodyInit, contentType?: ContentType, patch?: boolean): RequestInit => {
   const cookieStore = cookies()
   const jwtCookie = cookieStore.get('JwtToken')
 
@@ -40,7 +40,7 @@ export const postCookieOptions = (body: BodyInit, contentType?: ContentType): Re
   })
 
   const requestOptions: RequestInit = {
-    method: 'POST',
+    method: patch === true ? 'PATCH' : 'POST', // By default, the method is POST, but can be changed to PATCH
     cache: 'no-store',
     headers: contentType !== undefined ? headersWithContentType : headers,
     body

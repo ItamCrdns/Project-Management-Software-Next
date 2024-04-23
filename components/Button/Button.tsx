@@ -20,7 +20,8 @@ const Button: React.FC<ButtonProps> = (props) => {
     func,
     asyncFunc,
     disabledFunc,
-    icon
+    icon,
+    borderOnly = false
   } = props
 
   const handleEffect = (e: React.MouseEvent<HTMLSpanElement>): void => {
@@ -60,8 +61,8 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <span
       ref={buttonRef}
-      className={`relative select-none overflow-hidden border-none outline-none flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
-        !disabled ? bgColor : 'bg-gray-500'
+      className={`relative select-none overflow-hidden ${borderOnly ? 'ring-1 ring-gray-500' : 'border-none outline-none'} flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
+        !disabled && !borderOnly ? bgColor : ''
       } ${txtColor} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
       onClick={handleClick}
     >
@@ -88,7 +89,7 @@ const Button: React.FC<ButtonProps> = (props) => {
         {ripples.map((ripple, index) => (
           <span
             key={index}
-            className='w-10 h-10 absolute rounded-full pointer-events-none bg-white bg-opacity-75 animate-ripple'
+            className={`w-10 h-10 absolute rounded-full pointer-events-none ${borderOnly ? 'bg-theming-dark400' : 'bg-white'} bg-opacity-75 animate-ripple`}
             style={{ top: ripple.y + 'px', left: ripple.x + 'px' }}
           />
         ))}
