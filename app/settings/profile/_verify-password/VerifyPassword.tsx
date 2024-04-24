@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { confirmPassword } from './actions/confirmPassword'
 import { revalidatePasswordTag } from './actions/revalidateTag'
 
-const VerifyYourPassword: React.FC = () => {
+const VerifyPassword: React.FC = () => {
   const [password, setPassword] = useState('') // Might be cool to save the fact that the password is correct through the session so the user doesn't have to re-enter it for lets say 5 minutes
 
   const { setAlert } = useAlertActions()
@@ -73,4 +73,4 @@ const VerifyYourPassword: React.FC = () => {
   )
 }
 
-export default VerifyYourPassword
+export default VerifyPassword
