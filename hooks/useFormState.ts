@@ -2,7 +2,7 @@ import { useSubmitRef } from '@/utility/formSubmitRef'
 import { useRef, useState } from 'react'
 
 interface FormState {
-  formRef: React.MutableRefObject<null>
+  formRef: React.RefObject<HTMLFormElement>
   message: Message
   handleSetMessage: (response: Message) => void
   btnClicked: boolean
@@ -16,7 +16,7 @@ export interface Message {
 }
 
 export const useFormState = (): FormState => {
-  const formRef = useRef(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const [message, setMessage] = useState<Message>({
     type: '',

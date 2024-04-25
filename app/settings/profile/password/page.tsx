@@ -1,7 +1,14 @@
-import { Button } from '@/components/Button/Button'
-import { TextInput } from '@tremor/react'
+import { getLatestPasswordVerification } from '@/api-calls/getLatestPasswordVerification'
+import { redirect } from 'next/navigation'
+import { ChangePasswordInputs } from './ChangePasswordInputs'
 
-const ChangePassword: React.FC = () => {
+const ChangePassword: React.FC = async () => {
+  const { data } = await getLatestPasswordVerification()
+
+  if (data?.success === false) {
+    redirect('/settings/profile')
+  }
+
   return (
     <>
       <div className='border-b border-gray-200 dark:border-gray-800 pb-4'>
@@ -13,35 +20,7 @@ const ChangePassword: React.FC = () => {
           letter, one lower case letter, one number and one special character.
         </p>
       </div>
-      <div className='w-[300px] space-y-4'>
-        <div className='space-y-2 w-[300px]'>
-          <h2 className='font-medium'>Current password</h2>
-          <TextInput
-            name='currentpassword'
-            placeholder='Current password'
-            type='password'
-          />
-        </div>
-        <div className='space-y-2 w-[300px]'>
-          <h2 className='font-medium'>New password</h2>
-          <TextInput
-            name='newpassword'
-            placeholder='New password'
-            type='password'
-          />
-        </div>
-        <div className='space-y-2 w-[300px]'>
-          <h2 className='font-medium'>Confirm password</h2>
-          <TextInput
-            name='confirmpassword'
-            placeholder='Confirm password'
-            type='password'
-          />
-        </div>
-        <div className='pt-4'>
-          <Button text='Change password' />
-        </div>
-      </div>
+      <ChangePasswordInputs />
     </>
   )
 }
