@@ -7,12 +7,14 @@ import { TextInput } from '@tremor/react'
 import { useState } from 'react'
 import { confirmPassword } from './actions/confirmPassword'
 import { revalidatePasswordTag } from './actions/revalidateTag'
+import { useFormState } from '@/hooks/useFormState'
 
 const VerifyPassword: React.FC = () => {
   const [password, setPassword] = useState('') // Might be cool to save the fact that the password is correct through the session so the user doesn't have to re-enter it for lets say 5 minutes
 
   const { setAlert } = useAlertActions()
   const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
+  const { btnClicked, handleSetBtnClicked } = useFormState()
 
   return (
     <div>
@@ -33,7 +35,11 @@ const VerifyPassword: React.FC = () => {
             }}
           />
         </div>
-        <div>
+        <div
+          onClick={() => {
+            handleSetBtnClicked(true)
+          }}
+        >
           <Button
             text='Confirm'
             func={debounce(() => {
@@ -51,6 +57,8 @@ const VerifyPassword: React.FC = () => {
                 handleFilterWarning('password') // remove warning
                 const res = await confirmPassword(password)
 
+                handleSetBtnClicked(false)
+
                 if (!res.success && res.message !== undefined) {
                   handleSetWarning(res.message, 'password')
                   setAlert({
@@ -66,6 +74,7 @@ const VerifyPassword: React.FC = () => {
                 }
               })()
             }, 500)}
+            loading={btnClicked}
           />
         </div>
       </div>
