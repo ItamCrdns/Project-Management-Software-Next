@@ -1,17 +1,17 @@
-import { TeamAndCreator } from '../TeamAndCreator'
-import { type TaskUIProps } from './TaskUI.interface'
 import { Info } from '@/svg/Info'
+import { EntityNotFound } from '../EntityNotFound'
+import { type IssueUIProps } from './IssueUI.interface'
 import Link from 'next/link'
-import { Dates } from '../ProjectUI/Badges/Dates'
 import { BadgeComponent } from '../ProjectUI/BadgeComponent'
 import { dateUtil } from '@/utility/dateUtil'
-import { EntityNotFound } from '../EntityNotFound'
+import { Dates } from '../ProjectUI/Badges/Dates'
+import { TeamAndCreator } from '../TeamAndCreator'
 
-const TaskUI: React.FC<TaskUIProps> = (props) => {
-  const { task, employeeCountHref, showGeneralInfo, noTask } = props
+const IssueUI: React.FC<IssueUIProps> = (props) => {
+  const { issue, showGeneralInfo, noIssue } = props
 
-  if (noTask) {
-    return <EntityNotFound entity='Task' />
+  if (noIssue) {
+    return <EntityNotFound entity='Issue' />
   }
 
   return (
@@ -20,7 +20,7 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
         <div className='w-full space-y-2'>
           {showGeneralInfo === true && (
             <div className='flex items-center justify-center gap-2'>
-              <h1 className='text-center font-semibold'>Task information</h1>
+              <h1 className='text-center font-semibold'>Issue report</h1>
               <Info />
             </div>
           )}
@@ -28,16 +28,16 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
             <div className='flex gap-4 items-center'>
               <Link
                 className='font-bold text-theming-dark100 dark:text-theming-white100'
-                href={`/projects/${task?.entity.projectId}/tasks/${task?.entity.taskId}`}
+                href={`/projects/${issue?.entity.task.projectId}/tasks/${issue?.entity.task.taskId}/issues/${issue?.entity.issueId}`}
               >
-                {task?.entity.name}
+                {issue?.entity.name}
               </Link>
-              {task?.entity.startedWorking !== null &&
-                task?.entity.startedWorking !== undefined && (
+              {issue?.entity.startedWorking !== null &&
+                issue?.entity.startedWorking !== undefined && (
                   <BadgeComponent
-                    content={dateUtil(task?.entity.startedWorking).text}
+                    content={dateUtil(issue?.entity.startedWorking).text}
                     tooltip={new Date(
-                      task?.entity.startedWorking
+                      issue?.entity.startedWorking
                     ).toLocaleDateString('en-us', {
                       weekday: 'long',
                       year: 'numeric',
@@ -50,22 +50,24 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
                   />
               )}
             </div>
-            <Dates
-              created={task?.entity.created}
-              expectedDelivery={task?.entity.expectedDeliveryDate}
-              finalized={task?.entity.finished}
-            />
+            <div className='p-0 -mt-2 w-full'>
+              <Dates
+                created={issue?.entity.created}
+                expectedDelivery={issue?.entity.expectedDeliveryDate}
+                finalized={issue?.entity.finished}
+              />
+            </div>
           </div>
         </div>
         <TeamAndCreator
-          creator={task?.entity.taskCreator}
-          team={task?.entity.employees}
-          teamCount={task?.entity.employeeCount}
-          teamHref={employeeCountHref}
+          creator={issue?.entity.issueCreator}
+          team={issue?.entity.employees}
+          teamCount={issue?.entity.employeeCount}
+          teamHref={''}
         />
       </div>
     </aside>
   )
 }
 
-export default TaskUI
+export default IssueUI

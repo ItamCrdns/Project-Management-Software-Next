@@ -14,4 +14,5 @@ export interface Issue {
   taskId: number
   task: Task
   employees: Employee[]
+  employeeCount: number
 }

@@ -24,7 +24,7 @@ const Issues: React.FC<{
 
   const paginationProps: PaginationProps = {
     totalPages: data?.entity.pages ?? 1,
-    entityName: 'Tasks',
+    entityName: 'Issues',
     totalEntitesCount: data?.entity.count ?? 1
   }
 

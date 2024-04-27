@@ -34,7 +34,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
         <div className='w-full space-y-2'>
           {showGeneralInfo === true && (
             <div className='flex items-center justify-center gap-2'>
-              <h1 className='text-center font-semibold'>About this project</h1>
+              <h1 className='text-center font-semibold'>Project information</h1>
               <Info />
             </div>
           )}
@@ -55,14 +55,25 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
                   <p className='select-none'>&middot;</p>
                 </>
               )}
-              {project?.entity.startedWorking !== null && (
-                <>
-                  <BadgeComponent
-                    content={wasStarted}
-                    tooltip={`Project was started ${wasStarted}`}
-                  />
-                  <p className='select-none'>&middot;</p>
-                </>
+              {project?.entity.startedWorking !== null &&
+                project?.entity.startedWorking !== undefined && (
+                  <>
+                    <BadgeComponent
+                      content={wasStarted}
+                      tooltip={new Date(
+                        project?.entity.startedWorking ?? ''
+                      ).toLocaleDateString('en-us', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'UTC'
+                      })}
+                    />
+                    <p className='select-none'>&middot;</p>
+                  </>
               )}
               <BadgeComponent
                 content={priority.priorityText}

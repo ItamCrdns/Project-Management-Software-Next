@@ -1,9 +1,9 @@
-import { NotFound } from '@/components/404 Not Found/NotFound'
 import { getTask } from './getTask'
 import TaskUI from '@/components/UI/TaskUI/TaskUI'
 import { Project } from './Banners/Project'
 import { Description } from '../../../(projectId)/Banners/Description'
 import { Attachments } from '../../../(projectId)/Banners/Attachments'
+import { NotFound } from '@/components/404 Not Found/NotFound'
 
 const Task: React.FC<{ projectId: string, taskId: string }> = async (props) => {
   const { projectId, taskId } = props

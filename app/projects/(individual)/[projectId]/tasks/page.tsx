@@ -6,6 +6,8 @@ import { Tasks } from './Tasks'
 import { Suspense } from 'react'
 import { Loading } from '@/app/projects/client/[[...client]]/Loading' //* Theyre pretty similar
 import LoadingProjectUISkeleton from '@/components/UI/ProjectUI/LoadingProjectUISkeleton'
+import Link from 'next/link'
+import { ArrowLeftCircle } from '@/svg/ArrowLeftCircle'
 
 interface ProjectTasksProps {
   params: { projectId: string }
@@ -18,8 +20,18 @@ const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
   const key = new URLSearchParams(Object.entries(props.searchParams)).toString()
 
   return (
-    <section className='flex justify-center py-8 px-0'>
+    <section className='flex justify-center'>
       <div>
+        <div className='flex items-center justify-between gap-8 my-8 mx-0'>
+          <Link
+            className='flex gap-2 font-semibold text-theming-dark100 dark:text-theming-white100 cursor-pointer'
+            href={`/projects/${projectId}`}
+          >
+            <ArrowLeftCircle />
+            Return to project
+          </Link>
+          <h1 className='font-semibold'>Showing all project tasks</h1>
+        </div>
         <div className='flex justify-end'>
           <DataHeader
             dashboard={false}

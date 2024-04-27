@@ -21,7 +21,7 @@ const EmployeeCardAndProjects: React.FC<{
             <ArrowLeftCircle />
             Return to {username}&apos;s profile
           </Link>
-          <h1 className='font-semibold'>All {username}&apos;s projects</h1>
+          <h1 className='font-semibold'>Showing all {username}&apos;s projects</h1>
         </div>
         <div className='flex justify-end'>
           <DataHeader
