@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { updateEmployee } from '@/api-calls/patch/updateEmployee'
 import { debounce } from '@/utility/debouce'
+import { revalidateMyEmployeeTag } from './actions/revalidateMyEmployeeTag'
 
 const UpdateEmployee: React.FC<{ employee: Employee }> = (props) => {
   const { employee } = props
@@ -49,6 +50,7 @@ const UpdateEmployee: React.FC<{ employee: Employee }> = (props) => {
               const res = await updateEmployee(newFormData)
               handleSetBtnClicked(false)
               if (res.message !== undefined && res.success !== undefined) {
+                await revalidateMyEmployeeTag()
                 setAlert({
                   message: res.message,
                   type: res.success ? 'success' : 'error'

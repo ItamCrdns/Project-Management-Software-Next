@@ -73,7 +73,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
           Your profile
         </Link>
       </section>
-      <div className='select-none border-b-2 border-theming-dark100 dark:border-theming-white200 mb-4 pb-4'>
+      <div className='select-none border-b-2 border-theming-white200 dark:border-theming-dark400 mb-4 pb-4'>
         <Link
           className='text-theming-dark100 dark:text-theming-white100 flex gap-2 p-2 py-1 mx-4 rounded-md hover:bg-theming-white200 dark:hover:bg-theming-dark400'
           href='/projects'

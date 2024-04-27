@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { Issue } from './Issue'
+import { LoadingProjectsSkeleton } from '../../../../(projectId)/LoadingProjectsSkeleton'
 
 const IssueId: React.FC<{
   params: { projectId: string, taskId: string, issueId: string }
@@ -7,7 +8,7 @@ const IssueId: React.FC<{
   return (
     <section className='flex items-center flex-col'>
       <div className='flex items-start justify-center gap-8 p-8'>
-        <Suspense fallback={<>Loading...</>}>
+        <Suspense fallback={<LoadingProjectsSkeleton />}>
           <Issue
             projectId={props.params.projectId}
             taskId={props.params.taskId}
