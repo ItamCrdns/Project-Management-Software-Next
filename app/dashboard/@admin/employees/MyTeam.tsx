@@ -3,8 +3,7 @@ import QueryParamsPagination from '@/components/Advanced query params based pagi
 import { BadgeComponent } from '@/components/UI/ProjectUI/BadgeComponent'
 import { DateBadge } from '@/components/UI/ProjectUI/Badges/DateBadge'
 import { Table, TableBody, TableCell, TableRow } from '@tremor/react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { TableCellEmployees } from './TableCellEmployees'
 
 const MyTeam: React.FC<{ page: string, pageSize: string }> = async (props) => {
   const { data: team } = await getMyTeam(props.page, props.pageSize)
@@ -19,29 +18,15 @@ const MyTeam: React.FC<{ page: string, pageSize: string }> = async (props) => {
   return (
     <>
       <QueryParamsPagination paginationProps={paginationProps} />
-      <section className='bg-theming-white100 dark:bg-theming-dark300 rounded-md p-8 flex flex-col gap-4 shadow-md mt-8'>
+      <section className='bg-theming-white100 dark:bg-theming-dark300 rounded-md p-8 flex flex-col gap-4 shadow-md mt-8 relative'>
         <Table>
           <TableBody>
             {team?.data.map((employee) => (
               <TableRow
                 key={employee.employeeId}
-                className='flex justify-center items-center'
+                className='flex justify-center items-center overflow-hidden'
               >
-                <TableCell className='flex gap-4 items-center justify-center w-[300px]'>
-                  <Image
-                    src={employee.profilePicture}
-                    alt={employee.username}
-                    width={35}
-                    height={35}
-                    className='rounded-full'
-                  ></Image>
-                  <Link
-                    className='text-sm font-bold text-theming-dark100 dark:text-theming-white100 text-center'
-                    href={`/employee/${employee.username}`}
-                  >
-                    {employee.username}
-                  </Link>
-                </TableCell>
+                <TableCellEmployees employee={employee} />
                 <TableCell className='flex justify-center w-[300px]'>
                   <DateBadge
                     date={employee.lastLogin}
