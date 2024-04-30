@@ -29,7 +29,7 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
             style={{
               backgroundColor:
                 filter[props.entityName].pageSize === pageSize.toString()
-                  ? 'rgb(255, 80, 120)'
+                  ? '#3f79ef'
                   : '',
               color:
                 filter[props.entityName].pageSize === pageSize.toString()
@@ -46,7 +46,7 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
             style={{
               backgroundColor:
                 filter[props.entityName].pageSize === entitiesCount.toString()
-                  ? 'rgb(255, 80, 120)'
+                  ? '#3f79ef'
                   : '',
               color:
                 filter[props.entityName].pageSize === entitiesCount.toString()
@@ -58,7 +58,7 @@ const PageSizeSelector: React.FC<PageSizeSelectorProps> = (props) => {
             {entitiesCount}
           </span>
         )}
-        <p>of {entitiesCount}</p>
+        <p className='text-xs'>of {entitiesCount}</p>
       </div>
     </div>
   )

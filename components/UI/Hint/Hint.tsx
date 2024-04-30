@@ -17,19 +17,19 @@ const Hint: React.FC<HintProps> = (props) => {
     <Card
       decoration='top'
       decorationColor='indigo'
-      className='flex justify-between items-center'
+      className='flex justify-between items-center h-2'
     >
       <p>{text}</p>
       <div className='flex gap-8 box-content'>
         <button
           onClick={dismissCallback}
-          className='hover:rounded-md hover:bg-black hover:bg-opacity-5 px-4 py-2'
+          className='opacity-50 hover:opacity-100 hover:rounded-md hover:bg-black hover:bg-opacity-25 px-4 py-1'
         >
           Dismiss
         </button>
         <button
           onClick={dontShowCallback}
-          className='hover:bg-red-200 dark:hover:bg-red-950 rounded-md bg-black bg-opacity-5 px-4 py-2'
+          className='opacity-50 hover:opacity-100 hover:rounded-md hover:bg-black hover:bg-opacity-25 px-4 py-1'
         >
           Don&apos;t show this again
         </button>

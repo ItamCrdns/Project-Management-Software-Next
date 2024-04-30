@@ -5,7 +5,7 @@ import LoadingIssues from './@issues/loading'
 import { EntityDivider } from '@/components/UI/EntityDivider'
 import { Issue } from '@/svg/Issue'
 import DataHeader from '@/components/Data Header/DataHeader'
-import { issueSortValues } from '@/app/dashboard/@admin/@issues/sortValues'
+import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
 
 const TaskId: React.FC<{
   params: { projectId: string, taskId: string }

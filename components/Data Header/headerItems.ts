@@ -14,7 +14,7 @@ interface Props {
   sortValues: SortValues
 }
 
-interface HeaderItem {
+export interface HeaderItem {
   icon: ComponentType
   label: string
   sortValue?: string

@@ -29,11 +29,13 @@ const EmployeeBanner: React.FC = async () => {
           : (
           <NoPicture width='50px' height='50px' questionMarkSize='1.75rem' />
             )}
-        <h1 className='font-semibold'>
-          Welcome, <span>{employee?.username}</span>
-        </h1>
+        <div>
+          <h1 className='font-semibold'>
+            Welcome, <span className='text-azure-radiance-500'>{employee?.username}</span>
+          </h1>
+          <p className='text-xs'>{employee.tier.name}</p>
+        </div>
       </div>
-      <p className='text-xs'>{employee.tier.name}</p>
     </div>
   )
 }

@@ -54,7 +54,7 @@ const DateBadge: React.FC<{
       })}
     >
       <p className={textSize ?? 'text-xs'}>
-        {text + ' ' + timeAgo.text.toLowerCase()}
+        {text + ' ' + timeAgo.text}
       </p>
     </Badge>
   )

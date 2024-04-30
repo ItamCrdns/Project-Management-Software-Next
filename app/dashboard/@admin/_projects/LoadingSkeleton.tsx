@@ -4,7 +4,7 @@ const LoadingSkeleton: React.FC<{ skeletonCount: number }> = (props) => {
   const skeletonArray = Array.from({ length: skeletonCount })
 
   return (
-    <div role='status' className='animate-pulse w-full'>
+    <div role='status' className='animate-pulse w-[1800px]'>
       {skeletonArray.map((_, index) => {
         if (index === skeletonArray.length - 1) {
           // * Remove the margin bottom from the last element

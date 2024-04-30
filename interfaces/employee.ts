@@ -31,6 +31,12 @@ export interface Employee {
   issuesParticipant: number
   issuesCreated: number
   tier: EmployeeTier
+  workload?: Workload
+}
+
+export interface Workload {
+  count: number // sum of all tasks, projects, and issues employee works on
+  workload: string // piece of string that represents workload
 }
 
 export const employeeInitialState: Employee = {

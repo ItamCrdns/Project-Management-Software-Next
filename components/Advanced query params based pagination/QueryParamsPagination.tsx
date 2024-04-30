@@ -8,7 +8,7 @@ import { useGetSearchParams } from '../Filters/useGetSearchParams'
 // TODO: Add a search component to search entities basd on their name
 
 const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
-  const { totalPages, entityName, totalEntitesCount } = props.paginationProps
+  const { totalPages, entityName, totalEntitesCount, defaultPageSize = 10 } = props.paginationProps
 
   const { router, pathname, searchParams } = useGetSearchParams()
 
@@ -100,7 +100,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
 
   const uiProps: PaginationUIProps = {
     paginationProps: {
-      currentPageSize: Number(searchParams.get('pagesize') ?? 10),
+      currentPageSize: Number(searchParams.get('pagesize') ?? defaultPageSize),
       currentPage: Number(searchParams.get('page') ?? 1),
       currentSecondEntityPageSize: Number(
         searchParams.get('secondpagesize') ?? 10

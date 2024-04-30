@@ -1,4 +1,5 @@
-import Menu from './_menu/Menu'
+import Tabs from '@/components/Tabs/Tabs'
+import { settingsTabs } from './_tabs/settingsTabs'
 
 const Settings: React.FC<{ children: React.ReactNode }> = (props) => {
   return (
@@ -7,7 +8,7 @@ const Settings: React.FC<{ children: React.ReactNode }> = (props) => {
         <header>
           <h1 className='text-xl'>Settings</h1>
         </header>
-        <Menu />
+        <Tabs options={settingsTabs} />
         {props.children}
       </div>
     </section>

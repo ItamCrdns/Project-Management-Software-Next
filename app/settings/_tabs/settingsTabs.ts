@@ -1,10 +1,6 @@
-interface ISettingOption {
-  name: string
-  path: string
-  index: number
-}
+import { type ITab } from '@/components/Tabs/ITab.interface'
 
-export const settingsOptions: ISettingOption[] = [
+export const settingsTabs: ITab[] = [
   {
     name: 'Basic',
     path: '/settings/basic',

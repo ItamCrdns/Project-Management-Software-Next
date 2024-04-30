@@ -8,7 +8,7 @@ import {
 } from '@/interfaces/props/context props/IFilter'
 import { issueSortValues } from './sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
-import LoadingSkeleton from '../@projects/LoadingSkeleton'
+import LoadingSkeleton from '../_projects/LoadingSkeleton'
 
 interface IssuesProps {
   isLoading: boolean
@@ -29,17 +29,17 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
           dashboard
           pushSearchParams={false}
           entity='issues'
-          width='200px'
+          width='300px'
           updateFilter={props.updateFilter}
           sortValues={issueSortValues}
         />
         {isLoading && <LoadingSkeleton skeletonCount={props.skeletonCount} />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(issues?.data) && (
-          <ul className='space-y-4 items-stretch'>
+          <ul className='space-y-4 items-stretch w-[1800px]'>
             {issues?.data.map((issue: Issue, index: number) => (
               <li className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300' key={index}>
-                <EachIssue issue={issue} showTaskName width='200px' />
+                <EachIssue issue={issue} showTaskName width='300px' />
               </li>
             ))}
           </ul>

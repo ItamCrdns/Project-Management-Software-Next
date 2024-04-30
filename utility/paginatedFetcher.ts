@@ -16,8 +16,14 @@ async function paginatedFetcher<T> (
   pageSize: string
 ): Promise<ApiResponse<T>> {
   const url = new URL(process.env.NEXT_PUBLIC_API_URL + endpoint)
-  url.searchParams.set('page', page)
-  url.searchParams.set('pageSize', pageSize)
+
+  if (page !== undefined && page !== '') {
+    url.searchParams.set('page', page)
+  }
+
+  if (pageSize !== undefined && pageSize !== '') {
+    url.searchParams.set('pageSize', pageSize)
+  }
 
   const requestOptions = cookieOptions()
 

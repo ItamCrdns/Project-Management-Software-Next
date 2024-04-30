@@ -1,7 +1,7 @@
 import Tasks from './Tasks'
 import { type TasksProps } from './TaskProps'
 import DataHeader from '@/components/Data Header/DataHeader'
-import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
+import { taskSortValues } from '@/app/dashboard/@admin/_tasks/sortValues'
 import { Suspense } from 'react'
 import { LoadingTasksSkeleton } from './LoadingTasksSkeleton'
 import TasksHint from './TasksHint'

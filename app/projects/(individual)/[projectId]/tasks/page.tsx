@@ -1,4 +1,4 @@
-import { taskSortValues } from '@/app/dashboard/@admin/@tasks/sortValues'
+import { taskSortValues } from '@/app/dashboard/@admin/_tasks/sortValues'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import { Project } from './Project'
 import DataHeader from '@/components/Data Header/DataHeader'

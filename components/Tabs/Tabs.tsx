@@ -1,24 +1,23 @@
 'use client'
-import { Tab, TabGroup, TabList } from '@tremor/react'
-import { settingsOptions } from './settingsOptions'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { type ITab } from './ITab.interface'
+import { Tab, TabGroup, TabList } from '@tremor/react'
+import Link from 'next/link'
 
-const Menu: React.FC = () => {
+const Tabs: React.FC<{ options: ITab[] }> = (props) => {
+  const { options } = props
   const pathname = usePathname()
 
-  const currentIndex = settingsOptions.findIndex((option) => {
+  const currentIndex = options.findIndex((option) => {
     return option.path.split('/')[2] === pathname.split('/')[2]
   })
 
   const defaultIndex = currentIndex === -1 ? 0 : currentIndex
 
   return (
-    <TabGroup
-      index={defaultIndex}
-    >
+    <TabGroup index={defaultIndex}>
       <TabList variant='line'>
-        {settingsOptions.map((option) => {
+        {options.map((option) => {
           return (
             <Tab key={option.index} value={option.index}>
               <Link href={option.path}>{option.name}</Link>
@@ -30,4 +29,4 @@ const Menu: React.FC = () => {
   )
 }
 
-export default Menu
+export default Tabs

@@ -21,7 +21,7 @@ const AdminBanners: React.FC = async () => {
           <h1 className='font-semibold m-0'>New projects</h1>
           <p className='text-center m-0'>{projectsLastWeek} this week</p>
         </div>
-        <span className='text-white bg-azure-radiance-300 p-4 rounded-full'>
+        <span className='text-white bg-azure-radiance-500 p-4 rounded-full'>
           <Project />
         </span>
       </div>
@@ -30,7 +30,7 @@ const AdminBanners: React.FC = async () => {
           <h1 className='font-semibold m-0'>New tasks</h1>
           <p className='text-center m-0'>{tasksLastWeek} this week</p>
         </div>
-        <span className='text-white bg-azure-radiance-300 p-4 rounded-full'>
+        <span className='text-white bg-azure-radiance-500 p-4 rounded-full'>
           <Task />
         </span>
       </div>
@@ -39,7 +39,7 @@ const AdminBanners: React.FC = async () => {
           <h1 className='font-semibold m-0'>New issues</h1>
           <p className='text-center m-0'>{issuesLastWeek} this week</p>
         </div>
-        <span className='text-white bg-azure-radiance-300 p-4 rounded-full'>
+        <span className='text-white bg-azure-radiance-500 p-4 rounded-full'>
           <Issue />
         </span>
       </div>

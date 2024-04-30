@@ -1,4 +1,4 @@
-import { issueSortValues } from '@/app/dashboard/@admin/@issues/sortValues'
+import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { Suspense } from 'react'
 import Task from './Task'

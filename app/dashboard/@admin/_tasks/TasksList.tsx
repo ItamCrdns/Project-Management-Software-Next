@@ -8,7 +8,7 @@ import {
 } from '@/interfaces/props/context props/IFilter'
 import { taskSortValues } from './sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
-import LoadingSkeleton from '../@projects/LoadingSkeleton'
+import LoadingSkeleton from '../_projects/LoadingSkeleton'
 
 interface TasksProps {
   isLoading: boolean
@@ -29,20 +29,20 @@ const TasksList: React.FC<TasksProps> = (props) => {
           dashboard
           pushSearchParams={false}
           entity='tasks'
-          width='200px'
+          width='300px'
           updateFilter={props.updateFilter}
           sortValues={taskSortValues}
         />
         {isLoading && <LoadingSkeleton skeletonCount={props.skeletonCount} />}
         {isError !== undefined && <p>{isError?.toString()}</p>}
         {Array.isArray(tasks?.data) && (
-          <ul className='space-y-4 items-stretch'>
+          <ul className='space-y-4 items-stretch w-[1800px]'>
             {tasks?.data.map((task: Task, index: number) => (
               <li
                 className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
                 key={index}
               >
-                <EachTask task={task} showProjectName width='200px' />
+                <EachTask task={task} showProjectName width='300px' />
               </li>
             ))}
           </ul>
