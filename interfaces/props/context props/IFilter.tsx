@@ -10,6 +10,9 @@ export type OrderBy =
   | 'Task'
   | 'TaskCreator'
   | 'Project'
+  | 'Position'
+  | 'Duties'
+  | 'Workload'
 
 export interface IFilterProperties {
   page?: string

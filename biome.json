@@ -96,5 +96,14 @@
 		},
 		"ignore": ["next.config.js"]
 	},
-	"javascript": { "globals": ["document", "navigator", "window"] }
+	"javascript": { "globals": ["document", "navigator", "window"],
+	"formatter": {
+		"jsxQuoteStyle": "single",
+		"semicolons": "asNeeded",
+		"trailingComma": "none",
+		"quoteStyle": "single",
+		"indentStyle": "space",
+		"indentWidth": 2
+	}
+}
 }

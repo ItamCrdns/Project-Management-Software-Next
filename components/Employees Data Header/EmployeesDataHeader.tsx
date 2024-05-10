@@ -9,7 +9,9 @@ const EmployeesDataHeader: React.FC = () => {
 
   const headerItemsProps = {
     style: { width: '300px' },
-    handleSortChange: () => {}, // placeholders
+    handleSortChange: () => {
+      /* Placeholder function for handling sort change */
+    },
     order: orderInitialState, // placeholders
     searchParams,
     dashboard: false,

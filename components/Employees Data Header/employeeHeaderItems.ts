@@ -12,7 +12,7 @@ export const employeeHeaderItems: HeaderItem[] = [
     sortValue: 'username'
   },
   { icon: Calendar, label: 'Last login', sortValue: 'lastlogin' },
-  { icon: Chart, label: 'Position', sortValue: 'position' },
-  { icon: Users, label: 'Duties', sortValue: 'duties' },
+  { icon: Chart, label: 'Position', sortValue: 'tier' },
+  { icon: Users, label: 'Duties', sortValue: 'tier' },
   { icon: Flag, label: 'Workload', sortValue: 'workload' }
 ]

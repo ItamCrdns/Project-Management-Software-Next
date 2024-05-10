@@ -4,15 +4,23 @@ import { BadgeComponent } from '@/components/UI/ProjectUI/BadgeComponent'
 import { DateBadge } from '@/components/UI/ProjectUI/Badges/DateBadge'
 import { Table, TableBody, TableCell, TableRow } from '@tremor/react'
 import { TableCellEmployees } from './TableCellEmployees'
+import { SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
+import generateQueryParams from '@/app/projects/client/queryParams'
 
-const MyTeam: React.FC<{ page: string, pageSize: string }> = async (props) => {
-  const { data: team } = await getMyTeam(props.page, props.pageSize)
+const MyTeam: React.FC<{ searchParams: SearchParamsPageSize }> = async (
+  props
+) => {
+  const queryParams = generateQueryParams(props.searchParams)
+
+  const { data: team } = await getMyTeam(queryParams)
 
   const paginationProps = {
     totalPages: team?.pages ?? 0,
     entityName: 'Employees',
     totalEntitesCount: team?.count ?? 0,
-    defaultPageSize: 5
+    defaultPageSize: !isNaN(Number(queryParams.pageSize))
+      ? Number(queryParams.pageSize)
+      : 5
   }
 
   return (
@@ -41,13 +49,14 @@ const MyTeam: React.FC<{ page: string, pageSize: string }> = async (props) => {
                 <TableCell className='flex justify-center w-[300px]'>
                   {employee.tier.duty}
                 </TableCell>
-                {employee.workload !== undefined && (
+                {employee.workload !== null &&
+                employee.workload !== undefined ? (
                   <TableCell className='flex justify-center w-[300px]'>
                     <BadgeComponent
-                      content={employee.workload.workload}
-                      tooltip={`Working on ${employee.workload.count} projects, tasks or issues`}
+                      content={employee.workload}
+                      tooltip={`${employee.workload} workload`}
                       color={(() => {
-                        switch (employee.workload.workload) {
+                        switch (employee.workload) {
                           case 'None':
                             return 'blue'
                           case 'Low':
@@ -63,6 +72,10 @@ const MyTeam: React.FC<{ page: string, pageSize: string }> = async (props) => {
                         }
                       })()}
                     />
+                  </TableCell>
+                ) : (
+                  <TableCell className='flex justify-center w-[300px]'>
+                    None
                   </TableCell>
                 )}
               </TableRow>

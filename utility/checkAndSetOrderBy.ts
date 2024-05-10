@@ -12,7 +12,10 @@ const validValues: OrderBy[] = [
   'IssueCreator',
   'Task',
   'TaskCreator',
-  'Project'
+  'Project',
+  'Position',
+  'Duties',
+  'Workload'
 ]
 /**
  * Checks if the provided value is a valid OrderBy value and returns it if it is.
@@ -22,9 +25,12 @@ const validValues: OrderBy[] = [
  */
 
 const checkAndSetOrderBy = (value: string): OrderBy => {
-  const lowercaseValidValue: string[] = validValues.map((value: OrderBy) => value.toLowerCase())
+  const lowercaseValidValue: string[] = validValues.map((value: OrderBy) =>
+    value.toLowerCase()
+  )
 
   if (lowercaseValidValue.includes(value as OrderBy)) {
+    console.log('futaba sakura', value)
     return value as OrderBy
   }
 

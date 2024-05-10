@@ -25,7 +25,7 @@ const TableCellEmployees: React.FC<{ employee: Employee }> = (props) => {
       />
       <Link
         className='text-sm font-bold text-theming-dark100 dark:text-theming-white100 text-center'
-        href={`/employee/${profilePicture}`}
+        href={`/employee/${username}`}
       >
         {username}
       </Link>

@@ -5,7 +5,9 @@ import { LoadingTeamSkeleton } from './LoadingTeamSkeleton'
 import { EmployeesDataHeader } from '@/components/Employees Data Header/EmployeesDataHeader'
 
 const Employees: React.FC<{ searchParams: SearchParamsPageSize }> = (props) => {
-  const key = new URLSearchParams(Object.entries(props.searchParams)).toString()
+  const { searchParams } = props
+
+  const key = new URLSearchParams(Object.entries(searchParams)).toString()
 
   return (
     <div className='p-8'>
@@ -22,10 +24,7 @@ const Employees: React.FC<{ searchParams: SearchParamsPageSize }> = (props) => {
           />
         }
       >
-        <MyTeam
-          page={props.searchParams.page}
-          pageSize={props.searchParams.pagesize}
-        />
+        <MyTeam searchParams={searchParams} />
       </Suspense>
     </div>
   )

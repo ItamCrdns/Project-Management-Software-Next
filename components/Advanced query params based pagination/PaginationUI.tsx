@@ -58,11 +58,17 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
             />
             <p>{props.secondEntityProps?.secondEntity.toLowerCase()}</p>
           </div>
-      )}
+        )}
       <div className='flex items-center gap-4'>
         <div className='flex items-center'>
           <svg
-            onClick={currentPage > 1 ? goToFirstPage : () => {}}
+            onClick={
+              currentPage > 1
+                ? goToFirstPage
+                : () => {
+                    /* Do nothing */
+                  }
+            }
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
@@ -111,7 +117,16 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
         />
         <p>of {totalPages}</p>
         <div className='flex items-center'>
-          <div className='flex items-center' onClick={totalPages > 1 ? goToNextPage : () => {}}>
+          <div
+            className='flex items-center'
+            onClick={
+              totalPages > 1
+                ? goToNextPage
+                : () => {
+                    /* Do nothing */
+                  }
+            }
+          >
             <p
               className='text-azure-radiance-600 font-semibold cursor-pointer select-none'
               style={{
@@ -137,7 +152,13 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
             </svg>
           </div>
           <svg
-            onClick={totalPages > 1 ? goToLastPage : () => {}}
+            onClick={
+              totalPages > 1
+                ? goToLastPage
+                : () => {
+                    /* Do nothing */
+                  }
+            }
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
