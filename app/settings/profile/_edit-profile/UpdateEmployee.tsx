@@ -25,7 +25,7 @@ const UpdateEmployee: React.FC<{ employee: Employee }> = (props) => {
       <form
         ref={formRef}
         action={debounce((formData: FormData) => {
-          void (async (formData: FormData) => {
+          ;(async (formData: FormData) => {
             formData.append('gender', gender ?? employee.gender)
 
             const picture = formData.get('profilePicture') as File
@@ -65,13 +65,10 @@ const UpdateEmployee: React.FC<{ employee: Employee }> = (props) => {
       >
         <aside className='w-full'>
           <div className='border-b border-gray-200 dark:border-gray-800 pb-4'>
-            {employee.username !== undefined &&
-              employee.profilePicture !== undefined && (
-                <UpdatePicture
-                  username={employee.username}
-                  picture={employee.profilePicture}
-                />
-            )}
+            <UpdatePicture
+              username={employee.username}
+              picture={employee.profilePicture}
+            />
           </div>
           <UpdatePassword />
         </aside>

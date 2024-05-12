@@ -58,7 +58,7 @@ const MyTeam: React.FC<{ searchParams: SearchParamsPageSize }> = async (
                       color={(() => {
                         switch (employee.workload) {
                           case 'None':
-                            return 'blue'
+                            return 'gray'
                           case 'Low':
                             return 'green'
                           case 'Medium':

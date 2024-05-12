@@ -16,17 +16,23 @@ const UpdatePicture: React.FC<UpdatePictureProps> = (props) => {
 
   return (
     <div className='flex gap-4 items-center'>
-      {picturePreview === ''
-        ? (
-        <Image
-          alt={props.username}
-          src={props.picture}
-          width={100}
-          height={100}
-          className='rounded-full shadow-md'
-        />
-          )
-        : (
+      {picturePreview === '' ? (
+        props.picture === null ? (
+          <div className='w-[100px] h-[100px] bg-blue-500 rounded-full flex items-center justify-center'>
+            <p className='text-center text-xs select-none p-4 text-white'>
+              No profile picture
+            </p>
+          </div>
+        ) : (
+          <Image
+            alt={props.username}
+            src={props.picture}
+            width={100}
+            height={100}
+            className='rounded-full shadow-md'
+          />
+        )
+      ) : (
         <div className='relative rounded-full shadow-md w-[100px] h-[100px]'>
           <Image
             alt={props.username}
@@ -35,7 +41,7 @@ const UpdatePicture: React.FC<UpdatePictureProps> = (props) => {
             className='rounded-full object-cover'
           />
         </div>
-          )}
+      )}
       <div className='space-y-2'>
         <h1 className='font-semibold'>Change profile picture</h1>
         <div className='flex gap-4'>
