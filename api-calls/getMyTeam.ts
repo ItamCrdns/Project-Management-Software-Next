@@ -10,8 +10,6 @@ export const getMyTeam = async (
   const queryParams = new URLSearchParams(Object.entries(params)).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Employee/my-team?${queryParams}`
 
-  console.log('apiUrl', apiUrl)
-
   const { data, status } = await fetcher<DataCountPages<Employee>>(apiUrl)
 
   return {

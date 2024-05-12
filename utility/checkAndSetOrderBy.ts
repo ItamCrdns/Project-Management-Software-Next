@@ -30,7 +30,6 @@ const checkAndSetOrderBy = (value: string): OrderBy => {
   )
 
   if (lowercaseValidValue.includes(value as OrderBy)) {
-    console.log('futaba sakura', value)
     return value as OrderBy
   }
 

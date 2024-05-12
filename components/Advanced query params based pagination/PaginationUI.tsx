@@ -41,9 +41,13 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           onChange={handlePageSizeInputChange}
           className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
         />
-        <p>
-          of {totalEntitesCount} {entityName.toLowerCase()}
-        </p>
+        {props.unknownProperties === true ? (
+          <p>{entityName.toLocaleLowerCase()} per tab</p>
+        ) : (
+          <p>
+            of {totalEntitesCount} {entityName.toLowerCase()}
+          </p>
+        )}
       </div>
       {props.secondEntityProps?.secondEntity !== undefined &&
         props.secondEntityProps?.secondEntity !== '' && (
@@ -107,6 +111,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
             </p>
           </div>
         </div>
+        {props.unknownProperties === true && <p>Current page:</p>}
         <input
           type='number'
           value={currentPage}
@@ -115,7 +120,7 @@ const PaginationUI: React.FC<PaginationUIProps> = (props) => {
           disabled={totalPages === 1}
           className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
         />
-        <p>of {totalPages}</p>
+        {props.unknownProperties !== true && <p>of {totalPages}</p>}
         <div className='flex items-center'>
           <div
             className='flex items-center'

@@ -30,8 +30,6 @@ export const fetcherWithParams = async <T>(
 
   const res = await fetch(url.toString(), requestOptions)
 
-  console.log(res)
-
   if (res.ok) {
     return {
       data: await res.json(),

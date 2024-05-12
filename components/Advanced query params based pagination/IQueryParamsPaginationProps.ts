@@ -5,6 +5,7 @@ export interface PaginationProps {
   entityName: string
   totalEntitesCount: number
   defaultPageSize?: number
+  unknownProperties?: boolean // ? Pass if totalPages, totalEntitesCount, defaultPageSize are unknown.
 }
 
 export interface QueryParamsPaginationProps {

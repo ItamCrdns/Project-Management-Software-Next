@@ -16,7 +16,9 @@ interface EntityProps {
   entityName: string
   handleCurrentPageInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handlePageSizeInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleSecondPageSizeInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  handleSecondPageSizeInputChange?: (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => void
 }
 
 // * Second Entity Properties: These properties are related to a second entity that might be paginated.
@@ -29,4 +31,5 @@ export interface PaginationUIProps {
   paginationProps: PaginationProps
   entityProps: EntityProps
   secondEntityProps?: SecondEntityProps
+  unknownProperties?: boolean
 }

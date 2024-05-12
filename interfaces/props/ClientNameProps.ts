@@ -1,3 +1,4 @@
+import React from 'react'
 import { type SearchParams } from '../searchParams'
 import { type OrderBy, type Sort } from './context props/IFilter'
 
@@ -14,5 +15,7 @@ export interface ClientNameProps {
   params: {
     client: string[]
   }
-  searchParams: SearchParamsPageSize
+  ongoingProjects: React.ReactNode
+  finishedProjects: React.ReactNode
+  overdueProjects: React.ReactNode
 }
