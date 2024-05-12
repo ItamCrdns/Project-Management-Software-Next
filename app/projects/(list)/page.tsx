@@ -19,7 +19,9 @@ const ProjectsPage: React.FC<{ searchParams: SearchParamsPageSize }> = async (
 
   return (
     <main className='flex flex-col justify-center gap-8 rounded-md p-8'>
-      <h1 className='text-xl font-semibold text-center'>Projects overview</h1>
+      <h1 className='text-xl font-semibold text-center'>
+        Projects overview!!!!!!
+      </h1>
       <section className='flex flex-col items-center justify-center'>
         <div className='flex flex-col'>
           <ProjectsHint config={configCookie} />

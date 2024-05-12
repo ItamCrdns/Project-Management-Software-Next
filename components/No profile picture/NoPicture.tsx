@@ -13,7 +13,7 @@ const NoPicture: React.FC<NoPictureProps> = (props) => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'var(--user)',
+    backgroundColor: 'gray',
     borderRadius: '50%',
     userSelect: 'none',
     color: 'white',

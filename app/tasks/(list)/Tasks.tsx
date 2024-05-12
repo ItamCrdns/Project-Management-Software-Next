@@ -17,14 +17,22 @@ const Tasks: React.FC<TasksProps> = async (props) => {
     tasksPageSize: cleanParams.secondPageSize ?? '5'
   }
 
-  const { data, pages, count } = await getTasks(params)
+  const { data, status } = await getTasks(params)
 
-  const tasks = data ?? []
+  if (status !== 200 && data === null) {
+    return (
+      <h1 className='text-center text-2xl text-red-600'>
+        Something went wrong <span className='font-semibold'>{status}</span>
+      </h1>
+    )
+  }
+
+  const tasks = data?.data ?? []
 
   const paginationProps: PaginationProps = {
-    totalPages: pages,
+    totalPages: data?.pages ?? 0,
     entityName: 'Projects',
-    totalEntitesCount: count
+    totalEntitesCount: data?.count ?? 0
   }
 
   const secondEntityProps: SecondEntityProps = {

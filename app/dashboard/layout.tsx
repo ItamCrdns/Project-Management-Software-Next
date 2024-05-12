@@ -5,7 +5,6 @@ import { adminTabs } from './@admin/_admin tabs/adminTabs'
 interface DashboardPageProps {
   admin: React.ReactNode
   employee: React.ReactNode
-  user: React.ReactNode
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = async (props) => {

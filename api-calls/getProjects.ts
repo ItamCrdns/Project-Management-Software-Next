@@ -1,4 +1,5 @@
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
+import { ApiResponse } from '@/interfaces/apiResponse'
 import { type Project } from '@/interfaces/project'
 import { fetcherWithParams } from '@/utility/fetcher'
 
@@ -20,12 +21,19 @@ interface Response {
 
 export const getProjectsGroupedByCompany = async (
   props: GetProjectsProps
-): Promise<DictionaryResponse<Response>> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Project/all/groupedbycompany')
+): Promise<ApiResponse<DictionaryResponse<Response> | null>> => {
+  const url = new URL(
+    process.env.NEXT_PUBLIC_API_URL + 'Project/all/groupedbycompany'
+  )
 
   Object.entries(props).forEach(([key, value]) => {
     url.searchParams.set(key, value)
   })
+  const { data, status } =
+    await fetcherWithParams<DictionaryResponse<Response>>(url)
 
-  return await fetcherWithParams(url)
+  return {
+    data,
+    status
+  }
 }
