@@ -6,7 +6,7 @@ import { type ButtonProps } from './Button.interface'
 const MAX_RIPPLES = 100
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const [ripples, setRipples] = useState<Array<{ x: number, y: number }>>([])
+  const [ripples, setRipples] = useState<Array<{ x: number; y: number }>>([])
   const buttonRef = useRef<HTMLSpanElement>(null)
 
   const disabled = props.disabled === true
@@ -61,13 +61,14 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <span
       ref={buttonRef}
-      className={`relative select-none overflow-hidden ${borderOnly ? 'ring-1 ring-gray-500' : 'border-none outline-none'} flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
+      className={`relative select-none overflow-hidden ${
+        borderOnly ? 'ring-1 ring-gray-500' : 'border-none outline-none'
+      } flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
         !disabled && !borderOnly ? bgColor : ''
       } ${txtColor} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
       onClick={handleClick}
     >
-      {href !== undefined
-        ? (
+      {href !== undefined ? (
         <Link href={href} className='flex items-center gap-2'>
           {loading === true && (
             <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
@@ -75,8 +76,7 @@ const Button: React.FC<ButtonProps> = (props) => {
           {icon !== undefined && icon !== null && icon}
           {text}
         </Link>
-          )
-        : (
+      ) : (
         <div className='flex items-center gap-2'>
           {loading === true && (
             <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
@@ -84,12 +84,14 @@ const Button: React.FC<ButtonProps> = (props) => {
           {icon !== undefined && icon !== null && icon}
           {(loading === null || !loading) && text}
         </div>
-          )}
+      )}
       <div>
         {ripples.map((ripple, index) => (
           <span
             key={index}
-            className={`w-10 h-10 absolute rounded-full pointer-events-none ${borderOnly ? 'bg-theming-dark400' : 'bg-white'} bg-opacity-75 animate-ripple`}
+            className={`w-10 h-10 absolute rounded-full pointer-events-none ${
+              borderOnly ? 'bg-theming-dark400' : 'bg-white'
+            } bg-opacity-75 animate-ripple`}
             style={{ top: ripple.y + 'px', left: ripple.x + 'px' }}
           />
         ))}

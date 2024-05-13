@@ -1,9 +1,10 @@
 'use client'
 import { PageFilters } from '@/components/Filters/PageFilters'
 import { useGetSearchParams } from '@/components/Filters/useGetSearchParams'
+import { EmployeeTier } from '@/interfaces/EmployeeTier'
 import { useParams } from 'next/navigation'
 
-const Filters: React.FC = () => {
+const Filters: React.FC<{ employeeTier: EmployeeTier | null }> = (props) => {
   const { searchParams } = useGetSearchParams()
 
   const params = useParams()
@@ -20,7 +21,11 @@ const Filters: React.FC = () => {
 
   return (
     <div className='flex flex-col items-center p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
-      <PageFilters url={url} queryParams={queryParams} />
+      <PageFilters
+        url={url}
+        queryParams={queryParams}
+        employeeTier={props.employeeTier}
+      />
     </div>
   )
 }

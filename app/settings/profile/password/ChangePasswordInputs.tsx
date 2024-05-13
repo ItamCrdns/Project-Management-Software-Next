@@ -21,7 +21,7 @@ const ChangePasswordInputs: React.FC = () => {
     <form
       ref={formRef}
       action={debounce((formData: FormData) => {
-        void (async (formData: FormData) => {
+        ;(async (formData: FormData) => {
           const currentPassword =
             formData.get('currentpassword')?.toString() ?? ''
 

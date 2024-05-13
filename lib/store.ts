@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { newProjectSlice } from './features/new project/newProjectSlice'
 import { newTaskSlice } from './features/new task/newTaskSlice'
 import { alertSlice } from './features/alert/alertSlice'
+import { entitySelectModeSlice } from './features/entity select mode/entitySelectModeSlice'
 
 export const store = configureStore({
   reducer: {
     newProjectData: newProjectSlice.reducer,
     newTaskData: newTaskSlice.reducer,
-    alert: alertSlice.reducer
+    alert: alertSlice.reducer,
+    entitySelectMode: entitySelectModeSlice.reducer
   }
 })
 

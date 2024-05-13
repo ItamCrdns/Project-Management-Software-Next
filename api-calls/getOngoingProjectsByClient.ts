@@ -10,7 +10,9 @@ const getOngoingProjectsByClient = async (
   const queryParams = new URLSearchParams(Object.entries(params)).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Company/${clientId}/projects/ongoing?${queryParams}`
 
-  const { data, status } = await fetcher<DictionaryResponse<Project>>(apiUrl)
+  const { data, status } = await fetcher<DictionaryResponse<Project>>(apiUrl, [
+    'getOngoingProjectsByClient'
+  ])
 
   return {
     data,

@@ -1,10 +1,13 @@
 import { type ApiResponse } from '@/interfaces/apiResponse'
 import cookieOptions from './cookieOptions'
 
-const fetcher = async <T>(apiUrl: string): Promise<ApiResponse<T>> => {
+const fetcher = async <T>(
+  apiUrl: string,
+  nextTags?: string[]
+): Promise<ApiResponse<T>> => {
   const url = new URL(apiUrl) // ? Need to pass this url already with any necessary query params
 
-  const requestOptions = cookieOptions()
+  const requestOptions = cookieOptions(nextTags)
 
   const res = await fetch(url, requestOptions)
 

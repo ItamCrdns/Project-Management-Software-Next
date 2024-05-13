@@ -4,6 +4,7 @@ import { projectSortValues } from '@/components/Data Header/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import HeaderDivider from './HeaderDivider'
+import { PopUpConfirmationBanner } from './PopUpConfirmationBanner'
 
 const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
   const clientId = props.params.client[0]
@@ -29,6 +30,7 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
           />
           <div className='space-y-8'>
             <QueryParamsPagination paginationProps={paginationProps} />
+            <PopUpConfirmationBanner />
             <HeaderDivider text='Ongoing' />
             {props.ongoingProjects}
             <HeaderDivider text='Finished' />

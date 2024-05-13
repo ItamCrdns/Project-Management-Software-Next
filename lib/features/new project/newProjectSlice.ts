@@ -50,8 +50,10 @@ export const newProjectSlice = createSlice({
     setEmployee: (state, action: PayloadAction<Employee>) => {
       const employees = state.employees
 
-      if (employees !== null && employees?.some((x) => x.employeeId === action.payload.employeeId)) {
-        state.employees = employees.filter((x) => x.employeeId !== action.payload.employeeId)
+      if (employees?.some((x) => x.employeeId === action.payload.employeeId)) {
+        state.employees = employees.filter(
+          (x) => x.employeeId !== action.payload.employeeId
+        )
       } else {
         state.employees = [...(employees ?? []), action.payload]
       }
@@ -62,4 +64,15 @@ export const newProjectSlice = createSlice({
 
 export default newProjectSlice.reducer
 
-export const { setCompany, clearCompanyValues, setName, setClientName, setExpectedDeliveryDate, setStartedWorking, setPriority, setDescription, setEmployee, clear } = newProjectSlice.actions
+export const {
+  setCompany,
+  clearCompanyValues,
+  setName,
+  setClientName,
+  setExpectedDeliveryDate,
+  setStartedWorking,
+  setPriority,
+  setDescription,
+  setEmployee,
+  clear
+} = newProjectSlice.actions

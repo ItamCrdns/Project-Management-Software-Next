@@ -22,7 +22,7 @@ const Form: React.FC<{ email: string }> = (props) => {
       <form
         ref={formRef}
         action={debounce((formData: FormData) => {
-          void (async (formData: FormData) => {
+          ;(async (formData: FormData) => {
             const email = formData.get('email')?.toString() ?? ''
             const response = await submitTokenRequest(email)
             if (response !== undefined) {

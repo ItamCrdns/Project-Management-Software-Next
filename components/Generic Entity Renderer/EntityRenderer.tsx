@@ -4,6 +4,7 @@ import EntityCreator from './EntityCreator'
 import EntityEmployees from './EntityEmployees'
 import { setEntityPriority } from './EntityPriority'
 import { DateBadge } from '../UI/ProjectUI/Badges/DateBadge'
+import SelectEntity from './SelectEntity'
 
 // * We would have to map the items to fit as the Entity interface
 export interface Entity {
@@ -29,11 +30,10 @@ interface EntityRendererProps {
   parentBasePath?: string
   width: string
   maxWidth: string
+  entityIdentifer?: string
 }
 
-const EntityRenderer: React.FC<EntityRendererProps> = (
-  props
-) => {
+const EntityRenderer: React.FC<EntityRendererProps> = (props) => {
   const style: Style = {
     width: props.width,
     maxWidth: props.maxWidth
@@ -43,6 +43,10 @@ const EntityRenderer: React.FC<EntityRendererProps> = (
 
   return (
     <>
+      <SelectEntity
+        entityIdentifier={props.entityIdentifer}
+        id={props.entity.id}
+      />
       <div className='flex items-center justify-center gap-2 p-4' style={style}>
         <Link
           className='font-bold text-theming-dark100 dark:text-theming-white100 text-center'
@@ -52,23 +56,26 @@ const EntityRenderer: React.FC<EntityRendererProps> = (
         </Link>
       </div>
       <EntityCreator style={style} creator={props.entity.creator} />
-      {props.entity.employees.length > 0
-        ? (
+      {props.entity.employees.length > 0 ? (
         <EntityEmployees style={style} employees={props.entity.employees} />
-          )
-        : (
+      ) : (
         <div className='flex items-center justify-center gap-2' style={style}>
           No employees
         </div>
-          )}
+      )}
       {props.entity.priority !== null &&
         props.entity.priority !== undefined && (
           <div className='flex items-center justify-center gap-2' style={style}>
             <p style={{ color: priority.color }}>{priority.priorityText}</p>
           </div>
-      )}
+        )}
       <div className='flex items-center justify-center gap-2' style={style}>
-        <DateBadge date={props.entity.created} showCustomColor={true} text='' textSize='text-sm' />
+        <DateBadge
+          date={props.entity.created}
+          showCustomColor={true}
+          text=''
+          textSize='text-sm'
+        />
       </div>
       {props.showParentEntity && (
         <div className='flex items-center justify-center gap-2' style={style}>

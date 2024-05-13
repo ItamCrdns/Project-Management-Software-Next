@@ -38,7 +38,11 @@ const Projects: React.FC<{
             className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
             key={index}
           >
-            <EachProject project={project} showCompanyName={false} />
+            <EachProject
+              project={project}
+              showCompanyName={false}
+              entityIdentifer='ongoingProjects'
+            />
           </li>
         ))}
     </ul>

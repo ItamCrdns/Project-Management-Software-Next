@@ -1,10 +1,11 @@
 import { cookies } from 'next/headers'
 
 /**
- * Returns the options for a GET request that requires authorization.
- * @returns {RequestInit} The options for a HTTP Request (GET).
+ * Creates the options object for making a request with cookie authentication.
+ * @param nextTags - Optional array of tags for the next request.
+ * @returns The options object for making a request with cookie authentication.
  */
-const cookieOptions = (): RequestInit => {
+const cookieOptions = (nextTags?: string[]): RequestInit => {
   const cookieStore = cookies()
   const jwtCookie = cookieStore.get('JwtToken')
 
@@ -19,6 +20,12 @@ const cookieOptions = (): RequestInit => {
     headers
   }
 
+  if (nextTags !== undefined && nextTags.length > 0) {
+    requestOptions.next = {
+      tags: nextTags
+    }
+  }
+
   return requestOptions
 }
 
@@ -26,7 +33,11 @@ export default cookieOptions
 
 type ContentType = 'application/json' | 'multipart/form-data'
 
-export const postPatchCookieOptions = (body: BodyInit, contentType?: ContentType, patch?: boolean): RequestInit => {
+export const postPatchCookieOptions = (
+  body: BodyInit,
+  contentType?: ContentType,
+  patch?: boolean
+): RequestInit => {
   const cookieStore = cookies()
   const jwtCookie = cookieStore.get('JwtToken')
 

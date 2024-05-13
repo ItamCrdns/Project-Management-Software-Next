@@ -10,7 +10,9 @@ const getOverdueProjectsByClient = async (
   const queryParams = new URLSearchParams(Object.entries(params)).toString()
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}Company/${clientId}/projects/overdue?${queryParams}`
 
-  const { data, status } = await fetcher<DictionaryResponse<Project>>(apiUrl)
+  const { data, status } = await fetcher<DictionaryResponse<Project>>(apiUrl, [
+    'getOverdueProjectsByClient'
+  ])
 
   return {
     data,

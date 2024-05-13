@@ -24,6 +24,7 @@ const EachProject: React.FunctionComponent<EachProjectProps> = (props) => {
       parentBasePath='company'
       width='300px'
       maxWidth='300px'
+      entityIdentifer={props.entityIdentifer}
     />
   )
 }

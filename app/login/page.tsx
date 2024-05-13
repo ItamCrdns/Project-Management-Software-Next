@@ -9,7 +9,9 @@ import { useFormState } from '@/hooks/useFormState'
 import { onSuccessfulLogin } from './actions/onSuccessfulLogin'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 
-const LoginPage: React.FC<{ searchParams: { username?: string } }> = (props) => {
+const LoginPage: React.FC<{ searchParams: { username?: string } }> = (
+  props
+) => {
   const { setAlert } = useAlertActions()
 
   const { username } = props.searchParams
@@ -37,12 +39,15 @@ const LoginPage: React.FC<{ searchParams: { username?: string } }> = (props) => 
         <form
           ref={formRef}
           action={debounce((formData: FormData) => {
-            void (async (formData: FormData) => {
+            ;(async (formData: FormData) => {
               const res = await login(formData)
 
               if (res.type === 'authenticated') {
                 // * Handle successful login
-                setAlert({ message: `Welcome ${formData.get('username')?.toString()}`, type: 'success' })
+                setAlert({
+                  message: `Welcome ${formData.get('username')?.toString()}`,
+                  type: 'success'
+                })
                 await onSuccessfulLogin(res.message)
                 return
               }

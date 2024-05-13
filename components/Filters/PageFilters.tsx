@@ -8,9 +8,10 @@ import { employeesAsOptions } from './employeesAsOptions'
 import { useGetSearchParams } from './useGetSearchParams'
 import { useEmployeeFilterUtility } from '@/hooks/useEmployeeFilterUtility'
 import { type PageFiltersProps } from './PageFilters.interface'
-import { TeamFilters } from './TeamFilters'
 import { SearchByName } from './SearchByName'
 import { useFilters } from './hooks/useFilters'
+import { Actions } from './Actions'
+import { Divider } from '@tremor/react'
 
 export interface IFilter {
   authorIds?: number[]
@@ -102,16 +103,18 @@ const PageFilters: React.FC<PageFiltersProps> = (props) => {
   const searchFilterSet =
     searchParams.get('searchValue') !== null &&
     searchParams.get('searchValue') !== ''
+
   // * Track if the clear filters button should be shown or not
   const filtersHaveBeenSet =
     authorIdFilterSet || priorityFilterSet || searchFilterSet
 
   return (
     <div className='flex flex-col gap-4'>
+      <Divider className='-my-0'>Filters</Divider>
       <SearchByName />
       <SelectAuthor {...selectAuthorProps} />
       <SelectPriority {...selectPriorityProps} />
-      <TeamFilters />
+      {props.employeeTier?.name === 'Supervisor' && <Actions />}
       {filtersHaveBeenSet && (
         <div className='w-full'>
           <Button text='Clear all filters' func={clearFilters} />

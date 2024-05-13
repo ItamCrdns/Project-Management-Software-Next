@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import { Filters } from './Filters'
 import { getCompany } from '@/api-calls/getCompanyById'
+import getEmployeeTier from '@/api-calls/getEmployeeTier'
 
 const ClientInfoAndFilters: React.FC<{ clientId: string }> = async (props) => {
   const { data } = await getCompany(props.clientId)
+
+  const { data: employeeTier } = await getEmployeeTier()
 
   return (
     <aside className='flex flex-col items-center gap-8 max-w-sm'>
@@ -21,7 +24,7 @@ const ClientInfoAndFilters: React.FC<{ clientId: string }> = async (props) => {
             <p className='text-xs'>{data?.contactPhoneNumber}</p>
           </div>
         </div>
-        <Filters />
+        <Filters employeeTier={employeeTier} />
       </div>
     </aside>
   )

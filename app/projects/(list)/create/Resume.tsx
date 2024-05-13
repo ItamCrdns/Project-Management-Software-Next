@@ -14,7 +14,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const employees = newProject.employees
 
   const [response, setResponse] = useState<ApiResponse<
-  OperationResult<number>
+    OperationResult<number>
   > | null>(null)
 
   const client =
@@ -84,8 +84,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
         </div>
         <div className='flex items-center flex-col w-full p-4 py-0'>
           <Divider>Employees</Divider>
-          {Array.isArray(employees) && employees.length > 0
-            ? (
+          {Array.isArray(employees) && employees.length > 0 ? (
             <>
               <p className='text-xs mb-4'>Hover them to see more information</p>
               <ul className='relative list-none flex items-center -space-x-4 justify-center pt-0'>
@@ -103,29 +102,26 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
                 ))}
               </ul>
             </>
-              )
-            : (
+          ) : (
             <p className='mb-4 text-center'>
               You didn&apos;t add any employees, but don&apos;t worry, you can
               add them later
             </p>
-              )}
+          )}
         </div>
         <div className='flex items-center flex-col w-full p-4 py-0 mt-0 mb-8'>
           <Divider>Project start date</Divider>
-          {newProject.startedWorking
-            ? (
+          {newProject.startedWorking ? (
             <p>Immediately</p>
-              )
-            : (
+          ) : (
             <p>Not specified</p>
-              )}
+          )}
         </div>
         <div className='flex gap-4'>
           <Button
             text='Create project'
             func={debounce(() => {
-              void (async () => {
+              ;(async () => {
                 const res = await callCreateProjectServerActions(newProject)
                 setResponse(res)
               })()
