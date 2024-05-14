@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { ArrowLeftCircle } from '@/svg/ArrowLeftCircle'
 
 const TaskIssues: React.FC<{
-  params: { projectId: string, taskId: string }
+  params: { projectId: string; taskId: string }
   searchParams: SearchParamsPageSize
 }> = (props) => {
   const { projectId, taskId } = props.params

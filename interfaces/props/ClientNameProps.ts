@@ -18,4 +18,5 @@ export interface ClientNameProps {
   ongoingProjects: React.ReactNode
   finishedProjects: React.ReactNode
   overdueProjects: React.ReactNode
+  notStartedProjects: React.ReactNode
 }

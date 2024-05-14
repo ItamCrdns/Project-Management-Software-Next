@@ -1,9 +1,9 @@
 import { SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import { Suspense } from 'react'
+import NotStartedProjects from './NotStartedProjects'
 import { Loading } from '../Loading'
-import OverdueProjects from './OverdueProjects'
 
-const OverdueProjectsPage: React.FC<{
+const NotStartedProjectsPage: React.FC<{
   params: {
     client: string[]
   }
@@ -23,7 +23,7 @@ const OverdueProjectsPage: React.FC<{
         />
       }
     >
-      <OverdueProjects
+      <NotStartedProjects
         clientId={props.params.client[0]}
         searchParams={props.searchParams}
       />
@@ -31,4 +31,4 @@ const OverdueProjectsPage: React.FC<{
   )
 }
 
-export default OverdueProjectsPage
+export default NotStartedProjectsPage

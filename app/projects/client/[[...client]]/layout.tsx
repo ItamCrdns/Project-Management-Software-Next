@@ -37,6 +37,8 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
             {props.finishedProjects}
             <HeaderDivider text='Overdue' />
             {props.overdueProjects}
+            <HeaderDivider text='Not started' />
+            {props.notStartedProjects}
           </div>
         </div>
       </div>
