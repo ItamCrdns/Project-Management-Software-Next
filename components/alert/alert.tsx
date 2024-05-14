@@ -33,6 +33,9 @@ const Alert: React.FC = () => {
       <div className='flex gap-2 items-center'>
         {alert.type && alert.type === 'success' && <Check />}
         {alert.type && alert.type === 'error' && <AlertError />}
+        {alert.type && alert.type === 'loading' && (
+          <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
+        )}
         <p>{alert.message}</p>
       </div>
     </div>

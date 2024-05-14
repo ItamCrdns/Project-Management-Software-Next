@@ -47,10 +47,10 @@ const Button: React.FC<ButtonProps> = (props) => {
     }
 
     if (asyncFunc !== undefined && asyncFunc !== null && !disabled) {
-      void (async () => {
+      ;async () => {
         // * Havent tested this yet
         await asyncFunc(e)
-      })
+      }
     }
 
     if (disabledFunc !== undefined && disabledFunc !== null && disabled) {

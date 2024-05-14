@@ -29,6 +29,11 @@ const PopUpConfirmationBanner = () => {
                 text='Confirm'
                 func={debounce(() => {
                   ;(async () => {
+                    setAlert({
+                      message: 'Setting projects as finished...',
+                      type: 'loading'
+                    })
+
                     const res = await setProjectsFinishedBulkAction(
                       entityOnSelectMode.selectedIds
                     )
@@ -43,6 +48,11 @@ const PopUpConfirmationBanner = () => {
 
                       // Re-fetch the projects
                       await revalidateOngoingFinishedAndOverdueProjects()
+                    } else {
+                      setAlert({
+                        message: res.message ?? 'Something went wrong',
+                        type: 'error'
+                      })
                     }
                   })()
                 }, 500)}
