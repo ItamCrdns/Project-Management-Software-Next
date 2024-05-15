@@ -1,24 +1,22 @@
-import { SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import { Suspense } from 'react'
 import { Loading } from '../Loading'
+import { ExtendedSearchParams } from '../ExtendedSearchParams.interface'
 import FinishedProjects from './FinishedProjects'
 
 const FinishedProjectsPage: React.FC<{
   params: {
     client: string[]
   }
-  searchParams: SearchParamsPageSize
+  searchParams: ExtendedSearchParams
 }> = (props) => {
-  const reactSuspenseKey = new URLSearchParams(
-    Object.entries(props.searchParams)
-  ).toString()
+  const key = new URLSearchParams(Object.entries(props.searchParams)).toString()
 
   return (
     <Suspense
-      key={reactSuspenseKey}
+      key={key}
       fallback={
         <Loading
-          skeletonCount={Number(props.searchParams.pagesize)}
+          skeletonCount={Number(props.searchParams.finalized_pagesize)}
           width={1500}
         />
       }

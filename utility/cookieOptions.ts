@@ -16,7 +16,7 @@ const cookieOptions = (nextTags?: string[]): RequestInit => {
   const requestOptions: RequestInit = {
     method: 'GET',
     credentials: 'include',
-    cache: 'no-store',
+    cache: 'default',
     headers
   }
 

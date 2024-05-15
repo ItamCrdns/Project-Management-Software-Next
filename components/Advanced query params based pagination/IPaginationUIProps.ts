@@ -32,4 +32,5 @@ export interface PaginationUIProps {
   entityProps: EntityProps
   secondEntityProps?: SecondEntityProps
   unknownProperties?: boolean
+  pageSizeName?: string // ? Pass if the name of the pageSize is different from 'pagesize'.
 }

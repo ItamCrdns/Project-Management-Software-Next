@@ -12,7 +12,9 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     totalPages,
     entityName,
     totalEntitesCount,
-    defaultPageSize = 10
+    defaultPageSize = 10,
+    pageSizeName = 'pagesize',
+    pageName = 'page'
   } = props.paginationProps
 
   const { router, pathname, searchParams } = useGetSearchParams()
@@ -23,7 +25,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     const checkedValue = handleMaxValue(e, totalPages)
 
     if (!isNaN(checkedValue)) {
-      searchParams.set('page', checkedValue.toString())
+      searchParams.set(pageName, checkedValue.toString())
 
       if (searchParams.toString() !== undefined) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -37,8 +39,8 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     const checkedValue = handleMaxValue(e, totalEntitesCount)
 
     if (!isNaN(checkedValue)) {
-      searchParams.set('page', '1')
-      searchParams.set('pagesize', checkedValue.toString())
+      searchParams.set(pageName, '1')
+      searchParams.set(pageSizeName, checkedValue.toString())
 
       if (searchParams.toString() !== undefined) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -64,7 +66,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   }
 
   const goToFirstPage = (): void => {
-    searchParams.set('page', '1')
+    searchParams.set(pageName, '1')
 
     if (searchParams.toString() !== undefined) {
       router.replace(`${pathname}?${searchParams.toString()}`)
@@ -72,7 +74,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   }
 
   const goToLastPage = (): void => {
-    searchParams.set('page', totalPages.toString())
+    searchParams.set(pageName, totalPages.toString())
 
     if (searchParams.toString() !== undefined) {
       router.replace(`${pathname}?${searchParams.toString()}`)
@@ -80,10 +82,10 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   }
 
   const goToNextPage = (): void => {
-    const currentPage = Number(searchParams.get('page') ?? 1)
+    const currentPage = Number(searchParams.get(pageName) ?? 1)
 
     if (currentPage < totalPages) {
-      searchParams.set('page', (currentPage + 1).toString())
+      searchParams.set(pageName, (currentPage + 1).toString())
 
       if (searchParams.toString() !== undefined) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -92,10 +94,10 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
   }
 
   const goToPreviousPage = (): void => {
-    const currentPage = Number(searchParams.get('page'))
+    const currentPage = Number(searchParams.get(pageName))
 
     if (currentPage > 1) {
-      searchParams.set('page', (currentPage - 1).toString())
+      searchParams.set(pageName, (currentPage - 1).toString())
 
       if (searchParams.toString() !== undefined) {
         router.replace(`${pathname}?${searchParams.toString()}`)
@@ -105,9 +107,12 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
 
   const uiProps: PaginationUIProps = {
     unknownProperties: props.paginationProps.unknownProperties,
+    pageSizeName,
     paginationProps: {
-      currentPageSize: Number(searchParams.get('pagesize') ?? defaultPageSize),
-      currentPage: Number(searchParams.get('page') ?? 1),
+      currentPageSize: Number(
+        searchParams.get(pageSizeName) ?? defaultPageSize
+      ),
+      currentPage: Number(searchParams.get(pageName) ?? 1),
       currentSecondEntityPageSize: Number(
         searchParams.get('secondpagesize') ?? 10
       ),

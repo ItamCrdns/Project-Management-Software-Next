@@ -65,7 +65,7 @@ const DataHeader: React.FC<DataHeaderProps> = (props) => {
   }
 
   return (
-    <header className='flex items-center justify-center py-0 mb-8'>
+    <header className='flex items-center justify-center h-[72px] rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
       {headerItems.map((item, index) => (
         <HeaderItem
           key={index}

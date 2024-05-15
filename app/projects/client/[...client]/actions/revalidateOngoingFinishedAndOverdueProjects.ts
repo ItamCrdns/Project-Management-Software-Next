@@ -5,4 +5,5 @@ export const revalidateOngoingFinishedAndOverdueProjects = async () => {
   revalidateTag('getOngoingProjectsByClient')
   revalidateTag('getFinishedProjectsByClient')
   revalidateTag('getOverdueProjectsByClient')
+  revalidateTag('getNotStartedProjectsByClient')
 }
