@@ -1,16 +1,16 @@
-import { Return } from '@/svg/Return'
-import { Badge } from '@tremor/react'
+import { Close } from '@/svg/Close'
 import Link from 'next/link'
 import React from 'react'
 
-const ReturnBadgeLink: React.FC<{ path: string }> = (props) => {
+const ReturnBadgeLink = ({ path }: { path: string }) => {
   return (
-    <Badge
-      icon={Return}
-      className='flex self-end gap-2 items-cente -m-2 mb-4 cursor-pointer'
+    <Link
+      href={path}
+      className='rounded-full bg-black dark:bg-white flex items-center justify-center w-[100px]'
     >
-      <Link href={props.path}>Return</Link>
-    </Badge>
+      <p className='text-white dark:text-black'>Close</p>
+      <Close color='text-white dark:text-black' />
+    </Link>
   )
 }
 

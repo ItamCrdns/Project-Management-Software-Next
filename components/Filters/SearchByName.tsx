@@ -3,7 +3,7 @@ import Search from '../search/search'
 import { useGetSearchParams } from './useGetSearchParams'
 
 const SearchByName: React.FC = () => {
-  const { pathname, searchParams } = useGetSearchParams()
+  const { searchParams } = useGetSearchParams()
 
   // * Avoid search param duplication
   const paramsWithoutSearch = new URLSearchParams(searchParams.toString())
@@ -12,7 +12,6 @@ const SearchByName: React.FC = () => {
   return (
     <Search
       maxInputLength={255}
-      url={`${pathname}?${paramsWithoutSearch.toString()}`}
       stateBasedSearch={false}
       searchPlaceholder='Search by project name'
       paramName='searchValue'

@@ -1,15 +1,14 @@
 'use client'
-import EmployeesRender from './EmployeesRender'
-import { usePathname } from 'next/navigation'
 import { type SearchParams } from '@/interfaces/searchParams'
 import { useGetEmployees } from '@/api-calls/getEmployees'
+import EmployeesRender from '@/components/UI/Employees render/EmployeesRender'
 
 interface EmployeeProps {
   params: { projectId: string }
   searchParams: SearchParams
 }
 
-const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
+const EmployeesListPage: React.FC<EmployeeProps> = ({
   params,
   searchParams
 }) => {
@@ -20,26 +19,24 @@ const EmployeesList: React.FunctionComponent<EmployeeProps> = ({
   const employeesProps = {
     endpoint:
       searchParams.searchValue === undefined
-        ? `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees?page=${searchParams.page}&pageSize=5`
-        : `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees/search/${searchParams.searchValue}?page=${searchParams.page}&pageSize=5`
+        ? `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees?page=${searchParams.page}&pageSize=1`
+        : `${process.env.NEXT_PUBLIC_API_URL}Project/${params.projectId}/employees/search/${searchParams.searchValue}?page=${searchParams.page}&pageSize=1`
   }
 
-  const pathname = usePathname()
-
-  const { employees, isLoading } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
+  const { employees, totalPages, isLoading } = useGetEmployees(
+    employeesProps.endpoint
+  )
 
   return (
     <EmployeesRender
-      employeeList={employees?.data ?? []}
-      totalPages={employees?.pages ?? 0}
+      employeeList={employees}
+      totalPages={totalPages}
       searchParams={searchParams}
-      pathname={pathname}
       closeButtonHref={`/projects/${params.projectId}`}
-      paginationUrl={`/projects/${params.projectId}/employees`}
       headerText='All employees'
       isLoading={isLoading}
     />
   )
 }
 
-export default EmployeesList
+export default EmployeesListPage

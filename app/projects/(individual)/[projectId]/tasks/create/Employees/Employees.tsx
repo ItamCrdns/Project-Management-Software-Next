@@ -20,7 +20,7 @@ const Employees: React.FC<{ return: () => void }> = (props) => {
       ? `Project/${newTask.projectId}/employees?page=${currentPage}&pageSize=5`
       : `Project/${newTask.projectId}/employees/search/${searchValue}?page=${currentPage}&pageSize=5`
 
-  const { employees, isLoading } = useGetEmployees(
+  const { employees, totalPages, isLoading } = useGetEmployees(
     process.env.NEXT_PUBLIC_API_URL + endpoint
   )
 
@@ -28,15 +28,13 @@ const Employees: React.FC<{ return: () => void }> = (props) => {
 
   return (
     <>
-      {ready
-        ? (
+      {ready ? (
         <Resume
           return={() => {
             setReady(false)
           }}
         />
-          )
-        : (
+      ) : (
         <>
           <h1 className='text-center line-clamp-2 text-2xl'>
             Assign employees to work on this task.
@@ -54,7 +52,7 @@ const Employees: React.FC<{ return: () => void }> = (props) => {
               }}
             />
             <EmployeeList
-              employeeList={employees?.data ?? []}
+              employeeList={employees}
               selectedEmployees={newTask.employees}
               handleEmployeeClick={(employee) => {
                 setEmployee(employee)
@@ -63,7 +61,7 @@ const Employees: React.FC<{ return: () => void }> = (props) => {
             />
             <div className='mt-4'>
               <Pagination
-                totalPages={employees?.pages ?? 0}
+                totalPages={totalPages}
                 onPageChange={(page) => {
                   setCurrentPage(page.toString())
                 }}
@@ -79,7 +77,7 @@ const Employees: React.FC<{ return: () => void }> = (props) => {
             handleGoBack={props.return}
           />
         </>
-          )}
+      )}
     </>
   )
 }

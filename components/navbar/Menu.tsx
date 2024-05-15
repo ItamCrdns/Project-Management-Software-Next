@@ -46,13 +46,12 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
 
   return (
     <aside
-      className='absolute z-999 top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark300'
+      className='absolute z-[9999] top-24 right-3 shadow-md rounded-xl w-64 bg-theming-white100 dark:bg-theming-dark300'
       ref={ref}
     >
       <section className='rounded-md m-4 px-4 py-0 flex flex-col justify-center bg-theming-white200 dark:bg-theming-dark400'>
         <section className='flex items-center gap-3 p-4 px-0 border-b-2 border-azure-radiance-500'>
-          {employee.profilePicture !== null
-            ? (
+          {employee.profilePicture !== null ? (
             <Image
               src={employee.profilePicture}
               alt={employee.username}
@@ -60,10 +59,9 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
               height={50}
               className='rounded-full'
             />
-              )
-            : (
+          ) : (
             <NoPicture width='50px' height='50px' questionMarkSize='1.75rem' />
-              )}
+          )}
           <p className='font-semibold'>{employee.username}</p>
         </section>
         <Link
@@ -118,7 +116,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
         <Button
           text='Logout'
           func={() => {
-            void (async () => {
+            ;(async () => {
               await logout()
             })()
           }}

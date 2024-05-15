@@ -1,7 +1,6 @@
 'use client'
 import { useGetEmployees } from '@/api-calls/getEmployees'
-import EmployeesRender from '@/app/projects/(individual)/[projectId]/(projectId)/employees/EmployeesRender'
-import { useGetSearchParams } from '@/components/Filters/useGetSearchParams'
+import EmployeesRender from '@/components/UI/Employees render/EmployeesRender'
 import { type SearchParams } from '@/interfaces/searchParams'
 
 const Coworkers: React.FC<{
@@ -15,8 +14,6 @@ const Coworkers: React.FC<{
     searchParams.page = '1'
   }
 
-  const { pathname } = useGetSearchParams()
-
   const employeesProps = {
     endpoint:
       searchParams.searchValue === undefined
@@ -24,16 +21,16 @@ const Coworkers: React.FC<{
         : `${process.env.NEXT_PUBLIC_API_URL}Employee/${params.username}/colleagues/search/${searchParams.searchValue}?page=${searchParams.page}&pageSize=5`
   }
 
-  const { employees, isLoading } = useGetEmployees(employeesProps.endpoint) // Passing the props to the hook
+  const { employees, totalPages, isLoading } = useGetEmployees(
+    employeesProps.endpoint
+  )
 
   return (
     <EmployeesRender
-      employeeList={employees?.data ?? []}
-      totalPages={employees?.pages ?? 0}
+      employeeList={employees}
+      totalPages={totalPages}
       searchParams={searchParams}
-      pathname={pathname}
       closeButtonHref={`/employee/${username}`}
-      paginationUrl={`/employee/${username}/colleagues`}
       headerText='Coworkers'
       isLoading={isLoading}
     />

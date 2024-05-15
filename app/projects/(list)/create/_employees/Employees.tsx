@@ -38,7 +38,7 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
       ? `Employee/all?page=${currentPage}&pageSize=5`
       : `Employee/all/search/${searchValue}?page=${currentPage}&pageSize=5`
 
-  const { employees, isLoading } = useGetEmployees(
+  const { employees, totalPages, isLoading } = useGetEmployees(
     process.env.NEXT_PUBLIC_API_URL + endpoint
   )
 
@@ -47,15 +47,13 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
 
   return (
     <>
-      {showResume
-        ? (
+      {showResume ? (
         <Resume
           goBack={() => {
             setShowResume(false)
           }}
         />
-          )
-        : (
+      ) : (
         <>
           <h1 className='text-center line-clamp-2 text-2xl mb-4'>
             Who will be working on {newProject.name}?
@@ -67,14 +65,14 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
               stateBasedGetInputValue={getInputValue}
             />
             <EmployeeList
-              employeeList={employees?.data ?? []}
+              employeeList={employees}
               selectedEmployees={newProject.employees}
               handleEmployeeClick={handleEmployeeClick}
               isLoading={isLoading}
             />
             <div className='p-2'>
               <Pagination
-                totalPages={employees?.pages ?? 0}
+                totalPages={totalPages}
                 onPageChange={handlePageChange}
                 reset={resetPage}
               />
@@ -88,7 +86,7 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
             handleGoBack={props.goBack}
           />
         </>
-          )}
+      )}
     </>
   )
 }

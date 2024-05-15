@@ -1,4 +1,8 @@
-const Close = (): JSX.Element => {
+const Close = ({
+  color
+}: {
+  color?: string
+}): JSX.Element => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -6,7 +10,7 @@ const Close = (): JSX.Element => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-8 h-8'
+      className={`${color} w-6 h-6`}
     >
       <path
         strokeLinecap='round'

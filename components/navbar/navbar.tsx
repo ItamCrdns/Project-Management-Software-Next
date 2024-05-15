@@ -54,7 +54,7 @@ const Navbar: React.FC<{
 
   return (
     <>
-      <nav className='relative py-0 pl-4 flex items-center justify-between shadow-md z-50 h-20 bg-theming-white100 dark:bg-theming-dark300'>
+      <nav className='relative py-0 pl-4 flex items-center justify-between shadow-md z-[9999] h-20 bg-theming-white100 dark:bg-theming-dark300'>
         <div className='flex items-center justify-center'>
           <Link
             className='font-bold text-theming-dark100 dark:text-theming-white100'
