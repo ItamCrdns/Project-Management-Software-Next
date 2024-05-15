@@ -29,13 +29,15 @@ const ProjectId: React.FC<ProjectIdProps> = (props) => {
           <EntityDivider text='Tasks'>
             <Task />
           </EntityDivider>
-          <DataHeader
-            dashboard={false}
-            width='300px'
-            pushSearchParams={false}
-            sortValues={taskSortValues}
-          />
-          <Suspense fallback={<LoadingTasks />}>{tasks}</Suspense>
+          <div className='space-y-8'>
+            <DataHeader
+              dashboard={false}
+              width='300px'
+              pushSearchParams={false}
+              sortValues={taskSortValues}
+            />
+            <Suspense fallback={<LoadingTasks />}>{tasks}</Suspense>
+          </div>
         </section>
       </div>
     </section>

@@ -21,23 +21,27 @@ const TasksPage: React.FC<TasksProps> = (props) => {
       <section className='flex flex-col items-center justify-center'>
         <div className='flex flex-col'>
           <TasksHint config={configCookie} />
-          <DataHeader
-            dashboard={false}
-            width='300px'
-            pushSearchParams={false}
-            sortValues={taskSortValues}
-          />
-          <Suspense
-            key={key}
-            fallback={
-              <LoadingTasksSkeleton
-                projectsSkeletonsCount={Number(props.searchParams.pagesize)}
-                tasksSkeletonsCount={Number(props.searchParams.secondpagesize)}
-              />
-            }
-          >
-            <Tasks searchParams={props.searchParams} />
-          </Suspense>
+          <div className='space-y-8'>
+            <DataHeader
+              dashboard={false}
+              width='300px'
+              pushSearchParams={false}
+              sortValues={taskSortValues}
+            />
+            <Suspense
+              key={key}
+              fallback={
+                <LoadingTasksSkeleton
+                  projectsSkeletonsCount={Number(props.searchParams.pagesize)}
+                  tasksSkeletonsCount={Number(
+                    props.searchParams.secondpagesize
+                  )}
+                />
+              }
+            >
+              <Tasks searchParams={props.searchParams} />
+            </Suspense>
+          </div>
         </div>
       </section>
     </main>

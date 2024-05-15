@@ -1,9 +1,13 @@
 'use client'
 import { type QueryParamsPaginationProps } from './IQueryParamsPaginationProps'
-import PaginationUI from './PaginationUI'
-import { type PaginationUIProps } from './IPaginationUIProps'
 import { handleMaxValue } from './handleMaxValue'
 import { useGetSearchParams } from '../Filters/useGetSearchParams'
+import Link from 'next/link'
+import { handleInputClick } from './handleInputClick'
+import First from './arrows svgs/First'
+import Previous from './arrows svgs/Previous'
+import Next from './arrows svgs/Next'
+import Last from './arrows svgs/Last'
 
 // TODO: Add a search component to search entities basd on their name
 
@@ -27,9 +31,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     if (!isNaN(checkedValue)) {
       searchParams.set(pageName, checkedValue.toString())
 
-      if (searchParams.toString() !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
+      router.push(`${pathname}?${searchParams.toString()}`)
     }
   }
 
@@ -42,9 +44,7 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
       searchParams.set(pageName, '1')
       searchParams.set(pageSizeName, checkedValue.toString())
 
-      if (searchParams.toString() !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
+      router.push(`${pathname}?${searchParams.toString()}`)
     }
   }
 
@@ -59,80 +59,120 @@ const QueryParamsPagination: React.FC<QueryParamsPaginationProps> = (props) => {
     if (!isNaN(checkedValue)) {
       searchParams.set('secondpagesize', checkedValue.toString())
 
-      if (searchParams.toString() !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
+      router.push(`${pathname}?${searchParams.toString()}`)
     }
   }
 
-  const goToFirstPage = (): void => {
-    searchParams.set(pageName, '1')
+  const currentPageSize = Number(
+    searchParams.get(pageSizeName) ?? defaultPageSize
+  )
 
-    if (searchParams.toString() !== undefined) {
-      router.replace(`${pathname}?${searchParams.toString()}`)
-    }
-  }
+  const pageSize =
+    currentPageSize > totalEntitesCount ? totalEntitesCount : currentPageSize
 
-  const goToLastPage = (): void => {
-    searchParams.set(pageName, totalPages.toString())
+  const current2ndPageSize = Number(searchParams.get('secondpagesize') ?? 10)
 
-    if (searchParams.toString() !== undefined) {
-      router.replace(`${pathname}?${searchParams.toString()}`)
-    }
-  }
+  const secondPageSize =
+    current2ndPageSize > (props.secondEntityProps?.secondEntityTotalCount ?? 0)
+      ? props.secondEntityProps?.secondEntityTotalCount
+      : current2ndPageSize
 
-  const goToNextPage = (): void => {
-    const currentPage = Number(searchParams.get(pageName) ?? 1)
+  const currentPage = Number(searchParams.get(pageName) ?? 1)
 
-    if (currentPage < totalPages) {
-      searchParams.set(pageName, (currentPage + 1).toString())
+  return (
+    <div className='flex items-center justify-around rounded-md p-4 shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center gap-2'>
+        <p>Showing</p>
+        <input
+          type='number'
+          value={pageSize}
+          onClick={handleInputClick}
+          onChange={handlePageSizeInputChange}
+          className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
+        />
+        <p>
+          of {totalEntitesCount} {entityName.toLowerCase()}
+        </p>
+      </div>
+      {props.secondEntityProps?.secondEntity !== undefined &&
+        props.secondEntityProps?.secondEntity !== '' && (
+          <div className='flex items-center gap-2'>
+            <p>Showing</p>
+            <input
+              type='number'
+              value={secondPageSize}
+              onClick={handleInputClick}
+              onChange={handleSecondPageSizeInputChange}
+              className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
+            />
+            <p>{props.secondEntityProps?.secondEntity.toLowerCase()}</p>
+          </div>
+        )}
+      <div className='flex items-center gap-4'>
+        <Link
+          href={(() => {
+            searchParams.set(pageName, '1')
 
-      if (searchParams.toString() !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
-    }
-  }
+            return `${pathname}?${searchParams.toString()}`
+          })()}
+        >
+          <First />
+        </Link>
+        <Link
+          href={(() => {
+            if (currentPage > 1) {
+              searchParams.set(pageName, (currentPage - 1).toString())
+            }
 
-  const goToPreviousPage = (): void => {
-    const currentPage = Number(searchParams.get(pageName))
+            return `${pathname}?${searchParams.toString()}`
+          })()}
+          className='flex items-center'
+        >
+          <Previous />
+          <p
+            className='text-azure-radiance-600 font-semibold cursor-pointer select-none'
+            style={{
+              color: totalPages <= 1 || currentPage === 1 ? 'gray' : ''
+            }}
+          >
+            Previous
+          </p>
+        </Link>
+        <input
+          type='number'
+          value={currentPage}
+          onClick={handleInputClick}
+          onChange={handleCurrentPageInputChange}
+          disabled={totalPages === 1}
+          className='text-center w-10 border-0 outline-0 p-2 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 bg-theming-white200 dark:bg-theming-dark200'
+        />
+        <Link
+          href={(() => {
+            if (currentPage < totalPages) {
+              searchParams.set(pageName, (currentPage + 1).toString())
+            }
+            return `${pathname}?${searchParams.toString()}`
+          })()}
+          className='text-azure-radiance-600 font-semibold cursor-pointer select-none flex items-center'
+          style={{
+            color: totalPages <= 1 || totalPages === currentPage ? 'gray' : ''
+          }}
+        >
+          Next
+          <Next />
+        </Link>
+        <Link
+          href={(() => {
+            searchParams.set(pageName, totalPages.toString())
 
-    if (currentPage > 1) {
-      searchParams.set(pageName, (currentPage - 1).toString())
-
-      if (searchParams.toString() !== undefined) {
-        router.replace(`${pathname}?${searchParams.toString()}`)
-      }
-    }
-  }
-
-  const uiProps: PaginationUIProps = {
-    unknownProperties: props.paginationProps.unknownProperties,
-    pageSizeName,
-    paginationProps: {
-      currentPageSize: Number(
-        searchParams.get(pageSizeName) ?? defaultPageSize
-      ),
-      currentPage: Number(searchParams.get(pageName) ?? 1),
-      currentSecondEntityPageSize: Number(
-        searchParams.get('secondpagesize') ?? 10
-      ),
-      totalEntitesCount,
-      totalPages,
-      goToFirstPage,
-      goToLastPage,
-      goToNextPage,
-      goToPreviousPage
-    },
-    entityProps: {
-      entityName,
-      handleCurrentPageInputChange,
-      handlePageSizeInputChange,
-      handleSecondPageSizeInputChange
-    },
-    secondEntityProps: props.secondEntityProps
-  }
-
-  return <PaginationUI {...uiProps} />
+            return `${pathname}?${searchParams.toString()}`
+          })()}
+        >
+          <Last />
+        </Link>
+      </div>
+    </div>
+  )
 }
 
 export default QueryParamsPagination

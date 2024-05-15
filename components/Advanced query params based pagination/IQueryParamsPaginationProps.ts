@@ -1,5 +1,3 @@
-import { type SecondEntityProps } from './IPaginationUIProps'
-
 export interface PaginationProps {
   totalPages: number
   entityName: string
@@ -13,4 +11,10 @@ export interface PaginationProps {
 export interface QueryParamsPaginationProps {
   paginationProps: PaginationProps
   secondEntityProps?: SecondEntityProps
+}
+
+export interface SecondEntityProps {
+  secondEntity?: string
+  secondEntityTotalCount?: number
+  secondEntityTotalPages?: number
 }

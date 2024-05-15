@@ -7,6 +7,8 @@ import { TableCellEmployees } from './TableCellEmployees'
 import { SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
 
+// TODO: Workload doesnt work
+
 const MyTeam: React.FC<{ searchParams: SearchParamsPageSize }> = async (
   props
 ) => {

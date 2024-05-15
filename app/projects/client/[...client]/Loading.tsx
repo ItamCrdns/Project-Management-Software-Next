@@ -11,6 +11,7 @@ const Loading: React.FC<{ skeletonCount: number; width?: number }> = (
       className='animate-pulse'
       style={{ width: widthValue + 'px' }}
     >
+      <div className='h-[72px] bg-gray-200 rounded-md dark:bg-gray-700 mb-4'></div>
       <div className='mt-8 h-[56px] bg-gray-200 rounded-md dark:bg-gray-700 mb-4'></div>
       {Array.from({ length: skeletonCount }).map((_, index) => {
         return (

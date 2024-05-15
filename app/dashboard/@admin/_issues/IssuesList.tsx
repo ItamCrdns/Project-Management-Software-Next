@@ -24,7 +24,7 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
   return (
     <section className='space-y-4 mb-8'>
       <EntityHeader name='issues' />
-      <div>
+      <div className='space-y-8'>
         <DataHeader
           dashboard
           pushSearchParams={false}
@@ -38,7 +38,10 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
         {Array.isArray(issues?.data) && (
           <ul className='space-y-4 items-stretch w-[1800px]'>
             {issues?.data.map((issue: Issue, index: number) => (
-              <li className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300' key={index}>
+              <li
+                className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
+                key={index}
+              >
                 <EachIssue issue={issue} showTaskName width='300px' />
               </li>
             ))}

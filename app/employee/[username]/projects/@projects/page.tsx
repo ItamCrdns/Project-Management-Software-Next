@@ -1,7 +1,7 @@
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import { Projects } from '../Projects'
 import { Suspense } from 'react'
-import { Loading } from '@/app/projects/client/[[...client]]/Loading'
+import { Loading } from '@/app/projects/client/[...client]/Loading'
 
 // Note: created this parallel route because having two fetches in the same component was causing a bug. Maybe Nextjs fault.
 const ProjectsParallel: React.FC<{

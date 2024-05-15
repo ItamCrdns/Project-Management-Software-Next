@@ -8,7 +8,7 @@ import DataHeader from '@/components/Data Header/DataHeader'
 import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
 
 const TaskId: React.FC<{
-  params: { projectId: string, taskId: string }
+  params: { projectId: string; taskId: string }
   issues: React.ReactNode
 }> = (props) => {
   const { projectId, taskId } = props.params
@@ -24,13 +24,15 @@ const TaskId: React.FC<{
         <EntityDivider text='Issues'>
           <Issue />
         </EntityDivider>
-        <DataHeader
-          dashboard={false}
-          width='300px'
-          pushSearchParams={false}
-          sortValues={issueSortValues}
-        />
-        <Suspense fallback={<LoadingIssues />}>{props.issues}</Suspense>
+        <div className='space-y-8'>
+          <DataHeader
+            dashboard={false}
+            width='300px'
+            pushSearchParams={false}
+            sortValues={issueSortValues}
+          />
+          <Suspense fallback={<LoadingIssues />}>{props.issues}</Suspense>
+        </div>
       </section>
     </section>
   )

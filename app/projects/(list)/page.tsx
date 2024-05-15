@@ -23,26 +23,28 @@ const ProjectsPage: React.FC<{ searchParams: SearchParamsPageSize }> = async (
       <section className='flex flex-col items-center justify-center'>
         <div className='flex flex-col'>
           <ProjectsHint config={configCookie} />
-          <DataHeader
-            dashboard={false}
-            width='300px'
-            entity='projectsfromcompany'
-            pushSearchParams={false}
-            sortValues={projectSortValues}
-          />
-          <Suspense
-            key={key}
-            fallback={
-              <LoadingProjectsSkeleton
-                clientsSkeletonsCount={Number(props.searchParams.pagesize)}
-                projectsSkeletonsCount={Number(
-                  props.searchParams.secondpagesize
-                )}
-              />
-            }
-          >
-            <Projects searchParams={props.searchParams} />
-          </Suspense>
+          <div className='space-y-8'>
+            <DataHeader
+              dashboard={false}
+              width='300px'
+              entity='projectsfromcompany'
+              pushSearchParams={false}
+              sortValues={projectSortValues}
+            />
+            <Suspense
+              key={key}
+              fallback={
+                <LoadingProjectsSkeleton
+                  clientsSkeletonsCount={Number(props.searchParams.pagesize)}
+                  projectsSkeletonsCount={Number(
+                    props.searchParams.secondpagesize
+                  )}
+                />
+              }
+            >
+              <Projects searchParams={props.searchParams} />
+            </Suspense>
+          </div>
         </div>
       </section>
     </main>

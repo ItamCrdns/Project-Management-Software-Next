@@ -24,7 +24,7 @@ const TasksList: React.FC<TasksProps> = (props) => {
   return (
     <section className='space-y-4 mb-8'>
       <EntityHeader name='tasks' />
-      <div>
+      <div className='space-y-8'>
         <DataHeader
           dashboard
           pushSearchParams={false}

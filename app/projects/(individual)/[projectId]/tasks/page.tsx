@@ -4,46 +4,30 @@ import { Project } from './Project'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { Tasks } from './Tasks'
 import { Suspense } from 'react'
-import { Loading } from '@/app/projects/client/[[...client]]/Loading' //* Theyre pretty similar
+import { Loading } from '@/app/projects/client/[...client]/Loading' //* Theyre pretty similar
 import LoadingProjectUISkeleton from '@/components/UI/ProjectUI/LoadingProjectUISkeleton'
-import Link from 'next/link'
-import { ArrowLeftCircle } from '@/svg/ArrowLeftCircle'
 
-interface ProjectTasksProps {
+const ProjectTasks: React.FC<{
   params: { projectId: string }
   searchParams: SearchParamsPageSize
-}
-
-const ProjectTasks: React.FC<ProjectTasksProps> = (props) => {
+}> = (props) => {
   const projectId = props.params.projectId
 
   const key = new URLSearchParams(Object.entries(props.searchParams)).toString()
 
   return (
-    <section className='flex justify-center'>
-      <div>
-        <div className='flex items-center justify-between gap-8 my-8 mx-0'>
-          <Link
-            className='flex gap-2 font-semibold text-theming-dark100 dark:text-theming-white100 cursor-pointer'
-            href={`/projects/${projectId}`}
-          >
-            <ArrowLeftCircle />
-            Return to project
-          </Link>
-          <h1 className='font-semibold'>Showing all project tasks</h1>
-        </div>
-        <div className='flex justify-end'>
+    <section className='flex flex-col justify-center gap-4 p-8'>
+      <div className='flex items-start justify-center gap-8'>
+        <Suspense fallback={<LoadingProjectUISkeleton />}>
+          <Project projectId={projectId} />
+        </Suspense>
+        <div className='space-y-8'>
           <DataHeader
             dashboard={false}
             width='300px'
             sortValues={taskSortValues}
             pushSearchParams
           />
-        </div>
-        <div className='flex items-start gap-8'>
-          <Suspense fallback={<LoadingProjectUISkeleton />}>
-            <Project projectId={projectId} />
-          </Suspense>
           <Suspense
             key={key}
             fallback={

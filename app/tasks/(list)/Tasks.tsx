@@ -4,8 +4,10 @@ import { type Task } from '@/interfaces/task'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type TasksProps } from './TaskProps'
 import generateQueryParams from '@/app/projects/client/queryParams'
-import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
-import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
+import {
+  SecondEntityProps,
+  type PaginationProps
+} from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import { Button } from '@/components/Button/Button'
 
 const Tasks: React.FC<TasksProps> = async (props) => {
@@ -83,9 +85,9 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                     <EachTask task={task} showProjectName={false} />
                   </li>
                 ))}
-                <p className='self-end text-xs'>
-                  Total <span className='font-bold'>{task.projectName}</span>{' '}
-                  tasks: {task.count}
+                <p className='self-end'>
+                  {task.count} total tasks for{' '}
+                  <span className='font-bold'>{task.projectName}</span>
                 </p>
               </ul>
             </li>

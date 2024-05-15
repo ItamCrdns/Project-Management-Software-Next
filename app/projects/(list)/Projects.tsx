@@ -7,8 +7,10 @@ import {
 import { Button } from '@/components/Button/Button'
 import { type Project } from '@/interfaces/project'
 import EachProject from './EachProject'
-import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
-import { type SecondEntityProps } from '@/components/Advanced query params based pagination/IPaginationUIProps'
+import {
+  SecondEntityProps,
+  type PaginationProps
+} from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 
 const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (
@@ -85,8 +87,8 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (
                   </li>
                 ))}
                 <p className='self-end'>
-                  Total <span className='font-bold'>{project.companyName}</span>{' '}
-                  projects: {project.count}
+                  {project.count} total projects for{' '}
+                  <span className='font-bold'>{project.companyName}</span>
                 </p>
               </ul>
             </li>
