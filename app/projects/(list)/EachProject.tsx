@@ -3,7 +3,7 @@ import { type Entity } from '@/components/Generic Entity Renderer/EntityRenderer
 import { type EachProjectProps } from '@/interfaces/props/EachProjectProps'
 
 const EachProject: React.FunctionComponent<EachProjectProps> = (props) => {
-  const { project, showCompanyName } = props
+  const { project, parentEntityId, showCompanyName } = props
 
   // * Map the project to fit the Entity interface
   const projectAsEntity: Entity = {
@@ -20,7 +20,7 @@ const EachProject: React.FunctionComponent<EachProjectProps> = (props) => {
     <EntityRenderer
       entity={projectAsEntity}
       showParentEntity={showCompanyName}
-      entityBasePath='projects'
+      entityBasePath={`clients/${parentEntityId}/projects`}
       parentBasePath='company'
       width='300px'
       maxWidth='300px'

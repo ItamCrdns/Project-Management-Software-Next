@@ -1,9 +1,9 @@
 import getTasks, { type GetTasksProps } from '@/api-calls/getTasks'
-import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
+import EachTask from '@/app/clients/[clientId]/projects/[projectId]/(projectId layout)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type TasksProps } from './TaskProps'
-import generateQueryParams from '@/app/projects/client/queryParams'
+import generateQueryParams from '@/utility/queryParams'
 import {
   SecondEntityProps,
   type PaginationProps
@@ -82,7 +82,11 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                     className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
                     key={index}
                   >
-                    <EachTask task={task} showProjectName={false} />
+                    <EachTask
+                      task={task}
+                      showProjectName={false}
+                      entityBasePath='' // TODO: Will probably remove tasks overview
+                    />
                   </li>
                 ))}
                 <p className='self-end'>

@@ -13,10 +13,11 @@ export interface SearchParamsPageSize extends SearchParams {
 
 export interface ClientNameProps {
   params: {
-    client: string[]
+    clientId: string
   }
   ongoingProjects: React.ReactNode
   finishedProjects: React.ReactNode
   overdueProjects: React.ReactNode
   notStartedProjects: React.ReactNode
+  children: React.ReactNode
 }

@@ -19,4 +19,5 @@ export interface Project {
   tasksCount: number
   team: Employee[]
   priority: number
+  clientId: number
 }

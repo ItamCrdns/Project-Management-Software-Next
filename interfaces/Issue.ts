@@ -1,4 +1,5 @@
 import { type Employee } from './employee'
+import { Project } from './project'
 import { type Task } from './task'
 
 export interface Issue {
@@ -15,4 +16,5 @@ export interface Issue {
   task: Task
   employees: Employee[]
   employeeCount: number
+  project: Project
 }

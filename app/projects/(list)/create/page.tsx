@@ -103,15 +103,13 @@ const NewProjectModal: React.FC<{
       />
       <section className='p-8 rounded-md shadow-md flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
         <ReturnBadge callback={handleReturn} />
-        {readyForNextPage
-          ? (
+        {readyForNextPage ? (
           <AddDescription
             goBack={() => {
               setReadyForNextPage(false)
             }}
           />
-            )
-          : (
+        ) : (
           <>
             <h1 className='text-2xl mb-4'>Create a new project</h1>
             <form ref={formRef} onSubmit={handleSubmit}>
@@ -161,7 +159,7 @@ const NewProjectModal: React.FC<{
               disabledFunc={handleDisabledClick}
             />
           </>
-            )}
+        )}
       </section>
     </section>
   )

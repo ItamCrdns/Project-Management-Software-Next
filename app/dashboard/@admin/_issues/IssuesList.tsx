@@ -42,7 +42,12 @@ const IssuesList: React.FC<IssuesProps> = (props) => {
                 className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
                 key={index}
               >
-                <EachIssue issue={issue} showTaskName width='300px' />
+                <EachIssue
+                  issue={issue}
+                  showTaskName
+                  width='300px'
+                  entityBasePath={`clients/${issue.task.clientId}/projects/${issue.task.projectId}/tasks/${issue.task.taskId}/issues`}
+                />
               </li>
             ))}
           </ul>

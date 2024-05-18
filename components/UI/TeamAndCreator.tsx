@@ -1,4 +1,4 @@
-import ProjectCreator from '@/app/projects/(individual)/[projectId]/(projectId)/ProjectCreator'
+import ProjectCreator from '@/app/clients/[clientId]/projects/[projectId]/(projectId layout)/ProjectCreator'
 import { Creator } from '@/svg/Creator'
 import { Users } from '@/svg/Users'
 import React from 'react'
@@ -43,9 +43,8 @@ const TeamAndCreator: React.FC<{
             <Users />
           </div>
           <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-4 grid grid-cols-2 gap-4 place-items-center justify-items-center justify-center place-content-center'>
-            {team.length > 0
-              ? (
-                  team.map((employee: Employee, index: number) => (
+            {team.length > 0 ? (
+              team.map((employee: Employee, index: number) => (
                 <li key={index} className='relative'>
                   <IndividualEmployee
                     employee={employee}
@@ -55,23 +54,20 @@ const TeamAndCreator: React.FC<{
                     position={{ left: '1rem' }}
                   />
                 </li>
-                  ))
-                )
-              : (
+              ))
+            ) : (
               <p className='text-center font-semibold text-sm'>
                 No employees in this team
               </p>
-                )}
+            )}
           </ul>
           {team.length > 0 && (
             <p className='text-center font-semibold text-sm'>
-              {teamHref !== '' && teamHref !== undefined
-                ? (
+              {teamHref !== '' && teamHref !== undefined ? (
                 <Link href={teamHref}>{teamCount} employees in this team</Link>
-                  )
-                : (
+              ) : (
                 `${teamCount} employees in this team`
-                  )}
+              )}
             </p>
           )}
         </div>

@@ -12,6 +12,7 @@ import { EntityNotFound } from '../EntityNotFound'
 const ProjectUI: React.FC<ProjectUIProps> = (props) => {
   const {
     project,
+    clientId,
     showButtons,
     employeeCountHref,
     showGeneralInfo,
@@ -74,7 +75,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
                     />
                     <p className='select-none'>&middot;</p>
                   </>
-              )}
+                )}
               <BadgeComponent
                 content={priority.priorityText}
                 color={priority.color}
@@ -102,7 +103,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           {project?.isOwner === true && (
             <Button
               text='Create new task'
-              href={`/projects/${project?.entity.projectId}/tasks/create`}
+              href={`/clients/${clientId}/projects/${project?.entity.projectId}/tasks/create`}
             />
           )}
           {project?.isParticipant === true && (

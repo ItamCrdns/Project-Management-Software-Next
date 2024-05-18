@@ -4,4 +4,5 @@ export interface EachIssueProps {
   issue: Issue
   showTaskName: boolean
   width?: string
+  entityBasePath: string
 }

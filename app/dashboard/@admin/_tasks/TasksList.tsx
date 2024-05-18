@@ -1,5 +1,4 @@
 import EntityHeader from '../EntityHeader'
-import EachTask from '@/app/projects/(individual)/[projectId]/(projectId)/@tasks/EachTask'
 import { type Task } from '@/interfaces/task'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import {
@@ -9,6 +8,7 @@ import {
 import { taskSortValues } from './sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
 import LoadingSkeleton from '../_projects/LoadingSkeleton'
+import EachTask from '@/app/clients/[clientId]/projects/[projectId]/(projectId layout)/@tasks/EachTask'
 
 interface TasksProps {
   isLoading: boolean
@@ -42,7 +42,12 @@ const TasksList: React.FC<TasksProps> = (props) => {
                 className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
                 key={index}
               >
-                <EachTask task={task} showProjectName width='300px' />
+                <EachTask
+                  task={task}
+                  showProjectName
+                  width='300px'
+                  entityBasePath={`clients/${task.project.clientId}/projects/${task.project.projectId}/tasks`}
+                />
               </li>
             ))}
           </ul>

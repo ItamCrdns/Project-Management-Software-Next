@@ -1,11 +1,10 @@
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
-import generateQueryParams from '../client/queryParams'
+import generateQueryParams from '../../../utility/queryParams'
 import {
   getProjectsGroupedByCompany,
   type GetProjectsProps
 } from '@/api-calls/getProjects'
 import { Button } from '@/components/Button/Button'
-import { type Project } from '@/interfaces/project'
 import EachProject from './EachProject'
 import {
   SecondEntityProps,
@@ -73,17 +72,21 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (
                   )}
                   <Button
                     text={`More projects from ${project.companyName}`}
-                    href={`/projects/client/${project.companyId}/${project.companyName}`}
+                    href={`/clients/${project.companyId}/projects`}
                   />
                 </div>
               </div>
               <ul className='flex flex-col gap-4 items-stretch'>
-                {project.projects.map((project: Project, index: number) => (
+                {project.projects.map((project) => (
                   <li
                     className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
-                    key={index}
+                    key={project.projectId}
                   >
-                    <EachProject project={project} showCompanyName={false} />
+                    <EachProject
+                      project={project}
+                      showCompanyName={false}
+                      parentEntityId={project.company.companyId.toString()}
+                    />
                   </li>
                 ))}
                 <p className='self-end'>

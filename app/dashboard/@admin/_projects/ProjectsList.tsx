@@ -42,7 +42,11 @@ const ProjectsList: React.FC<ProjectsProps> = (props) => {
                 className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
                 key={index}
               >
-                <EachProject project={project} showCompanyName />
+                <EachProject
+                  project={project}
+                  showCompanyName
+                  parentEntityId={project.company.companyId.toString()}
+                />
               </li>
             ))}
           </ul>

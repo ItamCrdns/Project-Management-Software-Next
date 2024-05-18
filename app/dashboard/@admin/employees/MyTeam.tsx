@@ -5,7 +5,7 @@ import { DateBadge } from '@/components/UI/ProjectUI/Badges/DateBadge'
 import { Table, TableBody, TableCell, TableRow } from '@tremor/react'
 import { TableCellEmployees } from './TableCellEmployees'
 import { SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
-import generateQueryParams from '@/app/projects/client/queryParams'
+import generateQueryParams from '@/utility/queryParams'
 
 // TODO: Workload doesnt work
 

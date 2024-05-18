@@ -1,9 +1,8 @@
 import getUserProjects from '@/api-calls/getUserProjects'
 import EachProject from '@/app/projects/(list)/EachProject'
-import generateQueryParams from '@/app/projects/client/queryParams'
+import generateQueryParams from '@/utility/queryParams'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
-import { type Project } from '@/interfaces/project'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 
 const Projects = async (props: {
@@ -35,12 +34,16 @@ const Projects = async (props: {
     <>
       <QueryParamsPagination paginationProps={paginationProps} />
       <ul className='space-y-4 items-stretch'>
-        {projects.map((project: Project, index: number) => (
+        {projects.map((project) => (
           <li
             className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
-            key={index}
+            key={project.projectId}
           >
-            <EachProject project={project} showCompanyName />
+            <EachProject
+              project={project}
+              showCompanyName
+              parentEntityId={project.company.companyId.toString()}
+            />
           </li>
         ))}
       </ul>

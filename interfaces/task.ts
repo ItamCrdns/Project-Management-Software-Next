@@ -17,4 +17,5 @@ export interface Task {
   images: Images
   employees: Employee[]
   employeeCount: number
+  clientId: number
 }
