@@ -28,7 +28,7 @@ const IssueUI: React.FC<IssueUIProps> = (props) => {
             <div className='flex gap-4 items-center'>
               <Link
                 className='font-bold text-theming-dark100 dark:text-theming-white100'
-                href={`/projects/${issue?.entity.task.projectId}/tasks/${issue?.entity.task.taskId}/issues/${issue?.entity.issueId}`}
+                href={`/clients/${issue?.entity.task.clientId}/projects/${issue?.entity.task.projectId}/tasks/${issue?.entity.task.taskId}/issues/${issue?.entity.issueId}`}
               >
                 {issue?.entity.name}
               </Link>
@@ -48,7 +48,7 @@ const IssueUI: React.FC<IssueUIProps> = (props) => {
                       timeZone: 'UTC'
                     })}
                   />
-              )}
+                )}
             </div>
             <div className='p-0 -mt-2 w-full'>
               <Dates

@@ -19,6 +19,7 @@ interface Response {
   count: number
   pages: number
   latestTaskCreation: string
+  clientId: number
 }
 
 const getTasks = async (

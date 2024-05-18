@@ -25,7 +25,7 @@ const IssuesParallel: React.FC<{
         <NotFound
           text='No issues found'
           buttonText='Create an issue'
-          href={`/projects/${projectId}/tasks/${taskId}/issues/create`}
+          href={`/clients/${clientId}/projects/${projectId}/tasks/${taskId}/issues/create`}
         />
       )
     } else {
@@ -34,15 +34,15 @@ const IssuesParallel: React.FC<{
   }
 
   const issues = data?.entity.data
-  // projects/${issue.task.projectId}/tasks/${issue.task.taskId}/issues
+
   if (Array.isArray(issues) && issues.length > 0) {
     return (
       <div className='space-y-4 flex flex-col'>
         <ul className='space-y-4 items-stretch'>
-          {issues.map((issue, index) => (
+          {issues.map((issue) => (
             <li
+              key={issue.issueId}
               className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
-              key={index}
             >
               <EachIssue
                 issue={issue}

@@ -1,6 +1,10 @@
 import { Button } from '@/components/Button/Button'
 
-const NoTasks: React.FC<{ isOwner: boolean; projectId: number }> = (props) => {
+const NoTasks: React.FC<{
+  isOwner: boolean
+  clientId: number
+  projectId: number
+}> = (props) => {
   return (
     <div className='flex flex-col items-center gap-4 p-8 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
       <div>
@@ -16,7 +20,7 @@ const NoTasks: React.FC<{ isOwner: boolean; projectId: number }> = (props) => {
       {props.isOwner && (
         <Button
           text='Create new task'
-          href={`/projects/${props.projectId}/tasks/create`}
+          href={`/clients/${props.clientId}/projects/${props.projectId}/tasks/create`}
         />
       )}
     </div>

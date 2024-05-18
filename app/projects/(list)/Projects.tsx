@@ -55,8 +55,8 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (
       />
       {Array.isArray(projects) && projects.length > 0 && (
         <ul>
-          {projects.map((project, index) => (
-            <li key={index}>
+          {projects.map((project) => (
+            <li key={project.companyId}>
               <div className='flex items-center justify-between'>
                 <h1 className='m-0 my-6 text-xl font-semibold'>
                   {project.companyName}
@@ -65,7 +65,7 @@ const Projects: React.FC<{ searchParams: SearchParamsPageSize }> = async (
                   {/* Might be cool to check if the user can atually create a project. Either if its a supervisor, or emplyoee of the company, or both. */}
                   <Button
                     text='Create a new project'
-                    href={`/projects/create?clientId=${project.companyId}`}
+                    href={`/clients/${project.companyId}/projects/create?clientId=${project.companyId}`}
                   />
                   {project.isCurrentUserInTeam && ( // TODO: Adding an employee to work in a project should add them inmediately to the team.
                     <Button text='Your assigned projects' href='' />

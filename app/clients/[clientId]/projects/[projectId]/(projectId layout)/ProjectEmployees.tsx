@@ -11,6 +11,8 @@ interface ProjectEmployeeProps {
 const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
   const { employees, projectId, employeeCount } = props
 
+  // This is not being used
+
   return (
     <section className='flex items-center rounded-md flex-col text-sm p-8 shadow-md gap-4 bg-theming-white100 dark:bg-theming-dark300'>
       <div className='flex items-center gap-8 justify-between border-b-2 border-azure-radiance-200 pb-2'>
@@ -32,9 +34,9 @@ const ProjectEmployees: React.FC<ProjectEmployeeProps> = (props) => {
         <h3 className='m-0'>List</h3>
       </div>
       <ul className='flex flex-col gap-4'>
-        {employees.map((employee: Employee, index: number) => (
+        {employees.map((employee) => (
           <li
-            key={index}
+            key={employee.employeeId}
             className='relative flex items-center justify-center flex-row gap-4'
           >
             <IndividualEmployee

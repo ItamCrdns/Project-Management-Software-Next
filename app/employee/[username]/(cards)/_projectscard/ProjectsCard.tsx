@@ -1,5 +1,4 @@
 import getUserProjectsShowcase from '@/api-calls/getUserProjectsShowcase'
-import { type Project } from '@/interfaces/project'
 import { Project as ProjectIcon } from '@/svg/Project'
 import Link from 'next/link'
 
@@ -19,15 +18,17 @@ const ProjectsCard: React.FC<{
         <ProjectIcon />
         <h1 className='text-2xl m-0'>Projects</h1>
       </div>
-      {Array.isArray(projects) && projects.length > 0
-        ? (
+      {Array.isArray(projects) && projects.length > 0 ? (
         <>
           <ul className='px-4 grid grid-cols-2 gap-4'>
-            {projects?.map((project: Project) => (
-              <li key={project.projectId} className='p-2 bg-theming-white200 dark:bg-theming-dark200 rounded-md text-center'>
+            {projects?.map((project) => (
+              <li
+                key={project.projectId}
+                className='p-2 bg-theming-white200 dark:bg-theming-dark200 rounded-md text-center'
+              >
                 <Link
                   className='font-bold text-theming-dark100 dark:text-theming-white100 px-4'
-                  href={`/projects/${project.projectId}`}
+                  href={`/clients/${project.clientId}/projects/${project.projectId}`}
                 >
                   {project.name.slice(0, 24)}...
                 </Link>
@@ -41,10 +42,9 @@ const ProjectsCard: React.FC<{
             See all {projectsCount} projects
           </Link>
         </>
-          )
-        : (
+      ) : (
         <p>This employee has no assigned projects</p>
-          )}
+      )}
     </section>
   )
 }

@@ -76,7 +76,7 @@ const NewProjectModal: React.FC<{
     if (newProject.name !== '' || newProject.companyId !== 0) {
       setShowUnsavedChanges(true)
     } else {
-      router.push('/projects/')
+      router.push(`/clients/${props.searchParams.clientId}/projects`)
       setShowUnsavedChanges(false)
     }
   }

@@ -61,7 +61,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                   {task.isCurrentUserOwner && (
                     <Button
                       text='Create a new task'
-                      href={`projects/${task.projectId}/tasks/create`}
+                      href={`/clients/${task.clientId}/projects/${task.projectId}/tasks/create`}
                     />
                   )}
                   {task.isCurrentUserInTeam && (
@@ -72,7 +72,7 @@ const Tasks: React.FC<TasksProps> = async (props) => {
                   )}
                   <Button
                     text={`More tasks from ${task.projectName}`}
-                    href={`projects/${task.projectId}/tasks`}
+                    href={`/clients/${task.clientId}/projects/${task.projectId}/tasks`}
                   />
                 </div>
               </div>

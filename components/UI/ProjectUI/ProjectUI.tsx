@@ -42,7 +42,7 @@ const ProjectUI: React.FC<ProjectUIProps> = (props) => {
           <div className='flex flex-col items-center p-4 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
             <Link
               className='font-bold text-theming-dark100 dark:text-theming-white100'
-              href={`/projects/${project?.entity.projectId}`}
+              href={`/clients/${clientId}/projects/${project?.entity.projectId}`}
             >
               {project?.entity.name}
             </Link>

@@ -28,7 +28,7 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
             <div className='flex gap-4 items-center'>
               <Link
                 className='font-bold text-theming-dark100 dark:text-theming-white100'
-                href={`/projects/${task?.entity.projectId}/tasks/${task?.entity.taskId}`}
+                href={`/clients/${task?.entity.project.clientId}/projects/${task?.entity.project.projectId}/tasks/${task?.entity.taskId}`}
               >
                 {task?.entity.name}
               </Link>
@@ -48,7 +48,7 @@ const TaskUI: React.FC<TaskUIProps> = (props) => {
                       timeZone: 'UTC'
                     })}
                   />
-              )}
+                )}
             </div>
             <Dates
               created={task?.entity.created}

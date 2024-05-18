@@ -8,9 +8,12 @@ import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { useState } from 'react'
 import { type ApiResponse } from '@/interfaces/apiResponse'
 import { CreatedSuccessfullyDialog } from '@/components/UI/Dialog/CreatedSuccessfullyDialog'
+import { useParams } from 'next/navigation'
 
 const Resume: React.FC<{ return: () => void }> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
+
+  const params = useParams<{ clientId: string }>()
 
   const [response, setResponse] = useState<ApiResponse<
     OperationResult<number>
@@ -24,7 +27,7 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
           setResponse(null)
         }}
         entity='task'
-        href={`projects/${newTask.projectId}/tasks`}
+        href={`/clients/${params.clientId}/projects/${newTask.projectId}/tasks`}
       />
       <section className='flex items-center flex-col justify-center'>
         <h1 className='text-2xl text-center'>Your new task overview</h1>

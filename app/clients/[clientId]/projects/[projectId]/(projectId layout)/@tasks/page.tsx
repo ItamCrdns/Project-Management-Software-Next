@@ -29,7 +29,7 @@ const TasksParallel: React.FC<{
         <NotFound
           text='No tasks found'
           buttonText='Create new task'
-          href={`/projects/${projectId}/tasks/create`}
+          href={`/clients/${clientId}/projects/${projectId}/tasks/create`}
         />
       )
     } else {
@@ -52,7 +52,7 @@ const TasksParallel: React.FC<{
               <EachTask
                 task={task}
                 showProjectName={false}
-                entityBasePath={`clients/${props.params.clientId}/projects/${props.params.projectId}/tasks`}
+                entityBasePath={`clients/${clientId}/projects/${props.params.projectId}/tasks`}
               />
             </li>
           ))}

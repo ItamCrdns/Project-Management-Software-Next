@@ -32,7 +32,7 @@ const Issues: React.FC<{
   if (noIssues) {
     return (
       <div className='w-[1200px] text-center'>
-        <NoIssues taskId={taskId} isOwner={isTaskCreator} />
+        <NoIssues taskId={taskId} isOwner={isTaskCreator} clientId={clientId} />
       </div>
     )
   }

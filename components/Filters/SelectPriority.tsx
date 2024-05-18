@@ -17,7 +17,9 @@ const SelectPriority: React.FC<SelectPriorityProps & ISharedProps> = (
 
   const handlePrioritySelect = (priority: Option | Option[] | null): void => {
     if (!Array.isArray(priority) && priority !== null) {
-      if (priority.value === 0) return
+      if (priority.value === 0) {
+        return
+      }
 
       props.onPrioritySelect(priority)
       searchParams.set('priority', priority.value.toString())

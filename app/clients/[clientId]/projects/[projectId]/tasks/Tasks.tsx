@@ -1,4 +1,3 @@
-import { type Task } from '@/interfaces/task'
 import EachTask from '../(projectId layout)/@tasks/EachTask'
 import QueryParamsPagination from '@/components/Advanced query params based pagination/QueryParamsPagination'
 import { type PaginationProps } from '@/components/Advanced query params based pagination/IQueryParamsPaginationProps'
@@ -37,6 +36,7 @@ const Tasks: React.FC<{
         <NoTasks
           isOwner={data?.isProjectOwner ?? false}
           projectId={Number(projectId)}
+          clientId={Number(clientId)}
         />
       </div>
     )
@@ -49,10 +49,10 @@ const Tasks: React.FC<{
       </div>
       <ul className='space-y-4 items-stretch'>
         {tasks.length > 0 &&
-          tasks.map((task: Task, index: number) => (
+          tasks.map((task) => (
             <li
               className='relative flex items-center justify-center flex-row rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'
-              key={index}
+              key={task.taskId}
             >
               <EachTask
                 task={task}
