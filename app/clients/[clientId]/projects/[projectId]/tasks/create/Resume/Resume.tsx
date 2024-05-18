@@ -27,7 +27,7 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
           setResponse(null)
         }}
         entity='task'
-        href={`/clients/${params.clientId}/projects/${newTask.projectId}/tasks`}
+        href={`clients/${params.clientId}/projects/${newTask.projectId}/tasks`}
       />
       <section className='flex items-center flex-col justify-center'>
         <h1 className='text-2xl text-center'>Your new task overview</h1>

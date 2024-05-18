@@ -1,9 +1,9 @@
 import CustomSelect from '@/components/select/select'
 import { useState } from 'react'
-import { priorityOptions } from './priorityOptions'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { ClearSelect } from '@/components/select/Clear'
 import { optionInitialState } from '@/interfaces/props/CustomSelectProps'
+import { priorityOptions } from './priorityOptions'
 
 const PrioritySelect: React.FC<{
   priority: string | null

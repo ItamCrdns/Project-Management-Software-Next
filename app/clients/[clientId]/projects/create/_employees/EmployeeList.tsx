@@ -46,8 +46,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                 }}
               >
                 <div className='flex items-center gap-4'>
-                  {employee.profilePicture !== null
-                    ? (
+                  {employee.profilePicture !== null ? (
                     <Image
                       src={employee.profilePicture}
                       alt={employee.username}
@@ -55,19 +54,16 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                       height={40}
                       className='rounded-full'
                     />
-                      )
-                    : (
+                  ) : (
                     <NoPicture width='50px' height='50px' />
-                      )}
+                  )}
                   <p className='text-sm w-28'>{employee.username}</p>
                 </div>
-                {selectedEmployees !== null &&
-                selectedEmployees.includes(
+                {selectedEmployees?.includes(
                   selectedEmployees.find(
                     (x) => x.username === employee.username
                   ) ?? employee
-                )
-                  ? (
+                ) ? (
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
@@ -82,8 +78,7 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                       d='m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
                     />
                   </svg>
-                    )
-                  : (
+                ) : (
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
@@ -98,9 +93,9 @@ const EmployeeList: React.FC<EmployeeListProps> = (props) => {
                       d='M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
                     />
                   </svg>
-                    )}
+                )}
               </li>
-          ))
+            ))
           : !props.isLoading && ( // * Avoids showing the message when loading
               <p className='w-44 text-sm text-center p-4'>
                 No employees match your search criteria.

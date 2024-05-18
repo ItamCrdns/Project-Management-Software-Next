@@ -5,8 +5,8 @@ import { useSubmitRef } from '@/utility/formSubmitRef'
 import { InputAndCharacterCount } from '@/components/charactercount/CharacterCount'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
-import { PrioritySelect } from './PrioritySelect'
 import { useWarnings } from '@/hooks/useWarnings'
+import { PrioritySelect } from './PrioritySelect'
 
 const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -49,15 +49,13 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
 
   return (
     <>
-      {readyForNextPage
-        ? (
+      {readyForNextPage ? (
         <AddEmployeesToProject
           goBack={() => {
             setReadyForNextPage(false)
           }}
         />
-          )
-        : (
+      ) : (
         <>
           <h1 className='text-2xl mb-4'>Now, add a description</h1>
           <form ref={formRef} onSubmit={handleSubmit}>
@@ -98,7 +96,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
             <Button text='Go back' func={props.goBack} />
           </div>
         </>
-          )}
+      )}
     </>
   )
 }

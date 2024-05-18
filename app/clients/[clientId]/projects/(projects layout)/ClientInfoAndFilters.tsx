@@ -5,7 +5,9 @@ import getEmployeeTier from '@/api-calls/getEmployeeTier'
 import CreateNewProjectButton from './CreateNewProjectButton'
 
 const ClientInfoAndFilters: React.FC<{ clientId: string }> = async (props) => {
-  const { data } = await getCompany(props.clientId)
+  const { clientId } = props
+
+  const { data } = await getCompany(clientId)
 
   const { data: employeeTier } = await getEmployeeTier()
 
@@ -15,7 +17,7 @@ const ClientInfoAndFilters: React.FC<{ clientId: string }> = async (props) => {
         <div className='flex flex-col items-center p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
           <Link
             className='font-bold text-theming-dark100 dark:text-theming-white100'
-            href={`/clients/${props.clientId}`}
+            href={`/clients/${clientId}`}
           >
             {data?.name}
           </Link>
@@ -25,8 +27,8 @@ const ClientInfoAndFilters: React.FC<{ clientId: string }> = async (props) => {
             <p className='text-xs'>{data?.contactPhoneNumber}</p>
           </div>
         </div>
-        <CreateNewProjectButton />
-        <Filters employeeTier={employeeTier} clientId={props.clientId} />
+        <CreateNewProjectButton clientId={clientId} />
+        <Filters employeeTier={employeeTier} clientId={clientId} />
       </div>
     </aside>
   )

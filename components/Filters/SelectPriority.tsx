@@ -2,7 +2,7 @@ import CustomSelect from '../select/select'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
 import setEntityPriority from '../Generic Entity Renderer/EntityPriority'
 import { type ISharedProps } from './SelectAuthor.interface'
-import { priorityOptions } from '@/app/projects/(list)/create/priorityOptions'
+import { priorityOptions } from '@/app/clients/[clientId]/projects/create/priorityOptions'
 import { useGetSearchParams } from './useGetSearchParams'
 
 interface SelectPriorityProps {

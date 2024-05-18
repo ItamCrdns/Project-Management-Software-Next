@@ -5,9 +5,9 @@ import { Badge, Divider } from '@tremor/react'
 import { useState } from 'react'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { debounce } from '@/utility/debouce'
-import { callCreateProjectServerActions } from './callCreateProjectServerActions'
 import { type ApiResponse } from '@/interfaces/apiResponse'
 import { CreatedSuccessfullyDialog } from '@/components/UI/Dialog/CreatedSuccessfullyDialog'
+import { callCreateProjectServerActions } from './callCreateProjectServerActions'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -30,7 +30,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
           setResponse(null)
         }}
         entity='project'
-        href='projects'
+        href={`clients/${newProject.companyId}/projects`}
       />
       <section className='w-500 flex items-center flex-col justify-center'>
         <h1 className='text-2xl mb-4'>Your new project overview</h1>

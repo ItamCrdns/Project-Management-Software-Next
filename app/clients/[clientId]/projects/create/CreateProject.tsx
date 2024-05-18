@@ -1,26 +1,23 @@
 'use client'
-import { useRef, useState } from 'react'
-import { Button } from '@/components/Button/Button'
-import { useSubmitRef } from '@/utility/formSubmitRef'
-import AddDescription from './AddDescription'
-import { useRouter } from 'next/navigation'
-import UnsavedChanges from './UnsavedChanges'
-import { ExpectedDeliveryDateSelector } from './ExpectedDeliveryDateSelector'
-import CreateNewClient from './CreateNewClient'
-import { ClientSelection } from './_Client Select/ClientSelection'
+import { useWarnings } from '@/hooks/useWarnings'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import { StartedWorkingSwitch } from './StartedWorkingSwitch'
-import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
-import { useWarnings } from '@/hooks/useWarnings'
+import { useSubmitRef } from '@/utility/formSubmitRef'
+import React, { useRef, useState } from 'react'
+import UnsavedChanges from './UnsavedChanges'
+import AddDescription from './AddDescription'
 import { TextInput } from '@tremor/react'
 import { debounce } from '@/utility/debouce'
+import { ExpectedDeliveryDateSelector } from './ExpectedDeliveryDateSelector'
+import { StartedWorkingSwitch } from './StartedWorkingSwitch'
+import { Button } from '@/components/Button/Button'
 
-const NewProjectModal: React.FC<{
-  searchParams: { clientId: string }
+const CreateProjectModal: React.FC<{
+  clientId: number
+  clientName: string
 }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
-  const { setName } = useNewProjectActions()
+  const { setName, setCompany } = useNewProjectActions()
 
   const [readyForNextPage, setReadyForNextPage] = useState<boolean>(false)
 
@@ -54,32 +51,15 @@ const NewProjectModal: React.FC<{
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
 
-    if (
-      newProject.name !== '' &&
-      newProject.expectedDeliveryDate !== '' &&
-      clientProvided
-    ) {
+    if (newProject.name !== '' && newProject.expectedDeliveryDate !== '') {
+      setCompany(props.clientId, props.clientName)
       setReadyForNextPage(true)
     }
   }
 
   const handleClick = useSubmitRef(formRef)
 
-  const clientProvided =
-    newProject.clientName !== '' || newProject.companyId !== 0
-
   const [showUnsavedChanges, setShowUnsavedChanges] = useState<boolean>(false)
-
-  const router = useRouter()
-
-  const handleReturn = (): void => {
-    if (newProject.name !== '' || newProject.companyId !== 0) {
-      setShowUnsavedChanges(true)
-    } else {
-      router.push(`/clients/${props.searchParams.clientId}/projects`)
-      setShowUnsavedChanges(false)
-    }
-  }
 
   const nameWarning: boolean =
     newProject.name === '' && warnings.some((w) => w.field === 'name')
@@ -88,13 +68,8 @@ const NewProjectModal: React.FC<{
     newProject.expectedDeliveryDate === '' &&
     warnings.some((w) => w.field === 'expectedDeliveryDate')
 
-  const clientWarning: boolean =
-    newProject.clientName === '' &&
-    newProject.companyId === 0 &&
-    warnings.some((w) => w.field === 'parentName')
-
   return (
-    <section className='flex flex-col items-center justify-center p-8'>
+    <section className='flex flex-col items-center justify-center'>
       <UnsavedChanges
         isOpen={showUnsavedChanges}
         setIsOpen={(value) => {
@@ -102,7 +77,6 @@ const NewProjectModal: React.FC<{
         }}
       />
       <section className='p-8 rounded-md shadow-md flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
-        <ReturnBadge callback={handleReturn} />
         {readyForNextPage ? (
           <AddDescription
             goBack={() => {
@@ -130,17 +104,6 @@ const NewProjectModal: React.FC<{
                   maxLength={255}
                 />
               </div>
-              <ClientSelection
-                clientName={newProject.companyName as string}
-                disabled={newProject.clientName !== ''}
-                searchParams={props.searchParams}
-                error={clientWarning}
-                errorMessage='Client is required. Select one or create a new one'
-              />
-              <CreateNewClient
-                companySelected={newProject.companyId !== 0}
-                clientName={newProject.clientName as string}
-              />
               <ExpectedDeliveryDateSelector
                 defaultValue={new Date(newProject.expectedDeliveryDate)}
                 error={expectedDeliveryDateWarning}
@@ -151,9 +114,7 @@ const NewProjectModal: React.FC<{
             <Button
               text='Next'
               disabled={
-                newProject.name === '' ||
-                newProject.expectedDeliveryDate === '' ||
-                !clientProvided
+                newProject.name === '' || newProject.expectedDeliveryDate === ''
               }
               func={handleClick}
               disabledFunc={handleDisabledClick}
@@ -165,4 +126,4 @@ const NewProjectModal: React.FC<{
   )
 }
 
-export default NewProjectModal
+export default CreateProjectModal

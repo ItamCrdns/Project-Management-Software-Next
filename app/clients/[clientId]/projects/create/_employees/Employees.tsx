@@ -2,13 +2,13 @@
 import { useState } from 'react'
 import { type Employee } from '@/interfaces/employee'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
-import Resume from '../Resume'
 import Search from '@/components/search/search'
 import EmployeeList from './EmployeeList'
 import Pagination from '@/components/pagination/pagination'
 import Buttons from './Buttons'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useGetEmployees } from '@/api-calls/getEmployees'
+import Resume from '../Resume'
 
 const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)

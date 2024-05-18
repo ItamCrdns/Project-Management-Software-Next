@@ -1,6 +1,6 @@
 import { useGetEmployees } from '@/api-calls/getEmployees'
-import Buttons from '@/app/projects/(list)/create/_employees/Buttons'
-import EmployeeList from '@/app/projects/(list)/create/_employees/EmployeeList'
+import Buttons from '@/app/clients/[clientId]/projects/create/_employees/Buttons'
+import EmployeeList from '@/app/clients/[clientId]/projects/create/_employees/EmployeeList'
 import Pagination from '@/components/pagination/pagination'
 import Search from '@/components/search/search'
 import { useNewTaskActions } from '@/lib/hooks/New task actions/useNewTaskActions'

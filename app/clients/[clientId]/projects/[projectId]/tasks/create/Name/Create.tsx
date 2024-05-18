@@ -6,7 +6,6 @@ import { DatePicker, type DatePickerValue, TextInput } from '@tremor/react'
 import { useState } from 'react'
 import { AddDescription } from '../Description/AddDescription'
 import { StartedWorkingSwitch } from './StartedWorkingSwitch'
-import { ReturnBadge } from '@/components/UI/Return/ReturnBadge'
 import { debounce } from '@/utility/debouce'
 import { useWarnings } from '@/hooks/useWarnings'
 import { TimePicker } from '@/components/Time Picker/TimePicker'
@@ -57,11 +56,6 @@ const Create: React.FC<{ projectId: string }> = (props) => {
   return (
     <div className='flex w-500 justify-center gap-4 p-8 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
       <div className='flex flex-col items-center gap-4 w-96'>
-        <ReturnBadge
-          callback={() => {
-            // Empty
-          }}
-        />
         {ready ? (
           <AddDescription
             return={() => {

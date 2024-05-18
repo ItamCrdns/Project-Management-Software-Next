@@ -4,7 +4,9 @@ import { createClient } from './actions/createClient'
 import { createProject } from './actions/createProject'
 import { type ApiResponse } from '@/interfaces/apiResponse'
 
-export const callCreateProjectServerActions = async (newProject: NewProjectData): Promise<ApiResponse<OperationResult<number>> | null> => {
+export const callCreateProjectServerActions = async (
+  newProject: NewProjectData
+): Promise<ApiResponse<OperationResult<number>> | null> => {
   const formData = new FormData()
 
   const selectedDeliveryDate = new Date(
@@ -13,10 +15,7 @@ export const callCreateProjectServerActions = async (newProject: NewProjectData)
 
   formData.append('name', newProject.name)
   formData.append('description', newProject.description)
-  formData.append(
-    'priority',
-    newProject.priority?.toString() ?? ''
-  )
+  formData.append('priority', newProject.priority?.toString() ?? '')
   formData.append('expectedDeliveryDate', selectedDeliveryDate)
 
   if (newProject.startedWorking) {
