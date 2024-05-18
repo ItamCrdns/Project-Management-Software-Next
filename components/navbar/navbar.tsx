@@ -6,9 +6,10 @@ import DropdownMenu from './Menu'
 import SmallScreenNavbar from './SmallScreenNavbar'
 import { navItems } from './SmallScreenNavLinks'
 import NoPicture from '../No profile picture/NoPicture'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { type Employee } from '@/interfaces/employee'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { useTheme } from '@/hooks/useTheme'
 
 const Navbar: React.FC<{
   currentTheme: string
@@ -20,8 +21,8 @@ const Navbar: React.FC<{
   const [showOverlay, setShowOverlay] = useState<boolean>(false)
   const [showOptions, setShowOptions] = useState<boolean>(false)
 
-  const router = useRouter()
   const { setAlert } = useAlertActions()
+  const { theme, handleThemeSwitch } = useTheme(props.currentTheme)
 
   const handleOpenSmallDevicesMenu = (): void => {
     setToggle(!toggle)
@@ -35,20 +36,23 @@ const Navbar: React.FC<{
     }
   }
 
-  const [theme, setTheme] = useState<string>(props.currentTheme)
-
   const pathname = usePathname()
 
   useEffect(() => {
-    if (pathname !== '/login' && statusCodeFromBackend !== 200) {
+    if (statusCodeFromBackend !== 200) {
       setAlert({
-        message: 'You must be logged in to access this page',
+        message: 'You are currently not logged in. Please log in to continue.',
         type: 'error'
       })
-      router.push('/login')
     }
+  }, [statusCodeFromBackend])
 
+  useEffect(() => {
     // * Listen for route changes and close the menu when the route changes
+    setToggle(false)
+    setTimeout(() => {
+      setShowOverlay(false)
+    }, 250)
     setShowOptions(false)
   }, [pathname])
 
@@ -65,7 +69,7 @@ const Navbar: React.FC<{
           <div className='px-4 py-0'>{navItems}</div>
         </div>
         <div className='hidden lg:block'>
-          {user !== null && (
+          {user !== null ? (
             <>
               <div className='flex items-center gap-8 px-4 py-0'>
                 {user.profilePicture !== '' && user.profilePicture !== null ? (
@@ -98,15 +102,20 @@ const Navbar: React.FC<{
                 <DropdownMenu
                   employee={user}
                   theme={theme}
-                  switchTheme={() => {
-                    setTheme(theme === 'light' ? 'dark' : 'light')
-                  }}
+                  switchTheme={handleThemeSwitch}
                   closeDropdownMenu={() => {
                     setShowOptions(false)
                   }}
                 />
               )}
             </>
+          ) : (
+            <Link
+              href='/login'
+              className='rounded-full bg-black dark:bg-white flex items-center mx-4 justify-center w-[100px]'
+            >
+              <p className='text-white dark:text-black py-1'>Login</p>
+            </Link>
           )}
         </div>
         <div
@@ -130,8 +139,13 @@ const Navbar: React.FC<{
           />
         </div>
       </nav>
-      {showOverlay && user !== null && (
-        <SmallScreenNavbar showOverlay={toggle} employee={user} />
+      {showOverlay === true && (
+        <SmallScreenNavbar
+          showOverlay={toggle}
+          employee={user}
+          theme={theme}
+          switchTheme={handleThemeSwitch}
+        />
       )}
     </>
   )
