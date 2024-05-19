@@ -1,4 +1,5 @@
 import { type EmployeeTier } from './EmployeeTier'
+import { Workload } from './Workload'
 import { type Company } from './company'
 
 export interface Employee {
@@ -31,7 +32,7 @@ export interface Employee {
   issuesParticipant: number
   issuesCreated: number
   tier: EmployeeTier
-  workload?: string
+  workload: Workload
 }
 
 export const employeeInitialState: Employee = {
@@ -68,5 +69,8 @@ export const employeeInitialState: Employee = {
     name: '',
     duty: '',
     created: ''
+  },
+  workload: {
+    workloadId: 0
   }
 }

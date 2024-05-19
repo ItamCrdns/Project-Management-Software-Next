@@ -7,8 +7,6 @@ import { TableCellEmployees } from './TableCellEmployees'
 import { SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import generateQueryParams from '@/utility/queryParams'
 
-// TODO: Workload doesnt work
-
 const MyTeam: React.FC<{ searchParams: SearchParamsPageSize }> = async (
   props
 ) => {
@@ -55,10 +53,10 @@ const MyTeam: React.FC<{ searchParams: SearchParamsPageSize }> = async (
                 employee.workload !== undefined ? (
                   <TableCell className='flex justify-center w-[300px]'>
                     <BadgeComponent
-                      content={employee.workload}
-                      tooltip={`${employee.workload} workload`}
+                      content={employee.workload.workloadSum ?? 'None'}
+                      tooltip={`${employee.workload.workloadSum} workload`}
                       color={(() => {
-                        switch (employee.workload) {
+                        switch (employee.workload.workloadSum) {
                           case 'None':
                             return 'gray'
                           case 'Low':
