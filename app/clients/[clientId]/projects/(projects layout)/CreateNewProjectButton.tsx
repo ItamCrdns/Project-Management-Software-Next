@@ -1,5 +1,4 @@
 'use client'
-
 import { Button } from '@/components/Button/Button'
 
 const CreateNewProjectButton = ({ clientId }: { clientId: string }) => {
@@ -13,7 +12,7 @@ const CreateNewProjectButton = ({ clientId }: { clientId: string }) => {
       </div>
       <p className='select-none text-xs'>&middot;</p>
       <div>
-        <Button text='Some other button' />
+        <Button text='Some other button' txtColor='black' borderOnly={true} />
       </div>
     </div>
   )

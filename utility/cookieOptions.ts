@@ -34,7 +34,7 @@ export default cookieOptions
 type ContentType = 'application/json' | 'multipart/form-data'
 
 export const postPatchCookieOptions = (
-  body: BodyInit,
+  body?: BodyInit,
   contentType?: ContentType,
   patch?: boolean
 ): RequestInit => {

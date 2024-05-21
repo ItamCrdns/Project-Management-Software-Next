@@ -2,35 +2,48 @@ import { Button } from '@/components/Button/Button'
 import { IndividualEmployee } from '@/components/Generic Entity Renderer/IndividualEmployee'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { Badge, Divider } from '@tremor/react'
-import { useState } from 'react'
-import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { debounce } from '@/utility/debouce'
-import { type ApiResponse } from '@/interfaces/apiResponse'
 import { CreatedSuccessfullyDialog } from '@/components/UI/Dialog/CreatedSuccessfullyDialog'
 import { callCreateProjectServerActions } from './callCreateProjectServerActions'
+import { revalidateOngoingFinishedAndOverdueProjects } from '../(projects layout)/actions/revalidateOngoingFinishedAndOverdueProjects'
+import { useDialogShowAndResponse } from '@/hooks/useDialogShowAndResponse'
+import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
+import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
   const employees = newProject.employees
-
-  const [response, setResponse] = useState<ApiResponse<
-    OperationResult<number>
-  > | null>(null)
 
   const client =
     newProject.companyName === ''
       ? newProject.clientName
       : newProject.companyName
 
+  const { setAlert } = useAlertActions()
+
+  const { clear } = useNewProjectActions()
+
+  const {
+    response,
+    showCreatedDialog,
+    btnClicked,
+    handleSetResponse,
+    handleSetShowCreatedDialog,
+    handleSetBtnClicked
+  } = useDialogShowAndResponse()
+
   return (
     <>
       <CreatedSuccessfullyDialog
         response={response}
+        showDialog={showCreatedDialog}
         closeDialog={() => {
-          setResponse(null)
+          clear()
+          handleSetShowCreatedDialog(false)
         }}
         entity='project'
         href={`clients/${newProject.companyId}/projects`}
+        clearState={clear}
       />
       <section className='w-500 flex items-center flex-col justify-center'>
         <h1 className='text-2xl mb-4'>Your new project overview</h1>
@@ -118,20 +131,45 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
           )}
         </div>
         <div className='flex gap-4'>
+          <div
+            className='w-[125px]'
+            onClick={() => {
+              handleSetBtnClicked(true)
+            }}
+          >
+            <Button
+              text='Create project'
+              loading={btnClicked}
+              func={debounce(() => {
+                ;(async () => {
+                  const res = await callCreateProjectServerActions(newProject)
+                  handleSetResponse(res)
+                  handleSetBtnClicked(false)
+
+                  if (res?.data?.success) {
+                    handleSetShowCreatedDialog(true)
+                    await revalidateOngoingFinishedAndOverdueProjects()
+                    setAlert({
+                      message: 'Project created successfully',
+                      type: 'success'
+                    })
+                  } else {
+                    setAlert({
+                      message: 'Project creation failed',
+                      type: 'error'
+                    })
+                  }
+                })()
+              }, 500)}
+            />
+          </div>
           <Button
-            text='Create project'
-            func={debounce(() => {
-              ;(async () => {
-                const res = await callCreateProjectServerActions(newProject)
-                setResponse(res)
-              })()
-            }, 500)}
-          />
-          <Button
-            text='Go back'
+            text='Return'
             func={() => {
               props.goBack()
             }}
+            borderOnly={true}
+            txtColor='black'
           />
         </div>
       </section>

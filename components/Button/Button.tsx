@@ -63,7 +63,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       ref={buttonRef}
       className={`relative select-none overflow-hidden ${
         borderOnly ? 'ring-1 ring-gray-500' : 'border-none outline-none'
-      } flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto font-semibold ${
+      } flex items-center mx-auto justify-center py-2 px-4 text-xs rounded-md w-auto  ${
         !disabled && !borderOnly ? bgColor : ''
       } ${txtColor} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
       onClick={handleClick}

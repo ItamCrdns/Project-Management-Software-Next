@@ -2,8 +2,12 @@ import { type ApiResponse } from '@/interfaces/apiResponse'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
 import { cookies } from 'next/headers'
 
-export const getLatestPasswordVerification = async (): Promise<ApiResponse<OperationResult<string> | null>> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Employee/me/password-last-verification')
+export const getLatestPasswordVerification = async (): Promise<
+  ApiResponse<OperationResult<string> | null>
+> => {
+  const url = new URL(
+    process.env.NEXT_PUBLIC_API_URL + 'Auth/me/password-last-verification'
+  )
 
   const res = await fetch(url, {
     method: 'GET',

@@ -144,9 +144,14 @@ const Create: React.FC<{ projectId: string }> = (props) => {
             )}
             <StartedWorkingSwitch />
             <Button
-              text='Next'
-              disabled={
+              text='Continue to description'
+              borderOnly={
                 newTask.name === '' || newTask.expectedDeliveryDate === ''
+              }
+              txtColor={
+                newTask.name === '' || newTask.expectedDeliveryDate === ''
+                  ? 'text-gray-400'
+                  : 'text-white'
               }
               func={() => {
                 setReady(true)

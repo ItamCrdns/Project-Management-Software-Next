@@ -25,7 +25,11 @@ export const useFormState = (): FormState => {
 
   const [btnClicked, setBtnClicked] = useState<boolean>(false)
 
-  const handleClick = !btnClicked ? useSubmitRef(formRef) : () => {}
+  const handleClick = !btnClicked
+    ? useSubmitRef(formRef)
+    : () => {
+        // Do nothing
+      }
 
   const handleSetMessage = (response: Message): void => {
     setMessage(response)

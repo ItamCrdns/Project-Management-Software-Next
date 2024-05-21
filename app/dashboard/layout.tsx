@@ -1,6 +1,6 @@
 import getEmployeeTier from '@/api-calls/getEmployeeTier'
 import Tabs from '@/components/Tabs/Tabs'
-import { adminTabs } from './@admin/_admin tabs/adminTabs'
+import { adminTabs } from './adminTabs'
 
 interface DashboardPageProps {
   admin: React.ReactNode

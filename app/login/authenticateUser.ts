@@ -1,7 +1,10 @@
 import { type LoginData } from './LoginData.interface'
 
-export const authenticateUser = async (username: string, password: string): Promise<LoginData> => {
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Employee/login')
+export const authenticateUser = async (
+  username: string,
+  password: string
+): Promise<LoginData> => {
+  const url = new URL(process.env.NEXT_PUBLIC_API_URL + 'Auth/login')
 
   const requestOptions: RequestInit = {
     method: 'POST',

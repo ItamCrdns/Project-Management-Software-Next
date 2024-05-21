@@ -57,13 +57,21 @@ const AddDescription: React.FC<AddDescriptionProps> = (props) => {
           <div className='flex gap-4'>
             <Button
               text='Next'
-              disabled={newTask.description === ''}
+              borderOnly={newTask.description === ''}
+              txtColor={
+                newTask.description === '' ? 'text-gray-400' : 'text-white'
+              }
               func={() => {
                 setReady(true)
               }}
               disabledFunc={handleDisabledClick}
             />
-            <Button text='Return' func={props.return} />
+            <Button
+              text='Return'
+              func={props.return}
+              borderOnly={true}
+              txtColor='black'
+            />
           </div>
         </>
       )}

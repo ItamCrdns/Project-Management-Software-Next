@@ -9,40 +9,42 @@ export const employeesAsOptions = (employees: Employee[]): Option[] =>
     picture: x.profilePicture
   }))
 
-export const optionAsEmployee = (options: Option): Employee =>
-  ({
-    employeeId: options.value,
-    username: options.label,
-    profilePicture: options.picture ?? '',
-    role: '',
-    email: '',
-    phoneNumber: '',
-    firstName: '',
-    lastName: '',
-    gender: '',
-    created: '',
-    supervisor: null,
-    lastLogin: '',
-    companyId: 0,
+export const optionAsEmployee = (options: Option): Employee => ({
+  employeeId: options.value,
+  username: options.label,
+  profilePicture: options.picture ?? '',
+  role: '',
+  email: '',
+  phoneNumber: '',
+  firstName: '',
+  lastName: '',
+  gender: '',
+  created: '',
+  supervisor: null,
+  lastLogin: '',
+  companyId: 0,
+  tierId: 0,
+  lockedEnabled: false,
+  loginAttempts: 0,
+  lockedUntil: '',
+  supervisorId: 0,
+  company: null,
+  projectTotalCount: 0,
+  projectsParticipant: 0,
+  projectsCreated: 0,
+  taskTotalCount: 0,
+  tasksParticipant: 0,
+  tasksCreated: 0,
+  issueTotalCount: 0,
+  issuesParticipant: 0,
+  issuesCreated: 0,
+  tier: {
     tierId: 0,
-    lockedEnabled: false,
-    loginAttempts: 0,
-    lockedUntil: '',
-    supervisorId: 0,
-    company: null,
-    projectTotalCount: 0,
-    projectsParticipant: 0,
-    projectsCreated: 0,
-    taskTotalCount: 0,
-    tasksParticipant: 0,
-    tasksCreated: 0,
-    issueTotalCount: 0,
-    issuesParticipant: 0,
-    issuesCreated: 0,
-    tier: {
-      tierId: 0,
-      name: '',
-      duty: '',
-      created: ''
-    }
-  })
+    name: '',
+    duty: '',
+    created: ''
+  },
+  workload: {
+    workloadId: 0
+  }
+})

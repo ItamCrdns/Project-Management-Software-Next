@@ -85,15 +85,26 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
           </form>
           <div className='flex gap-4 mt-4'>
             <Button
-              text='Next'
+              text='Continue to add employees'
               func={handleClick}
-              disabled={
+              borderOnly={
                 newProject.description === '' ||
                 (newProject.priority === 0 && newProject.priorityLabel === '')
               }
+              txtColor={
+                newProject.description === '' ||
+                (newProject.priority === 0 && newProject.priorityLabel === '')
+                  ? 'text-gray-400'
+                  : 'text-white'
+              }
               disabledFunc={handleDisabledClick}
             />
-            <Button text='Go back' func={props.goBack} />
+            <Button
+              text='Return'
+              func={props.goBack}
+              borderOnly={true}
+              txtColor='black'
+            />
           </div>
         </>
       )}

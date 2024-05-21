@@ -4,7 +4,6 @@ import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProj
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useSubmitRef } from '@/utility/formSubmitRef'
 import React, { useRef, useState } from 'react'
-import UnsavedChanges from './UnsavedChanges'
 import AddDescription from './AddDescription'
 import { TextInput } from '@tremor/react'
 import { debounce } from '@/utility/debouce'
@@ -59,8 +58,6 @@ const CreateProjectModal: React.FC<{
 
   const handleClick = useSubmitRef(formRef)
 
-  const [showUnsavedChanges, setShowUnsavedChanges] = useState<boolean>(false)
-
   const nameWarning: boolean =
     newProject.name === '' && warnings.some((w) => w.field === 'name')
 
@@ -70,12 +67,6 @@ const CreateProjectModal: React.FC<{
 
   return (
     <section className='flex flex-col items-center justify-center'>
-      <UnsavedChanges
-        isOpen={showUnsavedChanges}
-        setIsOpen={(value) => {
-          setShowUnsavedChanges(value)
-        }}
-      />
       <section className='p-8 rounded-md shadow-md flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
         {readyForNextPage ? (
           <AddDescription
@@ -112,9 +103,14 @@ const CreateProjectModal: React.FC<{
               <StartedWorkingSwitch />
             </form>
             <Button
-              text='Next'
-              disabled={
+              text='Continue to description'
+              borderOnly={
                 newProject.name === '' || newProject.expectedDeliveryDate === ''
+              }
+              txtColor={
+                newProject.name === '' || newProject.expectedDeliveryDate === ''
+                  ? 'text-gray-400'
+                  : 'text-white'
               }
               func={handleClick}
               disabledFunc={handleDisabledClick}

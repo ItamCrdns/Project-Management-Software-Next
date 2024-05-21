@@ -5,7 +5,7 @@ export const handleSetProjectsFinishedBulk = async (
   projectIds: number[]
 ): Promise<OperationResult<number[]>> => {
   const url = new URL(
-    process.env.NEXT_PUBLIC_API_URL + 'Project/set/finished/bulk'
+    process.env.NEXT_PUBLIC_API_URL + 'ProjectManagement/set/finished/bulk'
   )
 
   const res = await fetch(

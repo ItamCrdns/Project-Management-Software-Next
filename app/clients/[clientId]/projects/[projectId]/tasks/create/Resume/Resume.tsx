@@ -4,30 +4,43 @@ import { useAppSelector } from '@/lib/hooks/hooks'
 import { debounce } from '@/utility/debouce'
 import { Divider } from '@tremor/react'
 import { createTask } from '../actions/createTask'
-import { type OperationResult } from '@/interfaces/return/OperationResult'
-import { useState } from 'react'
-import { type ApiResponse } from '@/interfaces/apiResponse'
 import { CreatedSuccessfullyDialog } from '@/components/UI/Dialog/CreatedSuccessfullyDialog'
 import { useParams } from 'next/navigation'
+import { useDialogShowAndResponse } from '@/hooks/useDialogShowAndResponse'
+import { useNewTaskActions } from '@/lib/hooks/New task actions/useNewTaskActions'
+import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { revalidateProjectTasks } from '../actions/revalidateProjectTasks'
 
 const Resume: React.FC<{ return: () => void }> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
 
+  const { setAlert } = useAlertActions()
+
   const params = useParams<{ clientId: string }>()
 
-  const [response, setResponse] = useState<ApiResponse<
-    OperationResult<number>
-  > | null>(null)
+  const { clear } = useNewTaskActions()
+
+  const {
+    response,
+    showCreatedDialog,
+    btnClicked,
+    handleSetResponse,
+    handleSetShowCreatedDialog,
+    handleSetBtnClicked
+  } = useDialogShowAndResponse()
 
   return (
     <>
       <CreatedSuccessfullyDialog
         response={response}
+        showDialog={showCreatedDialog}
         closeDialog={() => {
-          setResponse(null)
+          clear()
+          handleSetShowCreatedDialog(false)
         }}
         entity='task'
         href={`clients/${params.clientId}/projects/${newTask.projectId}/tasks`}
+        clearState={clear}
       />
       <section className='flex items-center flex-col justify-center'>
         <h1 className='text-2xl text-center'>Your new task overview</h1>
@@ -97,38 +110,69 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
           {newTask.startedWorking ? <p>Immediately</p> : <p>Not specified</p>}
         </div>
         <div className='flex gap-4'>
+          <div
+            className='w-[125px]'
+            onClick={() => {
+              handleSetBtnClicked(true)
+            }}
+          >
+            <Button
+              text='Create task'
+              loading={btnClicked}
+              func={debounce(() => {
+                ;(async () => {
+                  const formData = new FormData()
+
+                  formData.append('name', newTask.name)
+                  formData.append('description', newTask.description)
+                  formData.append(
+                    'expectedDeliveryDate',
+                    new Date(newTask.expectedDeliveryDate).toUTCString()
+                  )
+                  formData.append('projectId', newTask.projectId.toString())
+
+                  if (newTask.startedWorking) {
+                    formData.append('shouldStartNow', 'true')
+                  }
+
+                  const employees = newTask.employees
+
+                  if (employees !== null && employees.length > 0) {
+                    employees.forEach((employee) => {
+                      formData.append(
+                        'employees',
+                        employee.employeeId.toString()
+                      )
+                    })
+                  }
+
+                  const res = await createTask(formData)
+                  handleSetResponse(res)
+                  handleSetBtnClicked(false)
+
+                  if (res?.data?.success) {
+                    handleSetShowCreatedDialog(true)
+                    await revalidateProjectTasks()
+                    setAlert({
+                      message: 'Task created successfully',
+                      type: 'success'
+                    })
+                  } else {
+                    setAlert({
+                      message: 'Task creation failed',
+                      type: 'error'
+                    })
+                  }
+                })()
+              }, 500)}
+            />
+          </div>
           <Button
-            text='Create task'
-            func={debounce(() => {
-              ;(async () => {
-                const formData = new FormData()
-
-                formData.append('name', newTask.name)
-                formData.append('description', newTask.description)
-                formData.append(
-                  'expectedDeliveryDate',
-                  new Date(newTask.expectedDeliveryDate).toUTCString()
-                )
-                formData.append('projectId', newTask.projectId.toString())
-
-                if (newTask.startedWorking) {
-                  formData.append('shouldStartNow', 'true')
-                }
-
-                const employees = newTask.employees
-
-                if (employees !== null && employees.length > 0) {
-                  employees.forEach((employee) => {
-                    formData.append('employees', employee.employeeId.toString())
-                  })
-                }
-
-                const res = await createTask(formData)
-                setResponse(res)
-              })()
-            }, 500)}
+            text='Return'
+            func={props.return}
+            borderOnly={true}
+            txtColor='black'
           />
-          <Button text='Go back' func={props.return} />
         </div>
       </section>
     </>

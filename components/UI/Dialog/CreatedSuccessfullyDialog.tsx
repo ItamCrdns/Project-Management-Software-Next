@@ -1,24 +1,30 @@
 import { Button } from '@/components/Button/Button'
 import { type ApiResponse } from '@/interfaces/apiResponse'
 import { type OperationResult } from '@/interfaces/return/OperationResult'
-import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { Dialog, DialogPanel } from '@tremor/react'
+import { useRouter } from 'next/navigation'
 
 const CreatedSuccessfullyDialog: React.FC<{
   response: ApiResponse<OperationResult<number>> | null
+  showDialog: boolean
   closeDialog: () => void
   entity: string
   href: string
+  clearState: () => void
 }> = (props) => {
-  const { response, closeDialog, entity, href } = props
+  const { response, showDialog, closeDialog, entity, href, clearState } = props
 
-  const { clear } = useNewProjectActions()
+  const router = useRouter()
+
+  const onDialogClose = () => {
+    router.push(`/${href}`)
+    closeDialog()
+  }
 
   return (
-    <Dialog open={response !== null} onClose={closeDialog} static={true}>
+    <Dialog open={showDialog} onClose={onDialogClose} static={true}>
       <DialogPanel>
-        {response?.data?.success === true
-          ? (
+        {response?.data?.success === true ? (
           <>
             <h3 className='text-center font-bold'>
               <span className='capitalize'>{entity}</span> created
@@ -27,10 +33,10 @@ const CreatedSuccessfullyDialog: React.FC<{
               Your <span className='lowercase'>{entity}</span> has been created
               successfully
             </p>
-            <div className='space-y-4'>
+            <div className='flex items-center justify-center gap-4'>
               <div
                 onClick={() => {
-                  clear()
+                  clearState()
                 }}
               >
                 <Button
@@ -40,15 +46,19 @@ const CreatedSuccessfullyDialog: React.FC<{
               </div>
               <div
                 onClick={() => {
-                  clear()
+                  clearState()
                 }}
               >
-                <Button text='Close' href={`/${href}`} />
+                <Button
+                  text='Close'
+                  href={`/${href}`}
+                  borderOnly={true}
+                  txtColor='black'
+                />
               </div>
             </div>
           </>
-            )
-          : (
+        ) : (
           <>
             <h3 className='text-center font-bold'>Oops!</h3>
             <p className='text-center'>{response?.error?.title}</p>
@@ -71,7 +81,7 @@ const CreatedSuccessfullyDialog: React.FC<{
             )}
             <Button text='Close' func={closeDialog} />
           </>
-            )}
+        )}
       </DialogPanel>
     </Dialog>
   )
