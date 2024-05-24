@@ -1,5 +1,5 @@
 import getProjectLimited from '@/api-calls/getProjectLimited'
-import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
+import ProjectUIWithButtons from '@/components/UI/ProjectUI/ProjectUIWithButtons'
 
 const Project: React.FC<{ clientId: string; projectId: string }> = async (
   props
@@ -7,7 +7,7 @@ const Project: React.FC<{ clientId: string; projectId: string }> = async (
   const { data, status } = await getProjectLimited(props.projectId)
 
   return (
-    <ProjectUI
+    <ProjectUIWithButtons
       project={data}
       showButtons
       noProject={status !== 200}

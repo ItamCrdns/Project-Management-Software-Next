@@ -5,6 +5,8 @@ import { DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { dateUtil } from '@/utility/dateUtil'
 import Image from 'next/image'
 import Link from 'next/link'
+import { determineColorByEventType } from './determineColorByEventType'
+import { EventText } from './EventText'
 
 interface TimelineBannerProps {
   prevEvents: DictionaryResponse<Timeline> | null
@@ -30,34 +32,9 @@ const TimelineBanner: React.FC<TimelineBannerProps> = (props) => {
             >
               <div className='flex items-center justify-center'>
                 <div
-                  className={`${(() => {
-                    switch (event.type) {
-                      case 'Login':
-                        return 'bg-blue-400'
-                      case 'Logout':
-                        return 'bg-red-400'
-                      case 'Update':
-                        return 'bg-blue-400'
-                      case 'Delete':
-                        return 'bg-red-400'
-                      case 'Create':
-                        return 'bg-green-400'
-                      case 'Register':
-                        return 'bg-green-400'
-                      case 'Assign':
-                        return 'bg-green-400'
-                      case 'Unassign':
-                        return 'bg-red-400'
-                      case 'Start':
-                        return 'bg-green-400'
-                      case 'Finish':
-                        return 'bg-green-400'
-                      case 'Cancel':
-                        return 'bg-red-400'
-                      default:
-                        return 'bg-gray-400'
-                    }
-                  })()} w-3 h-3 border-2 rounded-full z-10`}
+                  className={`${determineColorByEventType(
+                    event.type
+                  )} w-3 h-3 border-2 rounded-full z-10`}
                 ></div>
                 <div className='absolute h-full bg-theming-dark100 bg-opacity-10 dark:bg-opacity-30 w-[2px]'></div>
               </div>
@@ -71,41 +48,14 @@ const TimelineBanner: React.FC<TimelineBannerProps> = (props) => {
                     className='rounded-full'
                   />
                   <div>
-                    <p>
-                      <Link
-                        href={`/employee/${event.employee.username}`}
-                        className='font-semibold'
-                      >
-                        {event.employee.username}
-                      </Link>{' '}
-                      {event.event}{' '}
-                      {event.project && (
-                        <Link
-                          href={`/clients/${event.project.clientId}/projects/${event.project.projectId}`}
-                          className='text-azure-radiance-500'
-                        >
-                          #{event.project.projectId}
-                        </Link>
-                      )}
-                      {event.task && (
-                        <Link
-                          href={`/clients/${event.task.clientId}/projects/${event.task.projectId}/tasks/${event.task.taskId}`}
-                          className='text-azure-radiance-500'
-                        >
-                          #{event.task.taskId}
-                        </Link>
-                      )}
-                      {event.issue && (
-                        <Link
-                          href={`/clients/${event.issue.clientId}/projects/${event.issue.projectId}/tasks/${event.issue.taskId}/issues/${event.issue.issueId}`}
-                          className='text-azure-radiance-500'
-                        >
-                          #{event.issue.issueId}
-                        </Link>
-                      )}
-                    </p>
+                    <EventText event={event} />
                     <p className='text-xs text-gray-400'>
-                      {dateUtil(event.created).text}
+                      {dateUtil(event.created).text} &middot;{' '}
+                      <Link
+                        href={`/dashboard/timeline/event/${event.timelineId}`}
+                      >
+                        See details
+                      </Link>
                     </p>
                   </div>
                 </div>

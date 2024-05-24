@@ -1,6 +1,6 @@
 import getProject from '@/api-calls/getProject'
 import { NotFound } from '@/components/404 Not Found/NotFound'
-import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
+import ProjectUIWithButtons from '@/components/UI/ProjectUI/ProjectUIWithButtons'
 import { Client } from './Banners/Client'
 import { Description } from './Banners/Description'
 import { Attachments } from './Banners/Attachments'
@@ -22,7 +22,7 @@ const Project: React.FC<{ projectId: string; clientId: string }> = async (
 
   return (
     <>
-      <ProjectUI
+      <ProjectUIWithButtons
         project={project}
         clientId={props.clientId}
         showButtons={true}

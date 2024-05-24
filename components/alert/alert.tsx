@@ -31,6 +31,8 @@ const Alert: React.FC = () => {
     }
   }, [alert, isHover])
 
+  // border-red-500 border-green-500 border-azure-radiance-500
+
   return (
     <div
       onMouseEnter={() => setIsHover(true)}
@@ -39,6 +41,11 @@ const Alert: React.FC = () => {
         alert.show === true
           ? 'animate-slide-in-from-bottom'
           : 'animate-slide-out-to-bottom'
+      } border-l-4 ${
+        (alert.type === 'success' && 'border-green-500') ||
+        (alert.type === 'error' && 'border-red-500') ||
+        (alert.type === 'notification' && 'border-azure-radiance-500') ||
+        (alert.type === 'loading' && 'border-blue-400')
       } text-sm fixed bottom-0 right-0 min-w-80 m-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md py-4 px-6 z-[999999]`}
     >
       <div className='flex gap-2 items-center'>

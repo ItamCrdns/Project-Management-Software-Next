@@ -1,6 +1,6 @@
 import { getIssue } from '@/api-calls/getIssue'
 import { NotFound } from '@/components/404 Not Found/NotFound'
-import IssueUI from '@/components/UI/IssueUI/IssueUI'
+import IssueUI from '@/components/UI/IssueUI/IssueUITeamAndCreator'
 import { Description } from '../../../../(projectId layout)/Banners/Description'
 import { Attachments } from '../../../../(projectId layout)/Banners/Attachments'
 

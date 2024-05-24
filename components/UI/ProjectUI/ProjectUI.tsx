@@ -1,120 +1,71 @@
+import { Project } from '@/interfaces/project'
 import Link from 'next/link'
-import { setEntityPriority } from '@/components/Generic Entity Renderer/EntityPriority'
-import { Button } from '@/components/Button/Button'
-import { type ProjectUIProps } from './ProjectUI.interface'
 import { BadgeComponent } from './BadgeComponent'
-import { TeamAndCreator } from '../TeamAndCreator'
-import { Info } from '@/svg/Info'
-import { dateUtil } from '@/utility/dateUtil'
 import { Dates } from './Badges/Dates'
-import { EntityNotFound } from '../EntityNotFound'
+import setEntityPriority from '@/components/Generic Entity Renderer/EntityPriority'
+import { dateUtil } from '@/utility/dateUtil'
 
-const ProjectUI: React.FC<ProjectUIProps> = (props) => {
-  const {
-    project,
-    clientId,
-    showButtons,
-    employeeCountHref,
-    showGeneralInfo,
-    noProject
-  } = props
+const ProjectUI = ({
+  project,
+  clientId
+}: { project: Project; clientId: string }) => {
+  const priority = setEntityPriority(project.priority ?? 0)
 
-  if (noProject) {
-    return <EntityNotFound entity='Project' />
-  }
-
-  const priority = setEntityPriority(project?.entity.priority ?? 0)
-
-  const wasStarted = dateUtil(project?.entity.startedWorking ?? '').text
-
-  const team = project?.entity.team
+  const wasStarted = dateUtil(project.startedWorking ?? '').text
 
   return (
-    <aside className='flex flex-col items-center gap-4'>
-      <div className='flex flex-col gap-8 w-[400px]'>
-        <div className='w-full space-y-2'>
-          {showGeneralInfo === true && (
-            <div className='flex items-center justify-center gap-2'>
-              <h1 className='text-center font-semibold'>Project information</h1>
-              <Info />
-            </div>
-          )}
-          <div className='flex flex-col items-center p-4 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
-            <Link
-              className='font-bold text-theming-dark100 dark:text-theming-white100'
-              href={`/clients/${clientId}/projects/${project?.entity.projectId}`}
-            >
-              {project?.entity.name}
-            </Link>
-            <div className='flex items-start gap-4'>
-              {project?.entity.lifecycle !== null && (
-                <>
-                  <BadgeComponent
-                    content={project?.entity.lifecycle ?? ''}
-                    tooltip={`Project lifecyle is ${project?.entity.lifecycle}`}
-                  />
-                  <p className='select-none'>&middot;</p>
-                </>
-              )}
-              {project?.entity.startedWorking !== null &&
-                project?.entity.startedWorking !== undefined && (
-                  <>
-                    <BadgeComponent
-                      content={wasStarted}
-                      tooltip={new Date(
-                        project?.entity.startedWorking ?? ''
-                      ).toLocaleDateString('en-us', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        timeZone: 'UTC'
-                      })}
-                    />
-                    <p className='select-none'>&middot;</p>
-                  </>
-                )}
+    <div className='flex flex-col items-center p-4 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <Link
+        className='font-bold text-theming-dark100 dark:text-theming-white100'
+        href={`/clients/${clientId}/projects/${project.projectId}`}
+      >
+        {project.name}
+      </Link>
+      <div className='flex items-start gap-4'>
+        {project.lifecycle !== null && (
+          <>
+            <BadgeComponent
+              content={project.lifecycle ?? ''}
+              tooltip={`Project lifecyle is ${project.lifecycle}`}
+            />
+            <p className='select-none'>&middot;</p>
+          </>
+        )}
+        {project.startedWorking !== null &&
+          project.startedWorking !== undefined && (
+            <>
               <BadgeComponent
-                content={priority.priorityText}
-                color={priority.color}
-                tooltip={`Project has a ${priority.priorityText} priority`}
+                content={wasStarted}
+                tooltip={new Date(project.startedWorking).toLocaleDateString(
+                  'en-us',
+                  {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'UTC'
+                  }
+                )}
               />
-            </div>
-            <div className='p-0 -mt-2'>
-              <Dates
-                created={project?.entity.created}
-                expectedDelivery={project?.entity.expectedDeliveryDate}
-                finalized={project?.entity.finished}
-              />
-            </div>
-          </div>
-        </div>
-        <TeamAndCreator
-          creator={project?.entity.creator}
-          team={team}
-          teamCount={project?.entity.employeeCount}
-          teamHref={employeeCountHref}
+              <p className='select-none'>&middot;</p>
+            </>
+          )}
+        <BadgeComponent
+          content={priority.priorityText}
+          color={priority.color}
+          tooltip={`Project has a ${priority.priorityText} priority`}
         />
       </div>
-      {showButtons && (
-        <div className='space-x-4'>
-          {project?.isOwner === true && (
-            <Button
-              text='Create new task'
-              href={`/clients/${clientId}/projects/${project?.entity.projectId}/tasks/create`}
-            />
-          )}
-          {project?.isParticipant === true && (
-            <div className='flex gap-4 flex-col'>
-              <Button text='My tasks' />
-              <Button text='Request new task' />
-            </div>
-          )}
-        </div>
-      )}
-    </aside>
+      <div className='p-0 -mt-2'>
+        <Dates
+          created={project.created}
+          expectedDelivery={project.expectedDeliveryDate}
+          finalized={project.finished}
+        />
+      </div>
+    </div>
   )
 }
 

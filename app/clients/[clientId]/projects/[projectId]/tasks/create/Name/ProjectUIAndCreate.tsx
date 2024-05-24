@@ -1,5 +1,5 @@
 import getProjectLimited from '@/api-calls/getProjectLimited'
-import ProjectUI from '@/components/UI/ProjectUI/ProjectUI'
+import ProjectUIWithButtons from '@/components/UI/ProjectUI/ProjectUIWithButtons'
 import { Create } from './Create'
 import CannotCreate from '../CannotCreate'
 
@@ -11,7 +11,7 @@ const ProjectUIAndCreate: React.FC<{ clientId: string; projectId: string }> =
 
     return (
       <>
-        <ProjectUI
+        <ProjectUIWithButtons
           project={data}
           clientId={props.clientId}
           showButtons={false}

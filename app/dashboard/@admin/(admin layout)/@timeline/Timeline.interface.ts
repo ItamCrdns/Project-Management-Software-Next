@@ -3,7 +3,7 @@ import { Employee } from '@/interfaces/employee'
 import { Project } from '@/interfaces/project'
 import { Task } from '@/interfaces/task'
 
-type TimelineType =
+export type TimelineType =
   | 'Login'
   | 'Logout'
   | 'Update'
@@ -20,6 +20,7 @@ type TimelineType =
 export interface Timeline {
   timelineId: number
   event: string
+  eventText: string
   created: string
   type: TimelineType
   employee: Employee

@@ -25,12 +25,8 @@ export const useSignalR = (
     }
 
     connection.on(eventName, (event: Timeline) => {
-      const eventString = `${event.employee.username} ${event.event} #${
-        event.project?.projectId || ''
-      }${event.task?.taskId || ''}${event.issue?.issueId || ''}`
-
       setAlert({
-        message: eventString,
+        message: event.eventText.trimEnd(),
         type: 'notification'
       })
 
