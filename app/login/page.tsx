@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useFormState } from '@/hooks/useFormState'
 import { onSuccessfulLogin } from './actions/onSuccessfulLogin'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { useId } from 'react'
 
 const LoginPage: React.FC<{ searchParams: { username?: string } }> = (
   props
@@ -24,6 +25,8 @@ const LoginPage: React.FC<{ searchParams: { username?: string } }> = (
     handleSetBtnClicked,
     handleClick
   } = useFormState()
+
+  const alertId = useId()
 
   return (
     <main className='flex items-center justify-center mt-8'>
@@ -45,6 +48,7 @@ const LoginPage: React.FC<{ searchParams: { username?: string } }> = (
               if (res.type === 'authenticated') {
                 // * Handle successful login
                 setAlert({
+                  id: alertId + '-success-login',
                   message: `Welcome ${formData.get('username')?.toString()}`,
                   type: 'success'
                 })

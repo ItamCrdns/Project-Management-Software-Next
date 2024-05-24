@@ -1,8 +1,11 @@
 const Close = ({
-  color
+  color,
+  size
 }: {
   color?: string
+  size?: number
 }): JSX.Element => {
+  const closeBtnSize = size || 6
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -10,7 +13,7 @@ const Close = ({
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className={`${color} w-6 h-6`}
+      className={`${color} w-${closeBtnSize} h-${closeBtnSize}`}
     >
       <path
         strokeLinecap='round'

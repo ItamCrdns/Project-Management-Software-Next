@@ -5,6 +5,7 @@ import { TextInput } from '@tremor/react'
 import { handleChangePassword } from './actions/handleChangePassword'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { onSuccessfulChange } from './actions/onSuccessfulChange'
+import { useId } from 'react'
 
 const ResetPassword: React.FC<{ token: string; email?: string }> = (props) => {
   const { setAlert } = useAlertActions()
@@ -19,6 +20,8 @@ const ResetPassword: React.FC<{ token: string; email?: string }> = (props) => {
     handleSetBtnClicked,
     handleClick
   } = useFormState()
+
+  const alertId = useId()
 
   return (
     <>
@@ -49,6 +52,7 @@ const ResetPassword: React.FC<{ token: string; email?: string }> = (props) => {
 
             if (res.type === 'success') {
               setAlert({
+                id: alertId + '-success-password-changed',
                 message: 'Your password has been changed',
                 type: 'success'
               })

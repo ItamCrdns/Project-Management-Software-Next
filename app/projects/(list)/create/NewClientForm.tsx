@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useId, useRef } from 'react'
 import { type NewClientFormProps } from '@/interfaces/props/NewClientFormProps'
 import { TextInput } from '@tremor/react'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
@@ -15,6 +15,8 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
   const { setAlert } = useAlertActions()
   const { setClientName, clearCompanyValues } = useNewProjectActions()
 
+  const alertId = useId()
+
   const handleTrash = (): void => {
     if (inputRef.current !== null) {
       inputRef.current.value = ''
@@ -24,6 +26,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
     props.closeForm()
 
     setAlert({
+      id: alertId + '-new-client-trash',
       message: 'A new client will not be created',
       type: 'success'
     })
@@ -38,6 +41,7 @@ const NewClientForm: React.FC<NewClientFormProps> = (props) => {
         setClientName(inputValue)
         props.closeForm()
         setAlert({
+          id: alertId + '-new-client',
           message: `The client will be created upon project submission ${inputValue}`,
           type: 'success'
         })

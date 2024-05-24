@@ -7,6 +7,7 @@ import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { debounce } from '@/utility/debouce'
 import { TextInput } from '@tremor/react'
 import { useRouter } from 'next/navigation'
+import { useId } from 'react'
 
 const ChangePasswordInputs: React.FC = () => {
   const { formRef, btnClicked, handleSetBtnClicked, handleClick } =
@@ -16,6 +17,8 @@ const ChangePasswordInputs: React.FC = () => {
   const { setAlert } = useAlertActions()
 
   const router = useRouter()
+
+  const alertId = useId()
 
   return (
     <form
@@ -86,6 +89,7 @@ const ChangePasswordInputs: React.FC = () => {
 
             if (res.success) {
               setAlert({
+                id: alertId + '-success-password-changed',
                 message: 'Password changed successfully',
                 type: 'success'
               })
@@ -95,6 +99,7 @@ const ChangePasswordInputs: React.FC = () => {
             } else {
               if (res.message !== undefined) {
                 setAlert({
+                  id: alertId + '-error-password-change-failed',
                   message: res.message,
                   type: 'error'
                 })

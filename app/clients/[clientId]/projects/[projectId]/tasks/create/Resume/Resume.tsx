@@ -10,6 +10,7 @@ import { useDialogShowAndResponse } from '@/hooks/useDialogShowAndResponse'
 import { useNewTaskActions } from '@/lib/hooks/New task actions/useNewTaskActions'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { revalidateProjectTasks } from '../actions/revalidateProjectTasks'
+import { useId } from 'react'
 
 const Resume: React.FC<{ return: () => void }> = (props) => {
   const newTask = useAppSelector((state) => state.newTaskData)
@@ -28,6 +29,8 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
     handleSetShowCreatedDialog,
     handleSetBtnClicked
   } = useDialogShowAndResponse()
+
+  const alertId = useId()
 
   return (
     <>
@@ -154,11 +157,13 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
                     handleSetShowCreatedDialog(true)
                     await revalidateProjectTasks()
                     setAlert({
+                      id: alertId + '-success-task-created',
                       message: 'Task created successfully',
                       type: 'success'
                     })
                   } else {
                     setAlert({
+                      id: alertId + '-error-task-creation-failed',
                       message: 'Task creation failed',
                       type: 'error'
                     })

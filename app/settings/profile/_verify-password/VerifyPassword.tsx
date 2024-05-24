@@ -4,7 +4,7 @@ import { useWarnings } from '@/hooks/useWarnings'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { debounce } from '@/utility/debouce'
 import { TextInput } from '@tremor/react'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { confirmPassword } from './actions/confirmPassword'
 import { revalidatePasswordTag } from './actions/revalidateTag'
 import { useFormState } from '@/hooks/useFormState'
@@ -15,6 +15,8 @@ const VerifyPassword: React.FC = () => {
   const { setAlert } = useAlertActions()
   const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
   const { btnClicked, handleSetBtnClicked } = useFormState()
+
+  const alertId = useId()
 
   return (
     <div>
@@ -43,11 +45,12 @@ const VerifyPassword: React.FC = () => {
           <Button
             text='Confirm'
             func={debounce(() => {
-              void (async () => {
+              ;(async () => {
                 if (password === '') {
                   handleFilterWarning('password') // remove warning if exists
                   handleSetWarning('Password cannot be empty', 'password')
                   setAlert({
+                    id: alertId + '-password-empty',
                     message: 'Password cannot be empty',
                     type: 'error'
                   })
@@ -62,12 +65,14 @@ const VerifyPassword: React.FC = () => {
                 if (!res.success && res.message !== undefined) {
                   handleSetWarning(res.message, 'password')
                   setAlert({
+                    id: alertId + '-password-incorrect',
                     message: res.message,
                     type: 'error'
                   })
                 } else {
                   await revalidatePasswordTag()
                   setAlert({
+                    id: alertId + '-password-correct',
                     message: 'Password correct',
                     type: 'success'
                   })

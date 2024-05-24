@@ -1,6 +1,6 @@
 import { DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import connection from './signalRConnection'
 import { Timeline } from '@/app/dashboard/@admin/(admin layout)/@timeline/Timeline.interface'
 
@@ -10,6 +10,8 @@ export const useSignalR = (
 ) => {
   const { setAlert } = useAlertActions()
 
+  const alertId = useId()
+
   // State to hold old data + new data from hub
   const [timelineData, setTimelineData] =
     useState<DictionaryResponse<Timeline>>(prevData)
@@ -18,6 +20,7 @@ export const useSignalR = (
     if (connection.state === 'Disconnected') {
       connection.start().catch(() => {
         setAlert({
+          id: alertId + '-signalr-connection-failed',
           message: 'SignalR connection failed',
           type: 'error'
         })
@@ -26,6 +29,7 @@ export const useSignalR = (
 
     connection.on(eventName, (event: Timeline) => {
       setAlert({
+        id: alertId + '-new-event' + event.timelineId,
         message: event.eventText.trimEnd(),
         type: 'notification'
       })

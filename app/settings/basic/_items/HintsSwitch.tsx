@@ -2,6 +2,7 @@
 import { type IConfig } from '@/interfaces/config'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { Switch } from '@tremor/react'
+import { useId } from 'react'
 
 const HintsSwitch: React.FC<{ config?: string }> = (props) => {
   const config: IConfig = JSON.parse(props.config ?? '{}')
@@ -9,6 +10,8 @@ const HintsSwitch: React.FC<{ config?: string }> = (props) => {
   const hintsEnabled = config.hideAllHints === undefined || !config.hideAllHints
 
   const { setAlert } = useAlertActions()
+
+  const alertId = useId()
 
   return (
     <div className='border-b border-gray-200 dark:border-gray-800 pb-4'>
@@ -40,6 +43,7 @@ const HintsSwitch: React.FC<{ config?: string }> = (props) => {
             )}; expires=${cookieExpirationDate.toUTCString()}; path=/`
 
             setAlert({
+              id: alertId + '-config-updated',
               message: 'Your configuration has been updated',
               type: 'success'
             })

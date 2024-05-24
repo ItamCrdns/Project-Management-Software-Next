@@ -5,7 +5,7 @@ import { UpdatePassword } from './_update-info/UpdatePassword'
 import UpdateNameAndData from './_update-info/UpdateNameAndData'
 import { Button } from '@/components/Button/Button'
 import { useFormState } from '@/hooks/useFormState'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { updateEmployee } from '@/api-calls/patch/updateEmployee'
 import { debounce } from '@/utility/debouce'
@@ -19,6 +19,8 @@ const UpdateEmployee: React.FC<{ employee: Employee }> = (props) => {
     useFormState()
 
   const [gender, setGender] = useState<string | null>(null)
+
+  const alertId = useId()
 
   return (
     <section className='space-y-8 flex flex-col justify-end'>
@@ -52,12 +54,17 @@ const UpdateEmployee: React.FC<{ employee: Employee }> = (props) => {
               if (res.message !== undefined && res.success !== undefined) {
                 await revalidateMyEmployeeTag()
                 setAlert({
+                  id: alertId + '-update-employee',
                   message: res.message,
                   type: res.success ? 'success' : 'error'
                 })
               }
             } else {
-              setAlert({ message: 'No field changes', type: 'error' })
+              setAlert({
+                id: alertId + '-no-field-changes',
+                message: 'No field changes',
+                type: 'error'
+              })
             }
           })(formData)
         }, 500)}

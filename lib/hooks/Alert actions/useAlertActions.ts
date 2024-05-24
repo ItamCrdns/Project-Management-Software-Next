@@ -10,11 +10,17 @@ export const useAlertActions = (): UseAlertActionsReturn => {
     dispatch(alertSlice.actions.setAlert(alert))
   }
 
-  const hideAlert = (): void => {
-    dispatch(alertSlice.actions.hideAlert())
+  const hideAlert = (id: string): void => {
+    dispatch(alertSlice.actions.hideAlert(id))
+  }
+
+  const hideAllAlerts = (): void => {
+    dispatch(alertSlice.actions.hideAllAlerts())
   }
 
   return {
-    setAlert, hideAlert
+    setAlert,
+    hideAlert,
+    hideAllAlerts
   }
 }

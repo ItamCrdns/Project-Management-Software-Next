@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import DropdownMenu from './Menu'
@@ -38,9 +38,12 @@ const Navbar: React.FC<{
 
   const pathname = usePathname()
 
+  const alertId = useId()
+
   useEffect(() => {
     if (statusCodeFromBackend !== 200) {
       setAlert({
+        id: alertId,
         message: 'You are currently not logged in. Please log in to continue.',
         type: 'error'
       })

@@ -9,6 +9,7 @@ import { revalidateOngoingFinishedAndOverdueProjects } from '../(projects layout
 import { useDialogShowAndResponse } from '@/hooks/useDialogShowAndResponse'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { useId } from 'react'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -31,6 +32,8 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
     handleSetShowCreatedDialog,
     handleSetBtnClicked
   } = useDialogShowAndResponse()
+
+  const alertId = useId()
 
   return (
     <>
@@ -150,11 +153,13 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
                     handleSetShowCreatedDialog(true)
                     await revalidateOngoingFinishedAndOverdueProjects()
                     setAlert({
+                      id: alertId + '-project-created',
                       message: 'Project created successfully',
                       type: 'success'
                     })
                   } else {
                     setAlert({
+                      id: alertId + '-project-creation-failed',
                       message: 'Project creation failed',
                       type: 'error'
                     })

@@ -1,9 +1,12 @@
 'use client'
 import { Button } from '@/components/Button/Button'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
+import { useId } from 'react'
 
 const ResetAll: React.FC = () => {
   const { setAlert } = useAlertActions()
+
+  const alertId = useId()
 
   return (
     <div className='border-b border-gray-200 dark:border-gray-800 pb-4'>
@@ -23,6 +26,7 @@ const ResetAll: React.FC = () => {
                 'config=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 
               setAlert({
+                id: alertId + '-config-reset',
                 message:
                   'Your settings have been reset, refresh the page to see the changes',
                 type: 'success'

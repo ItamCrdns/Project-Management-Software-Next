@@ -6,12 +6,15 @@ import { debounce } from '@/utility/debouce'
 import { setProjectsFinishedBulkAction } from './actions/setProjectsFinishedBulkAction'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { revalidateOngoingFinishedAndOverdueProjects } from './actions/revalidateOngoingFinishedAndOverdueProjects'
+import { useId } from 'react'
 
 const PopUpConfirmationBanner = () => {
   const entityOnSelectMode = useAppSelector((state) => state.entitySelectMode)
 
   const { clearSelectedIds } = useEntitySelectModeActions()
   const { setAlert } = useAlertActions()
+
+  const alertId = useId()
 
   if (entityOnSelectMode.selectedIds.length > 0) {
     return (
@@ -30,6 +33,7 @@ const PopUpConfirmationBanner = () => {
                 func={debounce(() => {
                   ;(async () => {
                     setAlert({
+                      id: alertId + '-loading-projects-finished',
                       message: 'Setting projects as finished...',
                       type: 'loading'
                     })
@@ -41,6 +45,7 @@ const PopUpConfirmationBanner = () => {
                     if (res.success === true) {
                       clearSelectedIds()
                       setAlert({
+                        id: alertId + '-finished-projects',
                         message:
                           res.message ?? 'Projects finished successfully',
                         type: 'success'
@@ -50,6 +55,7 @@ const PopUpConfirmationBanner = () => {
                       await revalidateOngoingFinishedAndOverdueProjects()
                     } else {
                       setAlert({
+                        id: alertId + '-something-went-wrong-projects-finished',
                         message: res.message ?? 'Something went wrong',
                         type: 'error'
                       })
