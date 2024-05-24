@@ -17,4 +17,6 @@ export interface Issue {
   employees: Employee[]
   employeeCount: number
   project: Project
+  clientId: number
+  projectId: number
 }

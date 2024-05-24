@@ -1,6 +1,5 @@
 export interface Alert {
   message: string
-  type: 'success' | 'error' | 'loading' | ''
+  type: 'success' | 'error' | 'loading' | 'notification' | ''
   show?: boolean
-  //   setShow: (show: boolean) => void
 }

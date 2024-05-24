@@ -1,9 +1,10 @@
 'use client'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { Check } from './Check'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { Error as AlertError } from './Error'
+import { BellAlert } from '@/svg/BellAlert'
 
 // * Show: tracks if the alert should be shown
 // * Message: the message to be displayed
@@ -13,17 +14,27 @@ const Alert: React.FC = () => {
   const alert = useAppSelector((state) => state.alert)
   const { hideAlert } = useAlertActions()
 
-  // Clear alter after 5 seconds
+  const [isHover, setIsHover] = useState<boolean>(false)
+
+  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Hide alter after 5 seconds
   useEffect(() => {
-    if (alert.show === true) {
-      setTimeout(() => {
+    if (isHover && timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
+    }
+
+    if (alert.show === true && !isHover) {
+      timeoutIdRef.current = setTimeout(() => {
         hideAlert()
       }, 5000)
     }
-  }, [alert])
+  }, [alert, isHover])
 
   return (
     <div
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
       className={`${
         alert.show === true
           ? 'animate-slide-in-from-bottom'
@@ -33,6 +44,7 @@ const Alert: React.FC = () => {
       <div className='flex gap-2 items-center'>
         {alert.type && alert.type === 'success' && <Check />}
         {alert.type && alert.type === 'error' && <AlertError />}
+        {alert.type && alert.type === 'notification' && <BellAlert />}
         {alert.type && alert.type === 'loading' && (
           <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>
         )}

@@ -1,9 +1,15 @@
-const Timeline = () => {
+import React from 'react'
+import TimelineBanner from './TimelineBanner'
+import { getTimelineEvents } from '@/api-calls/getTimelineEvents'
+
+const TimelinePage = async () => {
+  const { data: events } = await getTimelineEvents('1', '10')
+
   return (
-    <div className='p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
-      Timeline
-    </div>
+    <>
+      <TimelineBanner prevEvents={events} />
+    </>
   )
 }
 
-export default Timeline
+export default TimelinePage
