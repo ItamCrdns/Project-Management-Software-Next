@@ -35,8 +35,16 @@ export const useSignalR = (
       })
 
       setTimelineData((prevData) => {
+        const newData = [...(prevData.data ?? [])]
+
+        newData.unshift(event)
+
+        if (newData.length > 1) {
+          newData.pop() // remove the last element
+        }
+
         return {
-          data: [event, ...(prevData.data ?? [])],
+          data: newData,
           count: prevData.count + 1,
           pages: prevData.pages // Maybe we need to recalculate this?
         }
