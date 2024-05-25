@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation'
 import { type Employee } from '@/interfaces/employee'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
 import { useTheme } from '@/hooks/useTheme'
+import { AnimatePresence } from 'framer-motion'
 
 const Navbar: React.FC<{
   currentTheme: string
@@ -18,23 +19,10 @@ const Navbar: React.FC<{
 }> = (props) => {
   const { user, statusCodeFromBackend } = props
   const [toggle, setToggle] = useState<boolean>(false)
-  const [showOverlay, setShowOverlay] = useState<boolean>(false)
   const [showOptions, setShowOptions] = useState<boolean>(false)
 
   const { setAlert } = useAlertActions()
   const { theme, handleThemeSwitch } = useTheme(props.currentTheme)
-
-  const handleOpenSmallDevicesMenu = (): void => {
-    setToggle(!toggle)
-
-    if (toggle) {
-      setTimeout(() => {
-        setShowOverlay(false)
-      }, 250)
-    } else {
-      setShowOverlay(true)
-    }
-  }
 
   const pathname = usePathname()
 
@@ -53,9 +41,6 @@ const Navbar: React.FC<{
   useEffect(() => {
     // * Listen for route changes and close the menu when the route changes
     setToggle(false)
-    setTimeout(() => {
-      setShowOverlay(false)
-    }, 250)
     setShowOptions(false)
   }, [pathname])
 
@@ -101,16 +86,18 @@ const Navbar: React.FC<{
                   </div>
                 )}
               </div>
-              {showOptions && (
-                <DropdownMenu
-                  employee={user}
-                  theme={theme}
-                  switchTheme={handleThemeSwitch}
-                  closeDropdownMenu={() => {
-                    setShowOptions(false)
-                  }}
-                />
-              )}
+              <AnimatePresence>
+                {showOptions && (
+                  <DropdownMenu
+                    employee={user}
+                    theme={theme}
+                    switchTheme={handleThemeSwitch}
+                    closeDropdownMenu={() => {
+                      setShowOptions(false)
+                    }}
+                  />
+                )}
+              </AnimatePresence>
             </>
           ) : (
             <Link
@@ -122,7 +109,9 @@ const Navbar: React.FC<{
           )}
         </div>
         <div
-          onClick={handleOpenSmallDevicesMenu}
+          onClick={() => {
+            setToggle(!toggle)
+          }}
           className='lg:hidden flex flex-col items-center justify-center w-14 gap-3 pr-4 border-0 cursor-pointer'
         >
           <span
@@ -142,14 +131,15 @@ const Navbar: React.FC<{
           />
         </div>
       </nav>
-      {showOverlay === true && (
-        <SmallScreenNavbar
-          showOverlay={toggle}
-          employee={user}
-          theme={theme}
-          switchTheme={handleThemeSwitch}
-        />
-      )}
+      <AnimatePresence>
+        {toggle && (
+          <SmallScreenNavbar
+            employee={user}
+            theme={theme}
+            switchTheme={handleThemeSwitch}
+          />
+        )}
+      </AnimatePresence>
     </>
   )
 }

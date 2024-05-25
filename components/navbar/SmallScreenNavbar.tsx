@@ -5,22 +5,23 @@ import { type Employee } from '@/interfaces/employee'
 import NoPicture from '../No profile picture/NoPicture'
 import { logout } from './actions/logout'
 import { NavMenuOptions } from './NavMenuOptions'
+import { motion } from 'framer-motion'
 
 interface SmallScreenNavbarProps {
-  showOverlay: boolean
   employee: Employee | null
   theme: string
   switchTheme: () => void
 }
 
 const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
-  const { showOverlay, employee } = props
+  const { employee } = props
 
   return (
-    <section
-      className={`absolute w-full z-999 ${
-        showOverlay ? 'animate-slide-in' : 'animate-slide-out'
-      }`}
+    <motion.section
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className='absolute w-full z-999'
     >
       {employee !== null ? (
         <div className='flex flex-col items-center justify-center gap-4 px-0 py-4 bg-theming-white100 dark:bg-theming-dark300 border-b-2 border-theming-white200 dark:border-theming-dark400'>
@@ -75,7 +76,7 @@ const SmallScreenNavbar: React.FC<SmallScreenNavbarProps> = (props) => {
           Made with love by Martin Cardenas
         </p>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
