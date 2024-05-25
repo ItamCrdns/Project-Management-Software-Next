@@ -8,7 +8,7 @@ interface AdminDashboardProps {
 
 const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
   return (
-    <section className='flex flex-col items-center p-8 gap-8'>
+    <section className='flex flex-col items-center p-8'>
       <UserPage />
       {props.timeline}
     </section>

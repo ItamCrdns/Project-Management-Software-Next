@@ -10,10 +10,11 @@ import cookieOptions from './cookieOptions'
  * @returns A Promise that resolves to an ApiResponse object containing the fetched data and status code.
  */
 
-async function paginatedFetcher<T> (
+async function paginatedFetcher<T>(
   endpoint: string,
   page: string,
-  pageSize: string
+  pageSize: string,
+  nextTags?: string[]
 ): Promise<ApiResponse<T>> {
   const url = new URL(process.env.NEXT_PUBLIC_API_URL + endpoint)
 
@@ -25,7 +26,7 @@ async function paginatedFetcher<T> (
     url.searchParams.set('pageSize', pageSize)
   }
 
-  const requestOptions = cookieOptions()
+  const requestOptions = cookieOptions(nextTags)
 
   const res = await fetch(url, requestOptions)
 

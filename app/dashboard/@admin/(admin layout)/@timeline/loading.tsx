@@ -1,8 +1,6 @@
-import React from 'react'
-
-const Loading = () => {
+const LoadingTimelineSkeleton = () => {
   return (
-    <div className='animate-pulse w-[500px] h-[890px] bg-theming-white100 dark:bg-theming-dark300 p-8'>
+    <div className='animate-pulse w-[500px] h-[890px] bg-theming-white100 dark:bg-theming-dark300 p-8 m-8'>
       <h1 className='font-semibold mb-4'>Activity Timeline</h1>
       <div className='mt-4 h-[750px]'>
         {Array.from({ length: 10 }).map((_, index) => {
@@ -18,4 +16,4 @@ const Loading = () => {
   )
 }
 
-export default Loading
+export default LoadingTimelineSkeleton

@@ -6,5 +6,6 @@ export const getTimelineEvents = async (page: string, pageSize: string) =>
   await paginatedFetcher<DictionaryResponse<Timeline>>(
     'Timeline/events/all',
     page,
-    pageSize
+    pageSize,
+    ['getTimelineEvents']
   )

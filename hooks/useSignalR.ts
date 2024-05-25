@@ -1,20 +1,16 @@
-import { DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId } from 'react'
 import connection from './signalRConnection'
 import { Timeline } from '@/app/dashboard/@admin/(admin layout)/@timeline/Timeline.interface'
 
+const EVENT_NAME = 'ReceiveTimelineEvent'
+
 export const useSignalR = (
-  eventName: string,
-  prevData: DictionaryResponse<Timeline>
+  callback: (event: Timeline) => void | Promise<void>
 ) => {
   const { setAlert } = useAlertActions()
 
   const alertId = useId()
-
-  // State to hold old data + new data from hub
-  const [timelineData, setTimelineData] =
-    useState<DictionaryResponse<Timeline>>(prevData)
 
   useEffect(() => {
     if (connection.state === 'Disconnected') {
@@ -27,34 +23,10 @@ export const useSignalR = (
       })
     }
 
-    connection.on(eventName, (event: Timeline) => {
-      setAlert({
-        id: alertId + '-new-event' + event.timelineId,
-        message: event.eventText.trimEnd(),
-        type: 'notification'
-      })
-
-      setTimelineData((prevData) => {
-        const newData = [...(prevData.data ?? [])]
-
-        newData.unshift(event)
-
-        if (newData.length > 1) {
-          newData.pop() // remove the last element
-        }
-
-        return {
-          data: newData,
-          count: prevData.count + 1,
-          pages: prevData.pages // Maybe we need to recalculate this?
-        }
-      })
-    })
+    connection.on(EVENT_NAME, callback)
 
     return () => {
-      connection.off(eventName)
+      connection.off(EVENT_NAME)
     }
-  }, [connection])
-
-  return timelineData
+  }, [alertId, EVENT_NAME, setAlert])
 }
