@@ -1,6 +1,6 @@
-import { getTimelineEvent } from '@/api-calls/getTimelineEvent'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import TimelineEvent from './TimelineEvent'
+import LoadingEventSkeleton from './LoadingEventSkeleton'
 
 const TimelineEventPage: React.FC<{
   params: {
@@ -10,7 +10,7 @@ const TimelineEventPage: React.FC<{
   const { eventId } = props.params
 
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Suspense fallback={<LoadingEventSkeleton />}>
       <TimelineEvent eventId={eventId} />
     </Suspense>
   )
