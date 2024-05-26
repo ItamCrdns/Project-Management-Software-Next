@@ -54,7 +54,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
           Please carefully review the information you are about to submit.
         </p>
         <div className='w-500 flex items-center flex-col'>
-          <div className='flex items-start w-full justify-center gap-4 rounded-lg p-4 py-0'>
+          <div className='flex items-start w-full justify-center gap-4 rounded-md p-4 py-0'>
             <div className='flex flex-col items-center w-full'>
               <Divider>Name</Divider>
               <h2 className='text-center line-clamp-2'>{newProject.name}</h2>
@@ -83,7 +83,7 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
               )}
             </h2>
           </div>
-          <div className='flex items-center w-full justify-center gap-4 rounded-lg p-4 py-0'>
+          <div className='flex items-center w-full justify-center gap-4 rounded-md p-4 py-0'>
             <div className='flex flex-col items-center w-full'>
               <Divider>Priority</Divider>
               <h2 className='text-center'>{newProject.priorityLabel}</h2>

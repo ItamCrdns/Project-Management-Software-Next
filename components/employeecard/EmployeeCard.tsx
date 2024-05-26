@@ -2,12 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { type Employee } from '@/interfaces/employee'
 import { Button } from '../Button/Button'
-import EmployeeNumbers from './EmployeeNumbers'
 import NoPicture from '../No profile picture/NoPicture'
+import EmployeeWorkload from './EmployeeWorkload.'
+import { Workload } from '@/interfaces/Workload'
 
 interface EmployeeCardProps {
   employee: Employee | null
-  supervisor?: Employee | null | undefined
+  supervisor?: Employee | null
+  workload?: Workload | null
   isProfile: boolean // * Should we show the supervisor card too or not?
   // ? || used to track if the cardwill be diplayted in the profile, if yes: more properties will be dispalyed. If no: only a few will because its a modal card being displayed somewhere in the page
   redirectMe: boolean // * Should we redirect to the employee profile or not?
@@ -18,7 +20,7 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
 
   return (
     <section className='space-y-8 z-[998]'>
-      <section className='flex flex-col gap-4 items-center rounded-lg shadow-md p-4 bg-theming-white100 dark:bg-theming-dark300'>
+      <section className='flex flex-col gap-4 items-center rounded-md shadow-md p-4 bg-theming-white100 dark:bg-theming-dark300'>
         {employee?.profilePicture !== null &&
         employee?.profilePicture !== undefined ? (
           <Image
@@ -44,14 +46,16 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (props) => {
           <h1 className='text-xl font-bold'>{employee?.username}</h1>
         )}
         <p className='capitalize text-xs -mt-4'>{employee?.role}</p>
-        {isProfile && <EmployeeNumbers employee={employee} />}
         <div className='flex gap-4'>
           <Button text='Message' />
-          <Button text='More' />
+          <Button text='More' borderOnly={true} txtColor='black' />
         </div>
       </section>
+      {isProfile && props.workload && (
+        <EmployeeWorkload workload={props.workload} />
+      )}
       {supervisor !== null && isProfile && (
-        <section className='flex flex-col items-center rounded-lg shadow-md p-4 max-w-52 bg-theming-white100 dark:bg-theming-dark300'>
+        <section className='flex flex-col items-center rounded-md shadow-md p-4 bg-theming-white100 dark:bg-theming-dark300'>
           <h2 className='font-semibold'>Under suppervision of</h2>
           <div className='flex gap-2 p-2 items-center '>
             {supervisor?.profilePicture !== null &&

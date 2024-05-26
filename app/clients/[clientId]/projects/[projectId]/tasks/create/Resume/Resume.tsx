@@ -51,7 +51,7 @@ const Resume: React.FC<{ return: () => void }> = (props) => {
           Please carefully review the information you are about to submit.
         </p>
         <div className='w-500 flex items-center flex-col px-4'>
-          <div className='flex items-start w-full justify-center rounded-lg'>
+          <div className='flex items-start w-full justify-center rounded-md'>
             <div className='flex flex-col items-center w-full'>
               <Divider>Name</Divider>
               <h2 className='text-center line-clamp-2'>{newTask.name}</h2>

@@ -1,16 +1,24 @@
 import getEmployee from '@/api-calls/getEmployee'
+import { getEmployeeWorkload } from '@/api-calls/getEmployeeWorkload'
 import EmployeeCard from '@/components/employeecard/EmployeeCard'
 
 const EmployeeIdCard: React.FC<{ username: string }> = async (props) => {
-  const data = await getEmployee(props.username)
+  const employeeData = getEmployee(props.username)
 
-  const employee = data?.data
-  const supervisor = employee?.supervisor
+  const workloadData = getEmployeeWorkload(props.username)
+
+  const [{ data: employee, status: employeeStatus }, { data: workload }] =
+    await Promise.all([employeeData, workloadData])
+
+  if (employeeStatus !== 200 && employee === null) {
+    return <div>Failed to load employee</div>
+  }
 
   return (
     <EmployeeCard
       employee={employee}
-      supervisor={supervisor}
+      workload={workload}
+      supervisor={employee?.supervisor}
       isProfile={true}
       redirectMe={false}
     />
