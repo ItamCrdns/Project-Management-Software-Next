@@ -15,6 +15,7 @@ const SearchByName: React.FC = () => {
       stateBasedSearch={false}
       searchPlaceholder='Search by project name'
       paramName='searchValue'
+      resetPageOnSearch={false}
     />
   )
 }

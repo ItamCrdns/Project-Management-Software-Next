@@ -11,6 +11,7 @@ interface SearchProps {
   stateBasedGetInputValue?: (input: string) => void // ? Used to get the input value from the search component and pass it to the parent component
   searchPlaceholder?: string
   paramName?: string
+  resetPageOnSearch?: boolean
 }
 
 const Search: React.FC<SearchProps> = (props) => {
@@ -19,7 +20,8 @@ const Search: React.FC<SearchProps> = (props) => {
     stateBasedSearch,
     stateBasedGetInputValue,
     searchPlaceholder,
-    paramName
+    paramName,
+    resetPageOnSearch = true
   } = props
 
   const { router, pathname, searchParams } = useGetSearchParams()
@@ -32,7 +34,10 @@ const Search: React.FC<SearchProps> = (props) => {
 
       if (inputValue !== '' && !stateBasedSearch) {
         searchParams.set(searchParam, inputValue)
-        searchParams.set('page', '1')
+        if (resetPageOnSearch) {
+          searchParams.set('page', '1')
+        }
+
         router.push(`${pathname}?${searchParams.toString()}`)
       } else if (inputValue === '' && !stateBasedSearch) {
         router.push(pathname)
