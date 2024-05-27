@@ -3,11 +3,16 @@ import { Filters } from './Filters'
 import { getCompany } from '@/api-calls/getCompanyById'
 import getEmployeeTier from '@/api-calls/getEmployeeTier'
 import CreateNewProjectButton from './CreateNewProjectButton'
+import { redirect } from 'next/navigation'
 
 const ClientInfoAndFilters: React.FC<{ clientId: string }> = async (props) => {
   const { clientId } = props
 
-  const { data } = await getCompany(clientId)
+  const { data, status } = await getCompany(clientId)
+
+  if (data === null && status === 404) {
+    redirect('/')
+  }
 
   const { data: employeeTier } = await getEmployeeTier()
 
