@@ -3,7 +3,7 @@ import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
 import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { Button } from '@/components/Button/Button'
-import { ArrowRightCircle } from '@/svg/ArrowRightCircle'
+import { ArrowRightCircle } from '@/icons/ArrowRightCircle'
 import { NotFound } from '@/components/404 Not Found/NotFound'
 
 const TasksParallel: React.FC<{

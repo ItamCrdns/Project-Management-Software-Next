@@ -2,7 +2,7 @@ import { useState } from 'react'
 import CustomSelect from '../select/select'
 import { timeOptions } from './timeOptions'
 import { type Option } from '@/interfaces/props/CustomSelectProps'
-import { Clock } from '@/svg/Clock'
+import { Clock } from '@/icons/Clock'
 
 const TimePicker: React.FC<{
   onChange: (value: Option) => void

@@ -1,26 +1,11 @@
+import { ICON_SIZE } from '@/icons/iconSize'
+import { RiArrowLeftDoubleLine } from '@remixicon/react'
+
 const First = () => {
   return (
-    <svg
-      //   onClick={
-      //     currentPage > 1
-      //       ? goToFirstPage
-      //       : () => {
-      //           /* Do nothing */
-      //         }
-      //   }
-      xmlns='http://www.w3.org/2000/svg'
-      fill='none'
-      viewBox='0 0 24 24'
-      strokeWidth={1.5}
-      stroke='currentColor'
-      className='w-6 h-6 cursor-pointer'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        d='m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5'
-      />
-    </svg>
+    <div className='rounded-full bg-azure-radiance-400 p-2'>
+      <RiArrowLeftDoubleLine size={ICON_SIZE} color='white' />
+    </div>
   )
 }
 

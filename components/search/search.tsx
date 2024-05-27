@@ -1,5 +1,5 @@
 'use client'
-import { MagnifyingGlass } from '@/svg/MagnifyingGlass'
+import { MagnifyingGlass } from '@/icons/MagnifyingGlass'
 import { TextInput } from '@tremor/react'
 import { useGetSearchParams } from '../Filters/useGetSearchParams'
 import { debounce } from '@/utility/debouce'

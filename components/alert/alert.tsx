@@ -1,12 +1,12 @@
 'use client'
 import { useAppSelector } from '@/lib/hooks/hooks'
-import { Check } from './Check'
 import React, { useEffect, useRef, useState } from 'react'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
-import { Error as AlertError } from './Error'
-import { BellAlert } from '@/svg/BellAlert'
-import { Close } from '@/svg/Close'
+import { BellAlert } from '@/icons/BellAlert'
+import { Close } from '@/icons/Close'
 import { AnimatePresence, motion } from 'framer-motion'
+import { CheckMark } from '@/icons/CheckMark'
+import { Warning } from '@/icons/Warning'
 
 const Alert: React.FC = () => {
   const alerts = useAppSelector((state) => state.alert)
@@ -68,13 +68,23 @@ const Alert: React.FC = () => {
                       hideAlert(alert.id)
                     }}
                   >
-                    <Close size={3} />
+                    <Close small={true} />
                   </div>
                   <div className='flex gap-2 items-center'>
-                    {alert.type && alert.type === 'success' && <Check />}
-                    {alert.type && alert.type === 'error' && <AlertError />}
+                    {alert.type && alert.type === 'success' && (
+                      <div className='rounded-full bg-green-500 p-2'>
+                        <CheckMark />
+                      </div>
+                    )}
+                    {alert.type && alert.type === 'error' && (
+                      <div className='rounded-full bg-red-500 p-2'>
+                        <Warning />
+                      </div>
+                    )}
                     {alert.type && alert.type === 'notification' && (
-                      <BellAlert />
+                      <div className='rounded-full bg-azure-radiance-500 p-2'>
+                        <BellAlert />
+                      </div>
                     )}
                     {alert.type && alert.type === 'loading' && (
                       <div className='border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-2 w-4 h-4'></div>

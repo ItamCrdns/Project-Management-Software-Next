@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/Button/Button'
-import { Trash } from '@/svg/Trash'
-import { Upload } from '@/svg/Upload'
+import { Trash } from '@/icons/Trash'
+import { Upload } from '@/icons/Upload'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 

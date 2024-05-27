@@ -3,7 +3,7 @@ import Task from './Task'
 import { LoadingProjectsSkeleton } from '../../../(projectId layout)/LoadingProjectsSkeleton'
 import LoadingIssues from './@issues/loading'
 import { EntityDivider } from '@/components/UI/EntityDivider'
-import { Issue } from '@/svg/Issue'
+import { Issue } from '@/icons/Issue'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
 

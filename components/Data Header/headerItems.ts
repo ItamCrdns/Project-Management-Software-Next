@@ -1,13 +1,13 @@
 import { type ComponentType } from 'react'
 import { type SortValues } from './sortValues'
-import { Icon } from '@/svg/Icon'
-import { Creator } from '@/svg/Creator'
-import { Users } from '@/svg/Users'
-import { Priority } from '@/svg/Priority'
-import { Calendar } from '@/svg/Calendar'
-import { Client } from '@/svg/Client'
-import { Project } from '@/svg/Project'
-import { Task } from '@/svg/Task'
+import { Creator } from '@/icons/Creator'
+import { Users } from '@/icons/Users'
+import { Priority } from '@/icons/Priority'
+import { Calendar } from '@/icons/Calendar'
+import { Client } from '@/icons/Client'
+import { Project } from '@/icons/Project'
+import { Task } from '@/icons/Task'
+import { NameTag } from '@/icons/NameTag'
 
 interface Props {
   entity?: string
@@ -22,7 +22,7 @@ export interface HeaderItem {
 
 export const getHeaderItems = (props: Props): HeaderItem[] => [
   {
-    icon: Icon,
+    icon: NameTag,
     label: 'Name',
     sortValue: props.sortValues.name
   },

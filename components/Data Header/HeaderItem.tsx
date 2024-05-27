@@ -1,6 +1,6 @@
 import { type HeaderItemProps } from '@/interfaces/props/DataHeaderProps'
-import { ArrowDown } from '@/svg/ArrowDown'
-import { ArrowUp } from '@/svg/ArrowUp'
+import { ArrowDown } from '@/icons/ArrowDown'
+import { ArrowUp } from '@/icons/ArrowUp'
 import Link from 'next/link'
 
 const HeaderItem: React.FC<HeaderItemProps> = (props) => {
@@ -25,7 +25,9 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
           props.handleSortChange(props.sortValue as string)
         }}
       >
-        <Icon />
+        <div className='rounded-full bg-azure-radiance-400 p-2'>
+          <Icon />
+        </div>
         <p
           className={`select-none cursor-pointer ${
             isStateSelected ? 'font-bold' : 'font-normal'
@@ -54,7 +56,9 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
           filterHeaderParams.size > 0 ? `&${filterHeaderParams.toString()}` : ''
         }`}
       >
-        <Icon />
+        <div className='rounded-full bg-azure-radiance-400 p-2'>
+          <Icon />
+        </div>
         <p
           className={`select-none cursor-pointer ${
             isLinkSelected ? 'font-bold' : 'font-normal'
@@ -63,13 +67,11 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
           {props.label}
         </p>
         {isLinkSelected &&
-          (props.searchParams.get('sort')?.toString() === 'ascending'
-            ? (
+          (props.searchParams.get('sort')?.toString() === 'ascending' ? (
             <ArrowUp />
-              )
-            : (
+          ) : (
             <ArrowDown />
-              ))}
+          ))}
       </Link>
     )
   } else {
@@ -78,7 +80,9 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
         className='flex gap-2 items-center justify-center'
         style={props.style}
       >
-        <Icon />
+        <div className='rounded-full bg-azure-radiance-400 p-2'>
+          <Icon />
+        </div>
         <p className='select-none'>{props.label}</p>
       </div>
     )

@@ -2,9 +2,9 @@ import { useId, useRef } from 'react'
 import { type NewClientFormProps } from '@/interfaces/props/NewClientFormProps'
 import { TextInput } from '@tremor/react'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
-import { Trash } from '@/svg/Trash'
-import { Close } from '@/svg/Close'
-import { CheckMark } from '@/svg/CheckMark'
+import { Trash } from '@/icons/Trash'
+import { Close } from '@/icons/Close'
+import { CheckMark } from '@/icons/CheckMark'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 
 const NewClientForm: React.FC<NewClientFormProps> = (props) => {

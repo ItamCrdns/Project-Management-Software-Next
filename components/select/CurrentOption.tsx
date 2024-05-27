@@ -4,7 +4,7 @@ import NoPicture from '../No profile picture/NoPicture'
 import { useState } from 'react'
 import { OverflowOptionsPopUp } from './PopUp/OverflowOptionsPopUp'
 import { OptionPopUp } from './PopUp/OptionPopUp'
-import { ArrowDown } from '@/svg/ArrowDown'
+import { ArrowDown } from '@/icons/ArrowDown'
 
 interface CurrentOptionsProps {
   selectedOption?: Option | null
@@ -40,22 +40,17 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
       onClick={handleOpenDropdown}
       className='flex items-center justify-end gap-4 select-none cursor-pointer'
     >
-      {selectedOption !== null && selectedOption !== undefined
-        ? (
+      {selectedOption !== null && selectedOption !== undefined ? (
         <span className='text-black dark:text-white text-sm'>
           {selectedOption?.label}
         </span>
-          )
-        : Array.isArray(defaultEntities) && defaultEntities.length > 0
-          ? (
+      ) : Array.isArray(defaultEntities) && defaultEntities.length > 0 ? (
         <ul className='flex flex-row'>
-          {defaultEntities.length > 4
-            ? (
+          {defaultEntities.length > 4 ? (
             <>
               {firstFourValues.map((v, i) => (
                 <li className='flex items-center justify-center px-1' key={i}>
-                  {v.picture !== undefined
-                    ? (
+                  {v.picture !== undefined ? (
                     <>
                       <Image
                         src={v.picture}
@@ -72,10 +67,9 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
                       />
                       {showPopUp === v && <OptionPopUp option={v} />}
                     </>
-                      )
-                    : (
+                  ) : (
                     <NoPicture width='25px' height='25px' />
-                      )}
+                  )}
                 </li>
               ))}
               <div
@@ -93,12 +87,10 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
                 )}
               </div>
             </>
-              )
-            : (
-                defaultEntities.map((v, i) => (
+          ) : (
+            defaultEntities.map((v, i) => (
               <li className='flex items-center justify-center px-1' key={i}>
-                {v.picture !== undefined
-                  ? (
+                {v.picture !== undefined ? (
                   <>
                     <Image
                       src={v.picture}
@@ -115,16 +107,14 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
                     />
                     {showPopUp === v && <OptionPopUp option={v} />}
                   </>
-                    )
-                  : (
+                ) : (
                   <NoPicture width='25px' height='25px' />
-                    )}
+                )}
               </li>
-                ))
-              )}
+            ))
+          )}
         </ul>
-            )
-          : (
+      ) : (
         <p
           className={`text-black dark:text-white text-sm ${
             props.disabled ? 'text-gray-400 cursor-not-allowed' : ''
@@ -132,7 +122,7 @@ const CurrentOption: React.FC<CurrentOptionsProps> = (props) => {
         >
           {defaultValue}
         </p>
-            )}
+      )}
       <ArrowDown />
     </div>
   )

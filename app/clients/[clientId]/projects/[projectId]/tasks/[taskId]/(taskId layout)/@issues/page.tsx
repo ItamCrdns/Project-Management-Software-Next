@@ -2,7 +2,7 @@ import { getTaskIssues } from '@/api-calls/getTaskIssues'
 import EachIssue from '@/app/issues/EachIssue'
 import { NotFound } from '@/components/404 Not Found/NotFound'
 import { Button } from '@/components/Button/Button'
-import { ArrowRightCircle } from '@/svg/ArrowRightCircle'
+import { ArrowRightCircle } from '@/icons/ArrowRightCircle'
 
 const IssuesParallel: React.FC<{
   params: { clientId: string; projectId: string; taskId: string }
