@@ -10,8 +10,8 @@ const IssuesCard: React.FC<{ username: string }> = async (props) => {
   const issuesCount = data?.count
 
   return (
-    <section className='flex items-center flex-col text-sm gap-4 shadow-md p-4 rounded-md bg-theming-white100 dark:bg-theming-dark300'>
-      <h2 className='font-semibold text-xl'>Issues</h2>
+    <section className='flex items-center flex-col gap-4 shadow-md p-8 rounded-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h2 className='font-semibold self-start'>Issues</h2>
       {Array.isArray(issues) && issues.length > 0 ? (
         <>
           <ul className='px-4 grid grid-cols-2 gap-4'>
@@ -20,7 +20,10 @@ const IssuesCard: React.FC<{ username: string }> = async (props) => {
                 key={issue.issueId}
                 className='p-2 bg-theming-white200 dark:bg-theming-dark200 rounded-md text-center'
               >
-                <Link href={`/issues/${issue.issueId}`} className='px-4'>
+                <Link
+                  className='text-sm px-4'
+                  href={`/issues/${issue.issueId}`}
+                >
                   {issue.name.slice(0, 24)}...
                 </Link>
               </li>
@@ -28,7 +31,7 @@ const IssuesCard: React.FC<{ username: string }> = async (props) => {
           </ul>
           <h3>
             <Link
-              className='font-semibold text-theming-dark100 dark:text-theming-white100'
+              className='font-semibold text-sm'
               href={`/employee/${username}/issues?page=1`}
             >
               See all {issuesCount} issues

@@ -11,8 +11,8 @@ const CoworkersCard: React.FC<{ username: string }> = async (props) => {
   const colleaguesCount = data?.count ?? 0
 
   return (
-    <section className='flex items-center flex-col text-sm gap-4 shadow-md p-4 rounded-md bg-theming-white100 dark:bg-theming-dark300'>
-      <h2 className='font-semibold text-xl'>Coworkers</h2>
+    <section className='flex items-center flex-col gap-4 shadow-md p-8 rounded-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h2 className='font-semibold self-start'>Coworkers</h2>
       {Array.isArray(colleagues) && colleagues.length > 0 ? (
         <>
           <ul className='px-4 grid grid-cols-2 gap-4 place-items-center justify-items-center justify-center place-content-center'>
@@ -31,7 +31,7 @@ const CoworkersCard: React.FC<{ username: string }> = async (props) => {
             ))}
           </ul>
           <Link
-            className='font-semibold text-theming-dark100 dark:text-theming-white100'
+            className='font-semibold text-sm'
             href={`/employee/${username}/coworkers`}
           >
             See all {colleaguesCount} coworkers

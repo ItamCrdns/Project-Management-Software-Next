@@ -3,11 +3,13 @@ import { NotFound } from '@/components/404 Not Found/NotFound'
 import IssueUI from '@/components/UI/IssueUI/IssueUITeamAndCreator'
 import { Description } from '../../../../(projectId layout)/Banners/Description'
 import { Attachments } from '../../../../(projectId layout)/Banners/Attachments'
+import Task from '../Banners/Task'
 
 const Issue: React.FC<{
   issueId: string
   taskId: string
   projectId: string
+  clientId: string
 }> = async (props) => {
   const { data, status } = await getIssue(
     props.issueId,
@@ -27,8 +29,14 @@ const Issue: React.FC<{
 
   return (
     <>
-      <IssueUI issue={data} showGeneralInfo={true} noIssue={status !== 200} />
+      <IssueUI issue={data} noIssue={status !== 200} />
       <div className='space-y-8 w-[300px]'>
+        <Task
+          name={data?.entity.task.name}
+          clientId={props.clientId}
+          projectId={props.projectId}
+          taskId={props.taskId}
+        />
         <Description description={data?.entity.description} />
       </div>
       <div className='space-y-8 w-[300px]'>

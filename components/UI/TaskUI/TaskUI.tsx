@@ -10,7 +10,8 @@ const TaskUI = ({
   task: Task
 }) => {
   return (
-    <div className='flex flex-col items-center p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+    <div className='flex flex-col items-center p-8 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h1 className='self-start font-semibold'>Task information</h1>
       <div className='flex gap-4 items-center'>
         <Link
           className='font-bold text-theming-dark100 dark:text-theming-white100'
@@ -18,7 +19,7 @@ const TaskUI = ({
         >
           {task.name}
         </Link>
-        {task.startedWorking !== null && task.startedWorking !== undefined && (
+        {task.startedWorking !== null && (
           <BadgeComponent
             content={dateUtil(task.startedWorking).text}
             tooltip={new Date(task.startedWorking).toLocaleDateString('en-us', {
@@ -33,11 +34,13 @@ const TaskUI = ({
           />
         )}
       </div>
-      <Dates
-        created={task.created}
-        expectedDelivery={task.expectedDeliveryDate}
-        finalized={task.finished}
-      />
+      <div className='p-0 -mt-2 w-full'>
+        <Dates
+          created={task.created}
+          expectedDelivery={task.expectedDeliveryDate}
+          finalized={task.finished}
+        />
+      </div>
     </div>
   )
 }

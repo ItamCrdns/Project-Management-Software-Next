@@ -14,7 +14,8 @@ const ProjectUI = ({
   const wasStarted = dateUtil(project.startedWorking ?? '').text
 
   return (
-    <div className='flex flex-col items-center p-4 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+    <div className='flex flex-col items-center p-8 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h1 className='font-semibold self-start'>Project information</h1>
       <Link
         className='font-bold text-theming-dark100 dark:text-theming-white100'
         href={`/clients/${clientId}/projects/${project.projectId}`}
@@ -26,39 +27,38 @@ const ProjectUI = ({
           <>
             <BadgeComponent
               content={project.lifecycle ?? ''}
-              tooltip={`Project lifecyle is ${project.lifecycle}`}
+              tooltip={`Lifecycle: ${project.lifecycle}`}
             />
             <p className='select-none'>&middot;</p>
           </>
         )}
-        {project.startedWorking !== null &&
-          project.startedWorking !== undefined && (
-            <>
-              <BadgeComponent
-                content={wasStarted}
-                tooltip={new Date(project.startedWorking).toLocaleDateString(
-                  'en-us',
-                  {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    timeZone: 'UTC'
-                  }
-                )}
-              />
-              <p className='select-none'>&middot;</p>
-            </>
-          )}
+        {project.startedWorking !== null && (
+          <>
+            <BadgeComponent
+              content={wasStarted}
+              tooltip={new Date(project.startedWorking).toLocaleDateString(
+                'en-us',
+                {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  timeZone: 'UTC'
+                }
+              )}
+            />
+            <p className='select-none'>&middot;</p>
+          </>
+        )}
         <BadgeComponent
           content={priority.priorityText}
           color={priority.color}
           tooltip={`Project has a ${priority.priorityText} priority`}
         />
       </div>
-      <div className='p-0 -mt-2'>
+      <div className='p-0 -mt-2 w-full'>
         <Dates
           created={project.created}
           expectedDelivery={project.expectedDeliveryDate}

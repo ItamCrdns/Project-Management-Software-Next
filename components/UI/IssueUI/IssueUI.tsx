@@ -10,7 +10,8 @@ const IssueUI = ({
   issue: Issue
 }) => {
   return (
-    <div className='flex flex-col items-center p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+    <div className='flex flex-col items-center p-8 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h1 className='self-start font-semibold'>Issue report</h1>
       <div className='flex gap-4 items-center'>
         <Link
           className='font-bold text-theming-dark100 dark:text-theming-white100'

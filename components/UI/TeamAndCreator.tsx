@@ -1,7 +1,4 @@
 import ProjectCreator from '@/app/clients/[clientId]/projects/[projectId]/(projectId layout)/ProjectCreator'
-import { Creator } from '@/svg/Creator'
-import { Users } from '@/svg/Users'
-import React from 'react'
 import { IndividualEmployee } from '../Generic Entity Renderer/IndividualEmployee'
 import { type Employee } from '@/interfaces/employee'
 import Link from 'next/link'
@@ -19,57 +16,52 @@ const TeamAndCreator: React.FC<{
     <div className='flex items-center gap-8 flex-col'>
       <div className='w-full space-y-2'>
         {creator !== undefined && (
-          <>
-            <div className='flex items-center justify-center gap-2'>
-              <h1 className='text-center font-semibold'>Created by</h1>
-              <Creator />
-            </div>
-
-            <div className='flex justify-center p-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md'>
-              <ProjectCreator
-                creator={creator}
-                pictureSize={35}
-                showUsername={true}
-                position={{ left: '1rem' }}
-              />
-            </div>
-          </>
+          <div className='flex flex-col gap-4 items-center justify-center p-8 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md'>
+            <h1 className='font-semibold self-start'>Created by</h1>
+            <ProjectCreator
+              creator={creator}
+              pictureSize={35}
+              showUsername={true}
+              position={{ left: '1rem' }}
+            />
+          </div>
         )}
       </div>
       {Array.isArray(team) && (
         <div className='w-full space-y-2'>
-          <div className='flex items-center justify-center gap-2'>
-            <h1 className='text-center font-semibold'>Team</h1>
-            <Users />
-          </div>
-          <ul className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-4 grid grid-cols-2 gap-4 place-items-center justify-items-center justify-center place-content-center'>
-            {team.length > 0 ? (
-              team.map((employee: Employee, index: number) => (
-                <li key={index} className='relative'>
-                  <IndividualEmployee
-                    employee={employee}
-                    size={35}
-                    redirectMe={true}
-                    showName={true}
-                    position={{ left: '1rem' }}
-                  />
-                </li>
-              ))
-            ) : (
+          <div className='rounded-md w-full shadow-md bg-theming-white100 dark:bg-theming-dark300 p-8 space-y-4'>
+            <h1 className='font-semibold'>Team</h1>
+            <ul className='space-y-4 flex flex-col justify-center items-center'>
+              {team.length > 0 ? (
+                team.map((employee: Employee, index: number) => (
+                  <li key={index} className='relative'>
+                    <IndividualEmployee
+                      employee={employee}
+                      size={35}
+                      redirectMe={true}
+                      showName={true}
+                      position={{ left: '1rem' }}
+                    />
+                  </li>
+                ))
+              ) : (
+                <p className='text-center font-semibold text-sm'>
+                  No employees in this team
+                </p>
+              )}
+            </ul>
+            {team.length > 0 && (
               <p className='text-center font-semibold text-sm'>
-                No employees in this team
+                {teamHref !== '' && teamHref !== undefined ? (
+                  <Link href={teamHref}>
+                    {teamCount} employees in this team
+                  </Link>
+                ) : (
+                  `${teamCount} employees in this team`
+                )}
               </p>
             )}
-          </ul>
-          {team.length > 0 && (
-            <p className='text-center font-semibold text-sm'>
-              {teamHref !== '' && teamHref !== undefined ? (
-                <Link href={teamHref}>{teamCount} employees in this team</Link>
-              ) : (
-                `${teamCount} employees in this team`
-              )}
-            </p>
-          )}
+          </div>
         </div>
       )}
     </div>

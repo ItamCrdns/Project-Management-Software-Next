@@ -1,17 +1,12 @@
-import { Client as SvgClient } from '@/svg/Client'
+import Link from 'next/link'
 
-const Client: React.FC<{ name?: string }> = (props) => {
-  const { name } = props
-
+const Client: React.FC<{ name?: string; clientId?: string }> = (props) => {
   return (
-    <div className='space-y-2'>
-      <div className='flex items-center justify-center gap-2'>
-        <h1 className='text-center font-semibold'>Client</h1>
-        <SvgClient />
-      </div>
-      <div className='p-4 space-y-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
-        <p className='text-center font-semibold text-lg'>{name}</p>
-      </div>
+    <div className='p-8 space-y-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <h1 className='font-semibold'>Client</h1>
+      <h1>
+        <Link href={`/clients/${props.clientId}`}>{props.name}</Link>
+      </h1>
     </div>
   )
 }

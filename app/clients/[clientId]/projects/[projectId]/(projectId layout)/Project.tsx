@@ -27,11 +27,10 @@ const Project: React.FC<{ projectId: string; clientId: string }> = async (
         clientId={props.clientId}
         showButtons={true}
         employeeCountHref={`/clients/${props.clientId}/projects/${project?.entity.projectId}/employees`}
-        showGeneralInfo={true}
         noProject={status !== 200}
       />
       <div className='space-y-8 w-[300px]'>
-        <Client name={project?.entity.company.name} />
+        <Client name={project?.entity.company.name} clientId={props.clientId} />
         <Description description={project?.entity.description} />
       </div>
       <div className='space-y-8 w-[300px]'>

@@ -5,37 +5,38 @@ import { Description } from '../../../(projectId layout)/Banners/Description'
 import { Attachments } from '../../../(projectId layout)/Banners/Attachments'
 import { NotFound } from '@/components/404 Not Found/NotFound'
 
-const Task: React.FC<{ projectId: string; taskId: string }> = async (props) => {
-  const { projectId, taskId } = props
+const Task: React.FC<{ clientId: string; projectId: string; taskId: string }> =
+  async (props) => {
+    const { projectId, taskId } = props
 
-  const { data: task, status } = await getTask(projectId, taskId)
+    const { data: task, status } = await getTask(projectId, taskId)
 
-  if (status !== 200) {
+    if (status !== 200) {
+      return (
+        <NotFound
+          text='Task not found'
+          buttonText='Return to homepage'
+          href='/'
+        />
+      )
+    }
+
     return (
-      <NotFound
-        text='Task not found'
-        buttonText='Return to homepage'
-        href='/'
-      />
+      <>
+        <TaskUITeamAndCreator task={task} noTask={status !== 200} />
+        <div className='space-y-8 w-[300px]'>
+          <Project
+            name={task?.entity.project.name}
+            clientId={props.clientId}
+            projectId={props.projectId}
+          />
+          <Description description={task?.entity.description} />
+        </div>
+        <div className='space-y-8 w-[300px]'>
+          <Attachments />
+        </div>
+      </>
     )
   }
-
-  return (
-    <>
-      <TaskUITeamAndCreator
-        task={task}
-        showGeneralInfo={true}
-        noTask={status !== 200}
-      />
-      <div className='space-y-8 w-[300px]'>
-        <Project project={task?.entity.project} />
-        <Description description={task?.entity.description} />
-      </div>
-      <div className='space-y-8 w-[300px]'>
-        <Attachments />
-      </div>
-    </>
-  )
-}
 
 export default Task

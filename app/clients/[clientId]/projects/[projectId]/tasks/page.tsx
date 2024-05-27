@@ -1,11 +1,11 @@
 import { taskSortValues } from '@/app/dashboard/@admin/_tasks/sortValues'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
-import { Project } from './Project'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { Tasks } from './Tasks'
 import { Suspense } from 'react'
 import LoadingProjectUISkeleton from '@/components/UI/ProjectUI/LoadingProjectUISkeleton'
 import { Loading } from '@/app/clients/[clientId]/projects/(projects layout)/Loading'
+import { ProjectInfoAndFilters } from './ProjectInfoAndFilters'
 
 const ProjectTasks: React.FC<{
   params: { clientId: string; projectId: string }
@@ -19,7 +19,7 @@ const ProjectTasks: React.FC<{
     <section className='flex flex-col justify-center gap-4 p-8'>
       <div className='flex items-start justify-center gap-8'>
         <Suspense fallback={<LoadingProjectUISkeleton />}>
-          <Project projectId={projectId} clientId={clientId} />
+          <ProjectInfoAndFilters projectId={projectId} clientId={clientId} />
         </Suspense>
         <div className='space-y-8'>
           <DataHeader

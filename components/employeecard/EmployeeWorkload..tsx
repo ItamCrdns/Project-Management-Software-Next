@@ -8,8 +8,8 @@ const EmployeeWorkload = async ({
 }) => {
   return (
     <section className='flex flex-col gap-4 items-center rounded-md shadow-md p-8 bg-theming-white100 dark:bg-theming-dark300'>
+      <h1 className='font-semibold self-start'>Workload</h1>
       <div className='flex gap-4 items-center'>
-        <h2 className='font-semibold text-xl'>Workload</h2>
         <BadgeComponent
           content={workload?.workloadSum ?? 'None'}
           tooltip={`${workload?.workloadSum} workload`}

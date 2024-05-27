@@ -1,19 +1,11 @@
 import { Button } from '@/components/Button/Button'
 import { type ProjectUIProps } from './ProjectUI.interface'
 import { TeamAndCreator } from '../TeamAndCreator'
-import { Info } from '@/svg/Info'
 import { EntityNotFound } from '../EntityNotFound'
 import ProjectUI from './ProjectUI'
 
 const ProjectUIWithButtons: React.FC<ProjectUIProps> = (props) => {
-  const {
-    project,
-    clientId,
-    showButtons,
-    employeeCountHref,
-    showGeneralInfo,
-    noProject
-  } = props
+  const { project, clientId, showButtons, employeeCountHref, noProject } = props
 
   if (noProject) {
     return <EntityNotFound entity='Project' />
@@ -25,12 +17,6 @@ const ProjectUIWithButtons: React.FC<ProjectUIProps> = (props) => {
     <aside className='flex flex-col items-center gap-4'>
       <div className='flex flex-col gap-8 w-[400px]'>
         <div className='w-full space-y-2'>
-          {showGeneralInfo === true && (
-            <div className='flex items-center justify-center gap-2'>
-              <h1 className='text-center font-semibold'>Project information</h1>
-              <Info />
-            </div>
-          )}
           {project?.entity && (
             <ProjectUI project={project?.entity} clientId={clientId} />
           )}

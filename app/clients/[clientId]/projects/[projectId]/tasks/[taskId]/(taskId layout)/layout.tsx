@@ -8,7 +8,7 @@ import DataHeader from '@/components/Data Header/DataHeader'
 import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
 
 const TaskId: React.FC<{
-  params: { projectId: string; taskId: string }
+  params: { clientId: string; projectId: string; taskId: string }
   issues: React.ReactNode
 }> = (props) => {
   const { projectId, taskId } = props.params
@@ -17,7 +17,11 @@ const TaskId: React.FC<{
     <section className='flex items-center flex-col'>
       <div className='flex items-start justify-center gap-8 p-8'>
         <Suspense fallback={<LoadingProjectsSkeleton />}>
-          <Task projectId={projectId} taskId={taskId} />
+          <Task
+            clientId={props.params.clientId}
+            projectId={projectId}
+            taskId={taskId}
+          />
         </Suspense>
       </div>
       <section className='flex flex-col items-center justify-center'>
