@@ -1,6 +1,6 @@
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Project } from '@/interfaces/project'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 import fetcher from '@/utility/fetcher'
 
 // ? Uhmm maybe i should use isProject ** and isOwner but this is the users profile? Should I? Idk???

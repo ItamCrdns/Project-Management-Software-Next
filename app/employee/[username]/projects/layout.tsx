@@ -14,7 +14,6 @@ const EmployeeCardAndProjects: React.FC<{
         <EmployeeCardAndFilters username={username} />
         <div className='space-y-8'>
           <DataHeader
-            dashboard={false}
             pushSearchParams
             entity='projects'
             width='300px'

@@ -25,7 +25,6 @@ const ProjectsPage: React.FC<{ searchParams: SearchParamsPageSize }> = async (
           <ProjectsHint config={configCookie} />
           <div className='space-y-8'>
             <DataHeader
-              dashboard={false}
               width='300px'
               entity='projectsfromcompany'
               pushSearchParams={false}

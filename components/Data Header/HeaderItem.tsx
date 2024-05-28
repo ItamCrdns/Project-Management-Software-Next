@@ -9,37 +9,11 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
   const isLinkSelected =
     props.searchParams.get('orderby') === props.sortValue?.toLowerCase()
 
-  const isStateSelected =
-    props.order.orderBy.toLowerCase() === props.sortValue?.toLowerCase()
-
   const filterHeaderParams = new URLSearchParams(props.searchParams.toString())
   filterHeaderParams.delete('sort')
   filterHeaderParams.delete('orderby')
 
-  if (props.dashboard) {
-    return (
-      <div
-        className='flex gap-2 items-center justify-center'
-        style={props.style}
-        onClick={() => {
-          props.handleSortChange(props.sortValue as string)
-        }}
-      >
-        <div className='rounded-full bg-azure-radiance-400 p-2'>
-          <Icon />
-        </div>
-        <p
-          className={`select-none cursor-pointer ${
-            isStateSelected ? 'font-bold' : 'font-normal'
-          }`}
-        >
-          {props.label}
-        </p>
-        {isStateSelected &&
-          (props.order.sort === 'ascending' ? <ArrowUp /> : <ArrowDown />)}
-      </div>
-    )
-  } else if (props.pushSearchParams) {
+  if (props.pushSearchParams) {
     return (
       <Link
         className='flex gap-2 items-center justify-center'

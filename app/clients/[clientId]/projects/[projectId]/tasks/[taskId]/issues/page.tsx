@@ -1,4 +1,3 @@
-import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
 import DataHeader from '@/components/Data Header/DataHeader'
 import { Suspense } from 'react'
 import Task from './Task'
@@ -6,6 +5,7 @@ import { Issues } from './Issues'
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
 import LoadingProjectUISkeleton from '@/components/UI/ProjectUI/LoadingProjectUISkeleton'
 import { Loading } from '@/app/clients/[clientId]/projects/(projects layout)/Loading'
+import { issueSortValues } from '@/components/Data Header/sortValues'
 
 const TaskIssues: React.FC<{
   params: { clientId: string; projectId: string; taskId: string }
@@ -23,7 +23,6 @@ const TaskIssues: React.FC<{
         </Suspense>
         <div className='space-y-8'>
           <DataHeader
-            dashboard={false}
             width='300px'
             sortValues={issueSortValues}
             pushSearchParams

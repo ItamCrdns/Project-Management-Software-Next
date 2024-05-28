@@ -1,4 +1,4 @@
-import { type Sort } from '@/interfaces/props/context props/IFilter'
+import { Sort } from "@/interfaces/props/IFilter"
 
 const defaultSortValue: Sort = 'descending'
 

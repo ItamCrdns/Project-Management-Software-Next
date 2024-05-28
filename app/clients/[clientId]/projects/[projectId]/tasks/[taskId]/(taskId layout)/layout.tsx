@@ -5,7 +5,7 @@ import LoadingIssues from './@issues/loading'
 import { EntityDivider } from '@/components/UI/EntityDivider'
 import { Issue } from '@/icons/Issue'
 import DataHeader from '@/components/Data Header/DataHeader'
-import { issueSortValues } from '@/app/dashboard/@admin/_issues/sortValues'
+import { issueSortValues } from '@/components/Data Header/sortValues'
 
 const TaskId: React.FC<{
   params: { clientId: string; projectId: string; taskId: string }
@@ -30,7 +30,6 @@ const TaskId: React.FC<{
         </EntityDivider>
         <div className='space-y-8'>
           <DataHeader
-            dashboard={false}
             width='300px'
             pushSearchParams={false}
             sortValues={issueSortValues}

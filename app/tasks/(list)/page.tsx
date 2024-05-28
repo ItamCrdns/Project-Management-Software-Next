@@ -1,11 +1,11 @@
 import Tasks from './Tasks'
 import { type TasksProps } from './TaskProps'
 import DataHeader from '@/components/Data Header/DataHeader'
-import { taskSortValues } from '@/app/dashboard/@admin/_tasks/sortValues'
 import { Suspense } from 'react'
 import { LoadingTasksSkeleton } from './LoadingTasksSkeleton'
 import TasksHint from './TasksHint'
 import { cookies } from 'next/headers'
+import { taskSortValues } from '@/components/Data Header/sortValues'
 
 const TasksPage: React.FC<TasksProps> = (props) => {
   const key =
@@ -23,7 +23,6 @@ const TasksPage: React.FC<TasksProps> = (props) => {
           <TasksHint config={configCookie} />
           <div className='space-y-8'>
             <DataHeader
-              dashboard={false}
               width='300px'
               pushSearchParams={false}
               sortValues={taskSortValues}

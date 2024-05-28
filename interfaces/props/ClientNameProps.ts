@@ -1,6 +1,5 @@
-import React from 'react'
 import { type SearchParams } from '../searchParams'
-import { type OrderBy, type Sort } from './context props/IFilter'
+import { type OrderBy, type Sort } from './IFilter'
 
 export interface SearchParamsPageSize extends SearchParams {
   pagesize: string

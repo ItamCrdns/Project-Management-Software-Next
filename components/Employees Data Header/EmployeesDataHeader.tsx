@@ -1,5 +1,4 @@
 'use client'
-import { orderInitialState } from '@/context/Filter/filterInitialState'
 import HeaderItem from '../Data Header/HeaderItem'
 import { employeeHeaderItems } from './employeeHeaderItems'
 import { useGetSearchParams } from '../Filters/useGetSearchParams'
@@ -12,7 +11,10 @@ const EmployeesDataHeader: React.FC = () => {
     handleSortChange: () => {
       /* Placeholder function for handling sort change */
     },
-    order: orderInitialState, // placeholders
+    order: {
+      orderBy: 'Created',
+      sort: 'descending'
+    }, // placeholders
     searchParams,
     dashboard: false,
     pushSearchParams: true,

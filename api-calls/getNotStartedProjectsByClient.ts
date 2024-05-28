@@ -1,6 +1,6 @@
 import { DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { Project } from '@/interfaces/project'
-import { IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 import fetcher from '@/utility/fetcher'
 
 const getNotStartedProjectsByClient = async (

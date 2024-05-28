@@ -1,5 +1,5 @@
 import { type SearchParamsPageSize } from '@/interfaces/props/ClientNameProps'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 import checkAndSetOrderBy from '@/utility/checkAndSetOrderBy'
 import checkAndSetSort from '@/utility/checkAndSetSort'
 import urlSearchParamsNumberVerifier from '@/utility/urlSearchParamsNumberVerifier'

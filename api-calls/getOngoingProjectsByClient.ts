@@ -1,7 +1,7 @@
 import { type Project } from '@/interfaces/project'
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import fetcher from '@/utility/fetcher'
+import { IFilterProperties } from '@/interfaces/props/IFilter';
 
 const getOngoingProjectsByClient = async (
   clientId: string,

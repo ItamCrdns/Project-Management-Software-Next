@@ -1,6 +1,6 @@
 import { type DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { type Issue } from '@/interfaces/Issue'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 import fetcher from '@/utility/fetcher'
 
 interface TaskIssuesData {

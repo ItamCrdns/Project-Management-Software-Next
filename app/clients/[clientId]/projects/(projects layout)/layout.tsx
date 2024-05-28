@@ -15,7 +15,6 @@ const CompanyProjectsPage: React.FC<ClientNameProps> = (props) => {
         <ClientInfoAndFilters clientId={clientId} />
         <div className='flex flex-col'>
           <DataHeader
-            dashboard={false}
             pushSearchParams
             entity='projectsfromcompany'
             width='300px'

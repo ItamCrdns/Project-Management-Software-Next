@@ -1,5 +1,5 @@
 import { type Project } from '@/interfaces/project'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { fetcher } from '@/utility/fetcherSWR'
 import useSWR from 'swr'

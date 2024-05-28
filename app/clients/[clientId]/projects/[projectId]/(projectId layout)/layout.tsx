@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 import LoadingTasks from './@tasks/loading'
 import DataHeader from '@/components/Data Header/DataHeader'
-import { taskSortValues } from '@/app/dashboard/@admin/_tasks/sortValues'
 import { Project } from './Project'
 import { LoadingProjectsSkeleton } from './LoadingProjectsSkeleton'
 import { EntityDivider } from '@/components/UI/EntityDivider'
 import { Task } from '@/icons/Task'
+import { taskSortValues } from '@/components/Data Header/sortValues'
 
 interface ProjectIdProps {
   children: React.ReactNode
@@ -31,7 +31,6 @@ const ProjectId: React.FC<ProjectIdProps> = (props) => {
           </EntityDivider>
           <div className='space-y-8'>
             <DataHeader
-              dashboard={false}
               width='300px'
               pushSearchParams={false}
               sortValues={taskSortValues}

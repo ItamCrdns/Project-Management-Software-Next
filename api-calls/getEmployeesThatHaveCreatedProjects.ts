@@ -3,7 +3,7 @@
 // * Example: employees #1 and #25 have created projects for client #2, so we will only return those two employees regardless of how many projects they have created for that client
 
 import { type Employee } from '@/interfaces/employee'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 import { type SWRGetterReturn } from '@/interfaces/return/SWRGetterReturn'
 import { fetcher } from '@/utility/fetcherSWR'
 import useSWR from 'swr'

@@ -1,10 +1,10 @@
 import { type Task } from '@/interfaces/task'
 import getProjectTasks from '@/api-calls/getProjectTasks'
 import EachTask from './EachTask'
-import { type IFilterProperties } from '@/interfaces/props/context props/IFilter'
 import { Button } from '@/components/Button/Button'
 import { ArrowRightCircle } from '@/icons/ArrowRightCircle'
 import { NotFound } from '@/components/404 Not Found/NotFound'
+import { IFilterProperties } from '@/interfaces/props/IFilter'
 
 const TasksParallel: React.FC<{
   params: { clientId: string; projectId: string }

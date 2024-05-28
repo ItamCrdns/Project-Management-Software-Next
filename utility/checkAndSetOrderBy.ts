@@ -1,4 +1,4 @@
-import { type OrderBy } from '@/interfaces/props/context props/IFilter'
+import { OrderBy } from "@/interfaces/props/IFilter"
 
 const defaultOrderByValue: OrderBy = 'Created'
 
