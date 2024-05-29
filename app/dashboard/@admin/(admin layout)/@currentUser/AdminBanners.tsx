@@ -1,22 +1,18 @@
-import getEntitiesCreatedLastWeek from '@/api-calls/getEntitiesCreatedLastWeek'
 import { Issue } from '@/icons/Issue'
 import { Project } from '@/icons/Project'
 import { Task } from '@/icons/Task'
+import { LatestWeek } from '@/interfaces/LatestWeek'
 
-const AdminBanners: React.FC = async () => {
-  const { data } = await getEntitiesCreatedLastWeek()
-
-  if (data === null) {
-    return
-  }
-
-  const projectsLastWeek = data.projectsLastWeek
-  const tasksLastWeek = data.tasksLastWeek
-  const issuesLastWeek = data.issuesLastWeek
+const AdminBanners: React.FC<{
+  data: LatestWeek
+}> = (props) => {
+  const projectsLastWeek = props.data.projectsLastWeek
+  const tasksLastWeek = props.data.tasksLastWeek
+  const issuesLastWeek = props.data.issuesLastWeek
 
   return (
     <>
-      <div className='flex items-center justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center w-[200px] justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
         <div>
           <h1 className='font-semibold m-0'>New projects</h1>
           <p className='text-center m-0'>{projectsLastWeek} this week</p>
@@ -25,7 +21,7 @@ const AdminBanners: React.FC = async () => {
           <Project />
         </span>
       </div>
-      <div className='flex items-center justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center w-[200px] justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
         <div>
           <h1 className='font-semibold m-0'>New tasks</h1>
           <p className='text-center m-0'>{tasksLastWeek} this week</p>
@@ -34,7 +30,7 @@ const AdminBanners: React.FC = async () => {
           <Task />
         </span>
       </div>
-      <div className='flex items-center justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='flex items-center w-[200px] justify-between gap-4 p-4 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
         <div>
           <h1 className='font-semibold m-0'>New issues</h1>
           <p className='text-center m-0'>{issuesLastWeek} this week</p>
