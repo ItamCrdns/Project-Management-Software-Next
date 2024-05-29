@@ -22,8 +22,7 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
   return (
     <>
       <div className='flex gap-2 items-center'>
-        {employee.profilePicture !== null
-          ? (
+        {employee.profilePicture !== null ? (
           <Image
             onMouseOver={handleShowCard}
             onMouseLeave={handleHideCard}
@@ -37,12 +36,11 @@ const IndividualEmployee: React.FC<EmployeeListProps> = (props) => {
                 : ''
             }`}
           />
-            )
-          : (
+        ) : (
           <div onMouseOver={handleShowCard} onMouseLeave={handleHideCard}>
             <NoPicture width={props.size + 'px'} height={props.size + 'px'} />
           </div>
-            )}
+        )}
         {showName && (
           <div className='flex flex-col'>
             <Link

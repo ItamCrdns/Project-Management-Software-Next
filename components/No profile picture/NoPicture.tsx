@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface NoPictureProps {
   width: string
   height: string
@@ -7,20 +5,18 @@ interface NoPictureProps {
 }
 
 const NoPicture: React.FC<NoPictureProps> = (props) => {
-  const style: React.CSSProperties = {
-    width: props.width,
-    height: props.height,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'gray',
-    borderRadius: '50%',
-    userSelect: 'none',
-    color: 'white',
-    fontSize: props.questionMarkSize ?? '1.25rem'
-  }
+  const questionMarkSize = props.questionMarkSize ?? '1rem'
 
-  return <div style={style}>?</div>
+  const height = props.height
+  const width = props.width
+
+  return (
+    <div
+      className={`w-[${width}] h-[${height}] flex items-center justify-center bg-azure-radiance-400 rounded-full select-none text-white text-[${questionMarkSize}]`}
+    >
+      ?
+    </div>
+  )
 }
 
 export default NoPicture

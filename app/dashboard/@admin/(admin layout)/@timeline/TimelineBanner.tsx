@@ -46,7 +46,7 @@ const TimelineBanner: React.FC<TimelineBannerProps> = (props) => {
   })
 
   return (
-    <div className='p-8 m-8 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300 min-w-[500px] flex flex-col justify-center'>
+    <div className='p-8 my-8 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300 min-w-[500px] flex flex-col justify-center'>
       <h1 className='font-semibold mb-4'>Activity Feed</h1>
       <EventsList newTimelineData={timelineData} />
       {timelineData.count > 0 && (
