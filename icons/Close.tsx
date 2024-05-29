@@ -3,14 +3,16 @@ import { RiCloseLine } from '@remixicon/react'
 import { ICON_SIZE } from './iconSize'
 
 const Close = ({
-  small = false
+  small = false,
+  color = 'white'
 }: {
   small?: boolean
+  color?: string
 }) => {
   return small ? (
-    <RiCloseLine size={ICON_SIZE} color='white' />
+    <RiCloseLine size={ICON_SIZE} className={color} />
   ) : (
-    <RiCloseLargeLine size={ICON_SIZE} color='white' />
+    <RiCloseLargeLine size={ICON_SIZE} className={color} />
   )
 }
 

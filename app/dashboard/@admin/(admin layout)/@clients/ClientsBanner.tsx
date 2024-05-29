@@ -17,7 +17,6 @@ const ClientsBanner: React.FC<{
   useEffect(() => {
     const revalidate = async () => {
       if (event && event?.project !== null && event.type === 'Create') {
-        console.log('revalidating clients')
         await revalidateClients()
       }
     }

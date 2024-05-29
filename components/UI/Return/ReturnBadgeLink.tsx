@@ -8,7 +8,7 @@ const ReturnBadgeLink = ({ path }: { path: string }) => {
       href={path}
       className='rounded-full bg-azure-radiance-400 p-2 flex items-center justify-center'
     >
-      <Close />
+      <Close color='text-white' />
     </Link>
   )
 }

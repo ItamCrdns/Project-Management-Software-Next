@@ -64,11 +64,10 @@ const Alert: React.FC = () => {
                   <div
                     className='absolute -top-1 -right-1 bg-white dark:bg-theming-dark300 rounded-full shadow-md cursor-pointer p-[2px]'
                     onClick={() => {
-                      console.log(alert.id)
                       hideAlert(alert.id)
                     }}
                   >
-                    <Close small={true} />
+                    <Close small={true} color='text-black dark:text-white' />
                   </div>
                   <div className='flex gap-2 items-center'>
                     {alert.type && alert.type === 'success' && (

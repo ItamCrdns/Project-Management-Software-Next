@@ -18,19 +18,22 @@ export const signalRMiddleware: Middleware = (store) => (next) => (action) => {
       connection
         .start()
         .then(() => {
-          store.dispatch(
-            setAlert({
-              id: 'signalR-connection-established',
-              message: 'SignalR connection established',
-              type: 'notification'
-            })
-          )
+          if (process.env.NODE_ENV === 'development') {
+            store.dispatch(
+              setAlert({
+                id: 'signalR-connection-established',
+                message: 'SignalR connection established',
+                type: 'notification'
+              })
+            )
+          }
         })
         .catch(() => {
           store.dispatch(
             setAlert({
               id: 'signalR-connection-failed',
-              message: 'SignalR connection failed',
+              message:
+                'SignalR connection failed, real-time updates will not be available.',
               type: 'notification'
             })
           )
