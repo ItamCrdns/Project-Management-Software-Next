@@ -2,7 +2,8 @@ import { Middleware } from '@reduxjs/toolkit'
 import connection from './signalRInstance'
 import { Timeline } from '@/app/dashboard/@admin/(admin layout)/@timeline/Timeline.interface'
 import {
-  receiveTimelineEvent,
+  addNewTimelineEvent,
+  setCurrentEvent,
   startConnection
 } from '../features/signalR/signalRSlice'
 import { setAlert } from '../features/alert/alertSlice'
@@ -37,7 +38,8 @@ export const signalRMiddleware: Middleware = (store) => (next) => (action) => {
     }
 
     connection.on(EVENT_NAME, (event: Timeline) => {
-      store.dispatch(receiveTimelineEvent(event))
+      store.dispatch(addNewTimelineEvent(event))
+      store.dispatch(setCurrentEvent(event))
       store.dispatch(
         setAlert({
           id: 'new-event-' + event.timelineId,

@@ -15,6 +15,7 @@ const ClientsList = ({
       {clients.map((client, index) => (
         <motion.li
           key={client.company.companyId}
+          layout
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 50, opacity: 0 }}

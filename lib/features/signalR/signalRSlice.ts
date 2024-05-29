@@ -8,14 +8,15 @@ const initialState: SignalR = {
     data: [],
     count: 0,
     pages: 0
-  }
+  },
+  currentEvent: null
 }
 
 export const signalRSlice = createSlice({
   name: 'signalR',
   initialState,
   reducers: {
-    receiveTimelineEvent: (state, action: PayloadAction<Timeline>) => {
+    addNewTimelineEvent: (state, action: PayloadAction<Timeline>) => {
       if (
         !state.events.data.some(
           (x) => x.timelineId === action.payload.timelineId
@@ -25,6 +26,9 @@ export const signalRSlice = createSlice({
         state.events.count += 1
       }
     },
+    setCurrentEvent: (state, action: PayloadAction<Timeline>) => {
+      state.currentEvent = action.payload
+    },
     startConnection: (state) => {
       state.status = 'connected'
     }
@@ -33,4 +37,5 @@ export const signalRSlice = createSlice({
 
 export default signalRSlice.reducer
 
-export const { receiveTimelineEvent, startConnection } = signalRSlice.actions
+export const { addNewTimelineEvent, setCurrentEvent, startConnection } =
+  signalRSlice.actions

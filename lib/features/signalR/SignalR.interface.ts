@@ -4,4 +4,5 @@ import { DataCountPages } from '@/interfaces/DataCountPages.interface'
 export interface SignalR {
   status: 'connected' | 'disconnected'
   events: DataCountPages<Timeline>
+  currentEvent: Timeline | null
 }
