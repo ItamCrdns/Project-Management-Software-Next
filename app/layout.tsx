@@ -5,6 +5,7 @@ import StoreProvider from './StoreProvider'
 import { cookies } from 'next/headers'
 import { NavbarWrapper } from '@/components/navbar/NavbarWrapper'
 import Alert from '@/components/Alert/Alert'
+import SignalRWrapper from './SignalRWrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +26,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <StoreProvider>
             <NavbarWrapper currentTheme={cookie ?? 'light'} />
             <Alert />
-            {children}
+            <SignalRWrapper>{children}</SignalRWrapper>
           </StoreProvider>
         </div>
       </body>

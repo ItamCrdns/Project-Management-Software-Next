@@ -1,5 +1,4 @@
 import { getTimelineEvents } from '@/api-calls/getTimelineEvents'
-import React from 'react'
 import ClientTimelineEvents from './ClientTimelineEvents'
 
 const Events = async ({
@@ -9,7 +8,11 @@ const Events = async ({
   page?: string
   pageSize?: string
 }) => {
-  const { data: events, status } = await getTimelineEvents(page, pageSize)
+  const { data: events, status } = await getTimelineEvents(
+    page,
+    pageSize,
+    'getTimelineEvents'
+  )
 
   if (events === null || status !== 200) {
     return <div>Failed to load events</div>

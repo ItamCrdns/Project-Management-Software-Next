@@ -24,7 +24,7 @@ export interface Timeline {
   created: string
   type: TimelineType
   employee: Employee
-  project: Project
-  task: Task
-  issue: Issue
+  project?: Project
+  task?: Task
+  issue?: Issue
 }

@@ -4,18 +4,13 @@ import { EventText } from './EventText'
 import Image from 'next/image'
 import Link from 'next/link'
 import { dateUtil } from '@/utility/dateUtil'
-import { DictionaryResponse } from '@/interfaces/DictionaryResponse'
 import { Timeline } from './Timeline.interface'
 
-const EventsList = ({
-  newTimelineData
-}: { newTimelineData: DictionaryResponse<Timeline> }) => {
-  const events = newTimelineData.data ?? []
-
+const EventsList = ({ events }: { events: Timeline[] }) => {
   return (
     <ul>
       <AnimatePresence mode='popLayout'>
-        {newTimelineData.count > 0 ? (
+        {events.length > 0 ? (
           events.map((event, index) => (
             <motion.li
               key={event.timelineId}
