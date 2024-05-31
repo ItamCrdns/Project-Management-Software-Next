@@ -6,15 +6,21 @@ import { useEffect } from 'react'
 const SignalRWrapper: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const status = useAppSelector((state) => state.signalR.status)
+  const signalR = useAppSelector((state) => state.signalR)
 
-  const { startConnection } = useSignalRActions()
+  const { startEventsHubConnection, startNotificationsHubConnection } =
+    useSignalRActions()
 
+  // TODO: If not logged in connection fails, if we login we dont connect to hubs automatically we need to refresh the page. Connection should be established automatically?
   useEffect(() => {
-    if (status === 'disconnected') {
-      startConnection()
+    if (signalR.eventsHubStatus === 'disconnected') {
+      startEventsHubConnection()
     }
-  }, [status])
+
+    if (signalR.notificationsHubStatus === 'disconnected') {
+      startNotificationsHubConnection()
+    }
+  }, [signalR])
 
   return children
 }

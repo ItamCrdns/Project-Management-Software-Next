@@ -4,9 +4,13 @@ import { useAppDispatch } from '../hooks'
 export const useSignalRActions = () => {
   const dispatch = useAppDispatch()
 
-  const startConnection = () => {
-    dispatch(signalRSlice.actions.startConnection())
+  const startEventsHubConnection = () => {
+    dispatch(signalRSlice.actions.startEventsHubConnection())
   }
 
-  return { startConnection }
+  const startNotificationsHubConnection = () => {
+    dispatch(signalRSlice.actions.startNotificationsHubConnection())
+  }
+
+  return { startEventsHubConnection, startNotificationsHubConnection }
 }
