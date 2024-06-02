@@ -3,7 +3,7 @@ import { useWarnings } from '@/hooks/useWarnings'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useSubmitRef } from '@/utility/formSubmitRef'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import AddDescription from './AddDescription'
 import { TextInput } from '@tremor/react'
 import { debounce } from '@/utility/debouce'
@@ -67,7 +67,7 @@ const CreateProjectModal: React.FC<{
 
   return (
     <section className='flex flex-col items-center justify-center'>
-      <section className='p-8 rounded-md shadow-md flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
+      <div className='p-8 rounded-md shadow-md flex items-center justify-center flex-col w-500 bg-theming-white100 dark:bg-theming-dark300'>
         {readyForNextPage ? (
           <AddDescription
             goBack={() => {
@@ -117,7 +117,7 @@ const CreateProjectModal: React.FC<{
             />
           </>
         )}
-      </section>
+      </div>
     </section>
   )
 }

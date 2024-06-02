@@ -5,7 +5,7 @@ const StartedWorkingSwitch: React.FC = () => {
   const { setStartedWorking } = useNewProjectActions()
 
   return (
-    <div className='flex gap-2 items-center justify-center mb-4'>
+    <div className='flex gap-2 items-center justify-center my-8'>
       <Switch
         defaultChecked={true}
         onChange={(value) => {

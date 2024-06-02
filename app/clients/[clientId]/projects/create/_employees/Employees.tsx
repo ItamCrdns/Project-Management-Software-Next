@@ -70,7 +70,7 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
               handleEmployeeClick={handleEmployeeClick}
               isLoading={isLoading}
             />
-            <div className='p-2'>
+            <div className='p-6'>
               <Pagination
                 totalPages={totalPages}
                 onPageChange={handlePageChange}

@@ -83,7 +83,7 @@ const AddDescription: React.FC<{ goBack: () => void }> = (props) => {
               errorMessage='Priority is required'
             />
           </form>
-          <div className='flex gap-4 mt-4'>
+          <div className='flex gap-4 mt-8'>
             <Button
               text='Continue to add employees'
               func={handleClick}

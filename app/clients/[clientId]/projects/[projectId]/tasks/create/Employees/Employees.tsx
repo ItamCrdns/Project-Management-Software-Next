@@ -59,7 +59,7 @@ const Employees: React.FC<{ return: () => void }> = (props) => {
               }}
               isLoading={isLoading}
             />
-            <div className='mt-4'>
+            <div className='pt-6 pb-2'>
               <Pagination
                 totalPages={totalPages}
                 onPageChange={(page) => {
