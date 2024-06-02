@@ -38,7 +38,7 @@ const Alert: React.FC = () => {
 
   return (
     <div
-      className='fixed bottom-0 right-0'
+      className='fixed bottom-0 right-0 z-[99999] '
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
@@ -59,7 +59,7 @@ const Alert: React.FC = () => {
                     (alert.type === 'notification' &&
                       'border-azure-radiance-500') ||
                     (alert.type === 'loading' && 'border-blue-400')
-                  } text-sm min-w-[300px] m-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md py-4 px-6 z-[999] relative`}
+                  } text-sm min-w-[300px] m-4 bg-theming-white100 dark:bg-theming-dark300 rounded-md shadow-md py-4 px-6 relative`}
                 >
                   <div
                     className='absolute -top-1 -right-1 bg-white dark:bg-theming-dark300 rounded-full shadow-md cursor-pointer p-[2px]'
