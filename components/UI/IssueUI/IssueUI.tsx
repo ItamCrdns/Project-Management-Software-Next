@@ -19,24 +19,29 @@ const IssueUI = ({
         >
           {issue.name}
         </Link>
-        {issue.startedWorking !== null &&
-          issue.startedWorking !== undefined && (
-            <BadgeComponent
-              content={dateUtil(issue.startedWorking).text}
-              tooltip={new Date(issue.startedWorking).toLocaleDateString(
-                'en-us',
-                {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  timeZone: 'UTC'
-                }
-              )}
-            />
-          )}
+        {issue.startedWorking !== null ? (
+          <BadgeComponent
+            content={`Started ${dateUtil(issue.startedWorking).text}`}
+            tooltip={new Date(issue.startedWorking).toLocaleDateString(
+              'en-us',
+              {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'UTC'
+              }
+            )}
+          />
+        ) : (
+          <BadgeComponent
+            content='Not started'
+            color='gray'
+            tooltip='No one is working on this issue yet'
+          />
+        )}
       </div>
       <div className='p-0 -mt-2 w-full'>
         <Dates

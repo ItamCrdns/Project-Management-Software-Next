@@ -11,7 +11,7 @@ const ProjectUI = ({
 }: { project: Project; clientId: string }) => {
   const priority = setEntityPriority(project.priority ?? 0)
 
-  const wasStarted = dateUtil(project.startedWorking ?? '').text
+  const wasStarted = `Started ${dateUtil(project.startedWorking).text}`
 
   return (
     <div className='flex flex-col items-center p-8 gap-2 rounded-md shadow-md bg-theming-white100 dark:bg-theming-dark300'>
@@ -32,7 +32,7 @@ const ProjectUI = ({
             <p className='select-none'>&middot;</p>
           </>
         )}
-        {project.startedWorking !== null && (
+        {project.startedWorking !== null ? (
           <>
             <BadgeComponent
               content={wasStarted}
@@ -48,6 +48,15 @@ const ProjectUI = ({
                   timeZone: 'UTC'
                 }
               )}
+            />
+            <p className='select-none'>&middot;</p>
+          </>
+        ) : (
+          <>
+            <BadgeComponent
+              content='Not started'
+              color='gray'
+              tooltip='No one is working on this project yet'
             />
             <p className='select-none'>&middot;</p>
           </>

@@ -19,9 +19,9 @@ const TaskUI = ({
         >
           {task.name}
         </Link>
-        {task.startedWorking !== null && (
+        {task.startedWorking !== null ? (
           <BadgeComponent
-            content={dateUtil(task.startedWorking).text}
+            content={`Started ${dateUtil(task.startedWorking).text}`}
             tooltip={new Date(task.startedWorking).toLocaleDateString('en-us', {
               weekday: 'long',
               year: 'numeric',
@@ -31,6 +31,12 @@ const TaskUI = ({
               minute: '2-digit',
               timeZone: 'UTC'
             })}
+          />
+        ) : (
+          <BadgeComponent
+            content='Not started'
+            color='gray'
+            tooltip='No one is working on this task yet'
           />
         )}
       </div>
