@@ -13,7 +13,8 @@ const initialState: NewProjectData = {
   employees: [],
   expectedDeliveryDate: '',
   startedWorking: true, // Default state value expects every project to start immediately
-  clientName: ''
+  clientName: '',
+  pictures: []
 }
 
 export const newProjectSlice = createSlice({
@@ -58,6 +59,20 @@ export const newProjectSlice = createSlice({
         state.employees = [...(employees ?? []), action.payload]
       }
     },
+    setPictures: (
+      state,
+      action: PayloadAction<{ file: File; id: string }[]>
+    ) => {
+      if (action.payload.length > 10) {
+        state.pictures = action.payload.slice(0, 10)
+        return
+      }
+
+      state.pictures = action.payload
+    },
+    removePicture: (state, action: PayloadAction<string>) => {
+      state.pictures = state.pictures.filter((x) => x.id !== action.payload)
+    },
     clear: () => initialState
   }
 })
@@ -74,5 +89,6 @@ export const {
   setPriority,
   setDescription,
   setEmployee,
+  setPictures,
   clear
 } = newProjectSlice.actions

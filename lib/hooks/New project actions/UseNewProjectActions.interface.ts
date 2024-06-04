@@ -11,5 +11,7 @@ export interface UseNewProjectActionsReturn {
   setPriority: (priority: Option) => void
   setDescription: (description: string) => void
   setEmployee: (employee: Employee) => void
+  setPictures: (images: { file: File; id: string }[]) => void
+  removePicture: (id: string) => void
   clear: () => void
 }

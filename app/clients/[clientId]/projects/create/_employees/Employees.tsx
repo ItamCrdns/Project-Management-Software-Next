@@ -8,14 +8,14 @@ import Pagination from '@/components/pagination/pagination'
 import Buttons from './Buttons'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { useGetEmployees } from '@/api-calls/getEmployees'
-import Resume from '../Resume'
+import AddImages from '../AddImages'
 
 const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
 
   const { setEmployee } = useNewProjectActions()
 
-  const [showResume, setShowResume] = useState<boolean>(false)
+  const [showAddImages, setShowAddImages] = useState<boolean>(false)
 
   const handleEmployeeClick = (employee: Employee): void => {
     setEmployee(employee)
@@ -47,10 +47,10 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
 
   return (
     <>
-      {showResume ? (
-        <Resume
+      {showAddImages ? (
+        <AddImages
           goBack={() => {
-            setShowResume(false)
+            setShowAddImages(false)
           }}
         />
       ) : (
@@ -81,7 +81,7 @@ const AddEmployeesToProject: React.FC<{ goBack: () => void }> = (props) => {
           <Buttons
             selectedEmployees={newProject.employees}
             handleSubmit={() => {
-              setShowResume(true)
+              setShowAddImages(true)
             }}
             handleGoBack={props.goBack}
           />

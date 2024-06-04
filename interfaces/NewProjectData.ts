@@ -11,5 +11,5 @@ export interface NewProjectData {
   expectedDeliveryDate: string
   startedWorking: boolean
   clientName?: string
-
+  pictures: { file: File; id: string }[]
 }

@@ -22,6 +22,12 @@ export const callCreateProjectServerActions = async (
     formData.append('shouldStartNow', 'true')
   }
 
+  if (newProject.pictures) {
+    newProject.pictures.forEach((picture) => {
+      formData.append('images', picture.file)
+    })
+  }
+
   const companyClientName = newProject.clientName
   const companyId = newProject.companyId
 

@@ -9,7 +9,8 @@ import { revalidateOngoingFinishedAndOverdueProjects } from '../(projects layout
 import { useDialogShowAndResponse } from '@/hooks/useDialogShowAndResponse'
 import { useNewProjectActions } from '@/lib/hooks/New project actions/useNewProjectActions'
 import { useAlertActions } from '@/lib/hooks/Alert actions/useAlertActions'
-import { useId } from 'react'
+import React, { useId } from 'react'
+import Image from 'next/image'
 
 const Resume: React.FC<{ goBack: () => void }> = (props) => {
   const newProject = useAppSelector((state) => state.newProjectData)
@@ -119,18 +120,37 @@ const Resume: React.FC<{ goBack: () => void }> = (props) => {
               </ul>
             </>
           ) : (
-            <p className='mb-4 text-center'>
-              You didn&apos;t add any employees, but don&apos;t worry, you can
-              add them later
+            <p className='mb-4 text-center text-gray-400'>
+              No employees selected
             </p>
           )}
         </div>
-        <div className='flex items-center flex-col w-full p-4 py-0 mt-0 mb-8'>
+        <div className='flex items-center flex-col w-full p-4 py-0 mt-0'>
           <Divider>Project start date</Divider>
           {newProject.startedWorking ? (
             <p>Immediately</p>
           ) : (
             <p>Not specified</p>
+          )}
+        </div>
+        <div className='flex items-center flex-col w-full p-4 py-0 mt-0 mb-8'>
+          <Divider>Pictures</Divider>
+          {newProject.pictures.length > 0 ? (
+            <div className='grid grid-cols-4 gap-4'>
+              {newProject.pictures.map((picture) => (
+                <React.Fragment key={picture.id}>
+                  <Image
+                    alt={picture.id}
+                    src={URL.createObjectURL(picture.file)}
+                    width={100}
+                    height={100}
+                    className='shadow-md'
+                  />
+                </React.Fragment>
+              ))}
+            </div>
+          ) : (
+            <p className='text-center text-gray-400'>No pictures selected</p>
           )}
         </div>
         <div className='flex gap-4'>
