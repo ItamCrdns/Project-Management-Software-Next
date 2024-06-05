@@ -1,7 +1,6 @@
 'use client'
 import { ProjectPicture } from '@/interfaces/ProjectPicture.interface'
 import Image from 'next/image'
-import Link from 'next/link'
 import React, { useState } from 'react'
 import PictureModal from './PictureModal'
 import { AnimatePresence } from 'framer-motion'
@@ -38,12 +37,6 @@ const ProjectPictures: React.FC<ProjectPicturesProps> = (props) => {
                 </React.Fragment>
               ))}
             </ul>
-            <Link
-              className='text-center font-semibold text-sm mt-4'
-              href={`${props.projectId}/pictures`}
-            >
-              See all pictures
-            </Link>
           </div>
         ) : (
           <p>Pictures will be displayed here.</p>

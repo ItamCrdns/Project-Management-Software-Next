@@ -8,6 +8,6 @@ export interface ProjectPicture {
   cloudinaryPublicId: string
   created: Date
   employeeId: number
-  Project: Project
-  Employee: Employee
+  project: Project
+  employee: Employee
 }
