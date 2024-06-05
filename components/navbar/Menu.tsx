@@ -39,7 +39,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
                 alt={employee.username}
                 width={50}
                 height={50}
-                className='rounded-full'
+                className='rounded-full select-none'
               />
             ) : (
               <NoPicture

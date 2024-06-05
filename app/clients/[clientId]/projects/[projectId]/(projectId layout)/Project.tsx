@@ -35,7 +35,10 @@ const Project: React.FC<{ projectId: string; clientId: string }> = async (
       </div>
       {project?.entity.pictures && (
         <div className='space-y-8'>
-          <ProjectPictures pictures={project?.entity.pictures} />
+          <ProjectPictures
+            projectId={props.projectId}
+            pictures={project?.entity.pictures}
+          />
         </div>
       )}
     </>
