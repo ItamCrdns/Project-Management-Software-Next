@@ -2,8 +2,8 @@ import { getTask } from './getTask'
 import TaskUITeamAndCreator from '@/components/UI/TaskUI/TaskUITeamAndCreator'
 import { Project } from './Banners/Project'
 import { Description } from '../../../(projectId layout)/Banners/Description'
-import { Attachments } from '../../../(projectId layout)/Banners/Attachments'
 import { NotFound } from '@/components/404 Not Found/NotFound'
+import TaskPictures from './Banners/TaskPictures'
 
 const Task: React.FC<{ clientId: string; projectId: string; taskId: string }> =
   async (props) => {
@@ -33,7 +33,7 @@ const Task: React.FC<{ clientId: string; projectId: string; taskId: string }> =
           <Description description={task?.entity.description} />
         </div>
         <div className='space-y-8 w-[300px]'>
-          <Attachments />
+          <TaskPictures />
         </div>
       </>
     )

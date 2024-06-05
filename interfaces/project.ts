@@ -1,3 +1,4 @@
+import { ProjectPicture } from './ProjectPicture.interface'
 import { type Company } from './company'
 import { type Employee } from './employee'
 import { type Images } from './images'
@@ -20,4 +21,5 @@ export interface Project {
   team: Employee[]
   priority: number
   clientId: number
+  pictures: ProjectPicture[]
 }

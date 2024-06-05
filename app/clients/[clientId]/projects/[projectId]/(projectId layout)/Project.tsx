@@ -3,7 +3,7 @@ import { NotFound } from '@/components/404 Not Found/NotFound'
 import ProjectUIWithButtons from '@/components/UI/ProjectUI/ProjectUIWithButtons'
 import { Client } from './Banners/Client'
 import { Description } from './Banners/Description'
-import { Attachments } from './Banners/Attachments'
+import { ProjectPictures } from './Banners/ProjectPictures'
 
 const Project: React.FC<{ projectId: string; clientId: string }> = async (
   props
@@ -33,9 +33,11 @@ const Project: React.FC<{ projectId: string; clientId: string }> = async (
         <Client name={project?.entity.company.name} clientId={props.clientId} />
         <Description description={project?.entity.description} />
       </div>
-      <div className='space-y-8 w-[300px]'>
-        <Attachments />
-      </div>
+      {project?.entity.pictures && (
+        <div className='space-y-8'>
+          <ProjectPictures pictures={project?.entity.pictures} />
+        </div>
+      )}
     </>
   )
 }

@@ -2,8 +2,8 @@ import { getIssue } from '@/api-calls/getIssue'
 import { NotFound } from '@/components/404 Not Found/NotFound'
 import IssueUI from '@/components/UI/IssueUI/IssueUITeamAndCreator'
 import { Description } from '../../../../(projectId layout)/Banners/Description'
-import { Attachments } from '../../../../(projectId layout)/Banners/Attachments'
 import Task from '../Banners/Task'
+import IssuePictures from '../Banners/IssuePictures'
 
 const Issue: React.FC<{
   issueId: string
@@ -40,7 +40,7 @@ const Issue: React.FC<{
         <Description description={data?.entity.description} />
       </div>
       <div className='space-y-8 w-[300px]'>
-        <Attachments />
+        <IssuePictures />
       </div>
     </>
   )
